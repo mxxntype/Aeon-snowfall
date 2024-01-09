@@ -35,7 +35,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # More hardware support for NixOS.
+        # NixOS modules covering hardware quirks.
         hardware.url = "github:nixos/nixos-hardware";
 
 
