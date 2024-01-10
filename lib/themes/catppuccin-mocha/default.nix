@@ -11,10 +11,7 @@
     };
 in {
     themes = {
-        ${meta.slug} = {
-            accent ? "mauve",
-            ...
-        }: rec {
+        ${meta.slug} = rec {
             colors = {
                 # Backgrounds and foregrounds.
                 void      = "000000";
@@ -46,76 +43,6 @@ in {
                 lavender  = "b4befe";
                 mauve     = "cba6f7";
                 pink      = "f5c2e7";
-            };
-
-            ui = with colors; {
-                bg = {
-                    inherit void crust mantle base;
-                    inherit surface0 surface1 surface2;
-                    inherit overlay0 overlay1;
-                };
-
-                fg = {
-                    inherit subtext0 subtext1;
-                    inherit text;
-                };
-
-                # For light stuff in dark themes.
-                alternate = {
-                    bg = {
-                        base = text;
-                        surface = subtext1;
-                    };
-                    fg = {
-                        subtext = base;
-                        text = void;
-                    };
-                };
-
-                accent = colors.${accent};
-                subtle = lavender;
-                info   = sky;
-                ok     = green;
-                warn   = yellow;
-                error  = red;
-            };
-
-            # Syntax highlighting colors. TODO: Add more.
-            code = with colors; {
-                variable  = text;
-                argument  = red;
-                namespace = yellow;
-                type      = yellow;
-                struct    = code.type;
-                enum      = sky;
-                function  = blue;
-                macro     = mauve;
-                primitive = rosewater;
-                number    = code.primitive;
-                boolean   = code.primitive;
-                constant  = peach;
-                string    = green;
-                char      = green;
-                escape    = pink;
-                comment   = subtext0;
-            };
-
-            # Shell colors.
-            cli = with colors; {
-                builtin  = teal;
-                external = blue;
-                notfound = red;
-                argument = teal;
-
-                # TODO: Make LS_COLORS overridable?
-                # ls = {};
-            };
-
-            # VCS stuff.
-            diff = with colors; {
-                plus = green;
-                minus = red;
-                delta = blue;
             };
 
             inherit meta;
