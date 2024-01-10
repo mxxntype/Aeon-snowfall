@@ -7,7 +7,7 @@
 with lib; {
     options = {
         aeon.core.enable = mkOption {
-            description = "Whether to enable essential options";
+            description = "Whether to enable core Home-manager options";
             type = types.bool;
             default = true;
         };
