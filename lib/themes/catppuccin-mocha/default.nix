@@ -6,13 +6,17 @@
     meta = {
         name = "Catppuccin Mocha";
         slug = "catppuccin-mocha";
+        style = "dark";
         url = "https://github.com/catppuccin";
     };
 in {
     themes = {
-        ${meta.slug} = rec {
+        ${meta.slug} = {
+            accent ? "mauve",
+            ...
+        }: rec {
             colors = {
-                # Backgrounds and foregrounds
+                # Backgrounds and foregrounds.
                 void      = "000000";
                 crust     = "11111c";
                 mantle    = "181825";
@@ -26,7 +30,7 @@ in {
                 subtext1  = "bac2de";
                 text      = "cdd6f4";
 
-                # Accent colors (red, green, blue...)
+                # Accent colors.
                 red       = "f38ba8";
                 maroon    = "eda0ab";
                 peach     = "fab387";
@@ -56,13 +60,19 @@ in {
                     inherit text;
                 };
 
-                # TODO: Alternate UI colors
+                # For light stuff in dark themes.
                 alternate = {
-                    # bg = {};
-                    # fg = {};
+                    bg = {
+                        base = text;
+                        surface = subtext1;
+                    };
+                    fg = {
+                        subtext = base;
+                        text = void;
+                    };
                 };
 
-                accent = mauve;
+                accent = colors.${accent};
                 subtle = lavender;
                 info   = sky;
                 ok     = green;
@@ -76,12 +86,16 @@ in {
                 argument  = red;
                 namespace = yellow;
                 type      = yellow;
+                struct    = code.type;
+                enum      = sky;
                 function  = blue;
-                macro     = purple;
-                number    = rosewater;
+                macro     = mauve;
+                primitive = rosewater;
+                number    = code.primitive;
+                boolean   = code.primitive;
                 constant  = peach;
                 string    = green;
-                character = green;
+                char      = green;
                 escape    = pink;
                 comment   = subtext0;
             };
