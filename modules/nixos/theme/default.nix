@@ -22,7 +22,7 @@ with lib; {
 
         # Serialize the inherited theme to /etc/theme.*
         environment.etc = let
-            theme = config.aeon.theme;
+            inherit (config.aeon) theme;
         in {
             "theme.json".text = builtins.toJSON theme;
             "theme.toml".text = lib.nix-std.serde.toTOML theme;

@@ -17,7 +17,7 @@ with lib; {
     config = {
         # Serialize the theme to $XDG_CONFIG_HOME/theme.*
         xdg.configFile = let
-            theme = config.aeon.theme;
+            inherit (config.aeon) theme;
         in {
             "theme.json".text = builtins.toJSON theme;
             "theme.toml".text = lib.nix-std.serde.toTOML theme;
