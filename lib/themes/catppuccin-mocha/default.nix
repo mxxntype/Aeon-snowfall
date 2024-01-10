@@ -107,7 +107,7 @@ in {
                 notfound = red;
                 argument = teal;
 
-                # TODO: Make LS_COLORS overrideable?
+                # TODO: Make LS_COLORS overridable?
                 # ls = {};
             };
 
