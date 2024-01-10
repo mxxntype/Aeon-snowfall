@@ -41,7 +41,7 @@
     #   'subtext0' - Darkest text (comments).
     #   'subtext1' - Darker text.
     #   'text'     - Default text.
-
+    #
     # Accent colors:
     #   'red'       - Well.
     #   'maroon'    - Desaturated red.
