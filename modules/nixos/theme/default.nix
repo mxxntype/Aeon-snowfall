@@ -17,7 +17,7 @@ with lib; {
     config = {
         # Inherit theme theme from Home-manager's configuration
         aeon = {
-            inherit (config.home-manager.users."user".aeon) theme;
+            inherit (config.home-manager.users."mxxntype".aeon) theme;
         };
 
         # Serialize the inherited theme to /etc/theme.*
