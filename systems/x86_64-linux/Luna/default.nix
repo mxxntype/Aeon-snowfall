@@ -4,9 +4,7 @@
 }:
 
 {
-    aeon = {
-        # core.enable = true;
-    };
+    aeon = {};
 
     # TODO: Move to a `fs` module
     fileSystems = {

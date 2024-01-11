@@ -6,8 +6,6 @@
 
 {
     aeon = {
-        core.enable = true;
-
         # WARN: Respective NixOS option (`aeon.theme`) inherits this attrset.
         theme = with lib.aeon; let 
             theme = themes.catppuccin-mocha;
