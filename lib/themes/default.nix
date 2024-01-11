@@ -179,10 +179,10 @@
                 green = _map.${index 2 hexCode} * 16 + _map.${index 3 hexCode};
                 blue = _map.${index 4 hexCode} * 16 + _map.${index 5 hexCode};
             };
-            separate = separator: builtins.concatStringsSep separator [
+            separateWith = separator: builtins.concatStringsSep separator [
                 (toString colors.red)
                 (toString colors.green)
                 (toString colors.blue)
             ];
-        in separate separator;
+        in separateWith separator;
 }
