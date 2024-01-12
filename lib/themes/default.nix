@@ -98,22 +98,28 @@
 
         # Syntax highlighting colors. TODO: Add more.
         code = with colors; {
-            variable  = text;
-            argument  = red;
-            namespace = yellow;
-            type      = yellow;
-            struct    = code.type;
-            enum      = sky;
-            function  = blue;
-            macro     = mauve;
-            primitive = rosewater;
-            number    = code.primitive;
-            boolean   = code.primitive;
-            constant  = peach;
-            string    = green;
-            char      = green;
-            escape    = pink;
-            comment   = subtext0;
+            keyword      = mauve;
+            variable     = text;
+            argument     = maroon;
+            field        = teal;
+            namespace    = blue;
+            type         = yellow;
+            struct       = code.type;
+            enum         = sky;
+            function     = blue;
+            macro        = mauve;
+            use          = mauve;
+            primitive    = peach;
+            number       = code.primitive;
+            boolean      = code.primitive;
+            constant     = peach;
+            string       = green;
+            char         = green;
+            escape       = pink;
+            comment      = subtext0;
+            linenr       = code.comment;
+            linenrActive = ui.accent;
+            url          = teal;
         };
 
         # Shell colors.
