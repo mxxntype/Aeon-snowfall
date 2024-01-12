@@ -1,0 +1,4 @@
+#!/usr/bin/env nu
+
+nixos-rebuild build-vm --flake .#Luna
+./result/bin/run-Luna-vm
