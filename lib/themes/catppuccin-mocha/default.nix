@@ -33,11 +33,11 @@ in {
                 peach     = "fab387";
                 flamingo  = "f5e0dc";
                 rosewater = "f2cdcd";
-                yellow    = "f5e2af";
+                yellow    = "f9e2af";
                 green     = "a6e3a1";
                 cyan      = colors.teal;
                 teal      = "94e2d5";
-                sky       = "98dceb";
+                sky       = "89dceb";
                 sapphire  = "74c7ec";
                 blue      = "89b4fa";
                 lavender  = "b4befe";
