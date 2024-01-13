@@ -1,3 +1,6 @@
 # Results of `nixos-rebuild build-vm`, `home-manager build` and such.
 /result
 /*.qcow2
+
+# Host keys
+ssh_host_*_key*
