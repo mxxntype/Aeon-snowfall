@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
 
-rm Luna.qcow2
-nixos-rebuild build-vm --flake .#Luna
-./result/bin/run-Luna-vm
+do -ps { rm Illusion.qcow2 }
+nixos-rebuild build-vm --flake .#Illusion
+./result/bin/run-Illusion-vm
