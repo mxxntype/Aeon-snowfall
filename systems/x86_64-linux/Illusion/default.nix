@@ -1,17 +1,19 @@
 {
-    config,
     ...
 }:
 
 {
     aeon = {
-        boot.quiet = true;
+        fs.type = "ext4";
+        boot = {
+            type = "bios";
+            quiet = false;
+            grub.device = "/dev/vda";
+        };
     };
 
-    # FIXME TODO: Move to a `fs` module.
     fileSystems = {
-        "/" = { device = "/dev/sda2"; };
-        ${config.boot.loader.efi.efiSysMountPoint} = { device = "/dev/sda1"; };
+        "/" = { device = "/dev/vda"; };
     };
 
     boot = {
@@ -23,13 +25,6 @@
 
         kernelModules = [ ];
         extraModulePackages = [ ];
-
-        # TODO: Move to a `boot` module.
-        loader = {
-            grub = {
-                device = "nodev";
-            };
-        };
     };
 
     system.stateVersion = "23.11"; # WARN: Changing this might break things. Just leave it.
