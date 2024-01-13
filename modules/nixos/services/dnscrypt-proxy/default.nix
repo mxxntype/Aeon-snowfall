@@ -1,3 +1,5 @@
+# INFO: DNCrypt-proxy2 NixOS module.
+
 {
     config,
     lib,

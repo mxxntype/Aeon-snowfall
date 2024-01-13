@@ -1,3 +1,5 @@
+# INFO: bat Home-manager module.
+
 {
     config,
     lib,

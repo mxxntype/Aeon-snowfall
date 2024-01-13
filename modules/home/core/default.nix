@@ -1,3 +1,5 @@
+# INFO: Core Home-manager module.
+
 {
     lib,
     config,
