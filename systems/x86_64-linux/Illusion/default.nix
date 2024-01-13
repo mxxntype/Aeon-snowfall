@@ -4,19 +4,14 @@
 }:
 
 {
-    aeon = {};
+    aeon = {
+        boot.quiet = true;
+    };
 
-    # TODO: Move to a `fs` module
+    # FIXME TODO: Move to a `fs` module.
     fileSystems = {
-        "/" = {
-            # FIXME
-            device = "/dev/sda2";
-        };
-
-        ${config.boot.loader.efi.efiSysMountPoint} = {
-            # FIXME
-            device = "/dev/sda1";
-        };
+        "/" = { device = "/dev/sda2"; };
+        ${config.boot.loader.efi.efiSysMountPoint} = { device = "/dev/sda1"; };
     };
 
     boot = {
@@ -29,7 +24,7 @@
         kernelModules = [ ];
         extraModulePackages = [ ];
 
-        # TODO: Move to a `boot` module
+        # TODO: Move to a `boot` module.
         loader = {
             grub = {
                 device = "nodev";
