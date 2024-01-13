@@ -24,7 +24,7 @@ with lib; {
         default = mkOption {
             description = "Which shell to use as default";
             type = types.enum [
-                # "bash" # TODO: Impelement shell/<shell>.nix modules.
+                # "bash" # TODO: Implement shell/<shell>.nix modules.
                 # "zsh"
                 # "fish"
                 "nushell"

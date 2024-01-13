@@ -1,4 +1,4 @@
-# INFO: Nixos `theme` module.
+# INFO: NixOS `theme` module.
 
 {
     lib,
