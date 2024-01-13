@@ -1,4 +1,4 @@
-# INFO: Home-manager module for using and self-hosting Atuin.
+# INFO: Atuin Home-manager module.
 
 {
     config,

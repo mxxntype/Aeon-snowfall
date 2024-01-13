@@ -1,4 +1,4 @@
-# INFO: Linux console/TTY NixOS module. WARN: Mostly untested.
+# INFO: Boot NixOS module. WARN: Mostly untested.
 
 {
     config,
@@ -23,10 +23,7 @@ with lib; {
         grub.device = mkOption {
             type = types.str;
             default = "nodev";
-            description = /* md */ ''
-                Link to `boot.loader.grub.device`.
-                Set this to anything other than `"nodev"` only if using legacy BIOS boot.
-            '';
+            description = "Link to boot.loader.grub.device";
         };
     };
 
