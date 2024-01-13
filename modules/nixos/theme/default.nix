@@ -17,7 +17,7 @@ with lib; {
     config = {
         # Inherit theme theme from Home-manager's configuration
         aeon = {
-            inherit (config.home-manager.users."mxxntype".aeon) theme;
+            inherit (config.home-manager.users.${aeon.user}.aeon) theme;
         };
 
         # Serialize the inherited theme to /etc/theme.*
@@ -25,7 +25,7 @@ with lib; {
             inherit (config.aeon) theme;
         in {
             "theme.json".text = builtins.toJSON theme;
-            "theme.toml".text = lib.nix-std.serde.toTOML theme;
+            "theme.toml".text = nix-std.serde.toTOML theme;
         };
     };
 }
