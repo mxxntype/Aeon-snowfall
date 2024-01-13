@@ -1,0 +1,5 @@
+#!/usr/bin/env nu
+
+do -ps { rm illusion.qcow2 }
+nixos-rebuild build-vm --flake .#illusion
+./result/bin/run-illusion-vm

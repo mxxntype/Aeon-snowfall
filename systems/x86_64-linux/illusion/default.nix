@@ -4,16 +4,15 @@
 
 {
     aeon = {
-        fs.type = "ext4";
+        fs = {
+            type = "btrfs";
+            ephemeral = true;
+        };
         boot = {
             type = "bios";
             quiet = false;
             grub.device = "/dev/vda";
         };
-    };
-
-    fileSystems = {
-        "/" = { device = "/dev/vda"; };
     };
 
     boot = {
