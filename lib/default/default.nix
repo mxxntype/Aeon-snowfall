@@ -10,4 +10,7 @@ in {
     # An because some NixOS options inherit from from my Home-manager options,
     # I think it's quite reasonable to have my username declared as a variable.
     user = "mxxntype";
+
+    # INFO: The name of the persistent volume, so I never mess it up.
+    persist = "/persist";
 }

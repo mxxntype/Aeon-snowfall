@@ -27,6 +27,9 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Persistent state on systems with ephemeral root storage.
+        impermanence.url = "github:nix-community/impermanence";
+
 
         # SECTION: Hardware.
         # Lanzaboote, UEFI secure boot for NixOS.
@@ -119,6 +122,7 @@
         systems.modules.nixos = with inputs; [
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
+            impermanence.nixosModules.impermanence
             lanzaboote.nixosModules.lanzaboote
         ];
 
