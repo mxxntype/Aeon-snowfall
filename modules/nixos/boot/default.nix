@@ -28,19 +28,26 @@ with lib; {
     };
 
     config = mkMerge [
-        { boot.loader.grub.enable = mkDefault true; } # Use GRUB2 by default.
+        # Use GRUB2 by default.
+        {
+            boot.loader.grub = {
+                enable = mkDefault true;
+                inherit (config.aeon.boot.grub) device;
+            };
+        }
 
+        # Legacy BIOS boot.
         (mkIf (config.aeon.boot.type == "bios") {
             boot = {
                 loader = {
                     grub = {
                         efiSupport = mkDefault false;
-                        inherit (config.aeon.boot.grub) device;
                     };
                 };
             };
         })
 
+        # UEFI boot.
         (mkIf (config.aeon.boot.type == "uefi") {
             boot = {
                 loader = {
@@ -57,6 +64,8 @@ with lib; {
             };
         })
 
+        # UEFI Secure boot.
+        #
         # INFO: https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md
         (mkIf (config.aeon.boot.type == "lanzaboote") {
             environment.systemPackages = with pkgs; [ sbctl ];
@@ -73,6 +82,7 @@ with lib; {
             };
         })
         
+        # Quiet boot.
         (mkIf config.aeon.boot.quiet {
             boot = {
                 plymouth = {
