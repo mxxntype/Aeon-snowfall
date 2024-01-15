@@ -30,12 +30,13 @@ pkgs.nuenv.writeScriptBin {
 
         # Perform a semi-automatic NixOS install.
         def "main install" [
-            --hostname (-H): string # Future hostname of the installed system.
+            hostname: string # Future hostname of the installed system.
             --partition (-p) # Partiton the target drive.
             --create-fs (-c) # Create FS on the target drive.
             --mount (-m): directory = /mnt # Where to mount the target drive.
             --install (-I) # Run nixos-install.
-            --ignore-generated-config (-i) # Do not automatically inherit `boot.*` options from `nixos-generate-config`
+            --root-lv-size (-R): int = 100 # Size of the root LVM LV.(%)
+            --ignore-generated-config (-i) # Do not automatically inherit `boot.*` options from `nixos-generate-config`.
             --BIOS (-B) # Use legacy BIOS boot instead of UEFI.
         ]: nothing -> nothing {
             if ($partition) {
@@ -47,7 +48,10 @@ pkgs.nuenv.writeScriptBin {
             if ($create_fs) {
                 let root_part = (select_blockdev --type "part" --hint "root partition")
 
-                # FIXME: Setup LVM2
+                let vg = $hostname
+                print $"Setiing up (ansi blue_bold)LVM(ansi reset)..."
+                sudo vgcreate $vg $root_part
+                sudo lvcreate -n root -l $"($root_lv_size)%FREE" $vg
 
                 print $"Creating (ansi default_bold)BTRFS(ansi reset) filesystem and subvolumes..."
                 sudo ${pkgs.btrfs-progs}/bin/mkfs.btrfs $root_part -L $"($hostname)_btrfs" -q
