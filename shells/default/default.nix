@@ -13,6 +13,6 @@ pkgs.mkShell {
         sops
         age
         ssh-to-age
-        aeon.installer
+        aeon.aeon
     ];
 }
