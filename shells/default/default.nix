@@ -13,5 +13,6 @@ pkgs.mkShell {
         sops
         age
         ssh-to-age
-    ] ++ (builtins.attrValues aeon);
+        aeon.installer
+    ];
 }
