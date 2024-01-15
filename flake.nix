@@ -30,6 +30,12 @@
         # Persistent state on systems with ephemeral root storage.
         impermanence.url = "github:nix-community/impermanence";
 
+        # Collection of image builders.
+        nixos-generators = {
+            url = "github:nix-community/nixos-generators";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
         # SECTION: Hardware.
         # Lanzaboote, UEFI secure boot for NixOS.
