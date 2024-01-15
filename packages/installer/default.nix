@@ -7,12 +7,13 @@ pkgs.nuenv.writeScriptBin {
     name = "aeon-installer";
     script = /* nu */ ''
         def main [
+            --hostname (-H): string # Future hostname of the installed system.
             --partition (-p) # Partiton the target drive.
             --create-fs (-c) # Create FS on the target drive.
-            --hostname (-H): string # Future hostname of the installed system.
             --mount (-m): directory = /mnt # Where to mount the target drive.
-            --ignore-generated-config (-i) # Do not automatically inherit `boot.*` options from `nixos-generate-config`
             --install (-I) # Run nixos-install.
+            --ignore-generated-config (-i) # Do not automatically inherit `boot.*` options from `nixos-generate-config`
+            --BIOS (-B) # Use legacy BIOS boot instead of UEFI.
         ]: nothing -> nothing {
             if ($partition) {
                 let target_drive = (select_blockdev --type "disk" --hint "installation drive")
@@ -28,15 +29,24 @@ pkgs.nuenv.writeScriptBin {
                 sudo mount $root_part $mount
 
                 const subvolumes: list<string> = ["@" "@home" "@nix" "@persist"]
-                for sv in ($subvolumes | input list --multi "What BTFS subvolumes to create") {
+                let selected = ($subvolumes | input list --multi "What BTFS subvolumes to create")
+                for sv in $selected {
                     sudo btrfs subvolume create $"($mount)/($sv)"
                 }
                 sudo umount -R $mount
 
-                for sv in $subvolumes {
+                for sv in $selected {
                     let subdir = ($sv | str trim -c "@")
                     if not ($subdir | is-empty) { sudo mkdir $"($mount)/($subdir)" }
                     sudo mount $root_part $"($mount)/($subdir)" -o $"compress=zstd,space_cache=v2,subvol=($sv)"
+                }
+
+                if not ($BIOS) {
+                    let efi_part = (select_blockdev --type "part" --hint "EFI partition")
+                    sudo mkfs.fat -F 32 -n EFI $efi_part
+                    sudo mkdir $"($mount)/boot"
+                    sudo mkdir $"($mount)/boot/efi"
+                    sudo mount $efi_part $"($mount)/boot/efi"
                 }
             }
 
