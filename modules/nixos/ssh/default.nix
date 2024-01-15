@@ -20,9 +20,9 @@ with lib; {
         services.openssh = {
             enable = true;
             settings = {
-                PasswordAuthentication = false;
-                PermitRootLogin = "no";
-                StreamLocalBindUnlink = "yes";    # Automatically remove stale sockets
+                PasswordAuthentication = mkDefault false;
+                PermitRootLogin = mkDefault "no";
+                StreamLocalBindUnlink = mkDefault "yes";
             };
             # hostKeys = [
             #     {
