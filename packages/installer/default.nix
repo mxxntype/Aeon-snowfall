@@ -12,6 +12,7 @@ pkgs.nuenv.writeScriptBin {
             --hostname (-H): string # Future hostname of the installed system.
             --mount (-m): directory = /mnt # Where to mount the target drive.
             --ignore-generated-config (-i) # Do not automatically inherit `boot.*` options from `nixos-generate-config`
+            --install (-I) # Run nixos-install.
         ]: nothing -> nothing {
             if ($partition) {
                 let target_drive = (select_blockdev --type "disk" --hint "installation drive")
@@ -51,6 +52,11 @@ pkgs.nuenv.writeScriptBin {
                 for o in $options {
                     ${pkgs.sd}/bin/sd $'($o.option) = \[.*\]' $'($o.option) = ($o.value)' $"systems/($host_platform)-linux/($hostname)/default.nix"
                 }
+            }
+
+            if $install {
+                print $"Running (ansi red)nixos-install(ansi reset)..."
+                sudo ${pkgs.nixos-install-tools}/bin/nixos-install --root $mount --flake $".#($hostname)"
             }
         }
 
