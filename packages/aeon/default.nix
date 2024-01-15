@@ -1,3 +1,5 @@
+# INFO: A Nushell script for managing and installing Aeon systems.
+
 {
     lib,
     pkgs,
