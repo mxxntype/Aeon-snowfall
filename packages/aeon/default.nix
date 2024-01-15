@@ -1,12 +1,35 @@
 {
+    lib,
     pkgs,
     ...
 }:
 
 pkgs.nuenv.writeScriptBin {
-    name = "aeon-installer";
+    name = "aeon";
     script = /* nu */ ''
-        def main [
+        # A Nushell script for managing and installing Aeon systems.
+        def main []: nothing -> nothing {}
+
+        # Garbage-collect the system.
+        def "main gc" []: nothing -> nothing {
+            home-manager expire-generations 0
+            sudo nix-collect-garbage -d
+            nix store optimise
+        }
+
+        # Perform a system rebuild.
+        def "main rebuild" [
+            --flake (-f): directory = /home/${lib.aeon.user}/Aeon # Path to flake
+            --home (-H) # Rebuild Home-manager only
+        ]: nothing -> nothing {
+            match $home {
+                true => (home-manager switch --flake $flake)
+                false => (sudo nixos-rebuild switch --flake $flake)
+            }
+        }
+
+        # Perform a semi-automatic NixOS install.
+        def "main install" [
             --hostname (-H): string # Future hostname of the installed system.
             --partition (-p) # Partiton the target drive.
             --create-fs (-c) # Create FS on the target drive.
@@ -23,6 +46,8 @@ pkgs.nuenv.writeScriptBin {
 
             if ($create_fs) {
                 let root_part = (select_blockdev --type "part" --hint "root partition")
+
+                # FIXME: Setup LVM2
 
                 print $"Creating (ansi default_bold)BTRFS(ansi reset) filesystem and subvolumes..."
                 sudo ${pkgs.btrfs-progs}/bin/mkfs.btrfs $root_part -L $"($hostname)_btrfs" -q
