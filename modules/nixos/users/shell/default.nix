@@ -10,7 +10,7 @@
 with lib; {
     # NOTE: ${aeon.user}'s default shell is a Home-manager option. This makes
     # adjustments to NixOS options based on ${aeon.user}'s Home-manager option.
-    config = let
+    config = mkIf (builtins.hasAttr "${aeon.user}" config.home-manager.users) (let
         inherit (config.home-manager.users.${aeon.user}.aeon.cli) shell;
     in mkMerge [
         (mkIf (shell.default == "bash") {
@@ -30,5 +30,5 @@ with lib; {
         (mkIf (shell.default == "nushell") {
             users.users.${aeon.user}.shell = pkgs.nushellFull;
         })
-    ];
+    ]);
 }
