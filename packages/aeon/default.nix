@@ -53,15 +53,15 @@ pkgs.nuenv.writeScriptBin {
                 let root_part = (select_blockdev --type "part" --hint "root partition")
 
                 # Set up LVM.
-                let vg = $hostname
-                print $"Setiing up (ansi blue_bold)LVM(ansi reset)..."
-                sudo vgcreate $vg $root_part
-                sudo lvcreate -n root -l $"($root_lv_size)%FREE" $vg
+                print $"Setting up (ansi blue_bold)LVM(ansi reset)..."
+                sudo vgcreate $hostname $root_part
+                sudo lvcreate -n root -l $"($root_lv_size)%FREE" $hostname
+                let root_lv = $"/dev/($hostname)/root"
 
                 # Create BTFS.
                 print $"Creating (ansi default_bold)BTRFS(ansi reset) filesystem and subvolumes..."
-                sudo ${pkgs.btrfs-progs}/bin/mkfs.btrfs $root_part -L $"($hostname)_btrfs" -q
-                sudo mount $root_part $mount
+                sudo ${pkgs.btrfs-progs}/bin/mkfs.btrfs $root_lv -L $"($hostname)_btrfs" -q
+                sudo mount $root_lv $mount
 
                 # Select & create subvolumes.
                 const subvolumes: list<string> = ["@" "@home" "@nix" "@persist"]
@@ -75,7 +75,7 @@ pkgs.nuenv.writeScriptBin {
                 for subvolume in $selected {
                     let subdir = ($subvolume | str trim -c "@")
                     if not ($subdir | is-empty) { sudo mkdir $"($mount)/($subdir)" }
-                    sudo mount $root_part $"($mount)/($subdir)" -o $"compress=zstd,space_cache=v2,subvol=($subvolume)"
+                    sudo mount $root_lv $"($mount)/($subdir)" -o $"compress=zstd,space_cache=v2,subvol=($subvolume)"
                 }
 
                 # Create the UEFI partition if needed.
