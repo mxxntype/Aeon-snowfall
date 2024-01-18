@@ -29,6 +29,9 @@ with lib; {
             neededForUsers = true;
         };
 
-        environment.systemPackages = with pkgs; [ aeon.aeon ];
+        environment.systemPackages = with pkgs; [
+            home-manager # Make sure its always there
+            aeon.aeon
+        ];
     };
 }
