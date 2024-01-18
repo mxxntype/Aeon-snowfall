@@ -9,10 +9,6 @@
 pkgs.nuenv.writeScriptBin {
     name = "aeon";
     script = /* nu */ ''
-        const SOPSFILE: path = "./.sops.yaml" 
-        const SECRETS: path = "./lib/secrets.yaml"
-        const ANCHOR: string = "\ncreation_rules"
-
         # A Nushell script for managing and installing Aeon systems.
         def main []: nothing -> nothing {}
 
@@ -49,6 +45,19 @@ pkgs.nuenv.writeScriptBin {
             --no-copy-repo # Do not copy the repo to the target drive.
             --no-copy-keys # Do not copy SSH host keys (will cause problems with sops-nix!)
         ]: nothing -> nothing {
+            const SOPSFILE: path = "./.sops.yaml" 
+            const SECRETS: path = "./lib/secrets.yaml"
+            const ANCHOR: string = "\ncreation_rules"
+            mut sopsfile: string = ""
+
+            # Sanity checks: all of these are needed for an installation.
+            use assert
+            assert ("./flake.nix" | path exists) $"(ansi red)flake.nix(ansi reset) not found. Where even are you..."
+            assert ($SOPSFILE | path exists) $"(ansi red).sops.yaml(ansi reset) not found."
+            assert ($SECRETS | path exists) $"(ansi red)secrets.yaml(ansi reset) not found."
+            assert ("~/.ssh/id_ed25519" | path exists) $"(ansi red)SSH private key(ansi reset) not found."
+            assert ("~/.config/sops/age/keys.txt" | path exists) $"(ansi red)Age private keys(ansi reset) not found."
+
             # Run `fdisk` to partition a drive.
             if ($partition) {
                 let target_drive = (select_blockdev --type "disk" --hint "installation drive")
@@ -67,7 +76,7 @@ pkgs.nuenv.writeScriptBin {
                 let root_lv = $"/dev/($hostname)/root"
 
                 # Create BTFS.
-                print $"Creating (ansi default_bold)BTRFS(ansi reset) filesystem and subvolumes..."
+                print $"Creating (ansi blue_bold)BTRFS(ansi reset) filesystem and subvolumes..."
                 sudo ${pkgs.btrfs-progs}/bin/mkfs.btrfs $root_lv -L $"($hostname)_btrfs" -q
                 sudo mount $root_lv $mount
 
@@ -98,6 +107,7 @@ pkgs.nuenv.writeScriptBin {
 
             # Copy needed hardware-related options from generated config.
             if not ($ignore_generated_config) {
+                print $"Copying options from (ansi blue_bold)nixos-generate-config(ansi reset)..."
                 let options = sudo nixos-generate-config --root $mount --show-hardware-config
                     | lines
                     | filter {|l| ($l | str downcase) =~ "boot"}
@@ -112,6 +122,8 @@ pkgs.nuenv.writeScriptBin {
 
             # Generate keys (so that sops-nix works fine).
             if not $no_copy_keys {
+                print $"Generating host (ansi blue_bold)SSH(ansi reset) keys..."
+
                 let tmpdir = mktemp -d
                 mkdir $"($tmpdir)/etc/ssh"
                 ${pkgs.openssh}/bin/ssh-keygen -A -f $tmpdir
@@ -124,10 +136,13 @@ pkgs.nuenv.writeScriptBin {
                     sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key*" $"($mount)/etc/ssh/"
                 }
 
+                print $"Re-keying (ansi blue_bold)sops-nix(ansi reset)..."
+
                 # The new host's key (should stay there).
                 let age_pubkey = open $"($tmpdir)/etc/ssh/ssh_host_ed25519_key.pub"
                     | ${pkgs.ssh-to-age}/bin/ssh-to-age;
                 add_sops_host_key --key $age_pubkey --host $hostname
+                $sopsfile = open $SOPSFILE
 
                 # The install ISO's key (should be removed).
                 let installer_pubkey = open /etc/ssh/ssh_host_ed25519_key.pub
@@ -146,6 +161,12 @@ pkgs.nuenv.writeScriptBin {
                 sudo ${pkgs.nixos-install-tools}/bin/nixos-install --no-root-password --root $mount --flake $".#($hostname)"
             }
 
+            # WARN: Remove installer ISO's SSH key from sops-nix (if it was added).
+            if not ($sopsfile | is-empty) {
+                print $"(ansi red)Removing(ansi reset) installer ISO's SSH key from(ansi blue_bold)sops-nix(ansi reset)..."
+                $sopsfile | save -rf $SOPSFILE
+            }
+
             # Copy the repo.
             if not $no_copy_repo {
                 const REPO: string = "Aeon-snowfall"; # FIXME: Rename to `Aeon` when merged
@@ -155,33 +176,33 @@ pkgs.nuenv.writeScriptBin {
                 # sudo chown ${lib.aeon.user}:wheel $target -R
                 cd $REPO
             }
-        }
 
-        # Update .sops.yaml with new host key.
-        def add_sops_host_key [
-            --key: string # Age public key to add.
-            --host: string # The name of the host.
-        ]: nothing -> nothing {
-            ${pkgs.sd}/bin/sd $ANCHOR $"\n    - &($host) ($key)($ANCHOR)" $SOPSFILE
-            echo $"      - *($host)\n" | save --append $SOPSFILE
-            ${pkgs.sops}/bin/sops updatekeys $SECRETS
-        }
+            # Update .sops.yaml with new host key.
+            def add_sops_host_key [
+                --key: string # Age public key to add.
+                --host: string # The name of the host.
+            ]: nothing -> nothing {
+                ${pkgs.sd}/bin/sd $ANCHOR $"\n    - &($host) ($key)($ANCHOR)" $SOPSFILE
+                echo $"      - *($host)\n" | save --append $SOPSFILE
+                ${pkgs.sops}/bin/sops updatekeys $SECRETS
+            }
 
-        # Pick a drive/partition from the ones available.
-        def select_blockdev [
-            --type: string # `disk` or `part`
-            --hint: string # Hint of what's happening for the user.
-        ]: nothing -> string {
-            let lsblk = ${pkgs.util-linux}/bin/lsblk -JO | from json | get blockdevices
-            let devices = ($lsblk | upsert children 0 | reject children) | append ($lsblk | get -i children | flatten) | filter {|d| not ($d | is-empty)}
-            let target = $devices
-                | where type =~ $type
-                | select name path size model fstype
-                | input list --fuzzy $"Choose the (ansi blue)($hint)(ansi reset)"
-                | get path
+            # Pick a drive/partition from the ones available.
+            def select_blockdev [
+                --type: string # `disk` or `part`
+                --hint: string # Hint of what's happening for the user.
+            ]: nothing -> string {
+                let lsblk = ${pkgs.util-linux}/bin/lsblk -JO | from json | get blockdevices
+                let devices = ($lsblk | upsert children 0 | reject children) | append ($lsblk | get -i children | flatten) | filter {|d| not ($d | is-empty)}
+                let target = $devices
+                    | where type =~ $type
+                    | select name path size model fstype
+                    | input list --fuzzy $"Choose the (ansi blue)($hint)(ansi reset)"
+                    | get path
 
-            print $"Selected (ansi blue)($hint)(ansi reset): (ansi default_underline)($target)(ansi reset)"
-            return $target
+                print $"Selected (ansi blue)($hint)(ansi reset): (ansi default_underline)($target)(ansi reset)"
+                return $target
+            }
         }
     '';
 }
