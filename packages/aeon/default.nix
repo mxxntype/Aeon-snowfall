@@ -163,7 +163,7 @@ pkgs.nuenv.writeScriptBin {
             --host: string # The name of the host.
         ]: nothing -> nothing {
             ${pkgs.sd}/bin/sd $ANCHOR $"\n    - &($host) ($key)($ANCHOR)" $SOPSFILE
-            echo $"      - *($host)" | save --append $SOPSFILE
+            echo $"      - *($host)\n" | save --append $SOPSFILE
             ${pkgs.sops}/bin/sops updatekeys $SECRETS
         }
 
