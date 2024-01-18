@@ -33,6 +33,7 @@ pkgs.nuenv.writeScriptBin {
         # Perform a semi-automatic NixOS install.
         def "main install" [
             hostname: string # Future hostname of the installed system.
+            platform: string = "x86_64-linux" # Target platform (architecture).
             --partition (-p) # Partiton the target drive.
             --create-fs (-c) # Create FS on the target drive.
             --mount (-m): directory = /mnt # Where to mount the target drive.
@@ -40,8 +41,9 @@ pkgs.nuenv.writeScriptBin {
             --BIOS (-B) # Use legacy BIOS boot instead of UEFI.
             --root-lv-size (-R): int = 100 # Size of the root LVM LV in %.
             --ignore-generated-config (-i) # Do not automatically inherit `boot.*` options from `nixos-generate-config`.
-            --no-copy # Do not copy the repo to the target drive.
             --copy-to: directory = /home/${lib.aeon.user} # Where to copy the repo (in /mnt).
+            --no-copy-repo # Do not copy the repo to the target drive.
+            --no-copy-keys # Do not copy SSH host keys (will cause problems with sops-nix!)
         ]: nothing -> nothing {
             # Run `fdisk` to partition a drive.
             if ($partition) {
@@ -99,11 +101,10 @@ pkgs.nuenv.writeScriptBin {
                     | filter {|l| ($l | str downcase) =~ "="}
                     | parse "{option} = {value};"
 
-                let host_platform = (${pkgs.coreutils}/bin/uname -m)
                 for o in $options {
-                    ${pkgs.sd}/bin/sd $'($o.option) = \[.*\]' $'($o.option) = ($o.value)' $"systems/($host_platform)-linux/($hostname)/default.nix"
+                    ${pkgs.sd}/bin/sd $'($o.option) = \[.*\]' $'($o.option) = ($o.value)' $"systems/($platform)/($hostname)/default.nix"
                 }
-            }
+            };
 
             # Run `nixos-install`.
             if $install {
@@ -111,16 +112,44 @@ pkgs.nuenv.writeScriptBin {
                 sudo ${pkgs.nixos-install-tools}/bin/nixos-install --root $mount --flake $".#($hostname)"
             }
 
+            # Generate keys (so that sops-nix works fine).
+            if not $no_copy_keys {
+                let tmpdir = mktemp -d
+                mkdir $"($tmpdir)/etc/ssh"
+                ${pkgs.openssh}/bin/ssh-keygen -A -f $tmpdir
+
+                # Copy needed keys to systems/ and the target drive.
+                for type in ["ed25519" "rsa"] {
+                    cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)/($hostname)"
+                    sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key*" $"($mount)/etc/ssh/"
+                }
+
+                # Update .sops.yaml with new host key.
+                const SOPSFILE: path = "./.sops.yaml" 
+                const SECRETS: path = "./lib/secrets.yaml"
+                const ANCHOR: string = "\ncreation_rules"
+                let age_pubkey = open $"($tmpdir)/etc/ssh/ssh_host_ed25519_key.pub"
+                    | ${pkgs.ssh-to-age}/bin/ssh-to-age
+                ${pkgs.sd}/bin/sd $ANCHOR $"\n    - &($hostname) ($age_pubkey)($ANCHOR)" $SOPSFILE
+                echo $"      - *($hostname)" | save --append $SOPSFILE
+                sops updatekeys $SECRETS
+
+                # Lock down the keys.
+                sudo chmod 600 $"($mount)/etc/ssh/*"
+                sudo chmod 644 $"($mount)/etc/ssh/*.pub"
+                sudo chown root:root $"($mount)/etc/ssh/*"
+            }
+
             # Copy the repo.
-            if not $no_copy {
-                const REPO: string = "Aeon-snowfall" # FIXME: Rename to `Aeon` when merged
+            if not $no_copy_repo {
+                const REPO: string = "Aeon-snowfall"; # FIXME: Rename to `Aeon` when merged
                 let target = $"($mount)($copy_to)"
                 cd ./..
                 sudo cp --recursive $REPO $target
                 sudo chmod ${lib.aeon.user}:wheel $target -R
                 cd $REPO
             }
-        }
+        };
 
         # Pick a drive/partition from the ones available.
         def select_blockdev [
