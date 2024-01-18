@@ -9,6 +9,10 @@
 pkgs.nuenv.writeScriptBin {
     name = "aeon";
     script = /* nu */ ''
+        const SOPSFILE: path = "./.sops.yaml" 
+        const SECRETS: path = "./lib/secrets.yaml"
+        const ANCHOR: string = "\ncreation_rules"
+
         # A Nushell script for managing and installing Aeon systems.
         def main []: nothing -> nothing {}
 
@@ -71,15 +75,15 @@ pkgs.nuenv.writeScriptBin {
                 const subvolumes: list<string> = ["@" "@home" "@nix" "@persist"]
                 let selected = ($subvolumes | input list --multi "What BTFS subvolumes to create")
                 for subvolume in $selected {
-                    sudo btrfs subvolume create $"($mount)/($subvolume)"
+                    sudo btrfs subvolume create $"($mount)\/($subvolume)"
                 }
                 sudo umount -R $mount
 
                 # Mount each subvolume with options.
                 for subvolume in $selected {
                     let subdir = ($subvolume | str trim -c "@")
-                    if not ($subdir | is-empty) { sudo mkdir $"($mount)/($subdir)" }
-                    sudo mount $root_lv $"($mount)/($subdir)" -o $"compress=zstd,space_cache=v2,subvol=($subvolume)"
+                    if not ($subdir | is-empty) { sudo mkdir $"($mount)\/($subdir)" }
+                    sudo mount $root_lv $"($mount)\/($subdir)" -o $"compress=zstd,space_cache=v2,subvol=($subvolume)"
                 }
 
                 # Create the UEFI partition if needed.
@@ -102,7 +106,7 @@ pkgs.nuenv.writeScriptBin {
                     | parse "{option} = {value};"
 
                 for o in $options {
-                    ${pkgs.sd}/bin/sd $'($o.option) = \[.*\]' $'($o.option) = ($o.value)' $"systems/($platform)/($hostname)/default.nix"
+                    ${pkgs.sd}/bin/sd $'($o.option) = \[.*\]' $'($o.option) = ($o.value)' $"systems/($platform)\/($hostname)/default.nix"
                 }
             };
 
@@ -113,26 +117,27 @@ pkgs.nuenv.writeScriptBin {
                 ${pkgs.openssh}/bin/ssh-keygen -A -f $tmpdir
 
                 # Copy needed keys to systems/ and the target drive.
-                sudo mkdir -v $"($mount)/etc/ssh"
+                sudo mkdir $"($mount)/etc"
+                sudo mkdir $"($mount)/etc/ssh"
                 for type in ["ed25519" "rsa"] {
-                    cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)/($hostname)"
+                    cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)\/($hostname)"
                     sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key*" $"($mount)/etc/ssh/"
                 }
 
-                # Update .sops.yaml with new host key.
-                const SOPSFILE: path = "./.sops.yaml" 
-                const SECRETS: path = "./lib/secrets.yaml"
-                const ANCHOR: string = "\ncreation_rules"
+                # The new host's key (should stay there).
                 let age_pubkey = open $"($tmpdir)/etc/ssh/ssh_host_ed25519_key.pub"
-                    | ${pkgs.ssh-to-age}/bin/ssh-to-age
-                ${pkgs.sd}/bin/sd $ANCHOR $"\n    - &($hostname) ($age_pubkey)($ANCHOR)" $SOPSFILE
-                echo $"      - *($hostname)" | save --append $SOPSFILE
-                sops updatekeys $SECRETS
+                    | ${pkgs.ssh-to-age}/bin/ssh-to-age;
+                add_sops_host_key --key $age_pubkey --host $hostname
+
+                # The install ISO's key (should be removed).
+                let installer_pubkey = open /etc/ssh/ssh_host_ed25519_key.pub
+                    | ${pkgs.ssh-to-age}/bin/ssh-to-age;
+                add_sops_host_key --key $installer_pubkey --host installer
 
                 # Lock down the keys.
-                sudo chmod 600 $"($mount)/etc/ssh/*"
-                sudo chmod 644 $"($mount)/etc/ssh/*.pub"
-                sudo chown root:root $"($mount)/etc/ssh/*"
+                sudo chmod 600 $"($mount)/etc/ssh/ssh_host_*_key"
+                sudo chmod 644 $"($mount)/etc/ssh/ssh_host_*_key.pub"
+                sudo chown root:root $"($mount)/etc/ssh/ssh_host_*_key*"
             }
 
             # Run `nixos-install`.
@@ -147,10 +152,20 @@ pkgs.nuenv.writeScriptBin {
                 let target = $"($mount)($copy_to)"
                 cd ./..
                 sudo cp --recursive $REPO $target
-                sudo chmod ${lib.aeon.user}:wheel $target -R
+                sudo chown ${lib.aeon.user}:wheel $target -R
                 cd $REPO
             }
-        };
+        }
+
+        # Update .sops.yaml with new host key.
+        def add_sops_host_key [
+            --key: string # Age public key to add.
+            --host: string # The name of the host.
+        ]: nothing -> nothing {
+            ${pkgs.sd}/bin/sd $ANCHOR $"\n    - &($host) ($key)($ANCHOR)" $SOPSFILE
+            echo $"      - *($host)" | save --append $SOPSFILE
+            ${pkgs.sops}/bin/sops updatekeys $SECRETS
+        }
 
         # Pick a drive/partition from the ones available.
         def select_blockdev [
