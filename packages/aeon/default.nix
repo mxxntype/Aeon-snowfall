@@ -143,7 +143,7 @@ pkgs.nuenv.writeScriptBin {
             # Run `nixos-install`.
             if $install {
                 print $"Running (ansi red)nixos-install(ansi reset)..."
-                sudo ${pkgs.nixos-install-tools}/bin/nixos-install --root $mount --flake $".#($hostname)"
+                sudo ${pkgs.nixos-install-tools}/bin/nixos-install --no-root-password --root $mount --flake $".#($hostname)"
             }
 
             # Copy the repo.
