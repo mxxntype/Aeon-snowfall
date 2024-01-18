@@ -37,9 +37,11 @@ pkgs.nuenv.writeScriptBin {
             --create-fs (-c) # Create FS on the target drive.
             --mount (-m): directory = /mnt # Where to mount the target drive.
             --install (-I) # Run nixos-install.
+            --BIOS (-B) # Use legacy BIOS boot instead of UEFI.
             --root-lv-size (-R): int = 100 # Size of the root LVM LV in %.
             --ignore-generated-config (-i) # Do not automatically inherit `boot.*` options from `nixos-generate-config`.
-            --BIOS (-B) # Use legacy BIOS boot instead of UEFI.
+            --no-copy # Do not copy the repo to the target drive.
+            --copy-to: directory = /home/${lib.aeon.user} # Where to copy the repo (in /mnt).
         ]: nothing -> nothing {
             # Run `fdisk` to partition a drive.
             if ($partition) {
@@ -107,6 +109,16 @@ pkgs.nuenv.writeScriptBin {
             if $install {
                 print $"Running (ansi red)nixos-install(ansi reset)..."
                 sudo ${pkgs.nixos-install-tools}/bin/nixos-install --root $mount --flake $".#($hostname)"
+            }
+
+            # Copy the repo.
+            if not $no_copy {
+                const REPO: string = "Aeon-snowfall" # FIXME: Rename to `Aeon` when merged
+                let target = $"($mount)($copy_to)"
+                cd ./..
+                sudo cp --recursive $REPO $target
+                sudo chmod ${lib.aeon.user}:wheel $target -R
+                cd $REPO
             }
         }
 
