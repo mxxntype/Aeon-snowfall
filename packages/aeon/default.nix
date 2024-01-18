@@ -142,7 +142,7 @@ pkgs.nuenv.writeScriptBin {
                 let age_pubkey = open $"($tmpdir)/etc/ssh/ssh_host_ed25519_key.pub"
                     | ${pkgs.ssh-to-age}/bin/ssh-to-age;
                 add_sops_host_key --key $age_pubkey --host $hostname
-                $sopsfile = open $SOPSFILE
+                $sopsfile = (open $SOPSFILE)
 
                 # The install ISO's key (should be removed).
                 let installer_pubkey = open /etc/ssh/ssh_host_ed25519_key.pub
