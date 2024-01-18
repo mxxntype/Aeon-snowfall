@@ -106,12 +106,6 @@ pkgs.nuenv.writeScriptBin {
                 }
             };
 
-            # Run `nixos-install`.
-            if $install {
-                print $"Running (ansi red)nixos-install(ansi reset)..."
-                sudo ${pkgs.nixos-install-tools}/bin/nixos-install --root $mount --flake $".#($hostname)"
-            }
-
             # Generate keys (so that sops-nix works fine).
             if not $no_copy_keys {
                 let tmpdir = mktemp -d
@@ -119,6 +113,7 @@ pkgs.nuenv.writeScriptBin {
                 ${pkgs.openssh}/bin/ssh-keygen -A -f $tmpdir
 
                 # Copy needed keys to systems/ and the target drive.
+                sudo mkdir -v $"($mount)/etc/ssh"
                 for type in ["ed25519" "rsa"] {
                     cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)/($hostname)"
                     sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key*" $"($mount)/etc/ssh/"
@@ -138,6 +133,12 @@ pkgs.nuenv.writeScriptBin {
                 sudo chmod 600 $"($mount)/etc/ssh/*"
                 sudo chmod 644 $"($mount)/etc/ssh/*.pub"
                 sudo chown root:root $"($mount)/etc/ssh/*"
+            }
+
+            # Run `nixos-install`.
+            if $install {
+                print $"Running (ansi red)nixos-install(ansi reset)..."
+                sudo ${pkgs.nixos-install-tools}/bin/nixos-install --root $mount --flake $".#($hostname)"
             }
 
             # Copy the repo.
