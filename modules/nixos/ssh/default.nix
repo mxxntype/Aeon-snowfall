@@ -44,7 +44,7 @@ with lib; {
 
         programs = {
             # WARN: Common shells like Bash, Zsh and Fish will pick this up,
-            # Nushell won't (userspace workaround available in home module)
+            # Nushell won't (userspace workaround available in home module).
             ssh.startAgent = true;
 
             # A replacement for interactive SSH terminals that allows roaming,
@@ -53,12 +53,6 @@ with lib; {
             mosh = {
                 enable = true;
                 withUtempter = true;
-            };
-        };
-
-        users.users = mkIf (builtins.hasAttr "${aeon.user}" config.home-manager.users) {
-            ${aeon.user}.openssh = {
-                authorizedKeys.keys = aeon.pubKeys;
             };
         };
 
