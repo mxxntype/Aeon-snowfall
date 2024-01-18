@@ -3,6 +3,7 @@
 {
     config,
     lib,
+    pkgs,
     ...
 }:
 
@@ -27,5 +28,7 @@ with lib; {
             sopsFile = ../../../lib/secrets.yaml;
             neededForUsers = true;
         };
+
+        environment.systemPackages = with pkgs; [ aeon.aeon ];
     };
 }
