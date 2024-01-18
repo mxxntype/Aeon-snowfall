@@ -4,13 +4,35 @@
     ...
 }:
 
+let
+    # Only add these groups if they are present to avoid clutter.
+    ifPresent = with builtins;
+        groups: filter (G: hasAttr G config.users.groups) groups;
+in
+
 with lib; {
     config = {
-        # Add the main user's SSH key if the user is present on the system.
         users.users = mkIf (builtins.hasAttr "${aeon.user}" config.home-manager.users) {
-            ${aeon.user}.openssh = {
-                authorizedKeys.keys = aeon.pubKeys;
+            ${aeon.user} = {
+                hashedPasswordFile = config.sops.secrets."password/user".path;
+                openssh.authorizedKeys.keys = aeon.pubKeys;
+                extraGroups = [
+                    "wheel"
+                    "video"
+                    "audio"
+                    "input"
+                ] ++ ifPresent [
+                    "networkmanager"
+                    "docker"
+                    "git"
+                    "libvirtd"
+                ];
             };
+        };
+
+        sops.secrets."password/user" = {
+            sopsFile = ../../../lib/secrets.yaml;
+            neededForUsers = true;
         };
     };
 }

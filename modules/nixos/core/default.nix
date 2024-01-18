@@ -1,4 +1,7 @@
+# INFO: Core NixOS module.
+
 {
+    config,
     lib,
     ...
 }:
@@ -13,6 +16,16 @@ with lib; {
     };
 
     config = mkIf config.aeon.core.enable {
-        # TODO
+        users = {
+            mutableUsers = mkDefault false;
+            users.root = {
+                hashedPasswordFile = config.sops.secrets."password/root".path;
+            };
+        };
+
+        sops.secrets."password/root" = {
+            sopsFile = ../../../lib/secrets.yaml;
+            neededForUsers = true;
+        };
     };
 }
