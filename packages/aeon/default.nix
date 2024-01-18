@@ -152,7 +152,7 @@ pkgs.nuenv.writeScriptBin {
                 let target = $"($mount)($copy_to)"
                 cd ./..
                 sudo cp --recursive $REPO $target
-                sudo chown ${lib.aeon.user}:wheel $target -R
+                # sudo chown ${lib.aeon.user}:wheel $target -R
                 cd $REPO
             }
         }
