@@ -13,4 +13,11 @@ in {
 
     # INFO: The name of the persistent volume, so I never mess it up.
     persist = "/persist";
+
+    # INFO: SSH (and other?..) public keys, so I also never mess them up.
+    # Also, should I make a new private key, this would make it much easier
+    # to quickly update the public ones everywhere too.
+    pubKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOvBw3klXzVq5oTXtS061cfcGEjHWflPZNRBRg48N3w/ astrumaureus@Nox"
+    ];
 }
