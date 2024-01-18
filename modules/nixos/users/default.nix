@@ -14,7 +14,7 @@ with lib; {
     config = {
         users.users = mkIf (builtins.hasAttr "${aeon.user}" config.home-manager.users) {
             ${aeon.user} = {
-                hashedPasswordFile = config.sops.secrets."password/user".path;
+                hashedPasswordFile = config.sops.secrets."passwords/user".path;
                 openssh.authorizedKeys.keys = aeon.pubKeys;
                 extraGroups = [
                     "wheel"
@@ -30,7 +30,7 @@ with lib; {
             };
         };
 
-        sops.secrets."password/user" = {
+        sops.secrets."passwords/user" = {
             sopsFile = ../../../lib/secrets.yaml;
             neededForUsers = true;
         };

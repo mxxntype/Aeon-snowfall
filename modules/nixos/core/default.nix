@@ -19,11 +19,11 @@ with lib; {
         users = {
             mutableUsers = mkDefault false;
             users.root = {
-                hashedPasswordFile = config.sops.secrets."password/root".path;
+                hashedPasswordFile = config.sops.secrets."passwords/root".path;
             };
         };
 
-        sops.secrets."password/root" = {
+        sops.secrets."passwords/root" = {
             sopsFile = ../../../lib/secrets.yaml;
             neededForUsers = true;
         };
