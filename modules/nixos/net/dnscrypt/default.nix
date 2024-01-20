@@ -7,12 +7,13 @@
 }:
 
 with lib; {
-    options.aeon.services.DNSCryptProxy = {
+    options.aeon.net.dnscrypt-proxy = {
         enable = mkOption {
             description = "Whether to enable the dnscrypt-proxy2 service";
             type = types.bool;
             default = true;
         };
+
         settings = mkOption {
             type = types.attrs;
             default = {
@@ -40,12 +41,12 @@ with lib; {
     };
 
     config = let
-        cfg = config.aeon.services.DNSCryptProxy;
-    in mkIf cfg.enable {
+        inherit (config.aeon.net.dnscrypt-proxy) enable settings;
+    in mkIf enable {
         services.dnscrypt-proxy2 = {
             enable = true;
-            inherit (cfg) settings;
             upstreamDefaults = true;
+            inherit settings;
         };
     };
 }

@@ -8,7 +8,7 @@
 }:
 
 with lib; {
-    options.aeon.ssh = {
+    options.aeon.net.ssh = {
         enable = mkOption {
             type = types.bool;
             default = true;
@@ -16,7 +16,7 @@ with lib; {
         };
     };
 
-    config = mkIf config.aeon.ssh.enable {
+    config = mkIf config.aeon.net.ssh.enable {
         services.openssh = {
             enable = true;
 
