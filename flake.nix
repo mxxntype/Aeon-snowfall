@@ -145,5 +145,12 @@
             nuenv.overlays.nuenv
             fenix.overlays.default
         ];
+
+        templates = {
+            rust = {
+                path = ./templates/rust;
+                description = "Rust crate template for cargo-generate";
+            };
+        };
     };
 }

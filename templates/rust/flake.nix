@@ -1,5 +1,5 @@
 {
-    description = "";
+    description = "{{package-name}}";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
