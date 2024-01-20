@@ -19,7 +19,6 @@ with lib; {
         home.packages = with pkgs; [
             gcc
             gdb
-            clang
             clang-tools
             cppcheck
             valgrind
