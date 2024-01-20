@@ -15,6 +15,6 @@ ignore = [
 
 [conditional.'nix == false']
 ignore = [
-    "flake.nix"
-    "flake.lock"
+    "flake.nix",
+    "flake.lock",
 ]
