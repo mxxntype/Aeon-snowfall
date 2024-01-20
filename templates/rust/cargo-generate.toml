@@ -16,6 +16,8 @@ ignore = [
 
 [conditional.'nix == false']
 ignore = [
+    "shells",
+    "packages",
     "flake.nix",
     "flake.lock",
 ]
