@@ -1,0 +1,17 @@
+[package]
+name = "{{project-name}}"
+version = "0.1.0"
+edition = "2021"
+authors = ["{{authors}}"]
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+enum_glob_use = "deny"
+pedantic = "deny"
+nursery = "deny"
+complexity = "deny"
+perf = "deny"
+
+[dependencies]
