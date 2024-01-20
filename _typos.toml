@@ -1,0 +1,7 @@
+[default.extend-words]
+ba = "ba" # Catppuccin's #F38BA8 color code
+
+[files]
+extend-exclude = [
+    "lib/secrets.yaml" # Don't spellcheck AES.
+]

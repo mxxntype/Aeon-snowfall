@@ -106,9 +106,9 @@
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {
         inherit inputs;
+        src = ./.;
 
         # Snowfall Lib configuration.
-        src = ./.;
         snowfall = {
             namespace = "aeon";
             meta = {

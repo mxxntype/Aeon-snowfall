@@ -122,7 +122,7 @@ with lib; {
 
         # Ephemeral BTRFS. WARN: WIP, does not work yet!
         #
-        # The only example of an ephemeral BTRFS I coud find:
+        # The only example of an ephemeral BTRFS I could find:
         # https://github.com/Misterio77/nix-config/blob/main/hosts/common/optional/ephemeral-btrfs.nix
         (mkIf (type == "btrfs" && ephemeral) { 
             boot.initrd = let

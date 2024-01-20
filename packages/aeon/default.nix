@@ -34,7 +34,7 @@ pkgs.nuenv.writeScriptBin {
         def "main install" [
             hostname: string # Future hostname of the installed system.
             platform: string = "x86_64-linux" # Target platform (architecture).
-            --partition (-p) # Partiton the target drive.
+            --partition (-p) # Partition the target drive.
             --create-fs (-c) # Create FS on the target drive.
             --mount (-m): directory = /mnt # Where to mount the target drive.
             --install (-I) # Run nixos-install.
