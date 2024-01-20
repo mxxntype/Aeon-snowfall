@@ -6,6 +6,7 @@ default = true
 [conditional.'crate_type == "bin"']
 ignore = [
     "src/lib.rs",
+    "Cargo.lock"
 ]
 
 [conditional.'crate_type == "lib"']
