@@ -22,10 +22,11 @@ with lib; {
 
     config = let
         inherit (config.aeon.dev.rust) enable type;
-    in {
-        home.packages = with pkgs; mkMerge [
+    in mkIf enable {
+        aeon.dev.c.enable = true; # Rust needs a `cc` linker.
+        home.packages = mkMerge [
             # Common cargo/rust packages.
-            (mkIf enable [
+            (with pkgs; [
                 cargo-nextest    # Next-generation test runner for Rust projects.
                 cargo-watch      # Watch over Cargo project's source
                 cargo-info       # Show crates info from crates.io.
@@ -43,14 +44,10 @@ with lib; {
             ])
             
             # Install rustup and let it do its thing.
-            (mkIf (enable && type == "rustup") [
-                rustup
-            ])
+            (mkIf (type == "rustup") (with pkgs; [ rustup ]))
 
-            # Install Rust via the `fenix` flake.
-            (mkIf (enable && type == "fenix") [
-                # TODO
-            ])
+            # Install Rust via the `fenix` flake. TODO
+            (mkIf (type == "fenix") [ ])
         ];
     };
 }
