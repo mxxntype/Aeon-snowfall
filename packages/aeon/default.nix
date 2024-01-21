@@ -30,6 +30,17 @@ pkgs.nuenv.writeScriptBin {
             }
         }
 
+        # Run a QEMU VM with a NixOS system.
+        def "main vm" [
+            system: string = "illusion" # Which system to virtualize.
+            --flake (-f): directory = "${lib.aeon.flakePath}" # Path to flake.
+            --fresh (-F) # Delete ./<system>.qcow2 if found.
+        ]: nothing -> nothing {
+            if $fresh { do -ps { rm $"($system)" } }
+            nixos-rebuild build-vm --flake $"($flake)\#($system)"
+            exec $"./result/bin/run-($system)-vm"
+        }
+
         # Perform a semi-automatic NixOS install.
         def "main install" [
             hostname: string # Future hostname of the installed system.
