@@ -21,11 +21,23 @@ with lib; {
             nushell = {
                 enable = true;
                 package = pkgs.nushellFull;
-                shellAliases = config.aeon.cli.shell.aliases;
+                shellAliases = {
+                    lsa = "ls -a";
+                    cat = "${pkgs.bat}/bin/bat";
+                    btm = "${pkgs.bottom}/bin/btm --battery";
+                    ip = "ip --color=always";
+                    duf = "${pkgs.duf}/bin/duf -theme ansi";
+                    # tree = "erd --config tree";
+                    # sz = "erd --config sz";
+                };
+
+                envFile.text = /* nu */ ''
+                    $env.LS_COLORS = "${config.aeon.theme.cli.ls}"
+                '';
             };
 
-            # Multi-shell multi-command argument completer.
-            carapace.enable = true;
+            # TODO: Multi-shell multi-command argument completer.
+            # carapace.enable = true;
         };
     };
 }
