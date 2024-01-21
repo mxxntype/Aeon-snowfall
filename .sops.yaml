@@ -5,6 +5,7 @@ keys:
     - &Nox age132vf5d6z20ajf86pn3zenhwfy78ql5eyqaff92n04u6gdd0eg5wqtlrxjx
     - &Wyrm age1ukjfmfhz8jjh9yf7tk390nk7vje2ltw2a9urm39d27a5cnngje5svaksur
     - &Luna age1nrcz6pt8ggx2lpmqpsv70shqfdlwgyc8sxxyckvd3emw9ur6kc0q0tc6nu
+    - &illusion age1r9u2fds2q2xflf3pdqrw0vs8j78df8yyj5vvt47yuwwlxe4f6swqnmyynn
 creation_rules:
   - path_regex: lib/secrets.ya?ml$
     key_groups:
@@ -13,3 +14,4 @@ creation_rules:
       - *Nox
       - *Wyrm
       - *Luna
+      - *illusion
