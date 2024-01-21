@@ -9,9 +9,15 @@
 
 with lib; {
     # HACK: For some reason, importing it in flake.nix fails, but works here...
-    imports = with inputs; [
-        sops-nix.homeManagerModules.sops
-    ];
+    imports = with inputs; [ sops-nix.homeManagerModules.sops ];
+
+    options.aeon.sops = {
+        # Whether to decrypt and use the Age key from lib/secrets.yaml.
+        inheritKeyFile = mkOption {
+            type = with types; bool;
+            default = true;
+        };
+    };
 
     config = let
         inherit (config.xdg) configHome;
@@ -21,7 +27,7 @@ with lib; {
         sops = {
             age = { inherit keyFile; };
             defaultSopsFile = ../../../lib/secrets.yaml;
-            secrets."keys/age".path = keyFile;
+            secrets."keys/age".path = mkIf config.aeon.sops.inheritKeyFile keyFile;
         };
     };
 }
