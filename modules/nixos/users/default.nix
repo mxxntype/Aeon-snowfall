@@ -31,7 +31,6 @@ with lib; {
         };
 
         sops.secrets."passwords/user" = {
-            sopsFile = ../../../lib/secrets.yaml;
             neededForUsers = true;
         };
     };
