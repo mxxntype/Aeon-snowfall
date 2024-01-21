@@ -14,9 +14,30 @@ with lib; {
             type = types.bool;
             default = true;
         };
+
+        locale = {
+            # The system locale.
+            main = mkOption {
+                type = with types; str;
+                default = "en_US.UTF-8";
+            };
+
+            # Other supported locales.
+            misc = mkOption {
+                type = with types; listOf str;
+                default = [ "ru_RU.UTF-8" ];
+            };
+        };
+
+        timezone = mkOption {
+            type = with types; str;
+            default = "Europe/Moscow";
+        };
     };
 
-    config = mkIf config.aeon.core.enable {
+    config = let
+        inherit (config.aeon.core) enable locale timezone;
+    in mkIf enable {
         users = {
             mutableUsers = mkDefault false;
             users.root = {
@@ -33,5 +54,25 @@ with lib; {
             home-manager # Make sure its always there
             aeon.aeon
         ];
+
+        time.timeZone = timezone;
+        i18n = {
+            defaultLocale = locale.main;
+            supportedLocales = [ "${locale.main}/UTF-8" ] ++ (builtins.map (l: l + "/UTF-8") locale.misc);
+            extraLocaleSettings = {
+                LC_CTYPE          = locale.main;
+                LC_NUMERIC        = locale.main;
+                LC_TIME           = locale.main;
+                LC_COLLATE        = locale.main;
+                LC_MONETARY       = locale.main;
+                LC_MESSAGES       = locale.main;
+                LC_PAPER          = locale.main;
+                LC_NAME           = locale.main;
+                LC_ADDRESS        = locale.main;
+                LC_TELEPHONE      = locale.main;
+                LC_MEASUREMENT    = locale.main;
+                LC_IDENTIFICATION = locale.main;
+            };
+        };
     };
 }
