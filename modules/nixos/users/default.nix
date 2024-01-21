@@ -11,8 +11,8 @@ let
 in
 
 with lib; {
-    config = {
-        users.users = mkIf (builtins.hasAttr "${aeon.user}" config.home-manager.users) {
+    config = mkIf (builtins.hasAttr "${aeon.user}" config.home-manager.users) {
+        users.users = {
             ${aeon.user} = {
                 hashedPasswordFile = config.sops.secrets."passwords/user".path;
                 openssh.authorizedKeys.keys = aeon.pubKeys;
@@ -30,8 +30,6 @@ with lib; {
             };
         };
 
-        sops.secrets."passwords/user" = {
-            neededForUsers = true;
-        };
+        sops.secrets."passwords/user".neededForUsers = true;
     };
 }

@@ -46,9 +46,7 @@ with lib; {
             };
         };
 
-        sops.secrets."passwords/root" = {
-            neededForUsers = true;
-        };
+        sops.secrets."passwords/root".neededForUsers = true;
 
         environment.systemPackages = with pkgs; [
             home-manager # Make sure its always there
