@@ -123,8 +123,6 @@
         };
 
         # Global NixOS modules.
-        # WARN: Options declared by them still have to be
-        # defined by each system in order to have any effect!
         systems.modules.nixos = with inputs; [
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
@@ -133,8 +131,6 @@
         ];
 
         # Global home-manager modules.
-        # WARN: Options declared by them still have to be
-        # defined by each home in order to have any effect!
         # homes.modules = with inputs; [
             # sops-nix.homeManagerModules.sops
             # hyprland.homeManagerModules.default

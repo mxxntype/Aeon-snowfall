@@ -1,4 +1,4 @@
-# INFO: Boot NixOS module. WARN: Mostly untested.
+# INFO: NixOS Boot module.
 
 {
     config,
