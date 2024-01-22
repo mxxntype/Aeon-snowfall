@@ -5,7 +5,7 @@
 {
     aeon = {
         boot = {
-            type = "lanzaabote";
+            type = "lanzaboote";
             quiet = false;
         };
         fs = {
