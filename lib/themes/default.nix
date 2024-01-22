@@ -109,6 +109,7 @@ rec {
             function     = blue;
             macro        = mauve;
             use          = mauve;
+            path         = blue;
             primitive    = peach;
             number       = code.primitive;
             boolean      = code.primitive;
@@ -116,10 +117,17 @@ rec {
             string       = green;
             char         = green;
             escape       = pink;
+            pattern      = peach;
             comment      = subtext0;
             linenr       = code.comment;
             linenrActive = ui.accent;
             url          = teal;
+            punctuation  = subtext0;
+            range        = yellow;
+            operator = {
+                math = subtext0;
+                logic = mauve;
+            };
         };
 
         # Shell colors.
