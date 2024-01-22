@@ -61,6 +61,11 @@ with lib; {
                     };
                 };
             };
+
+            fileSystems.${config.boot.loader.efi.efiSysMountPoint} = {
+                device = "/dev/disk/by-label/EFI";
+                fsType = "vfat";
+            };
         })
 
         # UEFI: GRUB2 non-secure boot.
