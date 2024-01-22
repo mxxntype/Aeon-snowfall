@@ -27,17 +27,20 @@ with lib; {
         };
     };
 
-    config = mkMerge [
+    config = let
+        inherit (config.aeon.boot) type quiet;
+        inherit (config.aeon.boot.grub) device;
+    in mkMerge [
         # Use GRUB2 by default.
         {
             boot.loader.grub = {
                 enable = mkDefault true;
-                inherit (config.aeon.boot.grub) device;
+                inherit device;
             };
         }
 
-        # Legacy BIOS boot.
-        (mkIf (config.aeon.boot.type == "bios") {
+        # BIOS:
+        (mkIf (type == "bios") {
             boot = {
                 loader = {
                     grub = {
@@ -47,15 +50,10 @@ with lib; {
             };
         })
 
-        # UEFI boot.
-        (mkIf (config.aeon.boot.type == "uefi") {
+        # UEFI: common options.
+        (mkIf (type == "uefi" || type == "lanzaboote") {
             boot = {
                 loader = {
-                    grub = {
-                        efiSupport = true;
-                        efiInstallAsRemovable = mkDefault false;
-                    };
-
                     efi = {
                         efiSysMountPoint = mkDefault "/boot/efi";
                         canTouchEfiVariables = true;
@@ -64,10 +62,22 @@ with lib; {
             };
         })
 
-        # UEFI Secure boot.
+        # UEFI: GRUB2 non-secure boot.
+        (mkIf (type == "uefi") {
+            boot = {
+                loader = {
+                    grub = {
+                        efiSupport = true;
+                        efiInstallAsRemovable = mkDefault false;
+                    };
+                };
+            };
+        })
+
+        # UEFI: Secure boot.
         #
         # INFO: https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md
-        (mkIf (config.aeon.boot.type == "lanzaboote") {
+        (mkIf (type == "lanzaboote") {
             environment.systemPackages = with pkgs; [ sbctl ];
             boot = {
                 lanzaboote = {
@@ -82,8 +92,8 @@ with lib; {
             };
         })
         
-        # Quiet boot.
-        (mkIf config.aeon.boot.quiet {
+        # Quiet boot with minimal logging.
+        (mkIf quiet {
             boot = {
                 plymouth = {
                     enable = true;
