@@ -50,6 +50,7 @@ pkgs.nuenv.writeScriptBin {
             --mount (-m): directory = /mnt # Where to mount the target drive.
             --install (-I) # Run nixos-install.
             --BIOS (-B) # Use legacy BIOS boot instead of UEFI.
+            --LUKS (-L) # Use LUKS2 encryption.
             --root-lv-size (-R): int = 100 # Size of the root LVM LV in %.
             --ignore-generated-config (-i) # Do not automatically inherit `boot.*` options from `nixos-generate-config`.
             --copy-to: directory = /home/${lib.aeon.user} # Where to copy the repo (in /mnt).
@@ -60,6 +61,8 @@ pkgs.nuenv.writeScriptBin {
             const SECRETS: path = "./lib/secrets.yaml"
             const ANCHOR: string = "\ncreation_rules"
             mut sopsfile: string = ""
+            mut target_drive: path = ""
+            mut keyfile: path = mktemp
 
             # Sanity checks: all of these are needed for an installation.
             use assert
@@ -70,25 +73,46 @@ pkgs.nuenv.writeScriptBin {
             assert ("~/.config/sops/age/keys.txt" | path exists) $"(ansi red)Age private keys(ansi reset) not found."
 
             # Run `fdisk` to partition a drive.
-            if ($partition) {
-                let target_drive = (select_blockdev --type "disk" --hint "installation drive")
+            if $partition {
+                $target_drive = (select_blockdev --type "disk" --hint "installation drive")
                 print $"Starting (ansi blue)fdisk(ansi reset) to partition target drive..."
-                sudo ${pkgs.util-linux}/bin/fdisk $target_drive
+                sudo fdisk $target_drive
             }
 
             # TODO: Implement filesystems other than BTRFS.
-            if ($create_fs) {
-                let root_part = (select_blockdev --type "part" --hint "root partition")
+            if $create_fs {
+                mut root_part: path = ""
+                
+                if $LUKS {
+                    print $"Setting up (ansi blue_bold)LUKS(ansi reset)..."
+
+                    # Create the LUKS device.
+                    let luks_part: path = (select_blockdev --type "part" --hint "LUKS partition")
+                    let label: string = $"($hostname | str upcase)_LUKS"
+                    cryptsetup luksFormat --label $label $luks_part
+
+                    # Add a keyfile for single-passphrase boot.
+                    dd if=/dev/urandom $"of=($keyfile)" bs=1024 count=4
+                    cryptsetup luksAddKey $luks_part $keyfile
+
+                    # Open the LUKS device.
+                    let mapped_name: string = $"($hostname)-luks"
+                    cryptsetup luksOpen $luks_part $mapped_name -d $keyfile
+                    $root_part = $"/dev/mapper/($mapped_name)"
+                } else {
+                    # Pick a regular non-encrypted partition.
+                    $root_part = (select_blockdev --type "part" --hint "root partition")
+                }
 
                 # Set up LVM.
                 print $"Setting up (ansi blue_bold)LVM(ansi reset)..."
                 sudo vgcreate $hostname $root_part
                 sudo lvcreate -n root -l $"($root_lv_size)%FREE" $hostname
-                let root_lv = $"/dev/($hostname)/root"
+                let root_lv: path = $"/dev/($hostname)/root"
 
                 # Create BTFS.
                 print $"Creating (ansi blue_bold)BTRFS(ansi reset) filesystem and subvolumes..."
-                sudo ${pkgs.btrfs-progs}/bin/mkfs.btrfs $root_lv -L $"($hostname)_btrfs" -q
+                sudo mkfs.btrfs $root_lv -L $"($hostname | str upcase)_BTRFS" -q
                 sudo mount $root_lv $mount
 
                 # Select & create subvolumes.
@@ -101,15 +125,23 @@ pkgs.nuenv.writeScriptBin {
 
                 # Mount each subvolume with options.
                 for subvolume in $selected {
-                    let subdir = ($subvolume | str trim -c "@")
+                    let subdir: path = ($subvolume | str trim -c "@")
                     if not ($subdir | is-empty) { sudo mkdir $"($mount)\/($subdir)" }
                     sudo mount $root_lv $"($mount)\/($subdir)" -o $"compress=zstd,space_cache=v2,subvol=($subvolume)"
                 }
 
+                if $LUKS {
+                    let secrets: directory = $"($mount)/etc/secrets/initrd"
+                    ^mkdir -p $secrets
+                    cp $keyfile $"($secrets)/keyfile-($hostname | str downcase).bin"
+                    chmod 000 $keyfile
+                    chattr +i $keyfile
+                }
+
                 # Create the UEFI partition if needed.
-                if not ($BIOS) {
-                    let efi_part = (select_blockdev --type "part" --hint "EFI partition")
-                    sudo mkfs.fat -F 32 -n EFI $efi_part
+                if not $BIOS {
+                    let efi_part: path = (select_blockdev --type "part" --hint "EFI partition")
+                    sudo mkfs.fat -F 32 -n NIXOS_EFI $efi_part
                     sudo mkdir $"($mount)/boot"
                     sudo mkdir $"($mount)/boot/efi"
                     sudo mount $efi_part $"($mount)/boot/efi"
@@ -117,7 +149,7 @@ pkgs.nuenv.writeScriptBin {
             }
 
             # Copy needed hardware-related options from generated config.
-            if not ($ignore_generated_config) {
+            if not $ignore_generated_config {
                 print $"Copying options from (ansi blue_bold)nixos-generate-config(ansi reset)..."
                 let options = sudo nixos-generate-config --root $mount --show-hardware-config
                     | lines
@@ -137,7 +169,7 @@ pkgs.nuenv.writeScriptBin {
 
                 let tmpdir = mktemp -d
                 mkdir $"($tmpdir)/etc/ssh"
-                ${pkgs.openssh}/bin/ssh-keygen -A -f $tmpdir
+                ssh-keygen -A -f $tmpdir
 
                 # Copy needed keys to systems/ and the target drive.
                 sudo mkdir $"($mount)/etc"
@@ -150,14 +182,12 @@ pkgs.nuenv.writeScriptBin {
                 print $"Re-keying (ansi blue_bold)sops-nix(ansi reset)..."
 
                 # The new host's key (should stay there).
-                let age_pubkey = open $"($tmpdir)/etc/ssh/ssh_host_ed25519_key.pub"
-                    | ${pkgs.ssh-to-age}/bin/ssh-to-age;
+                let age_pubkey = open $"($tmpdir)/etc/ssh/ssh_host_ed25519_key.pub" | ssh-to-age;
                 add_sops_host_key --key $age_pubkey --host $hostname
                 $sopsfile = (open $SOPSFILE)
 
                 # The install ISO's key (should be removed).
-                let installer_pubkey = open /etc/ssh/ssh_host_ed25519_key.pub
-                    | ${pkgs.ssh-to-age}/bin/ssh-to-age;
+                let installer_pubkey = open /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age;
                 add_sops_host_key --key $installer_pubkey --host installer
 
                 # Lock down the keys.
@@ -169,7 +199,7 @@ pkgs.nuenv.writeScriptBin {
             # Run `nixos-install`.
             if $install {
                 print $"Running (ansi red)nixos-install(ansi reset)..."
-                sudo ${pkgs.nixos-install-tools}/bin/nixos-install --no-root-password --root $mount --flake $".#($hostname)"
+                sudo nixos-install --no-root-password --root $mount --flake $".#($hostname)"
             }
 
             # WARN: Remove installer ISO's SSH key from sops-nix (if it was added).
@@ -184,7 +214,6 @@ pkgs.nuenv.writeScriptBin {
                 let target = $"($mount)($copy_to)"
                 cd ./..
                 sudo cp --recursive $REPO $target
-                # sudo chown ${lib.aeon.user}:wheel $target -R
                 cd $REPO
             }
 
@@ -195,7 +224,7 @@ pkgs.nuenv.writeScriptBin {
             ]: nothing -> nothing {
                 ${pkgs.sd}/bin/sd $ANCHOR $"\n    - &($host) ($key)($ANCHOR)" $SOPSFILE
                 echo $"      - *($host)\n" | save --append $SOPSFILE
-                ${pkgs.sops}/bin/sops updatekeys $SECRETS
+                sops updatekeys $SECRETS
             }
 
             # Pick a drive/partition from the ones available.
@@ -203,7 +232,7 @@ pkgs.nuenv.writeScriptBin {
                 --type: string # `disk` or `part`
                 --hint: string # Hint of what's happening for the user.
             ]: nothing -> string {
-                let lsblk = ${pkgs.util-linux}/bin/lsblk -JO | from json | get blockdevices
+                let lsblk = lsblk -JO | from json | get blockdevices
                 let devices = ($lsblk | upsert children 0 | reject children) | append ($lsblk | get -i children | flatten) | filter {|d| not ($d | is-empty)}
                 let target = $devices
                     | where type =~ $type
