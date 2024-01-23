@@ -172,8 +172,10 @@ pkgs.nuenv.writeScriptBin {
                 ssh-keygen -A -f $tmpdir
 
                 # Copy needed keys to systems/ and the target drive.
-                sudo mkdir $"($mount)/etc"
-                sudo mkdir $"($mount)/etc/ssh"
+                do -ps {
+                    sudo mkdir $"($mount)/etc"
+                    sudo mkdir $"($mount)/etc/ssh"
+                }
                 for type in ["ed25519" "rsa"] {
                     cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)\/($hostname)"
                     sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key*" $"($mount)/etc/ssh/"
