@@ -62,7 +62,7 @@ pkgs.nuenv.writeScriptBin {
             const ANCHOR: string = "\ncreation_rules"
             mut sopsfile: string = ""
             mut target_drive: path = ""
-            mut keyfile: path = mktemp
+            mut keyfile: path = (mktemp)
 
             # Sanity checks: all of these are needed for an installation.
             use assert
