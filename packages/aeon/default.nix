@@ -172,10 +172,7 @@ pkgs.nuenv.writeScriptBin {
                 ssh-keygen -A -f $tmpdir
 
                 # Copy needed keys to systems/ and the target drive.
-                do -ps {
-                    sudo mkdir $"($mount)/etc"
-                    sudo mkdir $"($mount)/etc/ssh"
-                }
+                do -ps {sudo mkdir $"($mount)/etc/ssh"}
                 for type in ["ed25519" "rsa"] {
                     cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)\/($hostname)"
                     sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key*" $"($mount)/etc/ssh/"
@@ -186,7 +183,7 @@ pkgs.nuenv.writeScriptBin {
                 # The new host's key (should stay there).
                 let age_pubkey = open $"($tmpdir)/etc/ssh/ssh_host_ed25519_key.pub" | ssh-to-age;
                 add_sops_host_key --key $age_pubkey --host $hostname
-                $sopsfile = (open $SOPSFILE)
+                $sopsfile = (open --raw $SOPSFILE)
 
                 # The install ISO's key (should be removed).
                 let installer_pubkey = open /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age;
