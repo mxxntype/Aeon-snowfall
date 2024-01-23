@@ -8,7 +8,7 @@
     aeon = {
         # WARN: Respective NixOS option (`aeon.theme`) inherits this attrset.
         theme = with lib.aeon; let 
-            theme = themes.catppuccin-mocha;
+            theme = themes.everforest-twilight;
         in mkTheme {
             themeTemplate = mkThemeTemplate { inherit (theme) colors meta; };
             overrides = {};
