@@ -140,7 +140,7 @@ with lib; {
                         }
 
                         explore: {
-                            status_bar_background: {fg: "${ui.fg.text}", bg: "n"},
+                            status_bar_background: {fg: "${ui.fg.text}", bg: "#${ui.bg.surface0}"},
                             command_bar_text: {fg: "#${colors.teal}"},
                             highlight: {fg: "#${ui.bg.base}", bg: "#${ui.accent}"},
                             status: {
