@@ -209,11 +209,11 @@ pkgs.nuenv.writeScriptBin {
 
             # Copy the repo.
             if not $no_copy_repo {
-                const REPO: string = "Aeon-snowfall"; # FIXME: Rename to `Aeon` when merged
+                let repo: path = (pwd | path basename)
                 let target = $"($mount)($copy_to)"
                 cd ./..
-                sudo cp --recursive $REPO $target
-                cd $REPO
+                sudo cp --recursive $repo $target
+                cd $repo
             }
 
             # Update .sops.yaml with new host key.
