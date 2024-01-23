@@ -11,6 +11,12 @@ with lib; {
         aeon.theme = mkOption {
             description = "Theme attrset for NixOS (inherited from Home-manager)";
             type = types.attrs;
+            default = with aeon; let
+                theme = themes.everforest-twilight;
+            in mkTheme {
+                themeTemplate = mkThemeTemplate { inherit (theme) colors meta; };
+                overrides = { };
+            };
         };
     };
     

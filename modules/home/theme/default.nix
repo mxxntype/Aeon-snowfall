@@ -11,12 +11,6 @@ with lib; {
         aeon.theme = mkOption {
             description = "Theme attrset for Home-manager";
             type = types.attrs;
-            default = with lib.aeon; let 
-                theme = themes.catppuccin-mocha;
-            in mkTheme {
-                themeTemplate = mkThemeTemplate { inherit (theme) colors meta; };
-                overrides = {};
-            };
         };
     };
 
