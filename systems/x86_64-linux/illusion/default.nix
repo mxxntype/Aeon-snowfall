@@ -5,8 +5,9 @@
 {
     aeon = {
         boot = {
-            type = "lanzaboote";
+            type = "uefi";
             quiet = false;
+            encrypted = true;
         };
         fs = {
             type = "btrfs";
