@@ -126,7 +126,7 @@ pkgs.nuenv.writeScriptBin {
                 # Mount each subvolume with options.
                 for subvolume in $selected {
                     let subdir: path = ($subvolume | str trim -c "@")
-                    if not ($subdir | is-empty) { sudo mkdir $"($mount)\/($subdir)" }
+                    if not ($subdir | is-empty) { sudo mkdir -p $"($mount)\/($subdir)" }
                     sudo mount $root_lv $"($mount)\/($subdir)" -o $"compress=zstd,space_cache=v2,subvol=($subvolume)"
                 }
 
@@ -142,8 +142,7 @@ pkgs.nuenv.writeScriptBin {
                 if not $BIOS {
                     let efi_part: path = (select_blockdev --type "part" --hint "EFI partition")
                     sudo mkfs.fat -F 32 -n NIXOS_EFI $efi_part
-                    sudo mkdir $"($mount)/boot"
-                    sudo mkdir $"($mount)/boot/efi"
+                    sudo mkdir -p $"($mount)/boot/efi"
                     sudo mount $efi_part $"($mount)/boot/efi"
                 }
             }
@@ -168,11 +167,11 @@ pkgs.nuenv.writeScriptBin {
                 print $"Generating host (ansi blue_bold)SSH(ansi reset) keys..."
 
                 let tmpdir = mktemp -d
-                mkdir $"($tmpdir)/etc/ssh"
+                sudo mkdir -p $"($tmpdir)/etc/ssh"
                 ssh-keygen -A -f $tmpdir
 
                 # Copy needed keys to systems/ and the target drive.
-                do -ps {sudo mkdir $"($mount)/etc/ssh"}
+                sudo mkdir -p $"($mount)/etc/ssh"
                 for type in ["ed25519" "rsa"] {
                     cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)\/($hostname)"
                     sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key*" $"($mount)/etc/ssh/"
