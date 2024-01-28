@@ -21,8 +21,8 @@ pkgs.nuenv.writeScriptBin {
 
         # Perform a system rebuild.
         def "main rebuild" [
-            --flake (-f): directory = /home/${lib.aeon.user}/Aeon # Path to flake
-            --home (-H) # Rebuild Home-manager only
+            --flake (-f): directory = /home/${lib.aeon.user}/Aeon # Path to flake.
+            --home (-H) # Rebuild Home-manager only.
         ]: nothing -> nothing {
             match $home {
                 true => (home-manager switch --flake $flake)
@@ -66,11 +66,11 @@ pkgs.nuenv.writeScriptBin {
 
             # Sanity checks: all of these are needed for an installation.
             use assert
-            assert ("./flake.nix" | path exists) $"(ansi red)flake.nix(ansi reset) not found. Where even are you..."
-            assert ($SOPSFILE | path exists) $"(ansi red).sops.yaml(ansi reset) not found."
-            assert ($SECRETS | path exists) $"(ansi red)secrets.yaml(ansi reset) not found."
-            assert ("~/.ssh/id_ed25519" | path exists) $"(ansi red)SSH private key(ansi reset) not found."
-            assert ("~/.config/sops/age/keys.txt" | path exists) $"(ansi red)Age private keys(ansi reset) not found."
+            assert ("./flake.nix" | path exists) "flake.nix not found. Where even are you..."
+            assert ($SOPSFILE | path exists) ".sops.yaml not found."
+            assert ($SECRETS | path exists) "secrets.yaml not found."
+            assert ("~/.ssh/id_ed25519" | path exists) "SSH private key not found."
+            assert ("~/.config/sops/age/keys.txt" | path exists) "Age private keys not found."
 
             # Run `fdisk` to partition a drive.
             if $partition {
@@ -130,6 +130,7 @@ pkgs.nuenv.writeScriptBin {
                     sudo mount $root_lv $"($mount)\/($subdir)" -o $"compress=zstd,space_cache=v2,subvol=($subvolume)"
                 }
 
+                # Create a keyfile for LUKS.
                 if $LUKS {
                     let secrets: directory = $"($mount)/etc/secrets/initrd"
                     ^mkdir -p $secrets
@@ -182,7 +183,7 @@ pkgs.nuenv.writeScriptBin {
                 # The new host's key (should stay there).
                 let age_pubkey = open $"($tmpdir)/etc/ssh/ssh_host_ed25519_key.pub" | ssh-to-age;
                 add_sops_host_key --key $age_pubkey --host $hostname
-                $sopsfile = (open --raw $SOPSFILE)
+                $sopsfile = (open --raw $SOPSFILE) # Save state without the installer's key.
 
                 # The install ISO's key (should be removed).
                 let installer_pubkey = open /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age;
@@ -202,7 +203,7 @@ pkgs.nuenv.writeScriptBin {
 
             # WARN: Remove installer ISO's SSH key from sops-nix (if it was added).
             if not ($sopsfile | is-empty) {
-                print $"(ansi red)Removing(ansi reset) installer ISO's SSH key from(ansi blue_bold)sops-nix(ansi reset)..."
+                print $"(ansi red)Removing(ansi reset) installer ISO's SSH key from (ansi blue_bold)sops-nix(ansi reset)..."
                 $sopsfile | save -rf $SOPSFILE
             }
 
@@ -220,8 +221,14 @@ pkgs.nuenv.writeScriptBin {
                 --key: string # Age public key to add.
                 --host: string # The name of the host.
             ]: nothing -> nothing {
-                ${pkgs.sd}/bin/sd $ANCHOR $"\n    - &($host) ($key)($ANCHOR)" $SOPSFILE
-                echo $"      - *($host)\n" | save --append $SOPSFILE
+                if (${pkgs.ripgrep}/bin/rg $host $SOPSFILE | is-empty ) {
+                    # Add a new key.
+                    ${pkgs.sd}/bin/sd $ANCHOR $"\n  - &($host) ($key)($ANCHOR)" $SOPSFILE
+                    echo $"      - *($host)\n" | save --append $SOPSFILE
+                } else {
+                    # Update an existing key.
+                    ${pkgs.sd}/bin/sd $'&($host) \w*$' $'&($host) ($key)' $SOPSFILE
+                }
                 sops updatekeys $SECRETS
             }
 
