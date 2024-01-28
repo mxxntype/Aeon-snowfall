@@ -1,6 +1,6 @@
 keys:
   - &user age167vnfruu6y7efllkfx2gytnd8c2c2kx4lzc79kghcrjtf5652sdsle68ml
-  - &illusion age1r9u2fds2q2xflf3pdqrw0vs8j78df8yyj5vvt47yuwwlxe4f6swqnmyynn
+  - &illusion age19p6nk5c26f9rvx9ndw9nc7jhn0gh5jqlxyk0c20jgtchwk95cy0qzxux6a
 creation_rules:
   - path_regex: lib/secrets.yaml$
     key_groups:

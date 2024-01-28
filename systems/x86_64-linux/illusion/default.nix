@@ -5,7 +5,7 @@
 {
     aeon = {
         boot = {
-            type = "uefi";
+            type = "lanzaboote";
             quiet = false;
             encrypted = true;
         };
@@ -18,7 +18,7 @@
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = {};
     boot.initrd.kernelModules = [ "dm-snapshot" ];
-    boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
+    boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
