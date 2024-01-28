@@ -6,7 +6,7 @@
     aeon = {
         boot = {
             type = "lanzaboote";
-            quiet = false;
+            quiet = true;
             encrypted = true;
         };
         fs = {
