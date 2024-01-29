@@ -120,9 +120,7 @@ with lib; {
                 plymouth = {
                     enable = true;
                     theme = "breeze";
-
-                    # TODO: Configure font & logo.
-                    # font = "${pkgs.nerdfonts.override { fonts = [ ]; }}/share/fonts/...";
+                    font = "${pkgs.nerdfonts.override { fonts = [ "BigBlueTerminal" ]; }}/share/fonts/truetype/NerdFonts/BigBlueTermPlusNerdFont-Regular.ttf";
                     logo = ./planet-128x.png;
                 };
 
