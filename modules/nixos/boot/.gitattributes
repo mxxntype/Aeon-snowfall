@@ -1,0 +1,5 @@
+*..png filter=lfs diff=lfs merge=lfs -text
+planet-128x.png filter=lfs diff=lfs merge=lfs -text
+planet-512x.png filter=lfs diff=lfs merge=lfs -text
+saturn-128x.png filter=lfs diff=lfs merge=lfs -text
+saturn-512x.png filter=lfs diff=lfs merge=lfs -text

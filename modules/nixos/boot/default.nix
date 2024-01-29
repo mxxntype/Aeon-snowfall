@@ -123,7 +123,7 @@ with lib; {
 
                     # TODO: Configure font & logo.
                     # font = "${pkgs.nerdfonts.override { fonts = [ ]; }}/share/fonts/...";
-                    logo = ../../../.github/assets/nix-flake.png;
+                    logo = ./planet-128x.png;
                 };
 
                 consoleLogLevel = 0;
