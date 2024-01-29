@@ -288,8 +288,6 @@ rec {
                 *.jar=4;38;2;${hexToDecimal sapphire ";"}
                 *.jpg=0;38;2;${hexToDecimal flamingo ";"}
                 *.kex=0;38;2;${hexToDecimal red ";"}
-                *ed25519*=4;38;2;${hexToDecimal green ";"}}
-                *rsa*=4;38;2;${hexToDecimal green ";"}}
                 *.key=4;38;2;${hexToDecimal green ";"}
                 *.kdbx=4;38;2;${hexToDecimal green ";"}
                 *.crt=4;38;2;${hexToDecimal green ";"}
