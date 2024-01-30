@@ -15,7 +15,7 @@
 > This is a WIP rewrite of my [Aeon](https://github.com/mxxntype/Aeon) flake with the [Snowfall](https://github.com/snowfallorg/lib) framework. This is absolutely not backwards-compatible and actually a hell of a breaking change. Once the flake is at least somewhat complete and "ready", it will be merged with Aeon.
 
 > [!TIP]
-> No clue what this is and want to know more about NixOS? Read [here](#what-is-this-even), and be aware that this hell of a flake is probably not the place to start. I've mentioned the places and people that helped me undestand the Nix ecosystem, explore those links if you wish to know more.
+> No clue what this is and want to know more about NixOS? Read [here](#what-is-this-even), and be aware that this hell of a flake is probably not the place to start. I've mentioned the places and people that helped me understand the Nix ecosystem, explore those links if you wish to know more.
 
 Here's a quick and incomplete tour of what is going on in the repository:
 
@@ -34,7 +34,7 @@ Others are not as important. [Snowfall Guide/Reference](https://snowfall.org/gui
 
 ### What is this even?
 
-**Nix** is a purely functional programmming language. It's not executed, it's *evaluated*. No matter how many times you evaluate a mathematical expression, the answer is always the same. Nix is exactly that - looks alien (just like math sometimes), but all it does is just *evaluate* to something - a string, a number, or an attrset.
+**Nix** is a purely functional programming language. It's not executed, it's *evaluated*. No matter how many times you evaluate a mathematical expression, the answer is always the same. Nix is exactly that - looks alien (just like math sometimes), but all it does is just *evaluate* to something - a string, a number, or an attrset.
 
 **Nix** is also a powerful package manager (and a whole ecosystem) that makes package management reliable and reproducible. It uses a purely functional approach to package management - you don't run commands to interact with it, you write everything out as nix code, that the package manager takes as input and does things based on what's written. Each package is built in isolation from each other, and its dependencies are explicitly defined. This ensures a package build will always produce the same result, regardless of the system it's built on or the packages already installed on the system.
 

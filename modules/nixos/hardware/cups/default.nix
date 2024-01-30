@@ -8,7 +8,7 @@
 
 with lib; {
     options.aeon.hardware.cups = {
-        # Wether to enable the CUPS printing service.
+        # Whether to enable the CUPS printing service.
         enable = mkOption {
             type = with types; bool;
             default = false;

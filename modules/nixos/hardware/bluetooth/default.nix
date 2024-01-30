@@ -8,7 +8,7 @@
 
 with lib; {
     options.aeon.hardware.bluetooth = {
-        # Wether to enable bluetooth support.
+        # Whether to enable bluetooth support.
         enable = mkOption {
             type = with types; bool;
             default = false;
