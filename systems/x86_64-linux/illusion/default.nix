@@ -1,3 +1,5 @@
+# INFO: Illusion, a virtual machine.
+
 {
     ...
 }:
@@ -9,10 +11,7 @@
             quiet = true;
             encrypted = true;
         };
-        fs = {
-            type = "btrfs";
-            # ephemeral = true;
-        };
+        fs.type = "btrfs";
     };
 
     # NOTE: Flattened for the installer script.
