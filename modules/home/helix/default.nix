@@ -18,9 +18,10 @@ with lib; {
     };
 
     config = mkIf config.aeon.helix.enable {
+        home.sessionVariables.EDITOR = "hx";
         programs.helix = {
             enable = true;
-            defaultEditor = true;
+            defaultEditor = true; # BUG: Isn't recognized by Nushell.
             settings = {
                 # theme = "nix"; # TODO
                 editor = {
