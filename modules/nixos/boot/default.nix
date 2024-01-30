@@ -96,7 +96,7 @@ with lib; {
             boot = {
                 loader.grub.enableCryptodisk = true;
                 initrd = let
-                    FDE = (type != "lanzaboote");
+                    FDE = type != "lanzaboote";
                     keyfile = "/keyfile-${toLower hostName}.bin";
                 in {
                     luks.devices."root" = {
