@@ -1,5 +1,6 @@
 [default.extend-words]
 ba = "ba" # Catppuccin's #F38BA8 color code
+nitch = "nitch"
 
 [files]
 extend-exclude = [
