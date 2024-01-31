@@ -7,7 +7,6 @@
 }:
 
 {
-    networking.networkmanager.enable = lib.mkForce false; # HACK: Does not evaluate otherwise.
     environment.systemPackages = with pkgs; [
         helix
         nushell
@@ -25,6 +24,11 @@
         openssh.authorizedKeys.keys = lib.aeon.pubKeys;
     };
 
+    # Use NetworkManager.
+    networking.wireless.enable = false;
+    networking.networkmanager.enable = lib.mkForce true;
+
     # WARN: Removing this will cause the build to take forever.
     isoImage.squashfsCompression = "zstd -Xcompression-level 3";
+    hardware.enableRedistributableFirmware = true;
 }
