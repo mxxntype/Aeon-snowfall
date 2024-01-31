@@ -16,17 +16,13 @@ with lib; {
     };
     
     config = mkIf config.aeon.core.enable {
-        nix = {
-            settings = {
-                experimental-features = [ "nix-command" "flakes" "repl-flake" ];
-                warn-dirty = false;
-            };
-        };
-
         programs = {
             home-manager.enable = mkForce true; # Home-manager absolutely should stay enabled.
             nix-index.enable = true;            # A files database for Nixpkgs.
         };
+
+        # Inherit common Nix settings.
+        nix = { inherit (lib.aeon.nix) settings; };
 
         home = {
             homeDirectory = mkForce "/home/${config.home.username}";
@@ -42,16 +38,20 @@ with lib; {
             in {
                 enable = true;
                 createDirectories = true;
+
+                # Create these automatically.
                 desktop = "${homeDirectory}/Desktop";
                 documents = "${homeDirectory}/Documents";
                 music = "${homeDirectory}/Music";
                 pictures = "${homeDirectory}/Images";
+
+                # Don't need these.
+                publicShare = null;
+                templates = null;
             };
 
             mime.enable = true;
-            mimeApps = let
-                mimes = {};
-            in {
+            mimeApps = let mimes = {}; in {
                 enable = true;
                 associations.added = mimes;
                 defaultApplications = mimes;

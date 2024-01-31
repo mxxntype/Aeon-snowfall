@@ -16,14 +16,14 @@ with lib; {
         };
 
         locale = {
-            # The system locale.
             main = mkOption {
+                description = "The main system locale";
                 type = with types; str;
                 default = "en_US.UTF-8";
             };
 
-            # Other supported locales.
             misc = mkOption {
+                description = "Other supported locales";
                 type = with types; listOf str;
                 default = [ "ru_RU.UTF-8" ];
             };
@@ -48,6 +48,10 @@ with lib; {
 
         sops.secrets."passwords/root".neededForUsers = true;
 
+        # Inherit common Nix settings.
+        nix = { inherit (lib.aeon.nix) settings; };
+
+        # Add some core packages.
         environment.systemPackages = with pkgs; [
             home-manager # Make sure its always there
             aeon.aeon
