@@ -23,6 +23,12 @@ with lib; {
             nushell = {
                 enable = true;
                 package = pkgs.nushellFull;
+
+                # HACK: Nushell doesn't pick up some envvars sometimes.
+                #
+                # This takes general Home-manager variables and makes them Nushell's too.
+                environmentVariables = recursiveUpdate config.home.sessionVariables {};
+                
                 shellAliases = {
                     lsa = "ls -a";
                     cat = "${pkgs.bat}/bin/bat";
