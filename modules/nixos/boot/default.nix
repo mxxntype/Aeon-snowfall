@@ -120,10 +120,15 @@ with lib; {
                 plymouth = {
                     enable = true;
                     theme = "breeze";
-                    logo = ./planet-128x.png;
 
-                    # BUG: Derivation build fails with this uncommented for some reason.
-                    # font = "${pkgs.nerdfonts.override { fonts = [ "BigBlueTerminal" ]; }}/share/fonts/truetype/NerdFonts/BigBlueTermPlusNerdFont-Regular.ttf";
+                    # WARN: Build sometimes fails with this uncommented for some reason.
+                    logo = ./planet-128x.png;
+                    font = let
+                        dir = "share/fonts/truetype/NerdFonts";
+                        font = pkgs.nerdfonts.override {
+                            fonts = [ "BigBlueTerminal" ];
+                        };
+                    in "${font}/${dir}/BigBlueTermPlusNerdFont-Regular.ttf";
                 };
 
                 consoleLogLevel = 0;
