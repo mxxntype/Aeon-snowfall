@@ -36,6 +36,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Declarative disk partitioning and formatting using Nix.
+        disko = {
+            url = "github:nix-community/disko";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
         # SECTION: Hardware.
         # Lanzaboote, UEFI secure boot for NixOS.
@@ -128,6 +134,7 @@
             sops-nix.nixosModules.sops
             impermanence.nixosModules.impermanence
             lanzaboote.nixosModules.lanzaboote
+            disko.nixosModules.disko
         ];
 
         # Global home-manager modules.
