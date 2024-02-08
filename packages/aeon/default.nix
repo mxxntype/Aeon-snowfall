@@ -249,5 +249,12 @@ pkgs.nuenv.writeScriptBin {
                 return $target
             }
         }
+
+        # Set a new wallpaper.
+        def "main wp" [
+            wallpaper: path # Path to the wallaper.
+        ]: nothing -> nothing {
+            ${pkgs.aeon.swp}/bin/swp $wallpaper
+        }
     '';
 }

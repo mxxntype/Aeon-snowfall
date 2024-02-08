@@ -108,6 +108,13 @@
             url = "git+ssh://git@github.com/mxxntype/ndrs.git";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        swp = {
+            url = "git+ssh://git@github.com/mxxntype/swp.git";
+            inputs = {
+                nixpkgs.follows = "nixpkgs";
+                snowfall-lib.follows = "snowfall-lib";
+            };
+        };
     };
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {
@@ -147,6 +154,7 @@
         overlays = with inputs; [
             nuenv.overlays.nuenv
             fenix.overlays.default
+            swp.overlays."package/swp"
         ];
 
         templates = {
