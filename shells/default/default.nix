@@ -18,5 +18,6 @@ pkgs.mkShell {
         age
         ssh-to-age
         aeon.aeon
+        disko
     ];
 }
