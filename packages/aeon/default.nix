@@ -254,7 +254,7 @@ pkgs.nuenv.writeScriptBin {
         def "main wp" [
             wallpaper: path # Path to the wallaper.
         ]: nothing -> nothing {
-            ${pkgs.aeon.swp}/bin/swp $wallpaper
+            ${pkgs.swp.swp}/bin/swp $wallpaper
         }
     '';
 }
