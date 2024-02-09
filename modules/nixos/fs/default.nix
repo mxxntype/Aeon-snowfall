@@ -1,6 +1,7 @@
 # INFO: Filesystem NixOS module.
 
 {
+    # inputs,
     config,
     lib,
     pkgs,
@@ -10,63 +11,39 @@
 with lib; {
     options.aeon.fs = {
         type = mkOption {
-            type = types.enum [ "ext4" "btrfs" "zfs" ];
-            default = "btrfs";
+            type = with types; nullOr (enum [
+                "btrfs"
+                "zfs"
+            ]);
+            default = null;
             description = "Which filesystem to use";
         };
 
         ephemeral = mkOption {
-            type = types.bool;
+            type = with types; bool;
             default = false;
             description = "Whether to use ephemeral root storage";
         };
-
-        ssd = mkOption {
-            type = types.bool;
-            default = false;
-            description = "Whether to use SSD-related options";
-        };
-
-        # TODO:
-        # encrypted = mkOption {
-        #     type = types.bool;
-        #     default = true;
-        #     description = "Whether to use LUKS2 FDE";
-        # };
     };
 
     config = let
-        inherit (config.aeon.fs) type ephemeral ssd;
+        inherit (config.aeon.fs) type ephemeral;
         inherit (config.networking) hostName;
-        mountOptions = {
-            common = if ssd then [ "ssd" ] else [];
-            btrfs = [ "compress=zstd" "space_cache=v2" ];
-        };
     in mkMerge [
         # Common FS options that should be used regardless of the filesystem.
         {
             boot = {
-                tmp.cleanOnBoot = true;            # Clean `/tmp` on boot.
-                supportedFilesystems = [ "ntfs" ]; # Support Windows NTFS drives.
+                tmp.cleanOnBoot = true;
+                supportedFilesystems = [ "ntfs" ];
             };
 
             # Tools for creating and managing uncommon filesystems.
             environment.systemPackages = with pkgs; [
                 e2fsprogs # ext2 | ext3 | ext4.
                 libxfs    # SGI XFS.
+                disko
             ];
         }
-
-        # Good old ext4.
-        (mkIf (type == "ext4") {
-            fileSystems = {
-                "/" = {
-                    device = mkDefault "/dev/${config.networking.hostName}/root";
-                    options = mountOptions.common;
-                    fsType = mkForce "ext4";
-                };
-            };
-        })
 
         # Standard BTRFS.
         #
@@ -94,87 +71,76 @@ with lib; {
         #   ...                                                           |   ...
         (mkIf (type == "btrfs") {
             boot.initrd.supportedFilesystems = [ "btrfs" ];
-            services.btrfs.autoScrub = {
-                enable = mkDefault true;
-                fileSystems = [ "/" ];
-            };
 
-            fileSystems = {
-                "/" = {
-                    device = mkDefault "/dev/${config.networking.hostName}/root";
-                    options = with mountOptions; common ++ [ "subvol=@" ] ++ btrfs;
-                    fsType = mkForce "btrfs";
-                };
+            # NOTE: Idk if I want this.
+            # services.btrfs.autoScrub = {
+            #     enable = mkDefault true;
+            #     fileSystems = [ "/" ];
+            # };
 
-                "/home" = {
-                    device = mkDefault "/dev/${config.networking.hostName}/root";
-                    options = with mountOptions; common ++ [ "subvol=@home" ] ++ btrfs;
-                    fsType = mkForce "btrfs";
-                };
-
-                "/nix" = {
-                    device = mkDefault "/dev/${config.networking.hostName}/root";
-                    options = with mountOptions; common ++ [ "subvol=@nix" "noatime" ] ++ btrfs;
-                    fsType = mkForce "btrfs";
-                };
-            };
+            # NOTE: This is done by disko.
+            # fileSystems = {
+            #     "/" = {
+            #         device = "/dev/${config.networking.hostName}/root";
+            #         options = with mountOptions; common ++ [ "subvol=@" ] ++ btrfs;
+            #         fsType = "btrfs";
+            #     };
+            #
+            #     "/home" = {
+            #         device = "/dev/${config.networking.hostName}/root";
+            #         options = with mountOptions; common ++ [ "subvol=@home" ] ++ btrfs;
+            #         fsType = "btrfs";
+            #     };
+            #
+            #     "/nix" = {
+            #         device = "/dev/${config.networking.hostName}/root";
+            #         options = with mountOptions; common ++ [ "subvol=@nix" "noatime" ] ++ btrfs;
+            #         fsType = "btrfs";
+            #     };
+            # };
         })
 
         # Ephemeral BTRFS. WARN: WIP, does not work yet!
         #
         # The only example of an ephemeral BTRFS I could find:
         # https://github.com/Misterio77/nix-config/blob/main/hosts/common/optional/ephemeral-btrfs.nix
-        (mkIf (type == "btrfs" && ephemeral) { 
-            boot.initrd = let
-                phase1systemd = config.boot.initrd.systemd.enable;
-                wipeScript = /* bash */ '' # FIXME
-                    mkdir /tmp -p
-                    MOUNTPOINT=$(mktemp -d)
-                    (
-                        mount -t btrfs /dev/${hostName}/root -o subvol=@ "$MOUNTPOINT"
-                        trap 'umount "$MOUNTPOINT"' EXIT
+        (mkIf (type == "btrfs" && ephemeral) {
+            boot.initrd.postDeviceCommands = let
+                    tempDir = "/btrfs_tmp";
+                in lib.mkAfter /* bash */ ''
+                    mkdir ${tempDir}
+                    mount /dev/${hostName}/root ${tempDir}
+                    if [[ -e ${tempDir}/root ]]; then
+                        mkdir -p ${tempDir}/old_roots
+                        timestamp=$(date --date="@$(stat -c %Y ${tempDir}/root)" "+%Y-%m-%-d_%H:%M:%S")
+                        mv ${tempDir}/root "${tempDir}/old_roots/$timestamp"
+                    fi
 
-                        echo "Creating needed directories"
-                        mkdir -p "$MOUNTPOINT"/persist/var/{log,lib/{nixos,systemd}}
+                    delete_subvolume_recursively() {
+                        IFS=$'\n'
+                        for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+                            delete_subvolume_recursively "${tempDir}/$i"
+                        done
+                        btrfs subvolume delete "$1"
+                    }
 
-                        echo "Cleaning root subvolume"
-                        btrfs subvolume list -o "$MOUNTPOINT/root" | cut -f9 -d ' ' |
-                        while read -r SUBVOLUME; do
-                            btrfs subvolume delete "$MOUNTPOINT/$SUBVOLUME"
-                        done && btrfs subvolume delete "$MOUNTPOINT/@"
+                    for i in $(find ${tempDir}/old_roots/ -maxdepth 1 -mtime +30); do
+                        delete_subvolume_recursively "$i"
+                    done
 
-                        echo "Restoring blank subvolume"
-                        btrfs subvolume snapshot "$MOUNTPOINT/root-blank" "$MOUNTPOINT/root"
-                    )
+                    btrfs subvolume create ${tempDir}/root
+                    umount ${tempDir}
                 '';
-            in {
-                supportedFilesystems = [ "btrfs" ];
-                postDeviceCommands = mkIf (!phase1systemd) (mkBefore wipeScript);
-                systemd.services.restore-root = mkIf phase1systemd {
-                    description = "Rollback BTRFS rootfs";
-                    # FIXME
-                    requires = [ "dev-disk-by\\x2dlabel-${hostName}.device" ];
-                    after = [
-                        "dev-disk-by\\x2dlabel-${hostName}.device"
-                        "systemd-cryptsetup@${hostName}.service"
-                    ];
 
-                    before = [ "sysroot.mount" ];
-                    wantedBy = [ "initrd.target" ];
-                    unitConfig.DefaultDependencies = "no";
-                    serviceConfig.Type = "oneshot";
-                    script = wipeScript;
-                };
-            };
-
-            fileSystems = {
-                ${aeon.persist} = {
-                    device = mkDefault "/dev/${hostName}/root";
-                    options = with mountOptions; common ++ [ "subvol=@persist" ] ++ btrfs;
-                    neededForBoot = true;
-                    fsType = mkForce "btrfs";
-                };
-            };
+            # NOTE: This is also managed by disko.
+            # fileSystems = {
+            #     ${aeon.persist} = {
+            #         device = "/dev/${hostName}/root";
+            #         options = with mountOptions; common ++ [ "subvol=@persist" ] ++ btrfs;
+            #         fsType = "btrfs";
+            #         neededForBoot = true;
+            #     };
+            # };
         })
 
         # NOTE: Common ephemeral FS stuff, shamelessly stolen from Misterio77's nix-config.
@@ -194,12 +160,12 @@ with lib; {
 
             system.activationScripts.persistent-dirs.text = let
                 users = attrValues config.users.users;
-                mkHomePersist = user: optionalString user.createHome /* shell */ ''
+                mkPersistentHome = user: optionalString user.createHome /* bash */ ''
                     mkdir -p /persist/${user.home}
                     chown ${user.name}:${user.group} /persist/${user.home}
                     chmod ${user.homeMode} /persist/${user.home}
                 '';
-            in concatLines (map mkHomePersist users);
+            in concatLines (map mkPersistentHome users);
         })
 
         # TODO: Learn ZFS.

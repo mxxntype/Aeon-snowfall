@@ -28,23 +28,19 @@ with lib; {
         };
 
         # Link to boot.loader.grub.device.
-        grub.device = mkOption {
-            type = with types; str;
-            default = "nodev";
-        };
+        # grub.device = mkOption {
+        #     type = with types; str;
+        #     default = "nodev";
+        # };
     };
 
     config = let
         inherit (config.aeon.boot) type quiet encrypted;
-        inherit (config.aeon.boot.grub) device;
         inherit (config.networking) hostName;
     in mkMerge [
         # Use GRUB2 by default.
         {
-            boot.loader.grub = {
-                enable = mkDefault true;
-                inherit device;
-            };
+            boot.loader.grub.enable = mkDefault true;
         }
 
         # BIOS:
@@ -59,10 +55,11 @@ with lib; {
                 canTouchEfiVariables = true;
             };
 
-            fileSystems.${config.boot.loader.efi.efiSysMountPoint} = {
-                device = "/dev/disk/by-label/NIXOS_EFI";
-                fsType = "vfat";
-            };
+            # NOTE: Managed by disko.
+            # fileSystems.${config.boot.loader.efi.efiSysMountPoint} = {
+            #     device = "/dev/disk/by-label/NIXOS_EFI";
+            #     fsType = "vfat";
+            # };
         })
 
         # UEFI: GRUB2 non-secure boot.
