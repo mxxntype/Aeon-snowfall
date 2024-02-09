@@ -254,7 +254,10 @@ pkgs.nuenv.writeScriptBin {
         def "main wp" [
             wallpaper: path # Path to the wallaper.
         ]: nothing -> nothing {
-            ${pkgs.swp.swp}/bin/swp $wallpaper
+            # `swp` is my rust binary, but I don't want to compile it when
+            # the script is used as an installer or something lightweight,
+            # so I access it here directly, not through nix.
+            swp $wallpaper
         }
     '';
 }
