@@ -4,3 +4,4 @@ overgrowth/wallpapers/leaves.jpg filter=lfs diff=lfs merge=lfs -text
 overgrowth/wallpapers/lilypads.jpg filter=lfs diff=lfs merge=lfs -text
 overgrowth/wallpapers/pond.jpg filter=lfs diff=lfs merge=lfs -text
 overgrowth/wallpapers/lilypads-1.jpg filter=lfs diff=lfs merge=lfs -text
+overgrowth/wallpapers/dystopia.png filter=lfs diff=lfs merge=lfs -text
