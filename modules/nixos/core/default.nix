@@ -39,6 +39,7 @@ with lib; {
         inherit (config.aeon.core) enable locale timezone;
     in mkIf enable {
         # Set up root's password.
+        sops.secrets."passwords/root".neededForUsers = true;
         users = {
             mutableUsers = mkDefault false;
             users.root = {
@@ -46,21 +47,29 @@ with lib; {
             };
         };
 
-        sops.secrets."passwords/root".neededForUsers = true;
-
         # Inherit common Nix settings.
         nix = { inherit (lib.aeon.nix) settings; };
 
+        # Allow running unpatched dynamic binaries on NixOS.
+        # See https://github.com/Mic92/nix-ld.
+        programs.nix-ld = {
+            enable = true;
+            # Libraries that automatically become available to all programs.
+            # The default set includes common libraries.
+            libraries = [];
+        };
+
         # Add some core packages.
         environment.systemPackages = with pkgs; [
-            home-manager # Make sure its always there
-            aeon.aeon
+            home-manager # Make sure its always there.
+            aeon.aeon    # System management script.
         ];
 
+        # Set up the timezone and locale.
         time.timeZone = timezone;
         i18n = {
             defaultLocale = locale.main;
-            supportedLocales = [ "${locale.main}/UTF-8" ] ++ (builtins.map (l: l + "/UTF-8") locale.misc);
+            supportedLocales = [ "${locale.main}/UTF-8" ] ++ (builtins.map (l: "${l}/UTF-8") locale.misc);
             extraLocaleSettings = {
                 LC_CTYPE          = locale.main;
                 LC_NUMERIC        = locale.main;
