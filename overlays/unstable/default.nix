@@ -18,5 +18,6 @@ final: prev: {
     inherit (channels.unstable)
         helix
         nushell
+        hyprland
         ;
 }
