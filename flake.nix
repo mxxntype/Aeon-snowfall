@@ -61,6 +61,13 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Pure and reproducible nix overlay of binary distributed rust toolchains.
+        # (Alternative to Fenix)
+        rust-overlay = {
+            url = "github:oxalica/rust-overlay";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         # Cargo build system for Nix.
         naersk.url = "github:nix-community/naersk";
         
@@ -154,6 +161,7 @@
         overlays = with inputs; [
             nuenv.overlays.nuenv
             fenix.overlays.default
+            rust-overlay.overlays.default
             swp.overlays."package/swp"
         ];
 
