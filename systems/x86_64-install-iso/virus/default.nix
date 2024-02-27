@@ -1,4 +1,4 @@
-# INFO: A move convenient installer ISO.
+# INFO: A more convenient installer ISO.
 
 {
     pkgs,
@@ -13,6 +13,7 @@
         sops
         ssh-to-age
         aeon.aeon
+        disko
     ];
 
     programs.git = {
