@@ -17,7 +17,7 @@ pkgs.nuenv.writeScriptBin {
                 true => ""
             }
             let command: string = $"($prefix)($rest | str join (char space))"
-            print $"(ansi magenta)smart-offload:(ansi reset) Running (ansi {fg: cyan, bg: black}) ($command) (ansi reset)"
+            print $"(ansi magenta)smart-offload:(ansi reset) Running (ansi {fg: cyan, bg: dark_gray}) ($command) (ansi reset)"
             exec ${pkgs.bash}/bin/bash -c $command
         }
     '';

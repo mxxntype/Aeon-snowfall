@@ -18,7 +18,7 @@ pkgs.nuenv.writeScriptBin {
 
             print ""
             print $sysinfo
-            print $"(ansi green)note: (ansi reset)Run (ansi {fg: cyan, bg: black}) aeon --help (ansi reset) to see more options.(char nl)"
+            print $"(ansi green)note: (ansi reset)Run (ansi {fg: cyan, bg: dark_gray}) aeon --help (ansi reset) to see more options.(char nl)"
         }
 
         # Garbage-collect the system.
@@ -189,7 +189,7 @@ pkgs.nuenv.writeScriptBin {
                 fg: string = "cyan",
                 attr: string = "n",
             ]: string -> string {
-                $"(ansi {fg: $fg, bg: black, attr: $attr}) ($in) (ansi reset)"
+                $"(ansi {fg: $fg, bg: dark_gray, attr: $attr}) ($in) (ansi reset)"
             }
         }
 
