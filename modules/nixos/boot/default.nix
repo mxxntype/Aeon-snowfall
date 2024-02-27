@@ -36,7 +36,7 @@ with lib; {
 
     config = let
         inherit (config.aeon.boot) type quiet encrypted;
-        inherit (config.networking) hostName;
+        # inherit (config.networking) hostName;
     in mkMerge [
         # Use GRUB2 by default.
         {
