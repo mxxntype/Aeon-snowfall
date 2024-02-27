@@ -10,6 +10,7 @@ pkgs.mkShell {
         util-linux
         efibootmgr
         btrfs-progs
+        sbctl
         git
         home-manager
         helix
