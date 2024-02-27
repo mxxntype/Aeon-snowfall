@@ -177,8 +177,5 @@ with lib; {
         # https://github.com/jordanisaacs/dotfiles/blob/master/modules/system/impermanence/default.nix
         # https://grahamc.com/blog/erase-your-darlings
         # (mkIf (type == "zfs" && ephemeral) { })
-
-        # TODO: LUKS(2).
-        # (mkIf encrypted { })
     ];
 }

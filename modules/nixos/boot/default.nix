@@ -50,10 +50,7 @@ with lib; {
 
         # UEFI: common options.
         (mkIf (type == "uefi" || type == "lanzaboote") {
-            boot.loader.efi = {
-                efiSysMountPoint = "/boot/efi";
-                canTouchEfiVariables = true;
-            };
+            boot.loader.efi.canTouchEfiVariables = true;
 
             # NOTE: Managed by disko.
             # fileSystems.${config.boot.loader.efi.efiSysMountPoint} = {
@@ -92,22 +89,22 @@ with lib; {
         (mkIf encrypted {
             boot = {
                 loader.grub.enableCryptodisk = true;
-                initrd = let
-                    FDE = type != "lanzaboote";
-                    keyfile = "/keyfile-${toLower hostName}.bin";
-                in {
-                    luks.devices."root" = {
-                        device = "/dev/disk/by-label/${toUpper hostName}_LUKS";
-                        preLVM = true;
-                        allowDiscards = true;
-                        keyFile = mkIf FDE keyfile;
-                    };
+                # initrd = let
+                #     FDE = type != "lanzaboote";
+                #     keyfile = "/keyfile-${toLower hostName}.bin";
+                # in {
+                #     luks.devices."root" = {
+                #         device = "/dev/disk/by-label/${toUpper hostName}_LUKS";
+                #         preLVM = true;
+                #         allowDiscards = true;
+                #         keyFile = mkIf FDE keyfile;
+                #     };
 
-                    # Include necessary keyfiles in the InitRD.
-                    secrets = mkIf FDE {
-                        ${keyfile} = "/etc/secrets/initrd/keyfile-${toLower hostName}.bin";
-                    };
-                };
+                #     # Include necessary keyfiles in the InitRD.
+                #     secrets = mkIf FDE {
+                #         ${keyfile} = "/etc/secrets/initrd/keyfile-${toLower hostName}.bin";
+                #     };
+                # };
             };
         })
         

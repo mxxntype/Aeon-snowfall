@@ -79,7 +79,10 @@
 
 
         # SECTION: Hyprland and plugins.
-        hyprland.url = "github:hyprwm/Hyprland";
+        hyprland = {
+            url = "github:hyprwm/Hyprland";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         hyprland-plugins = {
             url = "github:hyprwm/hyprland-plugins";
             inputs.hyprland.follows = "hyprland";
@@ -149,9 +152,10 @@
             impermanence.nixosModules.impermanence
             lanzaboote.nixosModules.lanzaboote
             disko.nixosModules.disko
+            hyprland.nixosModules.default
         ];
 
-        # Global home-manager modules.
+        # BUG: Any modules passed through here seem to cause evaluation issues.
         # homes.modules = with inputs; [
             # sops-nix.homeManagerModules.sops
             # hyprland.homeManagerModules.default
