@@ -116,7 +116,7 @@ with lib; {
                     theme = "breeze";
 
                     # WARN: Build sometimes fails with this uncommented for some reason.
-                    logo = ./planet-128x.png;
+                    logo = ./saturn-128x.png;
                     font = let
                         dir = "share/fonts/truetype/NerdFonts";
                         font = pkgs.nerdfonts.override {
