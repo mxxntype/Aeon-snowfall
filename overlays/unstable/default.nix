@@ -14,7 +14,7 @@
     ...
 }:
 
-final: prev: {
+_final: _prev: {
     inherit (channels.unstable)
         helix
         nushell
