@@ -6,6 +6,7 @@
 {
     aeon = {
         style.codename = "overgrowth";
+        desktop.hyprland.enable = true;
     };
 
     home = {
