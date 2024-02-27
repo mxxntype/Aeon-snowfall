@@ -13,7 +13,7 @@ with lib; {
 
     options.aeon.desktop.hyprland = {
         enable = mkOption {
-            description = "Wether to enable and configure Hyprland";
+            description = "Whether to enable and configure Hyprland";
             type = with types; bool;
             default = false;
         };
