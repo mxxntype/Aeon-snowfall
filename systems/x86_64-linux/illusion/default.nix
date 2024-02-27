@@ -2,6 +2,7 @@
 
 {
     config,
+    lib,
     ...
 }:
 
@@ -40,12 +41,11 @@
                         size = "100%";
                         content = {
                             type = "luks";
-                            name = "crypted";
-                            extraOpenArgs = [ ];
+                            name = "${lib.toUpper hostName}_LUKS";
                             settings.allowDiscards = true;
                             content = {
                                 type = "lvm_pv";
-                                vg = "${hostName}";
+                                vg = "${lib.toLower hostName}";
                             };
                         };
                     };
@@ -53,7 +53,7 @@
             };
         };
         
-        lvm_vg."${hostName}" = {
+        lvm_vg."${lib.toLower hostName}" = {
             type = "lvm_vg";
             lvs.root = {
                 size = "100%FREE";
