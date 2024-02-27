@@ -23,7 +23,7 @@ with lib; {
         inherit (config.aeon.desktop.hyprland)
             enable
             ;
-    in (mkIf enable {
+    in mkIf enable {
         wayland.windowManager.hyprland = {
             enable = true;
             settings = let
@@ -39,5 +39,5 @@ with lib; {
                 ]) 10);
             };
         };
-    });
+    };
 }
