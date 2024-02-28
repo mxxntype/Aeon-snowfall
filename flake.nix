@@ -132,6 +132,11 @@
             url = "github:YS-L/csvlens";
             flake = false;
         };
+
+        bluetui = {
+            url = "github:pythops/bluetui";
+            flake = false;
+        };
     };
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {

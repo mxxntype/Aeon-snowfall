@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "bluetui": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708877300,
+        "narHash": "sha256-g3sgBO8uzLvLiIp657eGv7dlWyW9BS6yFlmZjwOIATE=",
+        "owner": "pythops",
+        "repo": "bluetui",
+        "rev": "e2b6f921d837d7af9b38c5024e32b84a061b818a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pythops",
+        "repo": "bluetui",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -922,6 +938,7 @@
     },
     "root": {
       "inputs": {
+        "bluetui": "bluetui",
         "csvlens": "csvlens",
         "disko": "disko",
         "fenix": "fenix",
