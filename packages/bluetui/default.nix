@@ -1,3 +1,7 @@
+# INFO: TUI for managing bluetooth devices.
+#
+# https://github.com/pythops/bluetui
+
 {
     inputs,
     pkgs,

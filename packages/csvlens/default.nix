@@ -1,3 +1,7 @@
+# INFO: Command line CSV viewer.
+#
+# https://github.com/YS-L/csvlens
+
 {
     inputs,
     pkgs,
