@@ -13,7 +13,9 @@
             quiet = true;
             encrypted = true;
         };
+
         fs.type = "btrfs";
+        hardware.gpu.intel.enable = true;
     };
 
     disko.devices = let
