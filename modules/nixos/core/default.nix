@@ -36,7 +36,11 @@ with lib; {
     };
 
     config = let
-        inherit (config.aeon.core) enable locale timezone;
+        inherit (config.aeon.core)
+            enable
+            locale
+            timezone
+            ;
     in mkIf enable {
         # Set up root's password.
         sops.secrets."passwords/root".neededForUsers = true;
