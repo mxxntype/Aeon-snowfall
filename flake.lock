@@ -42,6 +42,22 @@
         "type": "github"
       }
     },
+    "csvlens": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708784688,
+        "narHash": "sha256-b8SuXx1uN9lBrCoEDLeudZwylHu+f2i/PQkfHA56YlE=",
+        "owner": "YS-L",
+        "repo": "csvlens",
+        "rev": "1f9753cd21664d4b06198b32f018da85d083b8ec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "YS-L",
+        "repo": "csvlens",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -906,6 +922,7 @@
     },
     "root": {
       "inputs": {
+        "csvlens": "csvlens",
         "disko": "disko",
         "fenix": "fenix",
         "hardware": "hardware",

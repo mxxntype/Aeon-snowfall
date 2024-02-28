@@ -125,6 +125,13 @@
                 snowfall-lib.follows = "snowfall-lib";
             };
         };
+
+        
+        # SECTION: Non-flake inputs.
+        csvlens = {
+            url = "github:YS-L/csvlens";
+            flake = false;
+        };
     };
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {
