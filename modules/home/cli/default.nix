@@ -49,16 +49,17 @@ with lib; {
             srm     # Secure `rm`
 
             # Text & image processors.
-            jq       # JSON processor.
-            jaq      # Its clone in Rust.
-            jc       # Parse output of various commands to JSON.
-            timg     # CLI image viewer.
-            toml2nix # Convert TOML to Nix.
-            exiftool # View EXIF metadata of files.
-            mpv      # Based video player.
-            hexyl    # Hex viewer.
-            heh      # Hex editor.
-            bc       # Arbitrary precision calculator.
+            jq             # JSON processor.
+            jaq            # Its clone in Rust.
+            jc             # Parse output of various commands to JSON.
+            timg           # CLI image viewer.
+            toml2nix       # Convert TOML to Nix.
+            exiftool       # View EXIF metadata of files.
+            mpv            # Based video player.
+            hexyl          # Hex viewer.
+            heh            # Hex editor.
+            bc             # Arbitrary precision calculator.
+            aeon.repalette # Recolor images to a certain palette.
 
             # Build systems & automation.
             gnumake # GNU make.

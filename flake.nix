@@ -132,9 +132,12 @@
             url = "github:YS-L/csvlens";
             flake = false;
         };
-
         bluetui = {
             url = "github:pythops/bluetui";
+            flake = false;
+        };
+        repalette = {
+            url = "github:ziap/repalette";
             flake = false;
         };
     };

@@ -936,6 +936,22 @@
         "type": "github"
       }
     },
+    "repalette": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1702892690,
+        "narHash": "sha256-XuEqzQVC52+gk9LaqI3V/LYXDWDrDhpKMRoltepYAXs=",
+        "owner": "ziap",
+        "repo": "repalette",
+        "rev": "404fb7a54d79a0a15e3cb6299ee41d952e0e5ddb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ziap",
+        "repo": "repalette",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "bluetui": "bluetui",
@@ -958,6 +974,7 @@
         "nixpkgs": "nixpkgs_4",
         "nuenv": "nuenv",
         "reddot": "reddot",
+        "repalette": "repalette",
         "rust-overlay": "rust-overlay_3",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",
