@@ -28,8 +28,9 @@ with lib; {
         };
 
         home.packages = with pkgs; [
-            duf    # Neat disk monitor.
-            nvtop  # GPU monitor. # FIXME: Don't add on minimal systems.
+            duf       # Neat disk monitor.
+            bandwhich # Bandwidth utilization tool.
+            dua       # View disk space usage and delete unwanted data.
 
             # Networking.
             nmap         # Port scanner.
@@ -85,9 +86,10 @@ with lib; {
             sops       # An editor of encrypted files (for `sops-nix`)
             ssh-to-age # Convert ED25519 SSH private keys to age keys.
 
-            # Terminal recording.
+            # Terminal recording and fun.
             vhs
             asciinema
+            minesweep-rs
 
             # Benchmarking.
             hyperfine
