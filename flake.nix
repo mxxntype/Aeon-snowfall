@@ -170,12 +170,6 @@
             hyprland.nixosModules.default
         ];
 
-        # BUG: Any modules passed through here seem to cause evaluation issues.
-        # homes.modules = with inputs; [
-            # sops-nix.homeManagerModules.sops
-            # hyprland.homeManagerModules.default
-        # ];
-
         # Overlays for Nixpkgs.
         overlays = with inputs; [
             nuenv.overlays.nuenv
