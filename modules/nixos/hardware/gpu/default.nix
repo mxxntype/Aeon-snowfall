@@ -75,7 +75,10 @@ with lib; {
         (mkIf core.enable {
             # Exclude `nvtop` from minimal systems.
             environment.systemPackages = with pkgs; [ aeon.smart-offload ] ++
-                (if (config.networking.hostName != "illusion")
+                (if !(builtins.elem config.networking.hostName [
+                    "illusion"
+                    "virus"
+                ])
                     then [ nvtop ]
                     else [ ]);
         })
