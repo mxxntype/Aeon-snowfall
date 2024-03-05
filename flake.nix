@@ -140,6 +140,10 @@
             url = "github:ziap/repalette";
             flake = false;
         };
+        srgn = {
+            url = "github:alexpovel/srgn";
+            flake = false;
+        };
     };
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {

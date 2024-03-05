@@ -978,6 +978,7 @@
         "rust-overlay": "rust-overlay_3",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",
+        "srgn": "srgn",
         "swp": "swp",
         "unstable": "unstable",
         "zjstatus": "zjstatus"
@@ -1133,6 +1134,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "srgn": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709550394,
+        "narHash": "sha256-qUkuE0Tws7pl0Hd9Dsi6+V74ErCv+BwdvTdCbvAjgIc=",
+        "owner": "alexpovel",
+        "repo": "srgn",
+        "rev": "9df9fe772df140c2cd0f3c8311c1e12c210838de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alexpovel",
+        "repo": "srgn",
         "type": "github"
       }
     },
