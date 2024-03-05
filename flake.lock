@@ -586,6 +586,27 @@
         "type": "github"
       }
     },
+    "matugen": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1706981050,
+        "narHash": "sha256-QxwHP7lKxmF62azsGssarQg6YDrugaUhK5JChKhlkRQ=",
+        "owner": "InioX",
+        "repo": "matugen",
+        "rev": "f0d47fdffc7e83c8976e497eac46b72c03aec702",
+        "type": "github"
+      },
+      "original": {
+        "owner": "InioX",
+        "ref": "v2.1.0",
+        "repo": "matugen",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -967,6 +988,7 @@
         "hyprquery": "hyprquery",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "matugen": "matugen",
         "naersk": "naersk_2",
         "ndrs": "ndrs",
         "nix-std": "nix-std",

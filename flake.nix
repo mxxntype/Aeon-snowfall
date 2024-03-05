@@ -104,6 +104,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # A Material You color generation tool.
+        matugen = {
+            url = "github:InioX/matugen/v2.1.0";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
         # SECTION: My other flakes.
         hyprquery = {
