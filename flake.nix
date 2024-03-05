@@ -184,5 +184,10 @@
                 description = "Rust crate template for cargo-generate";
             };
         };
+
+        alias = {
+            shells.default = "bootstrap";
+            packages.default = "aeon";
+        };
     };
 }
