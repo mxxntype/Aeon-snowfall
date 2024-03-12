@@ -83,10 +83,6 @@ with lib; {
             pipes-rs
             lolcat
 
-            # Secrets.
-            sops       # An editor of encrypted files (for `sops-nix`)
-            ssh-to-age # Convert ED25519 SSH private keys to age keys.
-
             # Terminal recording and fun.
             vhs
             asciinema
