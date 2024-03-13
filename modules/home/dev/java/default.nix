@@ -21,8 +21,14 @@ with lib; {
             ;
     in mkIf enable {
         home.packages = with pkgs; [
+            gradle
+            maven
+            jdk
             google-java-format
             jdt-language-server
         ];
+
+        # Environment variable specifying the plugin directory of the language server.
+        home.sessionVariables.JDTLS_PATH = "${pkgs.jdt-language-server}/share/java";
     };
 }
