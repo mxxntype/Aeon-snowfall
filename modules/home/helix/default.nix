@@ -5,6 +5,7 @@
 {
     config,
     lib,
+    pkgs,
     ...
 }:
 
@@ -17,13 +18,17 @@ with lib; {
         };
     };
 
-    config = mkIf config.aeon.helix.enable {
+    config = let
+        inherit (config.aeon.helix)
+            enable
+            ;
+    in mkIf enable {
         programs.nushell.environmentVariables.EDITOR = "hx";
         programs.helix = {
             enable = true;
             defaultEditor = true; # BUG: Isn't recognized by Nushell.
             settings = {
-                # theme = "nix"; # TODO
+                # theme = "nix"; # TODO.
                 editor = {
                     idle-timeout = 0;
                     completion-trigger-len = 1;
@@ -56,10 +61,10 @@ with lib; {
                             "file-type"
                         ];
 
-                        mode = {
-                            normal = "󰚄 NORMAL";
-                            insert = "󰚄 INSERT";
-                            select = "󰚄 SELECT";
+                        mode = let icon = "󰚄"; in {
+                            normal = "${icon} NORMAL";
+                            insert = "${icon} INSERT";
+                            select = "${icon} SELECT";
                         };
                     };
                 };
@@ -77,27 +82,112 @@ with lib; {
                 };
             };
 
-            languages.language = [
-                {
-                    name = "rust";
-                    auto-format = true;
-                }
-                {
-                    name = "c";
-                    auto-format = true;
-                }
-                {
-                    name = "cpp";
-                    auto-format = true;
-                }
-                {
-                    name = "nix";
-                    indent = {
-                        tab-width = 4;
-                        unit = "    ";
+            # Language and LSP config.
+            languages = {
+                language = [
+                    {
+                        name = "rust";
+                        auto-format = true;
+                    }
+
+                    {
+                        name = "c";
+                        auto-format = true;
+                    }
+
+                    {
+                        name = "cpp";
+                        auto-format = true;
+                    }
+
+                    {
+                        name = "nix";
+                        indent = {
+                            tab-width = 4;
+                            unit = "    ";
+                        };
+                    }
+
+                    {
+                        name = "javascript";
+                        auto-format = true;
+                        language-servers = [
+                            {
+                                name = "typescript-language-server";
+                                except-features = [ "format" ];
+                            }
+                            "biome"
+                        ];
+                    }
+
+                    {
+                        name = "typescript";
+                        auto-format = true;
+                        language-servers = [
+                            {
+                                name = "typescript-language-server";
+                                except-features = [ "format" ];
+                            }
+                            "biome"
+                        ];
+                    }
+
+                    {
+                        name = "tsx";
+                        auto-format = true;
+                        language-servers = [
+                            {
+                                name = "typescript-language-server";
+                                except-features = [ "format" ];
+                            }
+                            "biome"
+                        ];
+                    }
+
+                    {
+                        name = "jsx";
+                        auto-format = true;
+                        language-servers = [
+                            {
+                                name = "typescript-language-server";
+                                except-features = [ "format" ];
+                            }
+                            "biome"
+                        ];
+                    }
+
+                    {
+                        name = "json";
+                        language-servers = [
+                            {
+                                name = "json-language-server";
+                                except-features = [ "format" ];
+                            }
+                            "biome"
+                        ];
+                    }
+
+                    {
+                        name = "java";
+                        auto-format = true;
+                        indent = {
+                            tab-width = 4;
+                            unit = "    ";
+                        };
+                        formatter = {
+                            command = "${pkgs.google-java-format}/bin/google-java-format";
+                            args = [ "--aosp" "-" ];
+                        };
+                    }
+                ];
+
+                language-server = {
+                    biome = {
+                        command = "${pkgs.biome}/bin/biome";
+                        args = [ "lsp-proxy" ];
                     };
-                }
-            ];
+                };
+            };
         };
     };
 }
