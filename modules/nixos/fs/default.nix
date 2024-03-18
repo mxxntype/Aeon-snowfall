@@ -154,6 +154,7 @@ with lib; {
                         "/var/lib/nixos"
                         "/var/log"
                         "/srv"
+                        "/etc/NetworkManager/system-connections"
                     ];
                 };
             };
