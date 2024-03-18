@@ -23,7 +23,7 @@ with lib; {
             enable
             ;
     in mkIf enable {
-        home.persistence."${lib.aeon.persist}/home" = {
+        home.persistence."${lib.aeon.persist}/home/${lib.aeon.user}" = {
             directories = let
                 xdgDirs = builtins.map
                     (dir: builtins.replaceStrings [ "${config.home.homeDirectory}/" ] [ "" ] dir)
