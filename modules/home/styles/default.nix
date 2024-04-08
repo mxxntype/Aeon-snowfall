@@ -10,8 +10,9 @@ with lib;
 let
     # Automatically detect possible styles.
     directoryContents = builtins.readDir ./.;
-    possibleCodenames = builtins.filter (e: directoryContents.${e} == "directory")
-                                     (builtins.attrNames directoryContents);
+    possibleCodenames = builtins.filter
+        (e: directoryContents.${e} == "directory")
+        (builtins.attrNames directoryContents);
 
     # Storage for whatever data.
     mkAttrsOption = mkOption {
@@ -22,7 +23,11 @@ let
     # Wallpapers found in styles' subdirs.
     wallpapers = {
         byCodename = { codename }: builtins.attrNames (builtins.readDir ./${codename}/wallpapers);
-        all = flatten (builtins.map (codename: builtins.map (wp: "${codename}/wallpapers/${wp}") (wallpapers.byCodename { inherit codename; })) possibleCodenames);
+        all = flatten (builtins.map
+            (codename: builtins.map
+                (wp: "${codename}/wallpapers/${wp}")
+                (wallpapers.byCodename { inherit codename; }))
+            possibleCodenames);
     };
 in
 
