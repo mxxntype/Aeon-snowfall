@@ -19,5 +19,7 @@ _final: _prev: {
         helix
         nushell
         hyprland
+        wezterm
+        alacritty
         ;
 }
