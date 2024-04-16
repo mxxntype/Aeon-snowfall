@@ -42,6 +42,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        nix-topology = {
+            url = "github:oddlama/nix-topology";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
         # SECTION: Hardware.
         # Lanzaboote, UEFI secure boot for NixOS.
@@ -178,6 +183,7 @@
             lanzaboote.nixosModules.lanzaboote
             disko.nixosModules.disko
             hyprland.nixosModules.default
+            # nix-topology.nixosModules.default
         ];
 
         # Overlays for Nixpkgs.
@@ -185,6 +191,7 @@
             nuenv.overlays.nuenv
             fenix.overlays.default
             rust-overlay.overlays.default
+            # nix-topology.overlays.default
             swp.overlays."package/swp"
         ];
 
@@ -199,5 +206,14 @@
             shells.default = "bootstrap";
             packages.default = "aeon";
         };
+
+        # outputs-builder = channels: {
+        #     topology = import inputs.nix-topology {
+        #         pkgs = channels.nixpkgs;
+        #         modules = [
+        #             { inherit (outputs) nixosConfigurations; }
+        #         ];
+        #     };
+        # };
     };
 }
