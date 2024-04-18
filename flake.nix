@@ -42,6 +42,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Generate infrastructure and network diagrams directly from your NixOS configurations.
         nix-topology = {
             url = "github:oddlama/nix-topology";
             inputs.nixpkgs.follows = "nixpkgs";
