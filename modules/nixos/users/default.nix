@@ -24,6 +24,7 @@ with lib; {
                 ] ++ ifPresent [
                     "networkmanager"
                     "docker"
+                    "podman"
                     "git"
                     "libvirtd"
                 ];
