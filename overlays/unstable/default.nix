@@ -17,9 +17,12 @@
 _final: _prev: {
     inherit (channels.unstable)
         helix
+        helix-gpt
         nushell
         hyprland
         wezterm
         alacritty
+        ytdownloader
+        nh
         ;
 }
