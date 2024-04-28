@@ -28,7 +28,7 @@ with lib; {
         })
 
         (mkIf (shell.default == "nushell") {
-            users.users.${aeon.user}.shell = pkgs.nushellFull;
+            users.users.${aeon.user}.shell = pkgs.nushell;
         })
     ]);
 }

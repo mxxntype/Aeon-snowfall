@@ -22,7 +22,7 @@ with lib; {
         programs = {
             nushell = {
                 enable = true;
-                package = pkgs.nushellFull;
+                package = pkgs.nushell;
 
                 # HACK: Nushell doesn't pick up some envvars sometimes.
                 #
