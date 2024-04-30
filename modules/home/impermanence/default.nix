@@ -13,7 +13,7 @@ with lib; {
     options.aeon.impermanence = {
         enable = mkOption {
             type = with types; bool;
-            default = true;
+            default = false;
             description = "Whether to apply common configurations to Impermanence";
         };
     };
