@@ -1,6 +1,6 @@
 # INFO: Atuin Home-manager module.
 #
-# FIXME: Tweak & incude the `init.nu` file.
+# FIXME: Tweak & include the `init.nu` file.
 
 {
     config,
