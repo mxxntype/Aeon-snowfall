@@ -1,4 +1,6 @@
 # INFO: Atuin Home-manager module.
+#
+# FIXME: Tweak & incude the `init.nu` file.
 
 {
     config,
@@ -12,7 +14,7 @@ with lib; {
         enable = mkOption {
             description = "Whether to enable Atuin, the magical shell history";
             type = types.bool;
-            default = true;
+            default = false; # TODO
         };
 
         sync = mkOption {
