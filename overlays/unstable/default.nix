@@ -19,7 +19,7 @@ _final: _prev: {
         helix
         helix-gpt
         nushell
-        atuin
+        # atuin # BUG: Nix store collision...
         hyprland
         wezterm
         alacritty
