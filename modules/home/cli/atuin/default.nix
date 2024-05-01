@@ -14,7 +14,7 @@ with lib; {
         enable = mkOption {
             description = "Whether to enable Atuin, the magical shell history";
             type = types.bool;
-            default = false; # TODO
+            default = true;
         };
 
         sync = mkOption {
@@ -49,7 +49,7 @@ with lib; {
                 };
 
                 nushell = {
-                    configFile.text = lib.mkAfer /* nu */ ''
+                    configFile.text = lib.mkAfter /* nu */ ''
                         $env.ATUIN_SESSION = (atuin uuid)
                         hide-env -i ATUIN_HISTORY_ID
 
