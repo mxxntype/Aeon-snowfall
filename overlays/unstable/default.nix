@@ -19,6 +19,7 @@ _final: _prev: {
         helix
         helix-gpt
         nushell
+        atuin
         hyprland
         wezterm
         alacritty
