@@ -1350,11 +1350,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707505672,
-        "narHash": "sha256-EO6ujXy2Clky3VGyIebn2STMWLs6xF23JfgvtW8UMms=",
+        "lastModified": 1714595022,
+        "narHash": "sha256-l1YJUzBEp6gejDL2EiOpcbdQcyl0sHCeX6qanPy3MS0=",
         "ref": "refs/heads/main",
-        "rev": "dc306d0387a967c46c9428264fd25f7ffb99611a",
-        "revCount": 11,
+        "rev": "01b7a306d783da0936851f45db3d607ac8e84dce",
+        "revCount": 12,
         "type": "git",
         "url": "ssh://git@github.com/mxxntype/swp.git"
       },
