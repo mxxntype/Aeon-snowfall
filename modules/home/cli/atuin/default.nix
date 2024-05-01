@@ -1,6 +1,4 @@
 # INFO: Atuin Home-manager module.
-#
-# FIXME: Tweak & include the `init.nu` file.
 
 {
     config,
@@ -46,6 +44,8 @@ with lib; {
                         style = "compact";
                         inline_height = 24;
                     };
+
+                    enableNushellIntegration = false;
                 };
 
                 nushell = {
