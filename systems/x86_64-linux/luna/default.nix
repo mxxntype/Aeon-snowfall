@@ -31,6 +31,7 @@
         };
 
         gaming.enable = true;
+        services.whoogle.enable = true;
     };
 
     disko.devices = let
