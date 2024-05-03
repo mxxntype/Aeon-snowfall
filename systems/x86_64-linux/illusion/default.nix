@@ -14,6 +14,8 @@
             encrypted = true;
         };
 
+        docker.enable = true;
+
         fs.type = "btrfs";
         hardware.gpu.intel.enable = true;
     };
