@@ -25,5 +25,6 @@ _final: _prev: {
         alacritty
         ytdownloader
         nh
+        uv
         ;
 }

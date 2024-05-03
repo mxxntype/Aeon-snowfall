@@ -179,12 +179,46 @@ with lib; {
                             args = [ "--aosp" "-" ];
                         };
                     }
+
+                    {
+                        name = "python";
+                        auto-format = true;
+                        language-servers = [ "pyright" "ruff" "pylsp" ];
+                        formatter = {
+                            command = "${pkgs.black}/bin/black";
+                            args = [ "--quiet" "-" ];
+                        };
+                    }
                 ];
 
                 language-server = {
+                    # LANG: JavaScript
+                    #
+                    # An all-in-one, versatile LSP for JS/TS.
                     biome = {
                         command = "${pkgs.biome}/bin/biome";
                         args = [ "lsp-proxy" ];
+                    };
+
+                    # LANG: Any.
+                    #
+                    # GitHub Copilot inside of Helix.
+                    helix-gpt = {
+                        command = "helix-gpt";
+                        args = [ "--handler" "copilot" ];
+                    };
+
+                    # LANG: Python.
+                    #
+                    # Type checker for the Python language.
+                    pyright = {
+                        config.python.analysis.typeCheckingMode = "basic";
+                    };
+
+                    # An extremely fast Python linter, in Rust.
+                    ruff = {
+                        command = "${pkgs.ruff-lsp}/bin/ruff-lsp";
+                        config.settings.args = [ "--ignore" "E501" ];
                     };
                 };
             };
