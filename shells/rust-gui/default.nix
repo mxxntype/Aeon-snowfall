@@ -15,9 +15,9 @@
 pkgs.mkShell rec {
     nativeBuildInputs = with pkgs; [
         pkg-config
-        cargo
-        rustc
-        rustfmt
+        nasm
+        perl
+        cmake
     ];
 
     buildInputs = with pkgs; [
@@ -25,6 +25,8 @@ pkgs.mkShell rec {
         udev
         alsa-lib
         vulkan-loader
+        libGL
+        gtk3
         # X11.
         xorg.libX11
         xorg.libXcursor
@@ -33,7 +35,6 @@ pkgs.mkShell rec {
         # Wayland.
         libxkbcommon
         wayland
-
     ];
 
     LD_LIBRARY_PATH = lib.makeLibraryPath buildInputs;
