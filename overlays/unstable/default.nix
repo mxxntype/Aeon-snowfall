@@ -27,5 +27,6 @@ _final: _prev: {
         prismlauncher
         nh
         uv
+        cargo-wizard
         ;
 }
