@@ -8,10 +8,13 @@ authors = ["{{authors}}"]
 unsafe_code = "forbid"
 
 [lints.clippy]
-enum_glob_use = "deny"
 pedantic = "deny"
 nursery = "deny"
 complexity = "deny"
 perf = "deny"
+enum_glob_use = { level = "deny", priority = 1 }
+single_match_else = { level = "allow", priority = 1 }
+option_if_let_else = { level = "allow", priority = 1 }
+or_fun_call = { level = "allow", priority = 1 }
 
 [dependencies]
