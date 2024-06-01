@@ -24,6 +24,7 @@ _final: _prev: {
         wezterm
         alacritty
         ytdownloader
+        prismlauncher
         nh
         uv
         ;

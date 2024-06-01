@@ -1,0 +1,6 @@
+{
+    pkgs,
+    ...
+}:
+
+pkgs.telegram-desktop
