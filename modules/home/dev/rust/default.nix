@@ -104,6 +104,22 @@ with lib; {
                 # https://github.com/fprasx/cargo-unfmt
                 cargo-unfmt
 
+                # Audit your dependencies for crates with security vulnerabilities reported to the RustSec Advisory Database.
+                # https://github.com/rustsec/rustsec/tree/main/cargo-audit
+                cargo-audit
+
+                # Display when Rust dependencies are out of date.
+                # https://github.com/kbknapp/cargo-outdated
+                cargo-outdated
+
+                # Lists licenses of all dependencies.
+                # https://github.com/onur/cargo-license
+                cargo-license
+
+                # Show results of macro expansion.
+                # https://github.com/dtolnay/cargo-expand
+                cargo-expand
+
                 trunk      # Build, bundle & ship your Rust WASM application to the web.
                 bacon      # Background rust code checker.
                 diesel-cli # Database tool for working with projects that use Diesel.
