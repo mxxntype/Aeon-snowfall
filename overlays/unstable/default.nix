@@ -28,5 +28,6 @@ _final: _prev: {
         nh
         uv
         cargo-wizard
+        cargo-unfmt
         ;
 }
