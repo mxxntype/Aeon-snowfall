@@ -23,10 +23,10 @@ with lib; {
             enable
             ;
     in mkIf enable {
-        programs.nushell.environmentVariables.EDITOR = "hx";
         programs.helix = {
+            package = pkgs.aeon.helix;
             enable = true;
-            defaultEditor = true; # BUG: Isn't recognized by Nushell.
+            defaultEditor = true;
             settings = {
                 # theme = "nix"; # TODO.
                 editor = {
@@ -49,13 +49,13 @@ with lib; {
                             "mode"
                             "spinner"
                             "version-control"
+                            "diagnostics"
                         ];
                         center = [
                             "file-name"
                             "file-modification-indicator"
                         ];
                         right = [
-                            "diagnostics"
                             "position"
                             "file-encoding"
                             "file-type"
@@ -84,7 +84,32 @@ with lib; {
 
             # Language and LSP config.
             languages = {
-                language = [
+                language = let
+                    # A shorthand for creating a configuration for a JS-like language.
+                    mkJSDialect = { name }: {
+                        inherit name;
+                        auto-format = true;
+                        language-servers = [
+                            {
+                                name = "typescript-language-server";
+                                except-features = [ "format" ];
+                            }
+                            "biome"
+                        ];
+                    };
+
+                    # A shorthand for configuring JSON / JSON5.
+                    mkJSON = { name }: {
+                        inherit name;
+                        language-servers = [
+                            {
+                                name = "json-language-server";
+                                except-features = [ "format" ];
+                            }
+                            "biome"
+                        ];
+                    };
+                in [
                     {
                         name = "rust";
                         auto-format = true;
@@ -108,64 +133,15 @@ with lib; {
                         };
                     }
 
-                    {
-                        name = "javascript";
-                        auto-format = true;
-                        language-servers = [
-                            {
-                                name = "typescript-language-server";
-                                except-features = [ "format" ];
-                            }
-                            "biome"
-                        ];
-                    }
+                    # These have literally the same configuration.
+                    (mkJSDialect { name = "javascript"; })
+                    (mkJSDialect { name = "typescript"; })
+                    (mkJSDialect { name = "jsx"; })
+                    (mkJSDialect { name = "tsx"; })
 
-                    {
-                        name = "typescript";
-                        auto-format = true;
-                        language-servers = [
-                            {
-                                name = "typescript-language-server";
-                                except-features = [ "format" ];
-                            }
-                            "biome"
-                        ];
-                    }
-
-                    {
-                        name = "tsx";
-                        auto-format = true;
-                        language-servers = [
-                            {
-                                name = "typescript-language-server";
-                                except-features = [ "format" ];
-                            }
-                            "biome"
-                        ];
-                    }
-
-                    {
-                        name = "jsx";
-                        auto-format = true;
-                        language-servers = [
-                            {
-                                name = "typescript-language-server";
-                                except-features = [ "format" ];
-                            }
-                            "biome"
-                        ];
-                    }
-
-                    {
-                        name = "json";
-                        language-servers = [
-                            {
-                                name = "json-language-server";
-                                except-features = [ "format" ];
-                            }
-                            "biome"
-                        ];
-                    }
+                    # And these too.
+                    (mkJSON { name = "json";  })
+                    (mkJSON { name = "json5"; })
 
                     {
                         name = "java";
@@ -189,27 +165,32 @@ with lib; {
                             args = [ "--quiet" "-" ];
                         };
                     }
+
+                    # A new markup-based typesetting system that is powerful and easy to learn.
+                    {
+                        name = "typst";
+                        auto-format = true;
+                        language-servers = [ "typst-lsp" ];
+                        formatter = {
+                            command = "${pkgs.aeon.prettypst}/bin/prettypst";
+                            args = [ "--use-std-in" "--use-std-out" "--style=otbs" ];
+                        };
+                    }
                 ];
 
                 language-server = {
-                    # LANG: JavaScript
-                    #
                     # An all-in-one, versatile LSP for JS/TS.
                     biome = {
                         command = "${pkgs.biome}/bin/biome";
                         args = [ "lsp-proxy" ];
                     };
 
-                    # LANG: Any.
-                    #
                     # GitHub Copilot inside of Helix.
                     helix-gpt = {
                         command = "helix-gpt";
                         args = [ "--handler" "copilot" ];
                     };
 
-                    # LANG: Python.
-                    #
                     # Type checker for the Python language.
                     pyright = {
                         config.python.analysis.typeCheckingMode = "basic";
