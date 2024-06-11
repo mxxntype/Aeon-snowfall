@@ -29,5 +29,6 @@ _final: _prev: {
         uv
         cargo-wizard
         cargo-unfmt
+        prettypst
         ;
 }
