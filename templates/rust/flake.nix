@@ -2,7 +2,7 @@
     description = "{{package-name}}";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
         naersk.url = "github:nix-community/naersk";
         snowfall-lib = {
             url = "github:snowfallorg/lib";

@@ -79,7 +79,7 @@ with lib; {
                     "illusion"
                     "virus"
                 ])
-                    then [ nvtop ]
+                    then [ nvtopPackages.full ]
                     else [ ]);
         })
 

@@ -40,7 +40,7 @@ with lib; {
         #
         # FIXME: Turns out this is insecure.
         # https://github.com/NixOS/nixpkgs/issues/31611
-        security.pam.enableSSHAgentAuth = true;
+        security.pam.sshAgentAuth.enable = true;
 
         programs = {
             # WARN: Common shells like Bash, Zsh and Fish will pick this up,
