@@ -32,6 +32,7 @@
 
         gaming.enable = true;
         services.whoogle.enable = true;
+        net.tailscale.ACLtags = [ "client" ];
     };
 
     disko.devices = let
