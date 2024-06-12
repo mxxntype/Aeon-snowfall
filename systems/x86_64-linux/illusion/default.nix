@@ -17,7 +17,11 @@
         docker.enable = true;
         fs.type = "btrfs";
         hardware.gpu.intel.enable = true;
-        net.tailscale.ACLtags = [ "vm" ];
+        net.tailscale = {
+            ACLtags = [ "vm" ];
+            advertiseExitNode = true;
+            exitNode = "wisp";
+        };
     };
 
     disko.devices = let

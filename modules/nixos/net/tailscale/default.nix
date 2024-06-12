@@ -3,6 +3,7 @@
 {
     config,
     lib,
+    pkgs,
     ...
 }:
 
@@ -51,6 +52,12 @@ with lib; {
             advertiseExitNode
             exitNode
             ;
+        tailnet = "raven-mixolydian.ts.net";
+        exit_node = rec {
+            server = advertiseExitNode;
+            client = exitNode != "";
+            hostname = if client then exitNode else null;
+        };
     in mkIf enable {
         services.tailscale = mkMerge [
             {
@@ -63,14 +70,18 @@ with lib; {
                 #
                 # When set to "client" or "both", reverse path filtering will be set to loose instead of strict.
                 # When set to "server" or "both", IP forwarding will be enabled.
-                useRoutingFeatures = "both";
+                useRoutingFeatures =
+                    if exit_node.server && exit_node.client then "both"
+                    else if exit_node.server then "server"
+                    else if exit_node.client then "client"
+                    else "none";
 
                 extraUpFlags = [
-                    "--operator=${lib.aeon.user}"       # Allow me to magane `tailscaled` without `sudo`.
+                    "--operator=${lib.aeon.user}" # Allow me to manage `tailscaled` without `sudo`.
                     "--advertise-tags=${builtins.concatStringsSep "," (builtins.map (tag: "tag:${tag}") ACLtags)}"
-                    "--exit-node=${exitNode}"
-                    (mkIf (exitNode != "") "--exit-node-allow-lan-access=true") # Direct access to local network when using an exit node.
-                    (mkIf advertiseExitNode "--advertise-exit-node")
+                    "--exit-node=${if (exit_node.client) then "$(${pkgs.dig}/bin/dig ${exit_node.hostname}.${tailnet} A +short | head -n 1)" else ""}"
+                    "--exit-node-allow-lan-access=${if exit_node.client then "true" else "false"}"
+                    (mkIf exit_node.server "--advertise-exit-node")
                 ];
             }
 
