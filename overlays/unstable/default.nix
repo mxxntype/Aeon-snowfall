@@ -29,6 +29,8 @@ _final: _prev: {
         pastel
         prettypst
         prismlauncher
+        tailscale
+        tailscaled
         uv
         wezterm
         ytdownloader
