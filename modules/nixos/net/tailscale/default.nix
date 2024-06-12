@@ -67,9 +67,9 @@ with lib; {
 
                 extraUpFlags = [
                     "--operator=${lib.aeon.user}"       # Allow me to magane `tailscaled` without `sudo`.
-                    "--exit-node-allow-lan-access=true" # Direct access to local network when using an exit node.
                     "--advertise-tags=${builtins.concatStringsSep "," (builtins.map (tag: "tag:${tag}") ACLtags)}"
                     "--exit-node=${exitNode}"
+                    (mkIf (exitNode != "") "--exit-node-allow-lan-access=true") # Direct access to local network when using an exit node.
                     (mkIf advertiseExitNode "--advertise-exit-node")
                 ];
             }
