@@ -34,7 +34,7 @@ with lib; {
             default = false;
         };
 
-        exitNode = mkOption {
+        exitNodeIP = mkOption {
             description = "What exit node to connect this device to. Leave empty to keep disabled";
             type = with types; str;
             default = "";
@@ -50,13 +50,12 @@ with lib; {
             useAuthKey
             ACLtags
             advertiseExitNode
-            exitNode
+            exitNodeIP
             ;
-        tailnet = "raven-mixolydian.ts.net";
         exit_node = rec {
             server = advertiseExitNode;
-            client = exitNode != "";
-            hostname = if client then exitNode else null;
+            client = exitNodeIP != "";
+            ip = if client then exitNodeIP else "";
         };
     in mkIf enable {
         services.tailscale = mkMerge [
@@ -79,7 +78,7 @@ with lib; {
                 extraUpFlags = [
                     "--operator=${lib.aeon.user}" # Allow me to manage `tailscaled` without `sudo`.
                     "--advertise-tags=${builtins.concatStringsSep "," (builtins.map (tag: "tag:${tag}") ACLtags)}"
-                    "--exit-node=${if (exit_node.client) then "$(${pkgs.dig}/bin/dig ${exit_node.hostname}.${tailnet} A +short | head -n 1)" else ""}"
+                    "--exit-node=${exit_node.ip}"
                     "--exit-node-allow-lan-access=${if exit_node.client then "true" else "false"}"
                     (mkIf exit_node.server "--advertise-exit-node")
                 ];

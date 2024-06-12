@@ -20,7 +20,7 @@
         net.tailscale = {
             ACLtags = [ "vm" ];
             advertiseExitNode = true;
-            exitNode = "wisp";
+            exitNodeIP = "100.71.22.83";
         };
     };
 
