@@ -49,10 +49,12 @@ with lib; {
                 };
 
                 nushell = {
-                    configFile.text = lib.mkAfter /* nu */ ''
+                    envFile.text = lib.mkAfter /* nu */ ''
                         $env.ATUIN_SESSION = (atuin uuid)
                         hide-env -i ATUIN_HISTORY_ID
+                    '';
 
+                    configFile.text = lib.mkAfter /* nu */ ''
                         # Magic token to make sure we don"t record commands run by keybindings
                         let ATUIN_KEYBINDING_TOKEN = $"# (random uuid)"
 
@@ -96,7 +98,7 @@ with lib; {
                                 # HACK: The code above worked before `--redirect-stderr` got deprecated,
                                 # the line below is simply the evaluated above expression with `e>|` added
                                 # to replicate the deprecated functionality. Works now, I think?..
-                                'commandline edit (ATUIN_LOG=error atuin search "--interactive" "--" (commandline) e>| complete | $in.stderr | str substring ..-1)'
+                                'commandline edit (ATUIN_LOG=error atuin search "--interactive" "--" (commandline) e>| complete | get stdout | str trim)'
                             ] | str join "\n"
                         }
 
@@ -119,20 +121,21 @@ with lib; {
                             }
                         ))
 
-                        $env.config = ($env.config | upsert keybindings (
-                            $env.config.keybindings | append {
-                                name: atuin
-                                modifier: none
-                                keycode: up
-                                mode: [emacs, vi_normal, vi_insert]
-                                event: {
-                                    until: [
-                                        {send: menuup}
-                                        {send: executehostcommand cmd: (_atuin_search_cmd "--shell-up-key-binding") }
-                                    ]
-                                }
-                            }
-                        ))
+                        # INFO: Don't open up the search menu when the up arrow is pressed.
+                        # $env.config = ($env.config | upsert keybindings (
+                        #     $env.config.keybindings | append {
+                        #         name: atuin
+                        #         modifier: none
+                        #         keycode: up
+                        #         mode: [emacs, vi_normal, vi_insert]
+                        #         event: {
+                        #             until: [
+                        #                 {send: menuup}
+                        #                 {send: executehostcommand cmd: (_atuin_search_cmd "--shell-up-key-binding") }
+                        #             ]
+                        #         }
+                        #     }
+                        # ))
                     '';
                 };
             };
