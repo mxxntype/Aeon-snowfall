@@ -15,9 +15,9 @@
         };
 
         docker.enable = true;
-
         fs.type = "btrfs";
         hardware.gpu.intel.enable = true;
+        net.tailscale.ACLtags = [ "vm" ];
     };
 
     disko.devices = let
