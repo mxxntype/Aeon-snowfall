@@ -16,19 +16,21 @@
 
 _final: _prev: {
     inherit (channels.unstable)
+        # atuin # BUG: Nix store collision...
+        alacritty
+        cargo-unfmt
+        cargo-wizard
         helix
         helix-gpt
-        nushell
-        # atuin # BUG: Nix store collision...
         hyprland
-        wezterm
-        alacritty
-        ytdownloader
-        prismlauncher
+        matugen
         nh
-        uv
-        cargo-wizard
-        cargo-unfmt
+        nushell
+        pastel
         prettypst
+        prismlauncher
+        uv
+        wezterm
+        ytdownloader
         ;
 }

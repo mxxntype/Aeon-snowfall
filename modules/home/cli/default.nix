@@ -28,65 +28,69 @@ with lib; {
         };
 
         home.packages = with pkgs; [
-            duf       # Neat disk monitor.
             bandwhich # Bandwidth utilization tool.
             dua       # View disk space usage and delete unwanted data.
+            duf       # Neat disk monitor.
 
             # Networking.
-            nmap         # Port scanner.
-            netdiscover  # Discover hosts in LAN.
-            speedtest-rs # CLI internet speedtest tool in Rust.
             ethtool      # For controlling network drivers and hardware.
+            netdiscover  # Discover hosts in LAN.
+            nmap         # Port scanner.
+            speedtest-rs # CLI internet speedtest tool in Rust.
 
             # Other TUIs.
             porsmo  # Pomodoro timer.
 
             # Alternative implementations of the basic tools.
             erdtree # Tree-like `ls` with a load of features.
-            ripgrep # Oxidized `grep`
             killall # Basically `pkill`
+            ripgrep # Oxidized `grep`
             sd      # A friendlier `sed`
             srm     # Secure `rm`
 
             # Text & image processors.
-            jq             # JSON processor.
-            jaq            # Its clone in Rust.
+            aeon.repalette # Recolor images to a certain palette.
+            bc             # Arbitrary precision calculator.
+            exiftool       # View EXIF metadata of files.
+            heh            # Hex editor.
+            hexyl          # Hex viewer.
+            jaq            # `jq` clone in Rust.
             jc             # Parse output of various commands to JSON.
+            jq             # JSON processor.
+            mpv            # Based video player.
             timg           # CLI image viewer.
             toml2nix       # Convert TOML to Nix.
-            exiftool       # View EXIF metadata of files.
-            mpv            # Based video player.
-            hexyl          # Hex viewer.
-            heh            # Hex editor.
-            bc             # Arbitrary precision calculator.
-            aeon.repalette # Recolor images to a certain palette.
+
+            # Color processors.
+            matugen # Material You color generation tool.
+            pastel  # Generate, analyze, convert and manipulate colors.
 
             # Build systems & automation.
-            gnumake # GNU make.
             comma   # Run any binary (with `nix-index` and `nix run`)
+            gnumake # GNU make.
 
             # Archiving tools.
-            zip
-            unzip
             unrar
+            unzip
+            zip
 
             # Filesystems.
             e2fsprogs  # Tools for creating and checking ext2/ext3/ext4 filesystems.
             efibootmgr # Userspace EFI boot manager.
 
             # Fetches and other cool TUI stuff.
+            cbonsai
+            cmatrix
+            lolcat
             neofetch
             nitch
             onefetch
-            cbonsai
-            cmatrix
             pipes-rs
-            lolcat
 
             # Terminal recording and fun.
-            vhs
             asciinema
             minesweep-rs
+            vhs
 
             # Benchmarking.
             hyperfine
