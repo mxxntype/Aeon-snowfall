@@ -19,8 +19,8 @@
         hardware.gpu.intel.enable = true;
         net.tailscale = {
             ACLtags = [ "vm" ];
-            advertiseExitNode = true;
-            exitNodeIP = "100.71.22.83";
+            # advertiseExitNode = true;
+            # exitNodeIP = "100.71.22.83";
         };
     };
 
