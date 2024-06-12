@@ -31,10 +31,28 @@ with lib; {
                         (value: builtins.isString value)
                         (builtins.attrValues config.xdg.userDirs));
             in xdgDirs ++ [
-                ".gnupg"
-                ".ssh"
-                ".local/share/keyrings"
-                ".local/share/direnv"
+                ".android"   # ADB data.
+                ".cache"     # All kinds of cached stuff.
+                ".cargo"     # Cargo package (meta)data.
+                ".docker"    # Docker data.
+                ".gnupg"     # GPG data.
+                ".icons"     # Well, icons.
+                ".java"      # Stuff pulled in by JDK's and Java apps.
+                ".librewolf" # Librewolf's data.
+                ".local"     # All kinds of data.
+                ".mozilla"   # Firefox's data.
+                ".rustup"    # Rust toolchain cache.
+                ".ssh"       # SSH keys and authorized hosts.
+                ".var"       # Mostly Flatpak stuff.
+                "Aeon"       # Where this repo lives.
+                "Camera"     # My phone's gallery (synced)
+                "Files"      # Assorted files (.iso images, keys, AppImages, other stuff)
+                "Library"    # My personal library of whatnot (TODO: Merge with ~/Documents)
+                "Obsidian"   # My obsidian vault (TODO: Move to ~/Documents)
+                "Projects"   # My personal and work projects.
+                "Repos"      # Cloned repositories.
+                "exercism"   # https://exercism.org stuff.
+                "pt"         # Cisco Packet Tracer stuff.
             ];
             files = [ ".wallpaper" ];
             allowOther = true;
