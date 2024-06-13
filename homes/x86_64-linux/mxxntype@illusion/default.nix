@@ -6,11 +6,8 @@
 {
     aeon = {
         style.codename = "overgrowth";
-        # desktop.hyprland.enable = true;
+        cli.fzf.enable = false;
     };
 
-    home = {
-        homeDirectory = "/home/${config.home.username}";
-        stateVersion = "23.11"; # WARN: Changing this might break things. Just leave it.
-    };
+    home.stateVersion = "23.11"; # WARN: Changing this might break things. Just leave it.
 }
