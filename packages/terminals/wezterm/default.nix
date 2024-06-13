@@ -1,6 +1,0 @@
-{
-    pkgs,
-    ...
-}:
-
-pkgs.wezterm
