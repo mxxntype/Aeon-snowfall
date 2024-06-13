@@ -23,6 +23,7 @@ _final: _prev: {
         helix
         helix-gpt
         hyprland
+        kitty
         matugen
         nh
         nushell
