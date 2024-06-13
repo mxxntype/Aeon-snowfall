@@ -4,7 +4,7 @@
 
 {
     aeon = {
-        style.codename = "overgrowth";
+        style.codename = "pastel";
         cli.fzf.enable = false;
     };
 
