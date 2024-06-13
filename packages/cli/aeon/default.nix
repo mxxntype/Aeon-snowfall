@@ -71,7 +71,7 @@ pkgs.nuenv.writeScriptBin {
             mut keyfile: path = (mktemp)
 
             # Sanity checks: all of these are needed for an installation.
-            use assert
+            use std assert
             assert ("./flake.nix" | path exists) "flake.nix not found. Where even are you..."
             assert ($SOPSFILE | path exists) ".sops.yaml not found."
             assert ($SECRETS | path exists) "secrets.yaml not found."

@@ -28,6 +28,9 @@ in rec {
     #
     # Lives here because it's shared between NixOS and Home-manager.
     nix.settings = {
+        allowed-users = [ "@builders" "${user}" ];
+        trusted-users = [ "@builders" "${user}" ];
+
         substituters = [
             "https://cache.nixos.org"
             "https://hyprland.cachix.org"
@@ -45,7 +48,6 @@ in rec {
         experimental-features = [
             "nix-command"
             "flakes"
-            "repl-flake"
         ];
     };
 }

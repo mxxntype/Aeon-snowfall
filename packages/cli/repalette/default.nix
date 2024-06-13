@@ -14,7 +14,7 @@ let
     # NOTE: Makefile tries to download these with `curl`, which fails.
     stb_image_h = fetchurl {
         url = "https://raw.githubusercontent.com/nothings/stb/master/stb_image.h";
-        sha256 = "0p6x42dnf22djz0p6jw9gviy1qs2ljpj7v72flng78g6i6k1ajy5";
+        sha256 = "1cq089gygwzcbg4nm4cxh75fyv9nk27yrynvh91qnj29bpijyk2r";
     };
     stb_image_write_h = fetchurl {
         url = "https://raw.githubusercontent.com/nothings/stb/master/stb_image_write.h";
