@@ -10,7 +10,7 @@ with lib; {
     options.aeon.hardware = {
         firmware = mkOption {
             type = with types; enum [ "free" "redistributable" "all" ];
-            default = "free";
+            default = "redistributable";
         };
     };
 
