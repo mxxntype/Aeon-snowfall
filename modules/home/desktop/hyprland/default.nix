@@ -3,6 +3,7 @@
 {
     config,
     lib,
+    pkgs,
     inputs,
     ...
 }:
@@ -29,14 +30,24 @@ with lib; {
             settings = let
                 MOD = "SUPER";
             in {
-                bind = [
-                    "${MOD} CTRL SHIFT, exit"
-                ]
-                ++ builtins.concatLists (builtins.genList (ws: [
-                    # Switch or move active window to a workspace.
-                    "${MOD},       ${toString ws}, workspace, ${toString (ws + 1)}"
-                    "${MOD} SHIFT, ${toString ws}, movetoworkspace, ${toString (ws + 1)}"
-                ]) 10);
+                bind = builtins.concatLists [
+                    # General binds.
+                    [
+                        "${MOD} CTRL SHIFT, E, exit"
+                    ]
+
+                    # Generate bindings for switching or moving active window to a workspace.
+                    (builtins.concatLists (builtins.genList (_ws: 
+                        let ws = toString (_ws + 1); in [
+                            "${MOD},       ${ws}, workspace,       ${ws}"
+                            "${MOD} SHIFT, ${ws}, movetoworkspace, ${ws}"
+                        ])
+                        /* WORKSPACE_COUNT: */ 10))
+                ];
+
+                exec-once = [
+                    "${pkgs.kitty}/bin/kitty"
+                ];
             };
         };
     };
