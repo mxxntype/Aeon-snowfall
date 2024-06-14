@@ -14,14 +14,14 @@
             encrypted = true;
         };
 
-        docker.enable = true;
-        fs.type = "btrfs";
-        hardware.gpu.intel.enable = true;
-        net.tailscale = {
-            ACLtags = [ "vm" ];
-            # advertiseExitNode = true;
-            # exitNodeIP = "100.71.22.83";
+        fs = {
+            type = "btrfs";
+            ephemeral = true;
         };
+
+        docker.enable = true;
+        hardware.gpu.intel.enable = true;
+        net.tailscale.ACLtags = [ "vm" ];
     };
 
     disko.devices = let

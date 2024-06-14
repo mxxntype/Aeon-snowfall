@@ -27,8 +27,11 @@ with lib; {
     };
 
     config = let
-        inherit (config.aeon.fs) type ephemeral;
-        inherit (config.networking) hostName;
+        phase1Systemd = config.boot.initrd.systemd.enable;
+        inherit (config.aeon.fs)
+            type
+            ephemeral
+            ;
     in mkMerge [
         # Common FS options that should be used regardless of the filesystem.
         {
@@ -106,30 +109,32 @@ with lib; {
         # https://github.com/Misterio77/nix-config/blob/main/hosts/common/optional/ephemeral-btrfs.nix
         (mkIf (type == "btrfs" && ephemeral) {
             boot.initrd.postDeviceCommands = let
-                    tempDir = "/btrfs_tmp";
+                    TEMP_DIR = "/btrfs_tmp";
+                    OLD_ROOTS = "old_roots";
+                    HOSTNAME = lib.toLower config.networking.hostName;
                 in lib.mkAfter /* bash */ ''
-                    mkdir ${tempDir}
-                    mount /dev/${hostName}/root ${tempDir}
-                    if [[ -e ${tempDir}/root ]]; then
-                        mkdir -p ${tempDir}/old_roots
-                        timestamp=$(date --date="@$(stat -c %Y ${tempDir}/root)" "+%Y-%m-%-d_%H:%M:%S")
-                        mv ${tempDir}/root "${tempDir}/old_roots/$timestamp"
+                    mkdir ${TEMP_DIR}
+                    mount /dev/${HOSTNAME}/root ${TEMP_DIR}
+                    if [[ -e ${TEMP_DIR}/root ]]; then
+                        mkdir -p ${TEMP_DIR}/${OLD_ROOTS}
+                        local TIMESTAMP=$(date --date="@$(stat -c %Y ${TEMP_DIR}/root)" "+%Y-%m-%-d_%H:%M:%S")
+                        mv ${TEMP_DIR}/root "${TEMP_DIR}/${OLD_ROOTS}/$TIMESTAMP"
                     fi
 
                     delete_subvolume_recursively() {
-                        IFS=$'\n'
+                        local IFS=$'\n'
                         for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-                            delete_subvolume_recursively "${tempDir}/$i"
+                            delete_subvolume_recursively "${TEMP_DIR}/$i"
                         done
                         btrfs subvolume delete "$1"
                     }
 
-                    for i in $(find ${tempDir}/old_roots/ -maxdepth 1 -mtime +30); do
+                    for i in $(find ${TEMP_DIR}/${OLD_ROOTS}/ -maxdepth 1 -mtime +30); do
                         delete_subvolume_recursively "$i"
                     done
 
-                    btrfs subvolume create ${tempDir}/root
-                    umount ${tempDir}
+                    btrfs subvolume create ${TEMP_DIR}/root
+                    umount ${TEMP_DIR}
                 '';
 
             # NOTE: This is also managed by disko.
@@ -150,11 +155,11 @@ with lib; {
             environment.persistence = {
                 ${aeon.persist} = {
                     directories = [
-                        "/var/lib/systemd"
-                        "/var/lib/nixos"
+                        "/etc/NetworkManager"
+                        "/opt"
+                        "/var/cache"
+                        "/var/lib"
                         "/var/log"
-                        "/srv"
-                        "/etc/NetworkManager/system-connections"
                     ];
                 };
             };

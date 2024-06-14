@@ -136,7 +136,7 @@ with lib; {
                 ];
 
                 initrd = {
-                    systemd.enable = true;
+                    # systemd.enable = true;
                     verbose = false;
                 };
             };
