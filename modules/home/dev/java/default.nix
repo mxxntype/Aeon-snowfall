@@ -21,11 +21,11 @@ with lib; {
             ;
     in mkIf enable {
         home.packages = with pkgs; [
-            gradle
-            maven
-            jdk
             google-java-format
+            gradle
+            jdk
             jdt-language-server
+            maven
         ];
 
         # Environment variable specifying the plugin directory of the language server.

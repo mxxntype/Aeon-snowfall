@@ -120,12 +120,12 @@ with lib; {
                 # https://github.com/dtolnay/cargo-expand
                 cargo-expand
 
-                trunk      # Build, bundle & ship your Rust WASM application to the web.
                 bacon      # Background rust code checker.
                 diesel-cli # Database tool for working with projects that use Diesel.
-                sqlx-cli   # SQLx's associated command-line utility.
                 dioxus-cli # Tool for developing, testing, and publishing Dioxus apps.
                 sccache    # Ccache with Cloud Storage.
+                sqlx-cli   # SQLx's associated command-line utility.
+                trunk      # Build, bundle & ship your Rust WASM application to the web.
             ])
             
             # Install rustup and let it do its thing.

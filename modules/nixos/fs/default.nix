@@ -27,7 +27,6 @@ with lib; {
     };
 
     config = let
-        phase1Systemd = config.boot.initrd.systemd.enable;
         inherit (config.aeon.fs)
             type
             ephemeral

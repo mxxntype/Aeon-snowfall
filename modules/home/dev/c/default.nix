@@ -17,10 +17,10 @@ with lib; {
 
     config = mkIf config.aeon.dev.c.enable {
         home.packages = with pkgs; [
-            gcc
-            gdb
             clang-tools
             cppcheck
+            gcc
+            gdb
             valgrind
         ];
     };

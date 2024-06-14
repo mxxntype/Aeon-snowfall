@@ -6,19 +6,19 @@
 pkgs.mkShell {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes";
     buildInputs = with pkgs; [
-        cryptsetup
-        util-linux
-        efibootmgr
-        btrfs-progs
-        sbctl
-        git
-        home-manager
-        helix
-        nushell
-        sops
-        age
-        ssh-to-age
         aeon.aeon
+        age
+        btrfs-progs
+        cryptsetup
         disko
+        efibootmgr
+        git
+        helix
+        home-manager
+        nushell
+        sbctl
+        sops
+        ssh-to-age
+        util-linux
     ];
 }
