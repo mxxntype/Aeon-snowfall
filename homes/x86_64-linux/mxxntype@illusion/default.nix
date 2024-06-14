@@ -4,7 +4,6 @@
 
 {
     aeon = {
-        impermanence.enable = true;
         style.codename = "pastel";
         cli.fzf.enable = false;
     };
