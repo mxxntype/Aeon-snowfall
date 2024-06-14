@@ -14,11 +14,7 @@
             encrypted = true;
         };
 
-        fs = {
-            type = "btrfs";
-            ephemeral = true;
-        };
-
+        fs.type = "btrfs";
         docker.enable = true;
         hardware.gpu.intel.enable = true;
         net.tailscale.ACLtags = [ "vm" ];
