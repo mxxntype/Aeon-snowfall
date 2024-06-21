@@ -116,9 +116,9 @@ with lib; {
                     }
 
                     # TODO:
-                    # let carapace_completer = {|spans|
-                    #     carapace $spans.0 nushell ...$spans | from json
-                    # }
+                    let carapace_completer = {|spans|
+                        ${pkgs.carapace}/bin/carapace $spans.0 nushell ...$spans | from json
+                    }
 
                     # The default config record. This is where much of your global configuration is setup.
                     $env.config = {
@@ -197,7 +197,7 @@ with lib; {
                                 # `false` recommended for WSL users as this look up may be very slow.
                                 enable: true     
                                 max_results: 100 # Setting it lower can improve completion performance at the cost of omitting some options.
-                                completer: null  # Check 'carapace_completer' above as an example.
+                                completer: $carapace_completer
                             }
                         }
 
