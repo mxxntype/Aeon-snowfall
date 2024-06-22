@@ -74,8 +74,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # Cargo build system for Nix.
+        # Cargo build systems for Nix.
         naersk.url = "github:nix-community/naersk";
+        crane = {
+            url = "github:ipetkov/crane";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         
         # An experimental Nushell environment for Nix.
         nuenv = {
@@ -85,16 +89,16 @@
 
 
         # SECTION: Hyprland and plugins.
-        hyprland = {
-            url = "github:hyprwm/Hyprland";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        #
+        # Hyprland *really* cares about matching versions of everything, so to be sure these are with tags.
+        # The wacky URL is because of https://github.com/hyprwm/Hyprland/issues/5891#issuecomment-2094865630.
+        hyprland.url = "git+https://github.com/hyprwm/Hyprland.git?ref=refs/tags/v0.41.0&submodules=1";
         hyprland-plugins = {
             url = "github:hyprwm/hyprland-plugins";
             inputs.hyprland.follows = "hyprland";
         };
         hyprland-hy3 = {            
-            url = "github:outfoxxed/hy3";
+            url = "github:outfoxxed/hy3?ref=hl0.41.0";
             inputs.hyprland.follows = "hyprland";
         };
         hyprland-contrib = {
@@ -190,8 +194,8 @@
             nuenv.overlays.nuenv
             fenix.overlays.default
             rust-overlay.overlays.default
-            # nix-topology.overlays.default
             swp.overlays."package/swp"
+            # nix-topology.overlays.default
         ];
 
         templates = {
@@ -206,6 +210,7 @@
             packages.default = "aeon";
         };
 
+        # NOTE: An example for future self.
         # outputs-builder = channels: {
         #     topology = import inputs.nix-topology {
         #         pkgs = channels.nixpkgs;
