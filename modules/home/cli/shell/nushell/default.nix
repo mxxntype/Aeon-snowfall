@@ -64,7 +64,7 @@ with lib; {
                         int: white
                         float: white
                         range: white
-                        string: white
+                        string: green
                         nothing: white
                         binary: white
                         cell-path: white
