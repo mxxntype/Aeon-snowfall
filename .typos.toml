@@ -4,5 +4,6 @@ nitch = "nitch"
 
 [files]
 extend-exclude = [
-    "lib/secrets.yaml" # Don't spellcheck AES.
+    "lib/secrets.yaml", # Don't spellcheck AES.
+    "*.pub"             # And don't spellcheck ED25519.
 ]
