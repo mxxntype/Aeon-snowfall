@@ -38,9 +38,9 @@
     disko.devices = let
         inherit (config.networking) hostName;
     in {
-        disk."nvme0n1" = {
+        disk."system-nvme-ssd" = {
             type = "disk";
-            device = "/dev/nvme0n1";
+            device = "/dev/disk/by-id/nvme-Micron_2450_MTFDKBA1T0TFK_232140BFC1B2";
             content = {
                 type = "gpt";
                 partitions = {

@@ -50,6 +50,11 @@ with lib; {
 
         # UEFI: common options.
         (mkIf (type == "uefi" || type == "lanzaboote") {
+            # WARNING: NixOS will be able to modify the BIOS boot entries and their
+            # order. The only risk is that wiping the root (say with rm -rf /*) will
+            # empty all the EFI variables and that has lead to bricking some (buggy)
+            # BIOSes in the past.
+            # SOURCE: https://discourse.nixos.org/t/question-about-grub-and-nodev/37867/8
             boot.loader.efi.canTouchEfiVariables = true;
 
             # NOTE: Managed by disko.
@@ -64,6 +69,7 @@ with lib; {
             boot.loader.grub = {
                 efiSupport = true;
                 efiInstallAsRemovable = mkDefault false;
+                device = "nodev"; # INFO: https://discourse.nixos.org/t/question-about-grub-and-nodev
             };
         })
 
