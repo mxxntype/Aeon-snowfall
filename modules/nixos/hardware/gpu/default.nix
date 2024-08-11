@@ -78,6 +78,7 @@ with lib; {
                 (if !(builtins.elem config.networking.hostName [
                     "illusion"
                     "virus"
+                    "wyrm"
                 ])
                     then [ nvtopPackages.full ]
                     else [ ]);

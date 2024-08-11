@@ -22,10 +22,11 @@
                 busID = "PCI:0:2:0";
             };
 
-            nvidia = {
-                enable = true;
-                busID = "PCI:1:0:0";
-            };
+            # FIXME: NVIDIA's drivers currently fail to build.
+            # nvidia = {
+            #     enable = true;
+            #     busID = "PCI:1:0:0";
+            # };
 
             specialise = false;
         };
@@ -64,7 +65,7 @@
                     # WARNING: No LUKS encryption is used!
                     root = {
                         priority = 2;
-                        size = "100%FREE";
+                        size = "100%";
                         content = {
                             type = "lvm_pv";
                             vg = volumeGroups.system;
@@ -126,9 +127,9 @@
 
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
-    boot.initrd.kernelModules = [ ];
-    boot.initrd.availableKernelModules = [ ];
-    boot.kernelModules = [ ];
+    boot.initrd.kernelModules = [ "dm-snapshot" ];
+    boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+    boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
     system.stateVersion = "24.05"; # WARN: Changing this might break things. Just leave it.

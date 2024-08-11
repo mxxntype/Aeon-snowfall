@@ -109,7 +109,8 @@ pkgs.nuenv.writeScriptBin {
                 sudo mkdir -p $"($mount)/etc/ssh"
                 for type in ["ed25519" "rsa"] {
                     cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)\/($hostname)"
-                    sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key*" $"($mount)/etc/ssh/"
+                    cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key" $"($mount)/etc/ssh/"
+                    cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"($mount)/etc/ssh/"
                 }
 
                 $"Re-keying ('sops-nix' | code yellow)" | trace
@@ -124,9 +125,12 @@ pkgs.nuenv.writeScriptBin {
                 add_sops_host_key --key $installer_pubkey --host installer
 
                 # Lock down the keys.
-                sudo chmod 600 $"($mount)/etc/ssh/ssh_host_*_key"
-                sudo chmod 644 $"($mount)/etc/ssh/ssh_host_*_key.pub"
-                sudo chown root:root $"($mount)/etc/ssh/ssh_host_*_key*"
+                chmod 600 $"($mount)/etc/ssh/ssh_host_ed25519_key"
+                chmod 644 $"($mount)/etc/ssh/ssh_host_ed25519_key.pub"
+                chmod 600 $"($mount)/etc/ssh/ssh_host_rsa_key"
+                chmod 644 $"($mount)/etc/ssh/ssh_host_rsa_key.pub"
+                chown root:root $"($mount)/etc/ssh/ssh_host_ed25519_key"
+                chown root:root $"($mount)/etc/ssh/ssh_host_rsa_key"
             }
 
             if $secure {
