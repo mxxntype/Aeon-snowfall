@@ -17,7 +17,7 @@
 > [!TIP]
 > No clue what this is and want to know more about NixOS? Read [here](#what-is-this-even), and be aware that this hell of a flake is probably not the place to start. I've mentioned the places and people that helped me understand the Nix ecosystem, explore those links if you wish to know more.
 
-Here's a quick and incomplete tour of what is going on in the repository:
+Here's a quick (and incomplete) tour of what is going on in the repository:
 
 | Directory   | Purpose |
 | ----------- | ------- |
@@ -42,98 +42,17 @@ Others are not as important. [Snowfall Guide/Reference](https://snowfall.org/gui
 
 Why would anyone even bother with this? Well, declaring system configurations and packages as code in a modular way is amazing for several reasons. Stateless systems are cool, right? *NixOS treats the system's state as a function of its configuration.* This means that the system can be easily recreated from its configuration at any time, which has several benefits.
 
-- **Reproducibility**: Since everything is declared in code, you can replicate your system configuration or package environment on another machine with minimal effort. This is what sealed the deal for me - NixOS *feels solid and permanent*. If a Linux system can truly feel like home, NixOS is the one that does for me.
+- **Reproducibility**: Since everything is declared in code, you can replicate your system configuration and package environment on another machine with minimal effort. This is what sealed the deal for me - NixOS *feels solid and permanent*. It's like using (or perhaps even more like making!) a reliable piece of software. If a Linux system can truly feel like home, NixOS is the one that does for me.
 
-- **Rollbacks**: Nix and NixOS support atomic upgrades and rollbacks. If a lockfile update or configuration change breaks something, just `git reset --hard` and you're back to safety.
+- **Isolation**: Packages are built in isolation from each other, and you can have different versions of stuff without any problems whatsoever. Read about ephemeral `nix shell`s if you'd like to see what this means in practice. Also, nix separates the system and the state it holds (like your docs, media and other things you probably don't version-control), and you decide where that line of separation is.
 
-- **Isolation**: Packages are built in isolation from each other, and you can have different versions of stuff without any problems whatsoever. Read about ephemeral `nix` shells if you'd like to see what this means in practice.
+- **Atomicity**: Nix and NixOS support atomic upgrades and rollbacks. If a lockfile update or configuration change (or whatever else) breaks something, just `git reset` & rebuild and you're back to safety.
 
-- **Atomicity**: Changes to the system are made atomically. This means that if the system is interrupted during an upgrade, it will not be left in a broken state. Even if it does, just boot to a known-good generation.
-
-- **Predictability**: The system's behavior is predictable because it's defined by its configuration, not by a series of imperative changes made over time.
-
-- **Portability**: The system configuration can be version-controlled and shared, making it easy to deploy the same system configuration across multiple machines or to share it with others.
-
-- **Maintenance**: System maintenance is simplified because changes are made through configuration files rather than manual interventions. This makes it easier to understand and manage the system over time.
+- **Maintenance**: The system's behavior is predictable because it's defined by its configuration, not by a series of imperative changes made over time. System maintenance is simplified because changes are made through code rather than imperative touches. Well... those changes are now made to the codebase, not to the system itself, but code is version-controlled, pure and provides an excellent view at the system, when you *know that the code is the system*.
 
 ### Inspiration and resources
 
-- The [website](https://nixos.org) and the [wiki](https://nixos.wiki), also [mynixos.com](https://mynixos.com/)
-- Misterio77's [`nix-starter-configs`](https://github.com/Misterio77/nix-starter-configs) and [`nix-config`](https://github.com/Misterio77/nix-config)
-- Jake Hamilton's [`config`](https://github.com/jakehamilton/config) and [Snowfall](https://github.com/snowfallorg/lib)
-- VimJoyer's [Youtube channel](https://www.youtube.com/channel/UC_zBdZ0_H_jn41FDRG7q4Tw)
-
----
-
-<p align=center>
-    <i>Meet jello, an ascii jellyfish guarding this setup.</i>
-</p>
-
-```brainfuck
-  ░░░░    ░░      ░░      ░░      ░░      ░░    ░░░░░░░░▒▒░░░░░░░░░░░░░░      ░░              ░░    ░░░░    ░░      ░░    
-                                          ░░░░░░░░                      ░░░░░░                                            
-      ░░░░    ░░      ░░              ░░░░░░    ░░░░░░░░░░░░░░░░░░░░░░░░░░    ░░░░░░      ░░      ░░      ░░    ░░      ░░
-                                    ░░    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ░░░░                          ░░        
-  ░░      ░░      ░░      ░░    ░░░░  ░░░░░░░░      ░░░░░░░░░░░░░░░░            ░░░░  ░░░░    ░░      ░░    ░░            
-          ░░                  ░░    ░░░░░░                                        ░░░░  ░░░░                              
-      ░░      ░░            ░░░░░░░░░░░░    ░░        ░░          ░░              ░░░░░░░░░░                    ░░░░    ░░
-          ░░              ░░  ░░░░▒▒▒▒░░░░░░░░      ░░░░          ░░              ░░░░▒▒░░  ░░░░                          
-  ░░      ░░░░    ░░      ░░  ░░░░░░░░░░░░░░▒▒░░░░░░░░░░░░      ░░░░░░          ░░░░░░▒▒░░░░  ░░      ░░    ░░░░    ░░    
-                        ░░  ░░░░▒▒░░░░░░░░▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░░░░░░░▒▒░░░░░░                          
-░░            ░░        ░░░░░░▒▒▒▒░░░░░░░░▒▒░░░░░░░░░░░░░░░░▒▒░░░░░░░░░░░░░░░░▒▒░░░░░░░░▒▒░░░░  ▒▒░░    ░░      ░░        
-                      ░░  ░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░░░░░░░▒▒░░░░░░░░░░░░░░░░▒▒░░░░░░░░▒▒▒▒░░░░      ░░                  
-    ░░    ░░          ░░  ░░▒▒▒▒▒▒░░░░░░░░▒▒░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░▒▒▒▒░░░░░░░░▒▒▒▒░░░░      ░░            ░░    
-              ░░      ░░  ░░▒▒▓▓▒▒░░░░▒▒▒▒▓▓▒▒▒▒░░░░░░░░▒▒▒▒▓▓▒▒▒▒░░░░░░░░▒▒▓▓▓▓▒▒░░░░▒▒▓▓▓▓░░░░  ▒▒    ░░      ░░░░      
-░░            ░░        ░░░░▒▒▓▓▒▒░░░░░░▒▒▓▓▒▒▒▒░░░░░░░░▒▒▒▒▓▓▒▒▒▒░░░░░░░░▒▒▓▓▓▓▒▒░░░░▒▒▒▒▓▓░░░░  ▒▒      ░░    ░░        
-                      ░░░░░░░░▒▒░░░░░░░░▒▒▒▒▒▒░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░▒▒▒▒▒▒▒▒░░░░░░░░▒▒░░░░  ▒▒  ░░    ░░      ░░    
-                      ░░  ░░░░▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░  ░░      ░░            
-░░            ░░      ░░░░░░░░▒▒░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░  ░░░░      ░░    ░░        
-                        ░░░░░░▒▒▒▒░░░░░░▒▒▒▒▒▒░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░▒▒▒▒▒▒░░░░▒▒▓▓▒▒░░  ░░      ░░      ░░        
-  ░░░░    ░░      ░░      ░░░░▒▒▒▒▒▒░░░░▒▒▒▒▒▒░░░░░░░░▒▒▒▒▓▓▓▓▓▓▒▒░░░░░░░░▒▒▒▒▒▒▒▒░░░░▒▒▓▓▒▒  ░░    ░░░░    ░░      ░░    
-                          ░░  ▓▓▓▓▓▓▒▒░░▒▒▓▓▓▓▒▒░░  ░░▓▓▓▓▓▓▓▓▓▓▒▒▒▒  ░░░░▒▒▓▓▓▓▒▒░░▒▒▓▓▓▓▒▒░░░░                          
-░░    ░░░░    ░░            ▒▒  ██▓▓░░▓▓▒▒▓▓▓▓░░▓▓▒▒▒▒░░▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▓▓░░▓▓▒▒▓▓▒▒░░░░    ░░    ░░░░    ░░        
-                              ▒▒▒▒▒▒▒▒  ▒▒▒▒░░▒▒▒▒░░░░▓▓▒▒▓▓▓▓▓▓▒▒▒▒░░░░▒▒▒▒▒▒▒▒▒▒  ▒▒▓▓▒▒░░                              
-  ░░      ░░            ░░░░    ██▓▓    ▓▓██▓▓░░░░░░▒▒████▓▓▒▒▓▓▒▒▒▒░░░░▒▒██▒▒▒▒░░  ▓▓▓▓      ░░    ░░░░    ░░░░          
-                                ▓▓██░░  ▓▓██░░░░▒▒░░░░████░░░░░░▒▒▒▒░░░░▓▓▓▓░░  ░░▓▓▓▓    ░░                              
-░░    ░░      ░░      ░░          ██▓▓░░▓▓██░░░░▒▒░░  ████░░░░░░▒▒▒▒▒▒██▓▓░░░░░░▓▓▓▓      ░░      ░░    ░░░░    ░░      ░░
-          ░░              ░░      ░░██░░░░▓▓▒▒░░░░▒▒▒▒██▒▒▒▒░░░░░░▒▒██▓▓░░░░  ░░██░░                ░░              ░░    
-            ░░    ░░      ░░      ░░▒▒░░░░▓▓▒▒  ▒▒░░▒▒██░░▒▒▒▒░░░░██▓▓░░░░  ░░██▓▓    ░░              ░░    ░░      ░░    
-        ░░            ░░            ░░██    ██░░░░  ██▓▓░░▒▒░░░░██▓▓░░░░░░▒▒▒▒▓▓░░                ░░                      
-░░    ░░░░    ░░              ░░    ░░██    ██▓▓░░▒▒██░░░░▒▒▒▒▓▓▓▓░░░░░░▒▒░░░░██░░        ░░      ░░    ░░░░              
-                  ░░      ░░      ░░  ██  ░░▓▓▓▓▒▒▒▒▓▓  ░░▒▒░░██░░░░░░▒▒▒▒░░  ██░░    ░░                            ░░    
-  ░░      ░░░░    ░░      ░░      ▓▓██░░  ░░▓▓▒▒░░▒▒▓▓░░▒▒▒▒▓▓▒▒▒▒░░░░  ░░    ▓▓▓▓    ░░            ░░░░    ░░░░          
-      ░░      ░░      ░░        ▓▓██░░    ░░▓▓▒▒░░▒▒▓▓░░░░▒▒▓▓░░▒▒░░░░  ░░░░  ░░██░░      ░░      ░░            ░░      ░░
-                              ░░▓▓    ░░  ░░▓▓▓▓▒▒▒▒▓▓░░░░▒▒██▒▒▒▒░░░░░░░░      ▓▓▓▓                                      
-    ░░    ░░      ░░      ░░  ██▒▒        ░░▓▓▓▓▒▒▒▒██▒▒░░░░██░░░░▒▒░░░░░░░░      ▓▓▓▓        ░░    ░░      ░░      ░░    
-                            ░░▓▓          ▒▒▓▓▒▒░░▒▒██░░▒▒▒▒▓▓░░░░░░░░░░░░░░░░      ▓▓░░                                  
-░░      ░░    ░░      ░░    ░░▓▓      ░░  ▓▓▒▒▒▒░░░░██▓▓▒▒▒▒▓▓▓▓░░░░░░░░▒▒░░░░▒▒    ▒▒▒▒  ░░      ░░    ░░      ░░      ░░
-                            ▒▒▓▓          ▓▓░░░░░░░░░░██▒▒░░▒▒▓▓░░░░░░▒▒▒▒▒▒░░        ▓▓                                  
-    ░░    ░░              ░░  ▓▓  ░░    ░░▒▒░░▒▒▒▒░░░░▓▓██▒▒░░▓▓░░░░░░▒▒▒▒▒▒░░  ░░    ▓▓      ░░    ░░              ░░    
-                              ░░░░      ▓▓▒▒░░▒▒▒▒░░▒▒░░████▒▒░░▒▒░░░░░░▒▒▒▒░░░░      ▓▓                                  
-░░    ░░░░    ░░      ░░        ▓▓  ░░  ██░░▒▒▒▒░░░░░░░░▒▒██▒▒▒▒░░▒▒░░░░▒▒░░░░    ░░  ▓▓  ░░      ░░    ░░      ░░      ░░
-                                ░░▒▒    ██▒▒▒▒▒▒░░░░▒▒░░░░░░██░░▒▒▒▒▒▒░░░░░░░░        ▓▓                                  
-    ░░    ░░              ░░      ░░    ██░░▒▒▒▒░░░░▒▒▒▒░░░░▓▓██░░▒▒▒▒▒▒▒▒            ▓▓      ░░    ░░      ░░░░          
-                                    ▓▓  ██░░░░▒▒░░░░▒▒▒▒▒▒▒▒░░██░░▒▒░░▒▒▒▒░░░░        ▒▒  ░░                              
-      ░░      ░░      ░░      ░░    ░░  ▓▓░░▒▒░░░░░░░░░░░░▒▒▒▒██░░▒▒░░▒▒▒▒░░░░░░  ░░▒▒░░░░        ░░            ░░      ░░
-  ░░░░    ░░      ░░    ░░░░    ▒▒▒▒    ▓▓▒▒░░░░░░░░░░░░░░░░▒▒██░░░░▒▒▒▒▒▒▒▒░░  ░░  ▒▒        ░░    ░░░░    ░░░░    ░░    
-                  ░░            ░░░░      ▓▓░░▒▒░░░░░░░░  ░░██░░░░▒▒▒▒░░▒▒▒▒░░░░░░▒▒                  ░░                  
-░░    ░░░░    ░░                    ░░    ▒▒▒▒▒▒░░░░░░░░  ▓▓░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▓▓        ░░      ░░    ░░░░              
-        ░░            ░░                    ░░▒▒▒▒░░░░░░▒▒░░░░░░░░▓▓░░▒▒▒▒▒▒▓▓    ░░      ░░      ░░                      
-            ░░    ░░      ░░            ░░░░░░▒▒▒▒░░░░▓▓░░▒▒░░░░  ░░░░░░▒▒▓▓░░▒▒░░    ░░              ░░    ░░      ░░    
-                                          ░░░░▒▒▒▒▒▒▓▓░░▒▒░░░░░░░░░░░░░░▒▒▓▓░░                                            
-░░    ░░      ░░      ░░      ░░    ░░░░    ░░░░▒▒▒▒▓▓▓▓░░░░░░  ░░▒▒░░░░░░▓▓▒▒    ░░      ░░      ░░      ░░    ░░      ░░
-                                            ░░░░▒▒▒▒░░░░▒▒░░░░  ░░░░░░  ▒▒░░▒▒                                            
-  ░░      ░░              ░░    ░░░░    ▒▒░░░░░░▒▒▓▓░░▒▒░░      ░░░░░░░░      ░░░░    ░░      ░░    ░░░░    ░░░░          
-                                        ░░░░░░░░▒▒▓▓  ▒▒░░░░    ░░░░░░      ░░                                            
-░░    ░░░░    ░░              ░░      ░░  ░░░░░░░░▓▓  ▓▓░░░░░░  ░░░░░░      ░░    ░░      ░░      ░░    ░░░░    ░░        
-                                            ░░░░░░░░▓▓▒▒░░  ░░  ░░░░░░░░░░░░░░░░                                          
-  ░░░░    ░░      ░░      ░░      ░░          ░░▒▒▒▒░░░░░░░░░░  ░░░░░░░░    ░░░░      ░░      ░░    ░░░░    ░░      ░░    
-                                            ░░      ▒▒░░  ░░░░    ░░░░  ░░░░      ░░                    ░░      ░░        
-              ░░      ░░    ░░              ░░    ░░░░▓▓░░  ░░  ░░░░░░    ░░░░    ░░      ░░      ░░      ░░    ░░        
-                  ░░            ░░░░              ░░    ▓▓▒▒░░  ░░░░░░                                      ░░            
-            ░░    ░░      ░░    ░░░░    ░░      ░░  ▒▒▒▒░░    ░░░░    ░░      ░░░░                  ░░      ░░      ░░    
-░░                    ░░                    ░░      ░░          ▒▒                ░░      ░░                    ░░        
-      ░░      ░░░░    ░░      ░░    ░░░░    ░░      ░░        ▒▒    ░░                    ░░            ░░░░    ░░░░      
-          ░░                                    ░░              ░░      ░░                          ░░░░    ░░░░          
-          ░░              ░░                    ░░              ░░      ░░                          ░░░░    ░░░░          
-```
+- The [NixOS website](https://nixos.org) and the [wiki](https://nixos.wiki), also [mynixos.com](https://mynixos.com/) - a great search engine for options and packages
+- Misterio77's [`nix-starter-configs`](https://github.com/Misterio77/nix-starter-configs) (great starting point) and [`nix-config`](https://github.com/Misterio77/nix-config)
+- Jake Hamilton's [`config`](https://github.com/jakehamilton/config) and the [Snowfall](https://github.com/snowfallorg/lib) framework
+- VimJoyer's [Youtube channel](https://www.youtube.com/channel/UC_zBdZ0_H_jn41FDRG7q4Tw) and [Github](https://github.com/vimjoyer)
