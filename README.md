@@ -11,9 +11,6 @@
     <img alt="Static Badge" src="https://img.shields.io/badge/Powered_by-Sleep_deprivation-79c0ff?style=for-the-badge&logo=nuke&logoColor=79c0ff&labelColor=161B22">
 </div>
 
-> [!NOTE]
-> This is a WIP rewrite of my [Aeon](https://github.com/mxxntype/Aeon) flake with the [Snowfall](https://github.com/snowfallorg/lib) framework. This is absolutely not backwards-compatible and actually a hell of a breaking change. Once the flake is at least somewhat complete and "ready", it will be merged with Aeon.
-
 > [!TIP]
 > No clue what this is and want to know more about NixOS? Read [here](#what-is-this-even), and be aware that this hell of a flake is probably not the place to start. I've mentioned the places and people that helped me understand the Nix ecosystem, explore those links if you wish to know more.
 
