@@ -31,6 +31,7 @@
             specialise = false;
         };
 
+        docker.enable = true;
         net.tailscale.ACLtags = [ "server" ];
     };
 
