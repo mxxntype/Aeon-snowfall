@@ -42,7 +42,7 @@ with lib; {
                         filter_mode = "host";
                         secrets_filter = true;
                         style = "compact";
-                        inline_height = 24;
+                        inline_height = 16;
                     };
 
                     enableNushellIntegration = false;
