@@ -11,14 +11,7 @@ pkgs.nuenv.writeScriptBin {
     script = /* nu */ ''
         # A Nushell script for managing and installing Aeon systems.
         def main []: nothing -> nothing {
-            let sysinfo = {}
-                | upsert host (sys | get host | reject sessions)
-                | upsert disks (sys | get disks | reject removable | uniq-by device)
-                | upsert net (sys | get net | sort-by recv | reverse)
-
-            print ""
-            print $sysinfo
-            print $"(ansi green)note: (ansi reset)Run (ansi {fg: cyan, bg: dark_gray}) aeon --help (ansi reset) to see more options.(char nl)"
+            print $"(ansi green)note: (ansi reset)Run (ansi {fg: cyan, bg: dark_gray}) aeon --help (ansi reset) to see more options."
         }
 
         # Garbage-collect the system.
