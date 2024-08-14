@@ -27,6 +27,7 @@ with lib; {
             ssh-to-age # Convert ED25519 SSH private keys to age keys.
             age        # Modern encryption tool with small explicit keys. (Go version)
             rage       # Modern encryption tool with small explicit keys. (Rust version)
+            cryptsetup # LUKS for dm-crypt.
         ];
     };
 }
