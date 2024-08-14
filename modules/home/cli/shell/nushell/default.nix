@@ -908,8 +908,9 @@ with lib; {
                         let path_color = (if (is-admin) { ansi red_bold } else { ansi magenta_bold })
                         let separator_color = (if (is-admin) { ansi light_red_bold } else { ansi light_magenta_bold })
                         let path_segment = $"($path_color)($dir | path split | last 3 | path join)"
+                        let current_dir = $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
 
-                        $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
+                        $"(ansi blue_bold)(hostname | str downcase)(ansi reset) ($current_dir)"
                     }
 
                     def create_right_prompt [] {
