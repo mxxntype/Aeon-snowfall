@@ -120,6 +120,10 @@
             url = "github:mxxntype/helix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        siren = {
+            url = "github:mxxntype/siren";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         hyprquery = {
             url = "github:mxxntype/hyprquery";
             inputs.nixpkgs.follows = "nixpkgs";
