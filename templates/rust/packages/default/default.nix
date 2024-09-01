@@ -4,10 +4,18 @@
     ...
 }:
 
-(pkgs.callPackage inputs.naersk {}).buildPackage {
-    src = ../..;
+let
+    toolchain = (pkgs.rustChannelOf {
+        rustToolchain = ../../rust-toolchain.toml;
+        sha256 = ""; # NOTE: Replace with actual SHA256!
+    }).rust;
 
-    # NOTE: If your application uses OpenSSL (making the build process fail), try:
-    # nativeBuildInputs = with pkgs; [ pkg-config ];
-    # buildInputs = with pkgs; [ openssl ];
+    naersk' = pkgs.callPackage inputs.naersk {
+        cargo = toolchain;
+        rustc = toolchain;
+    };
+in
+
+naersk'.buildPackage {
+    src = ../..;
 }
