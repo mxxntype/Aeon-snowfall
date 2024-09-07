@@ -1550,14 +1550,14 @@
       "locked": {
         "lastModified": 1719005984,
         "narHash": "sha256-mpFl3Jv4fKnn+5znYXG6SsBjfXHJdRG5FEqNSPx0GLA=",
-        "owner": "snowfallorg",
-        "repo": "lib",
+        "owner": "mxxntype",
+        "repo": "snowfall",
         "rev": "c6238c83de101729c5de3a29586ba166a9a65622",
         "type": "github"
       },
       "original": {
-        "owner": "snowfallorg",
-        "repo": "lib",
+        "owner": "mxxntype",
+        "repo": "snowfall",
         "type": "github"
       }
     },
