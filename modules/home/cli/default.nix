@@ -60,6 +60,7 @@ with lib; {
             mpv            # Based video player.
             timg           # CLI image viewer.
             toml2nix       # Convert TOML to Nix.
+            binsider       # TUI ELF binary analyzer.
 
             # Color processors.
             matugen # Material You color generation tool.
