@@ -1503,11 +1503,11 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1727735145,
-        "narHash": "sha256-RSvxDiSOcE3Ed2TYd6qb7BnmlCTbVY9Gn0OAZJ6Uoaw=",
+        "lastModified": 1728330073,
+        "narHash": "sha256-D+2yJIRnJCa2O9phze664oi8pUtYeqpVJIoFcRM8qr0=",
         "owner": "mxxntype",
         "repo": "siren",
-        "rev": "1dc45b4e01bc9cd84d96727f2bdfa148d651cf43",
+        "rev": "0b8a0b19bb86ddbb4539f2ed9be1681ac52e7adf",
         "type": "github"
       },
       "original": {
