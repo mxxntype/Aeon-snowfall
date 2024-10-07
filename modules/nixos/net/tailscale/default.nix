@@ -80,6 +80,9 @@ with lib; {
                     "--exit-node=${exit_node.ip}"
                     "--exit-node-allow-lan-access=${if exit_node.client then "true" else "false"}"
                     (mkIf exit_node.server "--advertise-exit-node")
+
+                    # NOTE: Changing settings via `tailscale up` (may) require mentioning all non-default flags.
+                    "--reset"
                 ];
             }
 
