@@ -32,7 +32,10 @@
         };
 
         docker.enable = true;
-        net.tailscale.ACLtags = [ "server" ];
+        net = {
+            wireguard.enable = true;
+            tailscale.ACLtags = [ "server" ];
+        };
     };
 
     disko.devices = let
