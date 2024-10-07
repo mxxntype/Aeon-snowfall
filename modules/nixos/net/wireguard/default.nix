@@ -39,18 +39,22 @@ with lib; {
                 interfaces."${interface}" = {
                     configFile = config.sops.secrets."keys/wireguard/default/${hostname}".path;
                     autostart = false;
-
-                    # When a WireGuard VPN starts (the one configured above), Tailscale's DNS settings remain,
-                    # but are no longer valid (I think...). Either way, DNS stops working. So for now the fix
-                    # is to shutdown Tailscale when a VPN is active, and start it again once the VPN is off.
-                    postUp = mkIf tailscale /* shell */ ''
-                        ${pkgs.tailscale}/bin/tailscale down
-                    '';
-                    preDown = mkIf tailscale /* shell */ ''
-                        ${pkgs.tailscale}/bin/tailscale up
-                    '';
                 };
             };
+        };
+
+        # HACK: `networking.wg-quick` has options for this, but they kinda
+        # just don't work for me. Setting the same logic here works though.
+        systemd.services."wg-quick-${interface}" = {
+            # When a WireGuard VPN starts (the one configured above), Tailscale's DNS settings remain,
+            # but are no longer valid (I think...). Either way, DNS stops working. So for now the fix
+            # is to shutdown Tailscale when a VPN is active, and start it again once the VPN is off.
+            postStart = ''
+                ${pkgs.tailscale}/bin/tailscale down
+            '';
+            preStop = ''
+                ${pkgs.tailscale}/bin/tailscale up
+            '';
         };
 
         # NOTE: Only make the *.conf file appear if it's used.
