@@ -49,10 +49,10 @@ with lib; {
             # When a WireGuard VPN starts (the one configured above), Tailscale's DNS settings remain,
             # but are no longer valid (I think...). Either way, DNS stops working. So for now the fix
             # is to shutdown Tailscale when a VPN is active, and start it again once the VPN is off.
-            postStart = ''
+            postStart = mkIf tailscale ''
                 ${pkgs.tailscale}/bin/tailscale down
             '';
-            preStop = ''
+            preStop = mkIf tailscale ''
                 ${pkgs.tailscale}/bin/tailscale up
             '';
         };
