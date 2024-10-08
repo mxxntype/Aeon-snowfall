@@ -44,7 +44,7 @@ with lib; {
                     WHOOGLE_CONFIG_STYLE =
                         builtins.replaceStrings
                             [ "\n" ]
-                            [ "" ]
+                            [ " " ]
                             /* css */ ''
                                 :root {
                                     --whoogle-dark-logo:           #${ui.fg.text};
@@ -59,7 +59,6 @@ with lib; {
                                     --whoogle-dark-result-visited: #${code.url};
                                 }
                         
-                                /* The colors for the WHOOGLE title. */
                                 #whoogle-w   { fill: #${colors.blue};   }
                                 #whoogle-h   { fill: #${colors.red};    }
                                 #whoogle-o-1 { fill: #${colors.mauve};  }
