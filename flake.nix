@@ -144,6 +144,10 @@
                 snowfall-lib.follows = "snowfall-lib";
             };
         };
+        invar = {
+            url = "github:exoumoon/invar";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
         
         # SECTION: Non-flake inputs.

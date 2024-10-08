@@ -120,6 +120,10 @@ with lib; {
                 # https://github.com/dtolnay/cargo-expand
                 cargo-expand
 
+                # Installing rust binaries as an alternative to building from source.
+                # https://github.com/cargo-bins/cargo-binstall
+                cargo-binstall
+
                 bacon      # Background rust code checker.
                 diesel-cli # Database tool for working with projects that use Diesel.
                 dioxus-cli # Tool for developing, testing, and publishing Dioxus apps.

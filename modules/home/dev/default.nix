@@ -21,7 +21,8 @@ with lib; {
             ;
     in mkIf enable {
         home.packages = with pkgs; [
-            typos # Source code spell checker.
+            typos      # Source code spell checker.
+            aeon.invar # My CLI management tool for modded Minecraft servers.
         ];
     };
 }
