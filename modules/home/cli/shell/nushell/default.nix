@@ -26,12 +26,18 @@ with lib; {
                 enable = true;
                 package = pkgs.nushell;
 
-                # HACK: Nushell doesn't pick up some envvars sometimes.
+                # HACK: Nushell doesn't pick up some environment variables sometimes.
                 #
                 # This takes general Home-manager variables and makes them Nushell's too.
-                environmentVariables = builtins.mapAttrs
-                    (name: value: "\"${value}\"")
-                    (recursiveUpdate config.home.sessionVariables {});
+                environmentVariables = builtins.removeAttrs
+                    (builtins.mapAttrs
+                        (_: value: "\"${toString value}\"")
+                        (lib.recursiveUpdate config.home.sessionVariables { }))
+                    [
+                        # HACK: This one is set to something hella fucking weird, and having it
+                        # present seems to break the cursor in some apps, like the Zen browser.
+                        "XCURSOR_PATH"
+                    ];
                 
                 shellAliases = {
                     lsa = "ls -a";
