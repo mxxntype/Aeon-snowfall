@@ -24,6 +24,7 @@ _final: _prev: {
         helix
         helix-gpt
         hyprland
+        hyprlandPlugins
         kitty
         matugen
         nh

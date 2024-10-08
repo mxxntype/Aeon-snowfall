@@ -215,7 +215,6 @@ with lib; {
                         }
 
                         color_config: $dark_theme # You can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-                        use_grid_icons: true
                         footer_mode: "25"         # `always`, `never`, `number_of_rows`, `auto`
                         float_precision: 2        # The precision for displaying floats in tables.
                         buffer_editor: ""         # Command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL.
@@ -338,7 +337,7 @@ with lib; {
                                     #      str join
                                     #      str trim
                                     #      str split
-                                    correct_cursor_pos: false
+                                    correct_cursor_pos: true
                                 }
                                 style: {
                                     text: green

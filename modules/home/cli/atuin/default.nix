@@ -35,6 +35,8 @@ with lib; {
                 atuin = {
                     enable = true;
                     flags = [ "--disable-up-arrow" ];
+
+                    # INFO: https://docs.atuin.sh/configuration/config
                     settings = {
                         auto_sync = false;
                         update_check = false;

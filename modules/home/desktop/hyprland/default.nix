@@ -27,6 +27,7 @@ with lib; {
     in mkIf enable {
         wayland.windowManager.hyprland = {
             enable = true;
+            package = pkgs.hyprland;
             settings = let
                 MOD = "SUPER";
             in {
@@ -49,6 +50,11 @@ with lib; {
                     "${pkgs.kitty}/bin/kitty"
                 ];
             };
+
+            plugins = with pkgs.hyprlandPlugins; [
+                borders-plus-plus # Double borders for the looks.
+                hy3               # i3-like manual tiling layout.
+            ];
         };
     };
 }
