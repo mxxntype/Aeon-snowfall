@@ -116,6 +116,15 @@
         };
 
 
+        # NOTE: I manually package the Zen browser for myself.
+        #
+        # HACK: This does, however, mean that I will need to manually tweak the `version` here if I wish to update it.
+        zen-browser-appimage = {
+            url = "https://github.com/zen-browser/desktop/releases/download/1.0.0-a.37/zen-specific.AppImage";
+            flake = false;
+        };
+
+
         # SECTION: My other flakes.
         helix = {
             url = "github:mxxntype/helix";
