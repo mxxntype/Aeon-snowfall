@@ -6,6 +6,10 @@
     ...
 }:
 
+let
+    vpnService = "wg-quick-wg0.service";
+in
+
 pkgs.nuenv.writeScriptBin {
     name = "aeon";
     script = /* nu */ ''
@@ -29,6 +33,42 @@ pkgs.nuenv.writeScriptBin {
             match $home {
                 true => (home-manager switch --flake $flake)
                 false => (sudo nixos-rebuild switch --flake $flake)
+            }
+        }
+
+        # Check the status of the VPN (and Tailscale).
+        def "main vpn status" []: nothing -> record {
+            {
+                vpn: ((systemctl is-active ${vpnService}) == active),
+                tailscale: (try { tailscale status | ignore; true } catch { false })
+            }
+        }
+
+        # Active the VPN service, if configured. Disables Tailscale.
+        def "main vpn connect" []: nothing -> nothing {
+            try {
+                if ((systemctl is-active ${vpnService}) != active) {
+                    sudo systemctl start ${vpnService}
+                    print $"(ansi green)STATUS:(ansi reset) Connecting to VPN, Tailscale is (ansi red)disabled(ansi reset) for now."
+                } else {
+                    print $"(ansi green)STATUS:(ansi reset) Already connected. Tailscale is (ansi red)disabled(ansi reset)."
+                }
+            } catch {
+                print $"(ansi red)ERROR:(ansi reset) Can't interact with the VPN service. Is one configured?"
+            }
+        }
+
+        # Deactivate the VPN service, if configured. Re-enables Tailscale.
+        def "main vpn disconnect" []: nothing -> nothing {
+            try {
+                if ((systemctl is-active ${vpnService}) == active) {
+                    sudo systemctl stop ${vpnService}
+                    print $"(ansi green)STATUS:(ansi reset) Stopping the VPN, Tailscale is now (ansi green)active(ansi reset)."
+                } else {
+                    print $"(ansi green)STATUS:(ansi reset) Not yet connected. Tailscale is (ansi green)active(ansi reset)."
+                }
+            } catch {
+                print $"(ansi red)ERROR:(ansi reset) Can't interact with the VPN service. Is one configured?"
             }
         }
 
