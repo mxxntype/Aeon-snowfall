@@ -4,17 +4,24 @@ version = "0.1.0"
 edition = "2021"
 authors = ["{{authors}}"]
 
+# NOTE: Generated, no unsafe by default.
+#
+# If you intend on writing unsafe, remove it from here.
 [lints.rust]
 unsafe_code = "forbid"
 
 [lints.clippy]
+correctness = "warn"
+suspicious = "warn"
+style = "warn"
 pedantic = "warn"
 nursery = "warn"
 complexity = "warn"
 perf = "warn"
 enum_glob_use = { level = "warn", priority = 1 }
 single_match_else = { level = "allow", priority = 1 }
-option_if_let_else = { level = "allow", priority = 1 }
-or_fun_call = { level = "allow", priority = 1 }
+match_bool = { level = "allow", priority = 1 }
+# option_if_let_else = { level = "allow", priority = 1 }
+# or_fun_call = { level = "allow", priority = 1 }
 
 [dependencies]

@@ -7,7 +7,8 @@
 let
     toolchain = (pkgs.rustChannelOf {
         rustToolchain = ../../rust-toolchain.toml;
-        sha256 = ""; # NOTE: Replace with actual SHA256!
+        # NOTE: This needs to be replaced whenever the Rust toolchain is updated.
+        sha256 = "VZZnlyP69+Y3crrLHQyJirqlHrTtGTsyiSnZB8jEvVo=";
     }).rust;
 
     naersk' = pkgs.callPackage inputs.naersk {
