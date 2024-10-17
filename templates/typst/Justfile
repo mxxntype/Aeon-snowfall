@@ -1,0 +1,18 @@
+target := "main.pdf"
+entrypoint := "lib.typ"
+
+# List available recipes.
+default:
+    @just --list
+
+# Watch the target and recompile on changes.
+watch:
+    typst -- watch {{entrypoint}} {{target}} --root .
+
+# Wipe out all of the generated PDFs in the repo.
+clean:
+    -rm *.pdf **/*.pdf > /dev/null 2>&1
+
+# Open the target PDF in a browser.
+open:
+    xdg-open {{target}} &

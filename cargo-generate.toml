@@ -1,4 +1,5 @@
 [template]
 sub_templates = [
     "templates/rust",
+    "templates/typst"
 ]
