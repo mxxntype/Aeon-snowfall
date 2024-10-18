@@ -1,0 +1,9 @@
+[placeholders.language]
+type = "string"
+prompt = "What language will the paper be in?"
+default = "ru"
+
+[template]
+exclude = [
+    "Justfile" # Just's variable syntax conficts with Liquid tags.
+]
