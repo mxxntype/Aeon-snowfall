@@ -5,8 +5,7 @@ default = true
 
 [placeholders.description]
 type = "string"
-prompt = "Provide a description:"
-default = ""
+prompt = "Provide a description"
 
 [conditional.'crate_type == "bin"']
 ignore = [
