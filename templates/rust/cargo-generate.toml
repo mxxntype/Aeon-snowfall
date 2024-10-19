@@ -3,6 +3,11 @@ type = "bool"
 prompt = "Set up a Nix flake?"
 default = true
 
+[placeholders.description]
+type = "string"
+prompt = "Provide a description:"
+default = ""
+
 [conditional.'crate_type == "bin"']
 ignore = [
     "src/lib.rs",
