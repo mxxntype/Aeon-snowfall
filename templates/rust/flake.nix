@@ -19,7 +19,6 @@
     outputs = inputs: inputs.snowfall-lib.mkFlake {
         inherit inputs;
         src = ./.;
-
         overlays = with inputs; [ (import nixpkgs-mozilla) ];
     };
 }

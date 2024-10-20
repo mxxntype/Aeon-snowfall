@@ -1,6 +1,7 @@
 {
     inputs,
     pkgs,
+    lib,
     ...
 }:
 
@@ -17,6 +18,14 @@ let
     };
 in
 
-naersk'.buildPackage {
+naersk'.buildPackage rec {
     src = ../..;
+    pname = "{{project-name}}";
+
+    # Rust projects that have something to do with networking are very likely
+    # to fail to compile if OpenSSL and pkg-config are unavailable at comptime.
+    # NOTE: May also be unnecessary if the crate does no networking.
+    nativeBuildInputs = with pkgs; [ pkg-config ];
+    buildInputs = with pkgs; [ openssl ];
+    LD_LIBRARY_PATH = lib.makeLibraryPath buildInputs;
 }

@@ -1,3 +1,9 @@
+[template]
+ignore = [
+    "flake.lock",
+    "Cargo.lock",
+]
+
 [placeholders.nix]
 type = "bool"
 prompt = "Set up a Nix flake?"
