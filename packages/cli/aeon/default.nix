@@ -28,12 +28,14 @@ pkgs.nuenv.writeScriptBin {
         # Perform a system rebuild.
         def "main rebuild" [
             --flake (-f): directory = /home/${lib.aeon.user}/Aeon # Path to flake.
-            --home (-H) # Rebuild Home-manager only.
+            --rebuild-system (-S) # Rebuilt the NixOS configuration.
+            --rebuild-home (-H) # Rebuild the Home-manager configuration.
         ]: nothing -> nothing {
-            match $home {
-                true => (home-manager switch --flake $flake)
-                false => (sudo nixos-rebuild switch --flake $flake)
+            if (not $rebuild_home) and (not $rebuild_system) {
+                print $"(ansi red)note: (ansi reset)No action specified. Run with --help for options."
             }
+            if $rebuild_home { home-manager switch --flake $flake }
+            if $rebuild_system { sudo nixos-rebuild switch --flake $flake }
         }
 
         # Check the status of the VPN (and Tailscale).
