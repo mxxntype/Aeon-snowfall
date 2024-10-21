@@ -221,6 +221,11 @@
                 path = ./templates/rust;
                 description = "Rust crate template for cargo-generate";
             };
+
+            typst = {
+                path = ./templates/typst;
+                description = "Typst paper template for writing neat documents";
+            };
         };
 
         alias = {
