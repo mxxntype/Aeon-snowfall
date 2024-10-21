@@ -1,9 +1,11 @@
 [default.extend-words]
-ba = "ba" # Catppuccin's #F38BA8 color code
-nitch = "nitch"
+ba = "ba"       # Catppuccin's #F38BA8 color code
+nitch = "nitch" # A system fetch tool in Nim.
+GOST = "GOST"   # ГОСТ, a standard.
 
 [files]
 extend-exclude = [
-    "lib/secrets.yaml", # Don't spellcheck AES.
-    "*.pub"             # And don't spellcheck ED25519.
+    "lib/secrets.yaml",               # Don't spellcheck AES.
+    "*.pub",                          # And don't spellcheck ED25519.
+    "templates/typst/prettypst.toml", # Well, "seperate" is the way the tools expects "separate" to be written...
 ]

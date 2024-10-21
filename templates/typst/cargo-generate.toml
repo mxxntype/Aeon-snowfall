@@ -5,5 +5,5 @@ default = "ru"
 
 [template]
 exclude = [
-    "Justfile" # Just's variable syntax conficts with Liquid tags.
+    "Justfile" # Just's variable syntax conflicts with Liquid tags.
 ]
