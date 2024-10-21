@@ -31,6 +31,7 @@ with lib; {
             bandwhich # Bandwidth utilization tool.
             dua       # View disk space usage and delete unwanted data.
             duf       # Neat disk monitor.
+            file      # A program that shows the type of files.
 
             # Networking.
             ethtool      # For controlling network drivers and hardware.
