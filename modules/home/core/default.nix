@@ -60,5 +60,8 @@ with lib; {
 
         # Nicely reload user services on rebuild.
         systemd.user.startServices = "sd-switch";
+
+        # Hide Home-manager's news.
+        news.display = "silent";
     };
 }
