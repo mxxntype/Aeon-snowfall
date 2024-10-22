@@ -22,5 +22,9 @@ with lib; {
             qemu
             virt-manager
         ];
+
+        # NOTE: Enable kernel support for IOMMU.
+        # This is needed for PCI (GPU) passthrough.
+        boot.kernelParams = [ "intel_iommu=on" ];
     };
 }
