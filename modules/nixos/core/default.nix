@@ -66,8 +66,13 @@ with lib; {
         # Add some core packages.
         environment.systemPackages = with pkgs; [
             home-manager          # Make sure its always there.
+            file                  # A program that shows the type of files.
+            jmtpfs                # FUSE filesystem for MTP devices like Android phones.
+            pciutils              # Tools for working with PCI devices, such as `lspci`.
+            usbutils              # Tools for working with USB devices, such as `lsusb`.
+            wget                  # Tool for retrieving files using HTTP, HTTPS, and FTP.
             aeon.aeon             # System management script.
-            aeon."iommugroups.sh" # Custom tool for IOMMU groups.
+            aeon."iommugroups.sh" # Custom tool for inspecting IOMMU groups.
         ];
 
         # Set up the timezone and locale.
