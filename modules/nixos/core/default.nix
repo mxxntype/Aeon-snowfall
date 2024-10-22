@@ -65,8 +65,9 @@ with lib; {
 
         # Add some core packages.
         environment.systemPackages = with pkgs; [
-            home-manager # Make sure its always there.
-            aeon.aeon    # System management script.
+            home-manager          # Make sure its always there.
+            aeon.aeon             # System management script.
+            aeon."iommugroups.sh" # Custom tool for IOMMU groups.
         ];
 
         # Set up the timezone and locale.
