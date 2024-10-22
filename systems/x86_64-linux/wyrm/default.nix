@@ -32,6 +32,7 @@
         };
 
         docker.enable = true;
+        qemu.enable = true;
         net = {
             wireguard.enable = true;
             tailscale.ACLtags = [ "server" ];
