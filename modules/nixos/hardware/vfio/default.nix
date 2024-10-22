@@ -59,12 +59,12 @@ with lib;
             "vfio_pci"
             "vfio"
             "vfio_iommu_type1"
-            "vfio_virqfd"
+            # "vfio_virqfd"
 
-            "nvidia"
-            "nvidia_modeset"
-            "nvidia_uvm"
-            "nvidia_drm"
+            # "nvidia"
+            # "nvidia_modeset"
+            # "nvidia_uvm"
+            # "nvidia_drm"
         ];
 
         # NOTE: OpenGL is obvious, and SPICE redirection lets you essentially
