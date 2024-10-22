@@ -16,19 +16,26 @@
 
         fs.type = "btrfs";
 
-        hardware.gpu = {
-            intel = {
-                enable = true;
-                busID = "PCI:0:2:0";
+        hardware = {
+            gpu = {
+                intel = {
+                    enable = true;
+                    busID = "PCI:0:2:0";
+                };
+
+                # FIXME: NVIDIA's drivers currently fail to build.
+                # nvidia = {
+                #     enable = true;
+                #     busID = "PCI:1:0:0";
+                # };
+
+                specialise = false;
             };
 
-            # FIXME: NVIDIA's drivers currently fail to build.
-            # nvidia = {
-            #     enable = true;
-            #     busID = "PCI:1:0:0";
-            # };
-
-            specialise = false;
+            vfio = {
+                enable = true;
+                pciIDs = [ "10de:1b80" "10de:10f0" ];
+            };
         };
 
         docker.enable = true;
