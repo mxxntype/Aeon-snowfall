@@ -19,6 +19,10 @@ with lib; {
         services.printing = {
             enable = true;
             drivers = with pkgs; [ hplipWithPlugin ];
+
+            # WARN: The autodiscovery thing of CUPS is sorta
+            # a security nightmare, so stay away from that.
+            browsed.enable = false;
         };
     };
 }
