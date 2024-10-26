@@ -35,6 +35,9 @@ with lib; {
             environment.systemPackages = with pkgs; [
                 dive # A tool for exploring each layer in a docker image.
             ];
+
+            # INFO: Some large docker deployments, like Elastic or Wazuh, need this.
+            boot.kernel.sysctl."vm.max_map_count" = 262144;
         }
 
         (mkIf (implementation == "docker" || implementation == "both") {
