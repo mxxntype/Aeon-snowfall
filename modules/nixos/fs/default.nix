@@ -43,6 +43,7 @@ with lib; {
             environment.systemPackages = with pkgs; [
                 e2fsprogs # ext2 | ext3 | ext4.
                 libxfs    # SGI XFS.
+                zfs       # OpenZFS.
                 disko
             ];
         }
