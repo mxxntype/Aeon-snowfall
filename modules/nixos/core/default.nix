@@ -63,6 +63,10 @@ with lib; {
             libraries = [];
         };
 
+        # Populate /usr/bin/ with symlinks to executables in system's $PATH.
+        # This also helps with running unpatched binaries and scripts on NixOS.
+        services.envfs.enable = true;
+
         # Add some core packages.
         environment.systemPackages = with pkgs; [
             home-manager          # Make sure its always there.
