@@ -1,7 +1,8 @@
 [default.extend-words]
-ba = "ba"       # Catppuccin's #F38BA8 color code
-nitch = "nitch" # A system fetch tool in Nim.
-GOST = "GOST"   # ГОСТ, a standard.
+ba = "ba"         # Catppuccin's #F38BA8 color code
+nitch = "nitch"   # A system fetch tool in Nim.
+GOST = "GOST"     # ГОСТ, a standard.
+numver = "numver" # A variable from Starship.
 
 [files]
 extend-exclude = [
