@@ -59,7 +59,7 @@ with lib; {
                     let dark_theme = {
                         separator: dark_gray
                         header: white_bold
-                        row_index: green_bold
+                        row_index: white_bold
 
                         empty: blue
                         leading_trailing_space_bg: { attr: n }
