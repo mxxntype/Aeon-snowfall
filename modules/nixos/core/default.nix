@@ -56,11 +56,19 @@ with lib; {
 
         # Allow running unpatched dynamic binaries on NixOS.
         # See https://github.com/Mic92/nix-ld.
-        programs.nix-ld = {
-            enable = true;
-            # Libraries that automatically become available to all programs.
-            # The default set includes common libraries.
-            libraries = [];
+        programs = {
+            nix-ld = {
+                enable = true;
+                # Libraries that automatically become available to all programs.
+                # The default set includes common libraries.
+                libraries = [];
+            };
+
+            nh = {
+                enable = true;
+                clean.enable = false;
+                flake = lib.aeon.flakePath;
+            };
         };
 
         # Populate /usr/bin/ with symlinks to executables in system's $PATH.
