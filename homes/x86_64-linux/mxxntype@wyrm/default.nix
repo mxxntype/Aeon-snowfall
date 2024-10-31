@@ -4,7 +4,7 @@
 
 {
     aeon = {
-        # desktop.hyprland.enable = true;
+        desktop.hyprland.enable = true;
         style.codename = "pastel";
         cli = {
             fzf.enable = false;
@@ -12,5 +12,7 @@
         };
     };
 
-    home.stateVersion = "24.05"; # WARN: Changing this might break things. Just leave it.
+    # WARN: Changing this might break things. Just leave it.
+    # The sole legit reason to change this is a reinstallation.
+    home.stateVersion = "24.05";
 }

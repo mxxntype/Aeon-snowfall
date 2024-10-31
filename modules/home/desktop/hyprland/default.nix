@@ -18,16 +18,28 @@ with lib; {
             type = with types; bool;
             default = false;
         };
+
+        # NOTE: Using `"nixpkgs"` will make Nix use the Nixpkgs-provided version of Hyprland.
+        # Otherwise, Hyprland will come from flake's inputs (see flake.nix). That might cause
+        # some extra building from source, however gives more control over versions of stuff.
+        source = mkOption {
+            type = with types; enum [ "nixpkgs" "git" ];
+            default = "git";
+        };
     };
 
     config = let
         inherit (config.aeon.desktop.hyprland)
             enable
+            source
             ;
     in mkIf enable {
         wayland.windowManager.hyprland = {
             enable = true;
-            package = pkgs.hyprland;
+            package = if (source == "nixpkgs")
+                      then pkgs.hyprland
+                      else inputs.hyprland.packages.${pkgs.system}.default;
+
             settings = let
                 MOD = "SUPER";
             in {
@@ -51,9 +63,12 @@ with lib; {
                 ];
             };
 
-            plugins = with pkgs.hyprlandPlugins; [
-                borders-plus-plus # Double borders for the looks.
-                hy3               # i3-like manual tiling layout.
+            plugins = if (source == "nixpkgs") then [
+                pkgs.hyprlandPlugins.hy3
+                pkgs.hyprlandPlugins.borders-plus-plus
+            ] else [
+                inputs.hyprland-hy3.packages.${pkgs.system}.hy3
+                inputs.hyprland-plugins.packages.${pkgs.system}.borders-plus-plus
             ];
         };
     };

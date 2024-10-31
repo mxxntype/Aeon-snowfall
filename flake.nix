@@ -93,13 +93,20 @@
         # Hyprland *really* cares about matching versions of everything, so to be sure these are with tags.
         # The wacky URL is because of https://github.com/hyprwm/Hyprland/issues/5891#issuecomment-2094865630.
         # NOTE: The hyprland's `package` is (for now) the one provided by `nixpgks`, not the one from here.
-        hyprland.url = "git+https://github.com/hyprwm/Hyprland.git?ref=refs/tags/v0.43.0&submodules=1";
+        hyprland = {
+            url = "git+https://github.com/hyprwm/Hyprland.git?ref=refs/tags/v0.44.0&submodules=1";
+            inputs.hyprutils.follows = "hyprutils";
+        };
+        # NOTE: TODO
+        hyprutils = {
+            url = "github:hyprwm/hyprutils?ref=v0.2.3";
+        };
         hyprland-plugins = {
-            url = "github:hyprwm/hyprland-plugins";
+            url = "github:hyprwm/hyprland-plugins?ref=v0.44.0";
             inputs.hyprland.follows = "hyprland";
         };
         hyprland-hy3 = {            
-            url = "github:outfoxxed/hy3?ref=hl0.43.0";
+            url = "github:outfoxxed/hy3?ref=hl0.44.0";
             inputs.hyprland.follows = "hyprland";
         };
         hyprland-contrib = {
