@@ -1,12 +1,16 @@
+# INFO: Core Nix library, accessible from anywhere in the flake.
+
 {
     inputs,
     ...
-}: let
-    nix-std = builtins.attrValues inputs.nix-std.lib;
-in rec {
-    inherit nix-std;
+}:
 
-    # I change my username from time to time, An because some NixOS
+rec {
+    # A no-nixpkgs standard library for the nix language.
+    # Mostly used for (de)serialization of stuff.
+    nix-std = builtins.attrValues inputs.nix-std.lib;
+
+    # I change my username from time to time, and because some NixOS
     # options inherit from from my Home-manager options, I think
     # it's quite reasonable to have my username declared as a variable.
     user = "mxxntype";

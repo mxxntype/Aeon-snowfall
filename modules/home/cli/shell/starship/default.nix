@@ -42,7 +42,7 @@ with lib;
 
                 hostname = {
                     ssh_only = true;
-                    ssh_symbol = "󰑔 ";
+                    ssh_symbol = "󰒋 ";
                     style = "bold blue";
                     format = "[$ssh_symbol]($style)${mkContainer "[$hostname]($style)"}";
                 };
