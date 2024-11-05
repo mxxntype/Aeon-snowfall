@@ -41,6 +41,7 @@ with lib; {
         # Use GRUB2 by default.
         {
             boot.loader.grub.enable = mkDefault true;
+            environment.systemPackages = with pkgs; [ efibootmgr ];
         }
 
         # BIOS:
@@ -51,7 +52,7 @@ with lib; {
         # UEFI: common options.
         (mkIf (type == "uefi" || type == "lanzaboote") {
             # WARNING: NixOS will be able to modify the BIOS boot entries and their
-            # order. The only risk is that wiping the root (say with rm -rf /*) will
+            # order. The only risk is that wiping the root (say with `rm -rf /*`) may
             # empty all the EFI variables and that has lead to bricking some (buggy)
             # BIOSes in the past.
             # SOURCE: https://discourse.nixos.org/t/question-about-grub-and-nodev/37867/8
@@ -122,6 +123,9 @@ with lib; {
                     theme = "breeze";
 
                     # WARN: Build sometimes fails with this uncommented for some reason.
+                    #
+                    # TODO: Seems to be resolved in newer versions of NixOS, will keep
+                    # the warning around for some time and remove if nothing breaks.
                     logo = ./saturn-128x.png;
                     font = let
                         dir = "share/fonts/truetype/NerdFonts";

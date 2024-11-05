@@ -3,8 +3,6 @@
 # No GPU / GUI / Gamedev Rust-powered libraries and engines that I've tried worked
 # on NixOS, neither with X11 nor Wayland. However, it seems to work in this shell.
 # SOURCE: https://github.com/bevyengine/bevy/issues/9203#issuecomment-1657248743
-#
-# TODO: Maybe provide Rust and Cargo from one of the flake interfaces?
 
 {
     pkgs,

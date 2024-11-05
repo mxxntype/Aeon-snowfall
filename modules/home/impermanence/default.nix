@@ -47,8 +47,8 @@ with lib; {
                 "Aeon"       # Where this repo lives.
                 "Camera"     # My phone's gallery (synced)
                 "Files"      # Assorted files (.iso images, keys, AppImages, other stuff)
-                "Library"    # My personal library of whatnot (TODO: Merge with ~/Documents)
-                "Obsidian"   # My obsidian vault (TODO: Move to ~/Documents)
+                "Library"    # My personal library of whatnot.
+                "Obsidian"   # My obsidian vault.
                 "Projects"   # My personal and work projects.
                 "Repos"      # Cloned repositories.
                 "exercism"   # https://exercism.org stuff.

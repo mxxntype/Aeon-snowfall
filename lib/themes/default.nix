@@ -96,7 +96,7 @@ rec {
             error  = red;
         };
 
-        # Syntax highlighting colors. TODO: Add more.
+        # Syntax highlighting colors.
         code = with colors; {
             keyword      = mauve;
             variable     = text;

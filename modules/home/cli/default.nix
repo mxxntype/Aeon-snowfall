@@ -28,29 +28,30 @@ with lib; {
         };
 
         home.packages = with pkgs; [
-            bandwhich # Bandwidth utilization tool.
-            dua       # View disk space usage and delete unwanted data.
-            duf       # Neat disk monitor.
+            # System information stuff.
+            dua # View disk space usage and delete unwanted data.
+            duf # Neat disk monitor.
 
             # Networking.
+            bandwhich    # Bandwidth utilization tool.
+            doggo        # CLI DNS Client, written in Go (`dig` alternative).
             ethtool      # For controlling network drivers and hardware.
+            gping        # `ping`, but with a graph.
             netdiscover  # Discover hosts in LAN.
             nmap         # Port scanner.
             speedtest-rs # CLI internet speedtest tool in Rust.
 
-            # Other TUIs.
-            porsmo  # Pomodoro timer.
-
             # Alternative implementations of the basic tools.
             erdtree # Tree-like `ls` with a load of features.
-            killall # Basically `pkill`
-            ripgrep # Oxidized `grep`
-            sd      # A friendlier `sed`
-            srm     # Secure `rm`
+            killall # Basically `pkill`.
+            ripgrep # Oxidized `grep`.
+            sd      # A friendlier `sed`.
+            srm     # Secure `rm`.
 
             # Text & image processors.
             aeon.repalette # Recolor images to a certain palette.
             bc             # Arbitrary precision calculator.
+            binsider       # TUI ELF binary analyzer.
             exiftool       # View EXIF metadata of files.
             heh            # Hex editor.
             hexyl          # Hex viewer.
@@ -60,24 +61,22 @@ with lib; {
             mpv            # Based video player.
             timg           # CLI image viewer.
             toml2nix       # Convert TOML to Nix.
-            binsider       # TUI ELF binary analyzer.
 
             # Color processors.
             matugen # Material You color generation tool.
             pastel  # Generate, analyze, convert and manipulate colors.
 
             # Build systems & automation.
+            cmake   # Cross-platform, open-source build system generator (dumpster fire).
             comma   # Run any binary (with `nix-index` and `nix run`)
             gnumake # GNU make.
+            meson   # Open source, fast and friendly build system made in Python.
+            ninja   # Small build system with a focus on speed.
 
             # Archiving tools.
             unrar
             unzip
             zip
-
-            # Filesystems.
-            e2fsprogs  # Tools for creating and checking ext2/ext3/ext4 filesystems.
-            efibootmgr # Userspace EFI boot manager.
 
             # Fetches and other cool TUI stuff.
             cbonsai
@@ -99,8 +98,11 @@ with lib; {
             # Command managers.
             mprocs
 
-            # My other flakes.
+            # Apps from my other flakes.
             inputs.reddot.packages.${pkgs.system}.default # Search for stuff in $PATH.
+
+            # Other TUIs.
+            porsmo # Pomodoro timer.
         ];
     };
 }

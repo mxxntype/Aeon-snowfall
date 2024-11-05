@@ -97,7 +97,9 @@
             url = "git+https://github.com/hyprwm/Hyprland.git?ref=refs/tags/v0.44.0&submodules=1";
             inputs.hyprutils.follows = "hyprutils";
         };
-        # NOTE: TODO
+        # NOTE: Due to *something*, Hyprland's derivation gets an old and incompatible version of `hyprutils`
+        # and fails to build. Perhaps that will be resolved with an update or something, but for now explicitly
+        # pinning this to a tag and overriding `hyprland`'s corresponding input seems to fix the build.
         hyprutils = {
             url = "github:hyprwm/hyprutils?ref=v0.2.3";
         };

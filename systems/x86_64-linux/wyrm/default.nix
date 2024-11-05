@@ -46,12 +46,15 @@
         };
     };
 
+    # TODO:
+    # - Learn ZFS;
+    # - Nuke the Windows drive;
+    # - Figure out a decent ZFS configuration;
+    # - Reinstall with ZFS.
     disko.devices = let
         inherit (config.networking) hostName;
         volumeGroups = {
             system = "${lib.toLower hostName}-system";
-            # TODO:
-            # storage = "${lib.toLower hostName}-storage";
         };
     in {
         # INFO: The 512G Adata 2.5" SSD.
@@ -94,6 +97,7 @@
         # };
 
         # INFO: The 256G Apacer 2.5" SSD. (Windows drive, thus unused)
+        # NOTE: Is auto-mounted using raw NixOS options below.
         # disk."windows-ssd" = {
         #     type = "disk";
         #     device = "/dev/disk/by-id/ata-Apacer_AS350_256GB_50F2072706BA00020637";

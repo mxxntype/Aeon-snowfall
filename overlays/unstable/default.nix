@@ -18,6 +18,7 @@ _final: _prev: {
     inherit (channels.unstable)
         # atuin # BUG: Nix store collision...
         alacritty
+        anytype
         binsider
         cargo-unfmt
         cargo-wizard

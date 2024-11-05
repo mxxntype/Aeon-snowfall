@@ -240,18 +240,19 @@ with lib; {
             '';
         })    
 
-        # TODO: Configure Atuin's sync feature.
-        (mkIf config.aeon.cli.atuin.sync {
-            programs.atuin.settings = {
-                auto_sync = true;
-                sync_frequency = "10m";
-                sync_address = "https://api.atuin.sh"; # FIXME
-                filter_mode = "global";
-                search_mode = "prefix";
-            };
-        })
-
-        # TODO: Configure an Atuin server.
-        (mkIf config.aeon.cli.atuin.host { })    
+        # NOTE: Atuin is kinda fucking wanky ATM, and I'm not using it at all,
+        # so all of this stuff is gonna stay commented out until I figure out
+        # whether or not I want to try using Atuin again.
+        # (mkIf config.aeon.cli.atuin.sync {
+        #     programs.atuin.settings = {
+        #         auto_sync = true;
+        #         sync_frequency = "10m";
+        #         sync_address = "https://api.atuin.sh";
+        #         filter_mode = "global";
+        #         search_mode = "prefix";
+        #     };
+        # })
+        #
+        # (mkIf config.aeon.cli.atuin.host { })    
     ];
 }
