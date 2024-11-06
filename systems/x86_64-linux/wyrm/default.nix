@@ -8,12 +8,7 @@
 
 {
     aeon = {
-        boot = {
-            type = "uefi";
-            quiet = false;
-            encrypted = false;
-        };
-
+        boot.type = "uefi";
         fs.type = "btrfs";
 
         hardware = {
@@ -41,7 +36,7 @@
         docker.enable = true;
         qemu.enable = true;
         net = {
-            wireguard.enable = true;
+            wireguard.interfaces.personal.enable = true;
             tailscale.ACLtags = [ "server" ];
         };
     };

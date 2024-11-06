@@ -6,10 +6,6 @@
     ...
 }:
 
-let
-    vpnService = "wg-quick-wg0.service";
-in
-
 pkgs.nuenv.writeScriptBin {
     name = "aeon";
     script = /* nu */ ''
@@ -41,36 +37,43 @@ pkgs.nuenv.writeScriptBin {
         # Check the status of the VPN (and Tailscale).
         def "main vpn status" []: nothing -> record {
             {
-                vpn: ((systemctl is-active ${vpnService}) == active),
-                tailscale: (try { tailscale status | ignore; true } catch { false })
+                tailscale: (try { tailscale status | ignore; true } catch { false }),
+                vpn: {
+                    personal: ((systemctl is-active wg-quick-personal.service) == active),
+                    invian: ((systemctl is-active wg-quick-invian.service) == active),
+                }
             }
         }
 
         # Active the VPN service, if configured. Disables Tailscale.
-        def "main vpn connect" []: nothing -> nothing {
+        def "main vpn connect" [
+            interface: string # The name of the interface to connect to.
+        ]: nothing -> nothing {
             try {
-                if ((systemctl is-active ${vpnService}) != active) {
-                    sudo systemctl start ${vpnService}
+                if ((systemctl is-active $"wg-quick-($interface)") != active) {
+                    sudo systemctl start $"wg-quick-($interface)"
                     print $"(ansi green)STATUS:(ansi reset) Connecting to VPN, Tailscale is (ansi red)disabled(ansi reset) for now."
                 } else {
                     print $"(ansi green)STATUS:(ansi reset) Already connected. Tailscale is (ansi red)disabled(ansi reset)."
                 }
             } catch {
-                print $"(ansi red)ERROR:(ansi reset) Can't interact with the VPN service. Is one configured?"
+                print $"(ansi red)ERROR:(ansi reset) Can't interact with the VPN service. Is this one configured?"
             }
         }
 
         # Deactivate the VPN service, if configured. Re-enables Tailscale.
-        def "main vpn disconnect" []: nothing -> nothing {
+        def "main vpn disconnect" [
+            interface: string # The name of the interface to disconnect from.
+        ]: nothing -> nothing {
             try {
-                if ((systemctl is-active ${vpnService}) == active) {
-                    sudo systemctl stop ${vpnService}
+                if ((systemctl is-active $"wg-quick-($interface)") == active) {
+                    sudo systemctl stop $"wg-quick-($interface)"
                     print $"(ansi green)STATUS:(ansi reset) Stopping the VPN, Tailscale is now (ansi green)active(ansi reset)."
                 } else {
                     print $"(ansi green)STATUS:(ansi reset) Not yet connected. Tailscale is (ansi green)active(ansi reset)."
                 }
             } catch {
-                print $"(ansi red)ERROR:(ansi reset) Can't interact with the VPN service. Is one configured?"
+                print $"(ansi red)ERROR:(ansi reset) Can't interact with the VPN service. Is this one configured?"
             }
         }
 
