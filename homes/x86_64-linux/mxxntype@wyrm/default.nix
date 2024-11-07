@@ -1,15 +1,9 @@
-{
-    ...
-}:
+{ ... }:
 
 {
     aeon = {
-        desktop.hyprland.enable = true;
+        desktop.hyprland.enable = false;
         style.codename = "pastel";
-        cli = {
-            fzf.enable = false;
-            atuin.enable = false;
-        };
     };
 
     # WARN: Changing this might break things. Just leave it.

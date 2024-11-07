@@ -1,4 +1,9 @@
 # INFO: Atuin Home-manager module.
+#
+# ISSUE: Currently *really* slows down the shell when the history grows,
+# should be solvable with the experimental `daemon` thing. However, that
+# is still deemed unstable and I don't feel like fucking around with it
+# just yet. Thus this is disabled by default for the time being.
 
 {
     config,
@@ -12,7 +17,7 @@ with lib; {
         enable = mkOption {
             description = "Whether to enable Atuin, the magical shell history";
             type = types.bool;
-            default = true;
+            default = false;
         };
 
         sync = mkOption {
