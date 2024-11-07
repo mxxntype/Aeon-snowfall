@@ -5,8 +5,9 @@ default:
 # Run some static analysis tools.
 lint:
     nix run nixpkgs#typos
-    nix run nixpkgs#deadnix
-    nix run nixpkgs#statix -- check
+    # ISSUE: These blow up with the new `pipe-operators` feature of Nix.
+    # nix run nixpkgs#deadnix
+    # nix run nixpkgs#statix -- check
 
 # Perform a flake evaluation check.
 check: lint
