@@ -29,9 +29,10 @@ with lib; {
             ;
 
         # Will be `true` if any of the interfaces are enabled, `false` otherwise.
-        enable = builtins.any
-            (enable: enable)
-            (builtins.map (interface: interface.enable) (builtins.attrValues interfaces));
+        enable = interfaces
+            |> builtins.attrValues
+            |> builtins.map (interface: interface.enable)
+            |> builtins.any (enabled: enabled);
 
         # NOTE: This function returns a NixOS configuration module that will:
         # - Fetch the decrtypted Wireguard config file from sops;

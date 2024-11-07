@@ -91,7 +91,7 @@ with lib; {
         time.timeZone = timezone;
         i18n = {
             defaultLocale = locale.main;
-            supportedLocales = [ "${locale.main}/UTF-8" ] ++ (builtins.map (l: "${l}/UTF-8") locale.misc);
+            supportedLocales = [ "${locale.main}/UTF-8" ] ++ (locale.misc |> builtins.map (l: "${l}/UTF-8"));
             extraLocaleSettings = {
                 LC_CTYPE          = locale.main;
                 LC_NUMERIC        = locale.main;
