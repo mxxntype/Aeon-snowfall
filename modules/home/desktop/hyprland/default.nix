@@ -42,6 +42,7 @@ with lib; {
 
             settings = let
                 MOD = "SUPER";
+                workspaceCount = 10;
             in {
                 bind = builtins.concatLists [
                     # General binds.
@@ -50,12 +51,12 @@ with lib; {
                     ]
 
                     # Generate bindings for switching or moving active window to a workspace.
-                    (builtins.concatLists (builtins.genList (_ws: 
-                        let ws = toString (_ws + 1); in [
-                            "${MOD},       ${ws}, workspace,       ${ws}"
-                            "${MOD} SHIFT, ${ws}, movetoworkspace, ${ws}"
+                    (workspaceCount
+                        |> builtins.genList (_id: let id = toString (_id + 1); in [
+                            "${MOD},       ${id}, workspace,       ${id}"
+                            "${MOD} SHIFT, ${id}, movetoworkspace, ${id}"
                         ])
-                        /* WORKSPACE_COUNT: */ 10))
+                        |> builtins.concatLists)
                 ];
 
                 exec-once = [

@@ -511,8 +511,8 @@ rec {
     # INFO: Convert an "RRBBGG" hex color code to a "RRR, GGG, BBB" decimal one.
     hexToDecimal = hexCode: separator:
         assert builtins.isString hexCode;
-        assert builtins.stringLength hexCode == 6;
         assert builtins.isString separator;
+        assert builtins.stringLength hexCode == 6;
         let
             # NOTE: Horrible, but I could not figure out a better way...
             _map = {

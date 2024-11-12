@@ -139,7 +139,7 @@
     fileSystems."/mnt/windows" = {
         device = "/dev/disk/by-id/ata-Apacer_AS350_256GB_50F2072706BA00020637-part4";
         fsType = "ntfs";
-        options = [ "rw" "uid=${builtins.toString config.users.users.${lib.aeon.user}.uid}" ];
+        options = [ "rw" "uid=${toString config.users.users.${lib.aeon.user}.uid}" ];
     };
 
     # NOTE: Flattened for the installer script.

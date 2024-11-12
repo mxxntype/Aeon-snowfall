@@ -29,15 +29,16 @@ with lib; {
                 # HACK: Nushell doesn't pick up some environment variables sometimes.
                 #
                 # This takes general Home-manager variables and makes them Nushell's too.
-                environmentVariables = builtins.removeAttrs
-                    (builtins.mapAttrs
-                        (_: value: "\"${toString value}\"")
-                        (lib.recursiveUpdate config.home.sessionVariables { }))
-                    [
+                environmentVariables = let
+                    escapedVariables = { }
+                        |> lib.recursiveUpdate config.home.sessionVariables
+                        |> builtins.mapAttrs (_: value: "\"${toString value}\"");
+                    badVariables = [
                         # HACK: This one is set to something hella fucking weird, and having it
                         # present seems to break the cursor in some apps, like the Zen browser.
                         "XCURSOR_PATH"
                     ];
+                in builtins.removeAttrs escapedVariables badVariables;
                 
                 shellAliases = {
                     lsa = "ls -a";

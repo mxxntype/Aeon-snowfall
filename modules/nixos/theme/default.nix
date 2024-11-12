@@ -20,7 +20,7 @@ with lib; {
         };
     };
     
-    config = mkIf (builtins.hasAttr "${aeon.user}" config.home-manager.users) {
+    config = mkIf (config.home-manager.users |> builtins.hasAttr "${aeon.user}") {
         # Inherit theme theme from Home-manager's configuration.
         aeon = { inherit (config.home-manager.users.${aeon.user}.aeon) theme; };
 
@@ -28,8 +28,8 @@ with lib; {
         environment.etc = let
             inherit (config.aeon) theme;
         in {
-            "theme.json".text = builtins.toJSON theme;
-            "theme.toml".text = nix-std.serde.toTOML theme;
+            "theme.json".text = theme |> builtins.toJSON;
+            "theme.toml".text = theme |> nix-std.serde.toTOML;
         };
     };
 }

@@ -4,14 +4,8 @@
     ...
 }:
 
-let
-    # Only add these groups if they are present to avoid clutter.
-    ifPresent = with builtins;
-        groups: filter (G: hasAttr G config.users.groups) groups;
-in
-
 with lib; {
-    config = mkIf (builtins.hasAttr "${aeon.user}" config.home-manager.users) {
+    config = mkIf (config.home-manager.users |> builtins.hasAttr "${aeon.user}") {
         users.users = {
             ${aeon.user} = {
                 hashedPasswordFile = config.sops.secrets."passwords/user".path;
@@ -21,13 +15,13 @@ with lib; {
                     "video"
                     "audio"
                     "input"
-                ] ++ ifPresent [
+                ] ++ ([
                     "networkmanager"
                     "docker"
                     "podman"
                     "git"
                     "libvirtd"
-                ];
+                ] |> builtins.filter (G: builtins.hasAttr G config.users.groups));
             };
         };
 

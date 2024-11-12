@@ -6,7 +6,10 @@
     ...
 }:
 
-with lib; {
+with lib;
+with builtins;
+
+{
     options.aeon.net.tailscale = {
         enable = mkOption {
             description = "Whether to connect the device to Tailscale";
@@ -74,9 +77,13 @@ with lib; {
                     else if exit_node.client then "client"
                     else "none";
 
-                extraUpFlags = [
+                extraUpFlags = let
+                    tags = ACLtags
+                        |> map (tag: "tag:${tag}")
+                        |> concatStringsSep ",";
+                in [
                     "--operator=${lib.aeon.user}" # Allow me to manage `tailscaled` without `sudo`.
-                    "--advertise-tags=${builtins.concatStringsSep "," (builtins.map (tag: "tag:${tag}") ACLtags)}"
+                    "--advertise-tags=${tags}"
                     "--exit-node=${exit_node.ip}"
                     "--exit-node-allow-lan-access=${if exit_node.client then "true" else "false"}"
                     (mkIf exit_node.server "--advertise-exit-node")

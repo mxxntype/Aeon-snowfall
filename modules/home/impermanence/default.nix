@@ -5,7 +5,10 @@
     ...
 }:
 
-with lib; {
+with builtins;
+with lib;
+
+{
     imports = with inputs; [
         impermanence.nixosModules.home-manager.impermanence
     ];
@@ -25,11 +28,9 @@ with lib; {
     in mkIf enable {
         home.persistence."${lib.aeon.persist}/home/${lib.aeon.user}" = {
             directories = let
-                xdgDirs = builtins.map
-                    (dir: builtins.replaceStrings [ "${config.home.homeDirectory}/" ] [ "" ] dir)
-                    (builtins.filter
-                        (value: builtins.isString value)
-                        (builtins.attrValues config.xdg.userDirs));
+                xdgDirs = attrValues config.xdg.userDirs
+                    |> filter (value: isString value)
+                    |> map (dir: replaceStrings [ "${config.home.homeDirectory}/" ] [ "" ] dir);
             in xdgDirs ++ [
                 ".android"   # ADB data.
                 ".cache"     # All kinds of cached stuff.
