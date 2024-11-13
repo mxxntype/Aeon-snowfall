@@ -28,20 +28,33 @@ with lib;
         programs.starship = {
             enable = true;
             settings = let
-                # NOTE: Shortcut for adding dark-gray square brackets around a block.
-                mkContainer = contents: "[\\[](fg:#${ui.bg.surface2})${contents}[\\]](fg:#${ui.bg.surface2}) ";
-                mkContainerRight = contents: "[\\[](fg:#${ui.bg.surface2})${contents}[\\]](fg:#${ui.bg.surface2})";
+                mkSurround = contents: {
+                    left ? "[",
+                    right ? "]",
+                    padLeft ? false,
+                    padRight ? false,
+                    color ? ui.bg.surface2,
+                }:
+                    (if padLeft then " " else "")
+                    +
+                    "[\\${left}](fg:#${color})${contents}[\\${right}](fg:#${color})"
+                    +
+                    (if padRight then " " else "");
+
+                # NOTE: Shortcuts for adding dark-gray square brackets around a block.
+                mkContainer = contents: mkSurround contents { padRight = true; };
+                mkContainerRight = contents: mkSurround contents { padLeft = true; };
             in {
                 add_newline = false;
 
                 username = {
-                    style_user = "bold purple";
+                    style_user = "purple";
                     style_root = "bold red";
-                    format = "[$user]($style) ";
+                    format = mkSurround "[$user]($style)" { left = "("; right = ")"; padRight = true; };
                 };
 
                 hostname = {
-                    ssh_only = true;
+                    ssh_only = false;
                     ssh_symbol = "󰒋 ";
                     style = "bold blue";
                     format = "[$ssh_symbol]($style)${mkContainer "[$hostname]($style)"}";
@@ -56,9 +69,12 @@ with lib;
                     read_only_style = "bold fg:#${colors.yellow}";
                 };
 
-                character = let style = "bold fg:#${ui.fg.subtext1}"; in {
-                    success_symbol = "[~>](${style})";
-                    error_symbol = "[~>](${style})";
+                character = let
+                    char = "";
+                    style = "bold fg:#${ui.fg.subtext1}";
+                in {
+                    success_symbol = "[${char}](${style})";
+                    error_symbol = "[${char}](${style})";
                 };
 
                 git_branch = {
@@ -103,6 +119,7 @@ with lib;
                 nix_shell.disabled = true;
 
                 git_status.disabled = true;
+                aws.disabled = true;
 
                 aws.symbol = "󰸏 ";
                 buf.symbol = " ";
