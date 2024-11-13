@@ -35,10 +35,10 @@ with lib;
                     padRight ? false,
                     color ? ui.bg.surface2,
                 }:
-                    (if padLeft then " " else "")
-                    +
-                    "[\\${left}](fg:#${color})${contents}[\\${right}](fg:#${color})"
-                    +
+                    (if padLeft then " " else "") +
+                    (if left != null then "[\\${left}](fg:#${color})" else "") +
+                    contents +
+                    (if right != null then "[\\${right}](fg:#${color})" else "") +
                     (if padRight then " " else "");
 
                 # NOTE: Shortcuts for adding dark-gray square brackets around a block.
@@ -50,20 +50,24 @@ with lib;
                 username = {
                     style_user = "purple";
                     style_root = "bold red";
-                    format = mkSurround "[$user]($style)" { left = "("; right = ")"; padRight = true; };
+                    format = mkSurround "[$user]($style)[@](fg:#${ui.fg.subtext1})" { right = null; };
                 };
 
                 hostname = {
                     ssh_only = false;
                     ssh_symbol = "󰒋 ";
                     style = "bold blue";
-                    format = "[$ssh_symbol]($style)${mkContainer "[$hostname]($style)"}";
+                    format = mkSurround "[$hostname $ssh_symbol]($style)" { left = null; padRight = true; };
                 };
 
-                directory = {
-                    format = "[󰉋 $path]($style)[$read_only]($read_only_style) ";
+                directory = let
+                    baseFormat = "[$path]($style) [$read_only]($read_only_style)";
+                in {
+                    format = "[󰉋 ]($style)${baseFormat}";
+                    repo_root_format = "[󰊢 ]($style)[$repo_root]($repo_root_style)${baseFormat}";
                     truncation_length = 6;
                     style = "fg:#${ui.fg.subtext1}";
+                    before_repo_root_style = "bold fg:#${ui.fg.subtext1}";
                     repo_root_style = "bold white";
                     read_only = "RO";
                     read_only_style = "bold fg:#${colors.yellow}";
@@ -204,6 +208,7 @@ with lib;
                 };
 
                 format = builtins.replaceStrings [ "\n" ] [ "" ] ''
+                    $username
                     $hostname
                     $localip
                     $shlvl
@@ -293,7 +298,6 @@ with lib;
                     $os
                     $container
                     $shell
-                    $username
                     $character
                 '';
             };
