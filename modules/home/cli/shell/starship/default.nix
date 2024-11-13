@@ -50,14 +50,14 @@ with lib;
                 username = {
                     style_user = "purple";
                     style_root = "bold red";
-                    format = mkSurround "[$user]($style)[@](fg:#${ui.fg.subtext1})" { right = null; };
+                    format = "[$user]($style)[@](fg:#${ui.fg.subtext1})";
                 };
 
                 hostname = {
                     ssh_only = false;
-                    ssh_symbol = "󰒋 ";
+                    ssh_symbol = " 󰒋 ";
                     style = "bold blue";
-                    format = mkSurround "[$hostname $ssh_symbol]($style)" { left = null; padRight = true; };
+                    format = "[$hostname$ssh_symbol]($style)";
                 };
 
                 directory = let
@@ -208,8 +208,11 @@ with lib;
                 };
 
                 format = builtins.replaceStrings [ "\n" ] [ "" ] ''
+                    [\[](fg:#${ui.bg.surface2})
                     $username
                     $hostname
+                    [\] ](fg:#${ui.bg.surface2})
+
                     $localip
                     $shlvl
                     $singularity
