@@ -53,6 +53,8 @@ with lib; {
 
         home.packages = with pkgs; [
             git-filter-repo
+            glab
+            gitoxide
         ];
 
         # xdg.configFile."gh-dash/config.yml".text = ''

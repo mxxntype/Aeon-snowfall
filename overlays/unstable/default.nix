@@ -22,6 +22,8 @@ _final: _prev: {
         binsider
         cargo-unfmt
         cargo-wizard
+        gitoxide
+        glab
         helix
         helix-gpt
         hyprland
