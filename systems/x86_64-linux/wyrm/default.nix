@@ -36,8 +36,11 @@
         docker.enable = true;
         qemu.enable = true;
         net = {
-            wireguard.interfaces.personal.enable = true;
             tailscale.ACLtags = [ "server" ];
+            wireguard.interfaces = {
+                personal.enable = true;
+                invian.enable = true;
+            };
         };
     };
 
