@@ -14,14 +14,38 @@ let
         family = "${font-name}"
         spacing = "term"
         serifs = "sans"
-        noCvSs = true
-        exportGlyphNames = false
+        noCvSs = false
+        exportGlyphNames = true
 
-        [buildPlans.${font-name}.variants]
-        inherits = "ss07"
+          [buildPlans.${font-name}.variants]
+          inherits = "ss07"
 
-        [buildPlans.${font-name}.ligations]
-        inherits = "dlig"
+            [buildPlans.${font-name}.variants.design]
+            six = "straight-bar"
+            nine = "straight-bar"
+            capital-a = "round-top-serifless"
+            capital-x = "curly-serifless"
+            i = "serifed-flat-tailed"
+            j = "flat-hook-serifed"
+            l = "serifed-flat-tailed"
+            m = "earless-rounded-double-arch-serifless"
+            n = "earless-corner-straight-serifless"
+            p = "earless-rounded-serifless"
+            r = "earless-corner-serifless"
+            t = "flat-hook-short-neck"
+            u = "toothless-corner-serifless"
+            v = "curly-serifless"
+            w = "rounded-vertical-sides-serifless"
+            x = "curly-serifless"
+            y = "cursive-serifless"
+            z = "curly-serifless"
+            cyrl-er = "earless-corner-serifless"
+            asterisk = "hex-low"
+            paren = "flat-arc"
+            at = "threefold-solid-inner"
+            micro-sign = "toothless-corner-serifless"
+            lig-neq = "vertical-dotted"
+            lig-double-arrow-bar = "without-notch"
 
         [buildPlans.${font-name}.weights.Regular]
         shape = 400
