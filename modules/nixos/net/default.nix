@@ -36,10 +36,25 @@ with lib; {
             };
         };
 
-        environment.systemPackages = with pkgs; [
-            ethtool
-            wakeonlan
-            aeon.siren # My Wake-on-LAN tool written in Rust.
-        ];
+        environment = {
+            systemPackages = with pkgs; [
+                ethtool
+                wakeonlan
+                aeon.siren # My Wake-on-LAN tool written in Rust.
+            ];
+
+            etc."nix/open_ports.json".text = let
+                inherit (config.networking.firewall)
+                    allowedTCPPorts
+                    allowedTCPPortRanges
+                    allowedUDPPorts
+                    allowedUDPPortRanges
+                    ;
+                rangesToList = ranges: ranges |> builtins.map (range: "${toString range.from}-${toString range.to}");
+            in /* json */ builtins.toJSON {
+                tcp = allowedTCPPorts ++ rangesToList allowedTCPPortRanges;
+                udp = allowedUDPPorts ++ rangesToList allowedUDPPortRanges;
+            };
+        };
     };
 }
