@@ -1545,11 +1545,11 @@
     "repalette": {
       "flake": false,
       "locked": {
-        "lastModified": 1702892690,
-        "narHash": "sha256-XuEqzQVC52+gk9LaqI3V/LYXDWDrDhpKMRoltepYAXs=",
+        "lastModified": 1729046925,
+        "narHash": "sha256-KgL1U0PCGb1fvYDXzggOkRWQguBg5+P2EgGakrhvl9M=",
         "owner": "ziap",
         "repo": "repalette",
-        "rev": "404fb7a54d79a0a15e3cb6299ee41d952e0e5ddb",
+        "rev": "f101bd93d94664fde88a3f5c36eecf2d5d13eaf7",
         "type": "github"
       },
       "original": {
