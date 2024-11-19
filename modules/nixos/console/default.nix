@@ -1,7 +1,9 @@
 # INFO: Linux console/TTY NixOS module.
 
 {
+    inputs,
     config,
+    pkgs,
     lib,
     ...
 }:
@@ -43,18 +45,16 @@ with lib; {
                 ];
             };
 
-            # NOTE: Attempt at a better TTY. WARN: Buggy.
-            # environment.systemPackages = with pkgs; [ fbterm zellij tmux ];
-            # fonts.packages = with pkgs; [
-            #     (nerdfonts.override {
-            #         fonts = [
-            #             "BigBlueTerminal"
-            #             "JetBrainsMono"
-            #             "IosevkaTerm"
-            #         ];
-            #     })
-            #     # corefonts
-            # ];
+            fonts.packages = with pkgs; [
+                inputs.iosevka-matsuri.packages.${system}.default
+                corefonts
+                font-awesome
+                (nerdfonts.override { fonts = [
+                    "BigBlueTerminal"
+                    "JetBrainsMono"
+                    "IosevkaTerm"
+                ]; })
+            ];
         })
     ];
 

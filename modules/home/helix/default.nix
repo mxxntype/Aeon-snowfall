@@ -3,6 +3,7 @@
 # https://helix-editor.com
 
 {
+    inputs,
     config,
     lib,
     pkgs,
@@ -202,5 +203,10 @@ with lib; {
                 };
             };
         };
+
+        home.packages = with pkgs; [
+            inputs.nil-fork.packages.${pkgs.system}.nil
+            taplo
+        ];
     };
 }

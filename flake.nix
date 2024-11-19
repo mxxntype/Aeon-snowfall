@@ -124,7 +124,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-
         # NOTE: I manually package the Zen browser for myself.
         #
         # HACK: This does, however, mean that I will need to manually tweak the `version` here if I wish to update it.
@@ -132,6 +131,12 @@
             url = "https://github.com/zen-browser/desktop/releases/download/1.0.0-a.37/zen-specific.AppImage";
             flake = false;
         };
+
+        # A fork of the Nix LSP server with support for the experimental `pipe-operators` feature.
+        nil-fork.url = "github:q60/nil/pipe-operator-support";
+
+        # A comfortable monospace font based on Iosevka.
+        iosevka-matsuri.url = "github:raexera/Iosevka-Matsuri";
 
 
         # SECTION: My other flakes.
