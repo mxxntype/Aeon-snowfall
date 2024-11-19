@@ -43,7 +43,7 @@ with lib;
 
                 # NOTE: Shortcuts for adding dark-gray square brackets around a block.
                 mkContainer = contents: mkSurround contents { padRight = true; };
-                mkContainerRight = contents: mkSurround contents { padLeft = true; };
+                mkContainerRight = contents: mkSurround contents { padLeft = false; };
             in {
                 add_newline = false;
 
@@ -64,7 +64,7 @@ with lib;
                     baseFormat = "[$path]($style) [$read_only]($read_only_style)";
                 in {
                     format = "[󰉋 ]($style)${baseFormat}";
-                    repo_root_format = "[󰊢 ]($style)[$repo_root]($repo_root_style)${baseFormat}";
+                    repo_root_format = "[ ]($style)[$repo_root]($repo_root_style)${baseFormat}";
                     truncation_length = 6;
                     style = "fg:#${ui.fg.subtext1}";
                     before_repo_root_style = "bold fg:#${ui.fg.subtext1}";
@@ -84,6 +84,30 @@ with lib;
                 git_branch = {
                     format = mkContainer "[$symbol$branch(:$remote_branch)]($style)";
                     symbol = "󰘬 ";
+                };
+
+                git_metrics = {
+                    format = "([+$added]($added_style))([-$deleted]($deleted_style) )";
+                    added_style = "bold fg:#${colors.pink}";
+                    deleted_style = "bold fg:#${colors.maroon}";
+                    disabled = false;
+                };
+
+                git_status = {
+                    format = "([$all_status$ahead_behind]($style) )";
+                    conflicted = "=";
+                    ahead = "";
+                    behind = "";
+                    diverged = "󰓢";
+                    up_to_date = "";
+                    untracked = "?";
+                    stashed = "";
+                    modified = "~";
+                    staged = "+";
+                    renamed = ">";
+                    deleted = "-";
+                    typechanged = "";
+                    style = "fg:#${colors.rosewater}";
                 };
 
                 rust = {
@@ -110,7 +134,7 @@ with lib;
                 };
 
                 cmd_duration = {
-                    format = "[󰓅 $duration]($style) ";
+                    format = "[󱎫 $duration]($style) ";
                     style = "fg:#${ui.bg.overlay1}";
                 };
 
@@ -122,7 +146,6 @@ with lib;
                 # however noticeably slows down the whole environment.
                 nix_shell.disabled = true;
 
-                git_status.disabled = true;
                 aws.disabled = true;
 
                 aws.symbol = "󰸏 ";
@@ -224,8 +247,6 @@ with lib;
                     $git_branch
                     $git_commit
                     $git_state
-                    $git_metrics
-                    $git_status
                     $hg_branch
                     $pijul_channel
                     $docker_context
@@ -291,11 +312,17 @@ with lib;
                     $package
                     $custom
                     $sudo
+
                     $fill
+
                     $status
                     $cmd_duration
+                    $git_status
+                    $git_metrics
                     $time
+
                     $line_break
+
                     $jobs
                     $battery
                     $os
