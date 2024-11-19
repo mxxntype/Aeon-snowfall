@@ -46,7 +46,7 @@ with lib; {
             };
 
             fonts.packages = with pkgs; [
-                inputs.iosevka-matsuri.packages.${system}.default
+                aeon.iosevka-aeon
                 corefonts
                 font-awesome
                 (nerdfonts.override { fonts = [

@@ -135,8 +135,9 @@
         # A fork of the Nix LSP server with support for the experimental `pipe-operators` feature.
         nil-fork.url = "github:q60/nil/pipe-operator-support";
 
-        # A comfortable monospace font based on Iosevka.
-        iosevka-matsuri.url = "github:raexera/Iosevka-Matsuri";
+        # A comfortable monospace font, my favourite.
+        # NOTE: Used as an input for a custom build, see `packages/fonts/iosevka-aeon`.
+        iosevka = { url = "github:be5invis/Iosevka/main"; flake = false; };
 
 
         # SECTION: My other flakes.
@@ -174,22 +175,10 @@
 
         
         # SECTION: Non-flake inputs.
-        csvlens = {
-            url = "github:YS-L/csvlens";
-            flake = false;
-        };
-        bluetui = {
-            url = "github:pythops/bluetui";
-            flake = false;
-        };
-        repalette = {
-            url = "github:ziap/repalette";
-            flake = false;
-        };
-        srgn = {
-            url = "github:alexpovel/srgn";
-            flake = false;
-        };
+        csvlens = { url = "github:YS-L/csvlens"; flake = false; };
+        bluetui = { url = "github:pythops/bluetui"; flake = false; };
+        repalette = { url = "github:ziap/repalette"; flake = false; };
+        srgn = { url = "github:alexpovel/srgn"; flake = false; };
     };
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {
