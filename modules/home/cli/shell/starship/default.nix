@@ -138,9 +138,14 @@ with lib;
                     style = "fg:#${ui.bg.overlay1}";
                 };
 
-                fill = {
-                    symbol = " ";
+                direnv = {
+                    format = "([$loaded]($style) )";
+                    loaded_msg = "󰦕 ";
+                    style = "fg:#${ui.bg.surface2}";
+                    disabled = false;
                 };
+
+                fill.symbol = " ";
 
                 # PERF: This does not affect the nix3 shell (`nix shell`),
                 # however noticeably slows down the whole environment.
