@@ -152,5 +152,6 @@
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
-    system.stateVersion = "24.05"; # WARN: Changing this might break things. Just leave it.
+    system.stateVersion = "24.05";  # WARN: Changing this might break things. Just leave it.
+    networking.hostId = "2b5004bb"; # Needed for ZFS machine identification.
 }

@@ -36,7 +36,7 @@ with lib; {
         {
             boot = {
                 tmp.cleanOnBoot = true;
-                supportedFilesystems = [ "ntfs" ];
+                supportedFilesystems = [ "ntfs" "zfs" ];
             };
 
             # Tools for creating and managing uncommon filesystems.
