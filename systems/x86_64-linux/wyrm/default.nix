@@ -35,6 +35,8 @@
 
         docker.enable = true;
         qemu.enable = true;
+        multipass.enable = true;
+
         net = {
             tailscale.ACLtags = [ "server" ];
             wireguard.interfaces = {
