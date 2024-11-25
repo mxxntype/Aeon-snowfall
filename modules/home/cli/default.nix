@@ -29,8 +29,9 @@ with lib; {
 
         home.packages = with pkgs; [
             # System information stuff.
-            dua # View disk space usage and delete unwanted data.
-            duf # Neat disk monitor.
+            dua   # View disk space usage and delete unwanted data.
+            duf   # Neat disk monitor.
+            kondo # Disposal of build artifacts.
 
             # Networking.
             bandwhich    # Bandwidth utilization tool.
