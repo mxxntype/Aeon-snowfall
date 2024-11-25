@@ -108,4 +108,5 @@
     boot.extraModulePackages = [ ];
 
     system.stateVersion = "23.11"; # WARN: Changing this might break things. Just leave it.
+    networking.hostId = "58a1256b";
 }
