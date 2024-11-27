@@ -34,6 +34,13 @@ in
             default = { };
         };
 
+        themeFallbacks = {
+            helix = mkOption {
+                type = with types; nullOr str;
+                default = null;
+            };
+        };
+
         codename = mkOption {
             type = with types; nullOr (enum possibleCodenames);
             default = null;

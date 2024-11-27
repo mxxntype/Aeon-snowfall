@@ -1,4 +1,4 @@
-# INFO: A cool, pastel style based on the Catppuccin mocha theme. WARN: WIP!
+# INFO: A cool, pastel style based on the Catppuccin mocha theme.
 
 {
     lib,
@@ -21,7 +21,7 @@ in
         aeon = {
             inherit theme;
             style = {
-                wm = { };
+                themeFallbacks.helix = "catppuccin_mocha";
             };
         };
     };

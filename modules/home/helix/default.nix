@@ -29,7 +29,9 @@ with lib; {
             enable = true;
             defaultEditor = true;
             settings = {
-                # theme = "nix"; # TODO.
+                theme = if (config.aeon.style.themeFallbacks.helix != null)
+                        then config.aeon.style.themeFallbacks.helix
+                        else "nix";
                 editor = {
                     idle-timeout = 0;
                     completion-trigger-len = 1;
