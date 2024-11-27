@@ -22,7 +22,5 @@ perf = "warn"
 enum_glob_use = { level = "warn", priority = 1 }
 single_match_else = { level = "allow", priority = 1 }
 match_bool = { level = "allow", priority = 1 }
-# option_if_let_else = { level = "allow", priority = 1 }
-# or_fun_call = { level = "allow", priority = 1 }
 
 [dependencies]
