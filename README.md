@@ -6,7 +6,7 @@
 </h1>
 
 <div align="center">
-    <img alt="Static Badge" src="https://img.shields.io/badge/NixOS-24.05-d2a8ff?style=for-the-badge&logo=NixOS&logoColor=cba6f7&labelColor=161B22">
+    <img alt="Static Badge" src="https://img.shields.io/badge/NixOS-24.11-d2a8ff?style=for-the-badge&logo=NixOS&logoColor=cba6f7&labelColor=161B22">
     <img alt="Static Badge" src="https://img.shields.io/badge/State-Forever_WIP-ff938c?style=for-the-badge&logo=fireship&logoColor=ff938c&labelColor=161B22">
     <img alt="Static Badge" src="https://img.shields.io/badge/Powered_by-Sleep_deprivation-79c0ff?style=for-the-badge&logo=nuke&logoColor=79c0ff&labelColor=161B22">
 </div>

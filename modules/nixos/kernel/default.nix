@@ -9,7 +9,7 @@ with lib; {
     options.aeon.kernel = {
         type = mkOption {
             type = types.enum [ "default" "zen" ];
-            default = "zen";
+            default = "default";
             description = "What kind of Linux kernel to use";
         };
     };

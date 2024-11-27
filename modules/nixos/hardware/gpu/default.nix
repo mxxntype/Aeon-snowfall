@@ -86,10 +86,9 @@ with lib; {
         (mkIf intel.enable {
             services.xserver.videoDrivers = [ "intel" ];
             hardware = {
-                opengl = {
+                graphics = {
                     enable = true;
-                    driSupport = true;
-                    driSupport32Bit = true;
+                    enable32Bit = true;
                     extraPackages = with pkgs; [
                         intel-media-driver
                         vaapiIntel

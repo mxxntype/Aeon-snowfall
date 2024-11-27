@@ -28,7 +28,7 @@ with lib; {
 
             # LSP servers, formatters and linters
             black
-            nodePackages.pyright
+            pyright
             ruff
             ruff-lsp
 

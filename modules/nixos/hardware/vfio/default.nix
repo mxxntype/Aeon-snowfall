@@ -69,7 +69,7 @@ with lib;
 
         # NOTE: OpenGL is obvious, and SPICE redirection lets you essentially
         # hotplug USB keyboards, mice, storage, etc. from the host into VMs.
-        hardware.opengl.enable = true;
+        hardware.graphics.enable = true;
         virtualisation.spiceUSBRedirection.enable = true;
      };
 }

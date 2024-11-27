@@ -32,7 +32,7 @@ with lib; {
                 environmentVariables = let
                     escapedVariables = { }
                         |> lib.recursiveUpdate config.home.sessionVariables
-                        |> builtins.mapAttrs (_: value: "\"${toString value}\"");
+                        |> builtins.mapAttrs (_: value: toString value);
                     badVariables = [
                         # HACK: This one is set to something hella fucking weird, and having it
                         # present seems to break the cursor in some apps, like the Zen browser.
@@ -231,7 +231,7 @@ with lib; {
                         }
 
                         color_config: $dark_theme # You can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-                        footer_mode: "25"         # `always`, `never`, `number_of_rows`, `auto`
+                        footer_mode: 25           # `always`, `never`, `number_of_rows`, `auto`
                         float_precision: 2        # The precision for displaying floats in tables.
                         buffer_editor: ""         # Command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL.
                         use_ansi_coloring: true
