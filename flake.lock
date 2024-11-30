@@ -1044,6 +1044,22 @@
         "type": "github"
       }
     },
+    "jfscan": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722188242,
+        "narHash": "sha256-EClN0mg7J2+X+XiHeCH/AU2slTjrqBx3pn5xpfMO+Y4=",
+        "owner": "nullt3r",
+        "repo": "jfscan",
+        "rev": "578052482b8d817f5e55f9daa32eb42d4b47589f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nullt3r",
+        "repo": "jfscan",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane_4",
@@ -1649,6 +1665,7 @@
         "impermanence": "impermanence",
         "invar": "invar",
         "iosevka": "iosevka",
+        "jfscan": "jfscan",
         "lanzaboote": "lanzaboote",
         "naersk": "naersk_2",
         "ndrs": "ndrs",

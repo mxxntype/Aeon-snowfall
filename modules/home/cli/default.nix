@@ -40,6 +40,7 @@ with lib; {
             gping        # `ping`, but with a graph.
             netdiscover  # Discover hosts in LAN.
             nmap         # Port scanner.
+            aeon.jfscan  # A wrapper of the above.
             speedtest-rs # CLI internet speedtest tool in Rust.
 
             # Alternative implementations of the basic tools.

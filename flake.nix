@@ -179,6 +179,7 @@
         bluetui = { url = "github:pythops/bluetui"; flake = false; };
         repalette = { url = "github:ziap/repalette"; flake = false; };
         srgn = { url = "github:alexpovel/srgn"; flake = false; };
+        jfscan = { url = "github:nullt3r/jfscan"; flake = false; };
     };
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {
