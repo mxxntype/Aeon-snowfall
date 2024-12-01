@@ -1,0 +1,10 @@
+# NOTE: Most if not all of these are NOT stable (at least as of now).
+# To make use of these without requiring a nightly toolchain for the
+# entire project, one can just use `cargo +nightly fmt`. Personally,
+# I have configured my editor to always use nightly rustfmt.
+
+group_imports = "One"
+imports_granularity = "Module"
+
+wrap_comments = true
+format_code_in_doc_comments = true

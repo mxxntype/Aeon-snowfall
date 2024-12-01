@@ -1,9 +1,14 @@
-[package]
+{% if cranelift == true %}cargo-features = ["codegen-backend"]
+
+{% endif %}[package]
 name = "{{project-name}}"
 version = "0.1.0"
 edition = "2021"
 authors = ["{{authors}}"]
-description = "{{description}}"
+description = "{{description}}"{% if cranelift == true %}
+
+[profile.dev]
+codegen-backend = "cranelift"{% endif %}
 
 # NOTE: Generated, no unsafe by default.
 #

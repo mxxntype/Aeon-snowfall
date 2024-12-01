@@ -1,33 +1,38 @@
 [template]
-ignore = [
-    "flake.lock",
-    "Cargo.lock",
-]
+ignore = ["flake.lock", "Cargo.lock"]
+
+[placeholders.description]
+type = "string"
+prompt = "Provide a description"
+
+[placeholders.cranelift]
+type = "bool"
+prompt = "Use Cranelift for non-release builds (needs nightly)?"
+default = true
+
+[conditional.'cranelift == false'.placeholders.nightly]
+type = "bool"
+prompt = "Use a nightly toolchain?"
+default = false
+
+[placeholders.rustfmt]
+type = "bool"
+prompt = "Setup opinionated rustfmt options (needs nightly rustmft)?"
+default = true
 
 [placeholders.nix]
 type = "bool"
 prompt = "Set up a Nix flake?"
 default = true
 
-[placeholders.description]
-type = "string"
-prompt = "Provide a description"
-
 [conditional.'crate_type == "bin"']
-ignore = [
-    "src/lib.rs",
-]
+ignore = ["src/lib.rs"]
 
 [conditional.'crate_type == "lib"']
-ignore = [
-    "src/main.rs",
-    "Cargo.lock"
-]
+ignore = ["src/main.rs", "Cargo.lock"]
 
 [conditional.'nix == false']
-ignore = [
-    "shells",
-    "packages",
-    "flake.nix",
-    "flake.lock",
-]
+ignore = ["shells", "packages", "flake.nix", "flake.lock"]
+
+[conditional.'rustfmt == false']
+ignore = ["rustfmt.toml"]

@@ -1,2 +1,11 @@
 [toolchain]
-channel = "1.83.0"
+{% if nightly == false %}channel = "1.83.0"{% endif %}{% if nightly == true %}channel = "nightly"{% endif %}
+components = [
+    "cargo",
+    "clippy",
+    "rust-analyzer",
+    "rust-docs",
+    "rust-std",
+    "rustc",{% if cranelift == true %}
+    "rustc-codegen-cranelift-preview",{% endif %}
+]
