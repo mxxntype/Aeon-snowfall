@@ -52,10 +52,6 @@ with lib; {
                 # https://github.com/watchexec/cargo-watch
                 cargo-watch
 
-                # Show crates info from crates.io.
-                # https://gitlab.com/imp/cargo-info
-                cargo-info
-
                 # Build and install C-compatible libraries.
                 # https://github.com/lu-zero/cargo-c
                 cargo-c
@@ -90,7 +86,7 @@ with lib; {
 
                 # A tool for managing cargo workspaces and their crates.
                 # https://github.com/pksunkara/cargo-workspaces
-                cargo-workspaces
+                # cargo-workspaces
 
                 # Scan your Rust crate for semver violations.
                 # https://github.com/obi1kenobi/cargo-semver-checks
@@ -123,6 +119,11 @@ with lib; {
                 # Installing rust binaries as an alternative to building from source.
                 # https://github.com/cargo-bins/cargo-binstall
                 cargo-binstall
+
+                # Generate Debian packages from Rust projects.
+                # https://github.com/kornelski/cargo-deb
+                # BUG: Does not pass tests for some reason.
+                # cargo-deb
 
                 bacon      # Background rust code checker.
                 diesel-cli # Database tool for working with projects that use Diesel.
