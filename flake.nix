@@ -76,10 +76,7 @@
 
         # Cargo build systems for Nix.
         naersk.url = "github:nix-community/naersk";
-        crane = {
-            url = "github:ipetkov/crane";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        crane.url = "github:ipetkov/crane";
         
         # An experimental Nushell environment for Nix.
         nuenv = {
