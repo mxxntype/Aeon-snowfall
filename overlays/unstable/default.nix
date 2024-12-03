@@ -35,6 +35,7 @@ _final: _prev: {
         pastel
         prettypst
         prismlauncher
+        rustscan
         tailscale
         tailscaled
         uv
