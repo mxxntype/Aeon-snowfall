@@ -17,7 +17,10 @@
         fs.type = "btrfs";
         docker.enable = true;
         hardware.gpu.intel.enable = true;
-        net.tailscale.ACLtags = [ "vm" ];
+        net = {
+            ssh.server = true;
+            tailscale.ACLtags = [ "vm" ];
+        };
     };
 
     disko.devices = let

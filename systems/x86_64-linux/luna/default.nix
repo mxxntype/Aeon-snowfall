@@ -32,7 +32,10 @@
 
         gaming.enable = true;
         services.whoogle.enable = true;
-        net.tailscale.ACLtags = [ "client" ];
+        net = {
+            ssh.server = false;
+            tailscale.ACLtags = [ "client" ];
+        };
     };
 
     disko.devices = let

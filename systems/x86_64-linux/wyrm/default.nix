@@ -38,6 +38,7 @@
         multipass.enable = true;
 
         net = {
+            ssh.server = true;
             tailscale.ACLtags = [ "server" ];
             wireguard.interfaces = {
                 personal.enable = true;
