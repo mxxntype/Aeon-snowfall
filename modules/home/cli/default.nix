@@ -38,6 +38,7 @@ with lib; {
             doggo        # CLI DNS Client, written in Go (`dig` alternative).
             ethtool      # For controlling network drivers and hardware.
             gping        # `ping`, but with a graph.
+            hurl         # Perform HTTP requests defined in plain text.
             netdiscover  # Discover hosts in LAN.
             nmap         # Port scanner.
             rustscan     # The "Modern Port Scanner".
