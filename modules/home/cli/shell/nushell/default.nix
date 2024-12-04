@@ -60,22 +60,46 @@ with lib; {
                             mode: emacs
                             event: {
                                 send: executehostcommand,
-                                cmd: "cd (${pkgs.fd}/bin/fd --type dir | fzf | str trim)"
+                                cmd: "cd (${pkgs.fd}/bin/fd --type dir --hidden | fzf | str trim)"
                             }
                         }
 
                         {
-                            name: pick_file_with_fzf
+                            name: edit_with_fzf
                             modifier: ALT
-                            keycode: char_t
+                            keycode: char_e
                             mode: emacs
-                            event: [
-                                {
-                                    edit: InsertString,
-                                    value: "${pkgs.fd}/bin/fd --type file --hidden | fzf"
-                                }
-                            ]
+                            event: {
+                                send: executehostcommand,
+                                cmd: "let choice = (${pkgs.fd}/bin/fd --type file --hidden | fzf --preview '${pkgs.bat}/bin/bat -nf {}' | str trim); if not ($choice | is-empty) { hx $choice }"
+                            }
                         }
+
+                        {
+                            name: list_files
+                            modifier: ALT
+                            keycode: char_l
+                            mode: emacs
+                            event: {
+                                send: executehostcommand,
+                                cmd: 'print ""; ls --all | sort-by type name'
+                            }
+                        }
+
+                        # FIXME: Does not work as expected. The `value` command just gets inserted
+                        # as is into the command line, not the result of picking a file.
+                        # {
+                        #     name: pick_file_with_fzf
+                        #     modifier: ALT
+                        #     keycode: char_t
+                        #     mode: emacs
+                        #     event: [
+                        #         {
+                        #             edit: InsertString,
+                        #             value: "${pkgs.fd}/bin/fd --type file --hidden | fzf"
+                        #         }
+                        #     ]
+                        # }
                     '';
                 in /* nu */ ''
                     # Nushell Config File.
@@ -880,13 +904,6 @@ with lib; {
                                 keycode: char_u
                                 mode: emacs
                                 event: { edit: uppercaseword }
-                            }
-                            {
-                                name: lower_case_word
-                                modifier: alt
-                                keycode: char_l
-                                mode: emacs
-                                event: { edit: lowercaseword }
                             }
 
                             # NOTE: The following bindings with `*system` events require that
