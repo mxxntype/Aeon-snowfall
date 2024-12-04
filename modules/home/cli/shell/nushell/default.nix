@@ -50,7 +50,33 @@ with lib; {
                     # sz = "erd --config sz";
                 };
 
-                configFile.text = /* nu */ ''
+                configFile.text = let
+                    added_keybindings = /* nu */ ''
+                        {
+                            name: cd_with_fzf
+                            modifier: ALT
+                            keycode: char_c
+                            mode: emacs
+                            event: {
+                                send: executehostcommand,
+                                cmd: "cd (${pkgs.fd}/bin/fd --type dir | fzf | str trim)"
+                            }
+                        }
+
+                        {
+                            name: pick_file_with_fzf
+                            modifier: ALT
+                            keycode: char_t
+                            mode: emacs
+                            event: [
+                                {
+                                    edit: InsertString,
+                                    value: "${pkgs.fd}/bin/fd --type file --hidden | fzf"
+                                }
+                            ]
+                        }
+                    '';
+                in /* nu */ ''
                     # Nushell Config File.
                     #
                     # version = "0.94.1"
@@ -398,6 +424,7 @@ with lib; {
                         ]
 
                         keybindings: [
+                            ${added_keybindings}
                             {
                                 name: completion_menu
                                 modifier: none
@@ -859,13 +886,6 @@ with lib; {
                                 keycode: char_l
                                 mode: emacs
                                 event: { edit: lowercaseword }
-                            }
-                            {
-                                name: capitalize_char
-                                modifier: alt
-                                keycode: char_c
-                                mode: emacs
-                                event: { edit: capitalizechar }
                             }
 
                             # NOTE: The following bindings with `*system` events require that

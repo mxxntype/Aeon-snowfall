@@ -33,6 +33,30 @@ with lib; {
             enableBashIntegration = true;
             enableZshIntegration = true;
 
+            defaultCommand = null;
+            defaultOptions = [
+                "--border"
+                "--height 40%"
+                "--bind=tab:down"
+                "--bind=btab:up"
+                "--bind=alt-j:down"
+                "--bind=alt-k:up"
+            ];
+
+            fileWidgetCommand = "${pkgs.fd}/bin/fd --type file --hidden";
+            fileWidgetOptions = [
+                "--preview '${pkgs.bat}/bin/bat -nf {}'"
+            ];
+
+            changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type directory --hidden";
+            # changeDirWidgetOptions = [
+            #     "--preview 'erd --dirs-only --suppress-size --icons --layout inverted {} | head -n 100'"
+            # ];
+
+            historyWidgetOptions = [
+                "--exact"
+            ];
+
             colors = rec {
                 bg = "#${ui.bg.base}";
                 fg = "#${ui.bg.surface2}";
@@ -50,30 +74,6 @@ with lib; {
                 spinner = "#${ui.info}";       # Streaming input indicator.
                 header = "#${ui.bg.surface2}";
             };
-
-            defaultCommand = null;
-            defaultOptions = [
-                "--border"
-                "--height 40%"
-                "--bind=tab:down"
-                "--bind=btab:up"
-                "--bind=alt-j:down"
-                "--bind=alt-k:up"
-            ];
-
-            fileWidgetCommand = null;
-            fileWidgetOptions = [
-                "--preview '${pkgs.bat}/bin/bat -nf {}'"
-            ];
-
-            changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type directory --hidden";
-            # changeDirWidgetOptions = [
-            #     "--preview 'erd --dirs-only --suppress-size --icons --layout inverted {} | head -n 100'"
-            # ];
-
-            historyWidgetOptions = [
-                "--exact"
-            ];
         };
     };
 }
