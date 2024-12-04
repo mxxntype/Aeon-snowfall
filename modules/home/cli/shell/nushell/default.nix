@@ -37,6 +37,7 @@ with lib; {
                         # HACK: This one is set to something hella fucking weird, and having it
                         # present seems to break the cursor in some apps, like the Zen browser.
                         "XCURSOR_PATH"
+                        "LD_LIBRARY_PATH"
                     ];
                 in builtins.removeAttrs escapedVariables badVariables;
                 
