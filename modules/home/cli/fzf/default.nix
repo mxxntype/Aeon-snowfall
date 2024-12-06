@@ -35,7 +35,8 @@ with lib; {
 
             defaultCommand = null;
             defaultOptions = [
-                "--border"
+                "--reverse"
+                "--border=sharp"
                 "--height 40%"
                 "--bind=tab:down"
                 "--bind=btab:up"
@@ -70,7 +71,7 @@ with lib; {
                 info = "#${ui.bg.surface2}";
                 border = "#${ui.bg.surface0}"; # Border of the preview window and horizontal separators (--border).
                 prompt = "#${ui.accent}";
-                pointer = "#${ui.ok}";
+                pointer = "#${ui.fg.text}";
                 spinner = "#${ui.info}";       # Streaming input indicator.
                 header = "#${ui.bg.surface2}";
             };
