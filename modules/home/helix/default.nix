@@ -248,7 +248,7 @@ with lib; {
         home.packages = with pkgs; [
             black
             inputs.nil-fork.packages.${system}.nil
-            nodePackages.pyright
+            pyright
             ruff
             taplo
         ];
