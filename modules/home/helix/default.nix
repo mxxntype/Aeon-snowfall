@@ -74,13 +74,19 @@ with lib; {
 
                 keys = {
                     insert = {
-                        # TODO: Match with Nushell bindings?
-                        #
-                        # Navigation in INSERT mode.
                         "A-h" = "move_char_left";
                         "A-j" = "move_line_down";
                         "A-k" = "move_line_up";
                         "A-l" = "move_char_right";
+                    };
+
+                    normal = {
+                        "A-e" = "file_picker";
+                        "A-f" = "file_picker_in_current_directory";
+                        space = {
+                            i = "jump_forward";  # Jump further Inside.
+                            o = "jump_backward"; # Jump further Outside.
+                        };
                     };
                 };
             };
@@ -147,6 +153,23 @@ with lib; {
                     (mkJSON { name = "json5"; })
 
                     {
+                        name = "toml";
+                        auto-format = true;
+                        formatter = let
+                            taploConfig = pkgs.writeTextFile {
+                                name = "taplo.toml";
+                                text = /* toml */ ''
+                                    [formatting]
+                                    indent_string = "    "
+                                '';
+                            };
+                        in {
+                            command = "${pkgs.taplo}/bin/taplo";
+                            args = [ "fmt" "--config" "${taploConfig}" "-" ];
+                        };
+                    }
+
+                    {
                         name = "java";
                         auto-format = true;
                         indent = {
@@ -182,6 +205,9 @@ with lib; {
                 ];
 
                 language-server = {
+                    # Make RA show hints from clippy as well.
+                    rust-analyzer.config.check.command = "clippy";
+
                     # An all-in-one, versatile LSP for JS/TS.
                     biome = {
                         command = "${pkgs.biome}/bin/biome";
@@ -202,12 +228,28 @@ with lib; {
                         command = "${pkgs.ruff-lsp}/bin/ruff-lsp";
                         config.settings.args = [ "--ignore" "E501" ];
                     };
+
+                    # The open-source JavaScript runtime for the modern web (LSP).
+                    deno-lsp = {
+                        command = "${pkgs.deno}/bin/deno";
+                        args = [ "lsp" ];
+                        environment.NO_COLOR = "1"; 
+                        config.deno = {
+                            enable = true;
+                            suggest = {
+                                imports.hosts."https://deno.land" = true;
+                            };
+                        };
+                    };
                 };
             };
         };
 
         home.packages = with pkgs; [
-            inputs.nil-fork.packages.${pkgs.system}.nil
+            black
+            inputs.nil-fork.packages.${system}.nil
+            nodePackages.pyright
+            ruff
             taplo
         ];
     };
