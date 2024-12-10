@@ -41,5 +41,6 @@ _final: _prev: {
         uv
         wezterm
         ytdownloader
+        zellij
         ;
 }
