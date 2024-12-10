@@ -31,7 +31,7 @@ with lib;
 
                 local _font = wezterm.font_with_fallback{
                     {
-                        family = "IosevkaAeon Nerd Font",
+                        family = "IosevkaAeon Nerd Font Medium",
                     },
                 }
 
