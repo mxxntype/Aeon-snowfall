@@ -22,7 +22,9 @@ with lib; {
     in mkIf enable {
         home.packages = with pkgs; [
             typos      # Source code spell checker.
-            aeon.invar # My CLI management tool for modded Minecraft servers.
+
+            # FIXME: Can't locate `libssl.so.3` (FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK)
+            # aeon.invar # My CLI management tool for modded Minecraft servers.
         ];
     };
 }
