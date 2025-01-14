@@ -67,7 +67,7 @@
     "crane_2": {
       "inputs": {
         "nixpkgs": [
-          "helix",
+          "helix-fork",
           "nixpkgs"
         ]
       },
@@ -731,7 +731,7 @@
         "type": "github"
       }
     },
-    "helix": {
+    "helix-fork": {
       "inputs": {
         "crane": "crane_2",
         "flake-utils": "flake-utils",
@@ -1752,7 +1752,7 @@
         "disko": "disko",
         "fenix": "fenix",
         "hardware": "hardware",
-        "helix": "helix",
+        "helix-fork": "helix-fork",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprland-contrib": "hyprland-contrib",
@@ -1824,11 +1824,11 @@
     "rust-overlay": {
       "inputs": {
         "flake-utils": [
-          "helix",
+          "helix-fork",
           "flake-utils"
         ],
         "nixpkgs": [
-          "helix",
+          "helix-fork",
           "nixpkgs"
         ]
       },
@@ -2351,11 +2351,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1732521221,
-        "narHash": "sha256-2ThgXBUXAE1oFsVATK1ZX9IjPcS4nKFOAjhPNKuiMn0=",
+        "lastModified": 1736798957,
+        "narHash": "sha256-qwpCtZhSsSNQtK4xYGzMiyEDhkNzOCz/Vfu4oL2ETsQ=",
         "owner": "mxxntype",
         "repo": "nixpkgs",
-        "rev": "4633a7c72337ea8fd23a4f2ba3972865e3ec685d",
+        "rev": "9abb87b552b7f55ac8916b6fc9e5cb486656a2f3",
         "type": "github"
       },
       "original": {

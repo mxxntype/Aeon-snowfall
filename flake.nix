@@ -141,7 +141,7 @@
 
 
         # SECTION: My other flakes.
-        helix = {
+        helix-fork = {
             url = "github:mxxntype/helix";
             inputs.nixpkgs.follows = "nixpkgs";
         };

@@ -1,7 +1,3 @@
-{
-    inputs,
-    pkgs,
-    ...
-}:
+{ pkgs, ... }:
 
-inputs.helix.packages.${pkgs.system}.helix
+pkgs.helix
