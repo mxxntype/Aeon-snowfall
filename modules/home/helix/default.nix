@@ -40,6 +40,11 @@ with lib; {
                     indent-guides.render = true;
                     soft-wrap.enable = false;
 
+                    end-of-line-diagnostics = "hint";
+                    inline-diagnostics = {
+                        cursor-line = "error";
+                    };
+
                     color-modes = true;
                     cursor-shape = {
                         normal = "block";
