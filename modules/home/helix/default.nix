@@ -251,11 +251,13 @@ with lib; {
         };
 
         home.packages = with pkgs; [
-            black
+            black /* Python stuff */
             inputs.nil-fork.packages.${system}.nil
             pyright
             ruff
-            taplo
+
+            marksman # Markdown LSP.
+            taplo    # TOML LSP.
         ];
     };
 }

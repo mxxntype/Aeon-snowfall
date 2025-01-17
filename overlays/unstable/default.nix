@@ -29,6 +29,7 @@ _final: _prev: {
         hyprland
         hyprlandPlugins
         kitty
+        marksman
         matugen
         nh
         nushell
