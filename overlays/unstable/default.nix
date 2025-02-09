@@ -40,6 +40,7 @@ _final: _prev: {
         tailscale
         tailscaled
         uv
+        vesktop
         wezterm
         ytdownloader
         zellij
