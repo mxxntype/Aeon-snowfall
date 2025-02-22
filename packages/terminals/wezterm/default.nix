@@ -1,1 +1,1 @@
-{ inputs, pkgs, ... }: inputs.wezterm.packages.${pkgs.system}.default
+{ pkgs, ... }: pkgs.wezterm
