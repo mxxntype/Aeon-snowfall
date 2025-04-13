@@ -271,8 +271,9 @@ with lib; {
                         }
 
                         filesize: {
-                            metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-                            format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
+                            unit: "metric"
+                            # metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
+                            # format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
                         }
 
                         cursor_shape: {
@@ -954,7 +955,7 @@ with lib; {
                     # version = "0.94.1"
 
                     def create_left_prompt [] {
-                        let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
+                        let dir = match (do --ignore-errors { $env.PWD | path relative-to $nu.home-path }) {
                             null => $env.PWD
                             "" => '~'
                             $relative_pwd => ([~ $relative_pwd] | path join)
