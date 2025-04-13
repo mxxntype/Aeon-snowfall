@@ -148,6 +148,11 @@
         options = [ "rw" "uid=${toString config.users.users.${lib.aeon.user}.uid}" ];
     };
 
+    services.iperf3 = {
+        enable = true;
+        openFirewall = true;
+    };
+
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ "dm-snapshot" ];
