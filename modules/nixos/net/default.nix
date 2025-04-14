@@ -38,9 +38,11 @@ with lib; {
 
         environment = {
             systemPackages = with pkgs; [
-                ethtool
-                wakeonlan
                 aeon.siren # My Wake-on-LAN tool written in Rust.
+                dig
+                ethtool
+                iperf3
+                wakeonlan
             ];
 
             etc."nix/open_ports.json".text = let
