@@ -37,7 +37,11 @@ with lib; {
             ];
 
             # INFO: Some large docker deployments, like Elastic or Wazuh, need this.
-            boot.kernel.sysctl."vm.max_map_count" = 262144;
+            #
+            # NOTE: The NixOS LXD/LXC module also sets this, to the same value of 262144.
+            # I'm not sure which of the two should take precedence, but since the value
+            # is the same, I'll force it here and forget about it.
+            boot.kernel.sysctl."vm.max_map_count" = lib.mkForce 262144;
         }
 
         (mkIf (implementation == "docker" || implementation == "both") {
