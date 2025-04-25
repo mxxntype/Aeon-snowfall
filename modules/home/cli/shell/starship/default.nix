@@ -63,7 +63,7 @@ with lib;
                 directory = let
                     baseFormat = "[$path]($style) [$read_only]($read_only_style)";
                 in {
-                    format = "[󰉋 ]($style)${baseFormat}";
+                    format = "[ ]($style)${baseFormat}";
                     repo_root_format = "[󰊢 ]($style)[$repo_root]($repo_root_style)${baseFormat}";
                     truncation_length = 6;
                     style = "fg:#${ui.fg.subtext1}";
@@ -74,7 +74,7 @@ with lib;
                 };
 
                 character = let
-                    char = "";
+                    char = ">";
                     style = "bold fg:#${ui.fg.subtext1}";
                 in {
                     success_symbol = "[${char}](${style})";
@@ -83,7 +83,7 @@ with lib;
 
                 git_branch = {
                     format = mkContainer "[$symbol$branch(:$remote_branch)]($style)";
-                    symbol = "󰘬 ";
+                    symbol = "";
                 };
 
                 git_metrics = {
@@ -127,7 +127,7 @@ with lib;
                 };
 
                 time = {
-                    format = mkContainerRight "[󰅐 $time]($style)";
+                    format = mkContainerRight "[$time]($style)";
                     time_format = "%H:%M %p";
                     style = "fg:#${ui.fg.subtext1}";
                     disabled = false;
