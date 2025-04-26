@@ -25,6 +25,8 @@
         openssh.authorizedKeys.keys = lib.aeon.pubKeys;
     };
 
+    aeon.net.ssh.server = true;
+
     # Use NetworkManager.
     networking.wireless.enable = false;
     networking.networkmanager.enable = lib.mkForce true;
