@@ -24,7 +24,6 @@ with lib; {
 
             extraConfig = {
                 init.defaultBranch = "main";
-                # Commit & tag signing
                 gpg.format = "ssh";
                 commit.gpgSign = true;
                 tag.gpgSign = true;
@@ -54,28 +53,12 @@ with lib; {
         home.packages = with pkgs; [
             git-filter-repo
             glab
-            gitoxide
-        ];
 
-        # xdg.configFile."gh-dash/config.yml".text = ''
-        #     theme:
-        #         ui:
-        #             table:
-        #                 showSeparator: true
-        #         colors:
-        #             text:
-        #                 primary: "#${colors.text}"
-        #                 secondary: "#${colors.surface2}"
-        #                 inverted: "#${colors.surface0}"
-        #                 faint: "#${colors.surface2}"
-        #                 warning: "#${colors.maroon}"
-        #                 success: "#${colors.green}"
-        #             background:
-        #                 selected: "#${colors.surface0}"
-        #             border:
-        #                 primary: "#${colors.surface0}"
-        #                 secondary: "#${colors.surface1}"
-        #                 faint: "#${colors.surface0}"
-        # '';
+            # Basically a git rewrite in Rust.
+            gitoxide
+
+            # A git-compatible DVCS that is both simple and powerful.
+            jujutsu
+        ];
     };
 }

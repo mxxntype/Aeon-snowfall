@@ -28,6 +28,7 @@ _final: _prev: {
         helix-gpt
         hyprland
         hyprlandPlugins
+        jujutsu
         kitty
         marksman
         matugen
