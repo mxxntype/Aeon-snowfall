@@ -35,7 +35,7 @@
 
         docker.enable = true;
         qemu.enable = true;
-        lxd.enable = true;
+        lxc.incus.enable = true;
         multipass.enable = true;
 
         net = {
