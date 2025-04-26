@@ -12,7 +12,7 @@ with lib;
     options.aeon.net.zapret = {
         enable = mkOption {
             type = types.bool;
-            default = true;
+            default = false;
         };
 
         params = mkOption {
