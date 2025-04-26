@@ -155,6 +155,8 @@
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
+    boot.zfs.extraPools = [ "wyrm-hdd" "incus" ];
+
     system.stateVersion = "24.05";  # WARN: Changing this might break things. Just leave it.
     networking.hostId = "2b5004bb"; # Needed for ZFS machine identification.
 }
