@@ -36,11 +36,14 @@ pkgs.nuenv.writeScriptBin {
 
         # Check the status of the VPN (and Tailscale).
         def "main vpn status" []: nothing -> record {
+            let tailscale = try { tailscale status } catch { "inactive" };
+            let personal = try { systemctl is-active wg-quick-personal.service } catch { "inactive" }
+            let invian = try { systemctl is-active wg-quick-invian.service } catch { "inactive" }
             {
-                tailscale: (try { tailscale status | ignore; true } catch { false }),
+                tailscale: ($tailscale != "inactive"),
                 vpn: {
-                    personal: ((systemctl is-active wg-quick-personal.service) == active),
-                    invian: ((systemctl is-active wg-quick-invian.service) == active),
+                    personal: ($personal == "active"),
+                    invian: ($invian == "active"),
                 }
             }
         }
