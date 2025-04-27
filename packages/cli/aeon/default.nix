@@ -244,5 +244,18 @@ pkgs.nuenv.writeScriptBin {
             # so I access it here directly, not through nix.
             swp $wallpaper
         }
+
+        # Locate something in the nix store.
+        #
+        # Calls ${pkgs.nix-index}/bin/nix-locate under the hood.
+        def "main locate" [
+            pattern: string # What pattern to search for (regex).
+        ]: nothing -> list<any> {
+            ${pkgs.nix-index}/bin/nix-locate --regex $pattern
+                | lines
+                | parse "{output} {size} {letter} /nix/store/{store_hash}/{match}"
+                | select output match
+                | sort-by output
+        }
     '';
 }
