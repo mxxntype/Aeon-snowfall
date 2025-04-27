@@ -1,14 +1,8 @@
 # INFO: Linux console/TTY NixOS module.
 
-{
-    inputs,
-    config,
-    pkgs,
-    lib,
-    ...
-}:
+{ config, pkgs, lib, ... }: with lib;
 
-with lib; {
+{
     options.aeon.console = {
         enable = mkOption {
             description = "Whether to configure the Linux TTY";
@@ -47,6 +41,7 @@ with lib; {
 
             fonts.packages = with pkgs; [
                 aeon.iosevka-aeon
+                aeon.nunito
                 corefonts
                 font-awesome
                 (nerdfonts.override { fonts = [
