@@ -257,5 +257,19 @@ pkgs.nuenv.writeScriptBin {
                 | select output match
                 | sort-by output
         }
+
+        # List available fonts.
+        def "main list-fonts" [
+            --refresh-cache (-R), # Refresh the font cache first.
+        ]: nothing -> list<any> {
+            if $refresh_cache {
+                ${pkgs.fontconfig}/bin/fc-cache --force --verbose
+            }
+
+            ${pkgs.fontconfig}/bin/fc-list
+                | lines
+                | parse "{store_path}: {name}:style={style}"
+                | reject store_path
+        }
     '';
 }
