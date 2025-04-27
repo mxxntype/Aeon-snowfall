@@ -101,6 +101,11 @@ with lib; {
                         #     ]
                         # }
                     '';
+
+                    aeonScript = lib.aeon.nu-aeon.script {
+                        inherit pkgs;
+                        functionName = "aeon";
+                    };
                 in /* nu */ ''
                     # Nushell Config File.
                     #
@@ -947,6 +952,8 @@ with lib; {
                             }
                         ]
                     }
+
+                    ${aeonScript}
                 '';
 
                 envFile.text = /* nu */ ''
