@@ -18,7 +18,7 @@ with lib; {
 
             implementation = mkOption {
                 type = with types; enum [ "docker" "podman" "both" ];
-                default = "both";
+                default = "docker";
                 description = "Whether to use Docker or Podman";
             };
         };
