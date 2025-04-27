@@ -83,7 +83,7 @@ pkgs.nuenv.writeScriptBin {
             --flake (-f): directory = "${lib.aeon.flakePath}" # Path to flake.
             --fresh (-F) # Delete ./<system>.qcow2 if found.
         ]: nothing -> nothing {
-            if $fresh { do -ps { rm $"($system)" } }
+            if $fresh { do -i { rm $"($system)" } }
             nixos-rebuild build-vm --flake $"($flake)\#($system)"
             exec $"./result/bin/run-($system)-vm"
         }
@@ -173,7 +173,7 @@ pkgs.nuenv.writeScriptBin {
 
             if $secure {
                 $"Creating UEFI Secure boot keys with ('sbctl' | code)" | trace
-                do -ps {
+                do -i {
                     sudo sbctl create-keys
                     sudo cp -r /etc/secureboot /mnt/etc/
                 }
