@@ -37,6 +37,7 @@ _final: _prev: {
         pastel
         prettypst
         prismlauncher
+        rust-motd
         rustscan
         tailscale
         tailscaled
