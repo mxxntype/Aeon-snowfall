@@ -36,7 +36,6 @@
         docker.enable = true;
         qemu.enable = true;
         lxc.incus.enable = true;
-        multipass.enable = true;
 
         net = {
             ssh.server = true;
