@@ -29,6 +29,7 @@
     /* nu */ ''
         # A Nushell script for managing and installing Aeon systems.
         def ${functionName} []: nothing -> nothing {
+            print (sys host)
             print $"(ansi green)note: (ansi reset)Run (ansi {fg: cyan, bg: dark_gray}) aeon --help (ansi reset) to see more options."
         }
 
