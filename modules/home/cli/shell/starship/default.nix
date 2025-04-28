@@ -64,7 +64,7 @@ with lib;
                     baseFormat = "[$path]($style) [$read_only]($read_only_style)";
                 in {
                     format = "[ ]($style)${baseFormat}";
-                    repo_root_format = "[󰊢 ]($style)[$repo_root]($repo_root_style)${baseFormat}";
+                    repo_root_format = "[󰊢 ]($style)[git:](fg:cyan)[$repo_root]($repo_root_style)${baseFormat}";
                     truncation_length = 6;
                     style = "fg:#${ui.fg.subtext1}";
                     before_repo_root_style = "bold fg:#${ui.fg.subtext1}";
