@@ -294,6 +294,7 @@
                 | lines
                 | parse "{store_path}: {name}:style={style}"
                 | reject store_path
+                | sort-by name
         }
     '';
 }
