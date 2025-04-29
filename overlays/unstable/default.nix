@@ -41,6 +41,7 @@ _final: _prev: {
         rustscan
         tailscale
         tailscaled
+        tracy
         uv
         vesktop
         wezterm
