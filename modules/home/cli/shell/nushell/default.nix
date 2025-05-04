@@ -1043,7 +1043,7 @@ with lib; {
                     ]
 
                     # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
-                    $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
+                    $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
 
                     # An alternate way to add entries to $env.PATH is the custom
                     # command `path add` which is built into the nushell stdlib:
