@@ -21,6 +21,9 @@ with lib; {
             cppcheck
             gcc
             gdb
+            openssl
+            openssl.dev
+            pkg-config
             valgrind
         ];
     };
