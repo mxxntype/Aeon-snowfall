@@ -3,7 +3,7 @@
 {% endif %}[package]
 name = "{{project-name}}"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 authors = ["{{authors}}"]
 description = "{{description}}"{% if cranelift == true %}
 
