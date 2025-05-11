@@ -107,5 +107,9 @@ with lib; {
                 LC_IDENTIFICATION = locale.main;
             };
         };
+
+        security.sudo.extraConfig = ''
+            Defaults env_keep += "EDITOR"
+        '';
     };
 }
