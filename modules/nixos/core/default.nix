@@ -111,5 +111,9 @@ with lib; {
         security.sudo.extraConfig = ''
             Defaults env_keep += "EDITOR"
         '';
+
+        system.activationScripts.linkHelixConfig = ''
+            ln -sf /home/${lib.aeon.user}/.config/helix /root/.config/helix
+        '';
     };
 }
