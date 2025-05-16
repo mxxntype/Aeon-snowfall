@@ -32,6 +32,7 @@ with lib; {
                 theme = if (config.aeon.style.themeFallbacks.helix != null)
                         then config.aeon.style.themeFallbacks.helix
                         else "nix";
+
                 editor = {
                     idle-timeout = 0;
                     completion-trigger-len = 1;
@@ -41,9 +42,7 @@ with lib; {
                     soft-wrap.enable = false;
 
                     end-of-line-diagnostics = "hint";
-                    inline-diagnostics = {
-                        cursor-line = "error";
-                    };
+                    inline-diagnostics.cursor-line = "error";
 
                     color-modes = true;
                     cursor-shape = {
@@ -69,10 +68,10 @@ with lib; {
                             "file-type"
                         ];
 
-                        mode = let icon = "󰚄"; in {
-                            normal = "${icon} NORMAL";
-                            insert = "${icon} INSERT";
-                            select = "${icon} SELECT";
+                        mode = let icon = "hx:"; in {
+                            normal = "${icon}NORMAL";
+                            insert = "${icon}INSERT";
+                            select = "${icon}SELECT";
                         };
                     };
                 };
@@ -259,5 +258,121 @@ with lib; {
             marksman # Markdown LSP.
             taplo    # TOML LSP.
         ];
+
+        # NOTE: Based on the Kanagawa theme.
+        #
+        # Stolen from https://github.com/helix-editor/helix/blob/master/runtime/themes/kanagawa.toml.
+        xdg.configFile."helix/themes/nix.toml".text = let
+            inherit (config.aeon.theme)
+                code
+                colors
+                diff
+                ui
+                ;
+        in /* toml */ ''
+            "ui.selection" = { bg = "#${ui.bg.surface1}" }
+            "ui.selection.primary" = { bg = "#${ui.bg.surface1}" }
+            "ui.background" = { fg = "#${ui.fg.text}", bg = "#${ui.bg.base}" }
+
+            "ui.linenr" = { bg = "#${ui.bg.crust}", fg = "#${code.linenr}" }
+            "ui.linenr.selected" = { fg = "#${code.linenrActive}", modifiers = ["bold"] }
+            "ui.gutter" = { fg = "#${code.linenr}", bg = "#${ui.bg.crust}" }
+
+            "ui.virtual" = "#${ui.bg.surface1}"
+            "ui.virtual.ruler" = { bg = "#${ui.bg.surface0}" }
+            "ui.virtual.inlay-hint" = "#${ui.fg.subtext0}"
+            "ui.virtual.jump-label" = { fg = "#${ui.accent}", modifiers = ["bold"] }
+
+            "ui.statusline" = { fg = "#${ui.fg.subtext1}", bg = "#${ui.bg.crust}" }
+            "ui.statusline.inactive" = { fg = "#${ui.bg.surface0}", bg = "#${ui.bg.base}" }
+            "ui.statusline.normal" = { fg = "#${ui.bg.base}", bg = "#${colors.blue}", modifiers = ["bold"] }
+            "ui.statusline.insert" = { fg = "#${ui.bg.base}", bg = "#${colors.mauve}", modifiers = ["bold"] }
+            "ui.statusline.select" = { fg = "#${ui.bg.base}", bg = "#${colors.green}", modifiers = ["bold"] }
+
+            "ui.bufferline" = { fg = "#${ui.fg.subtext0}", bg = "#${ui.bg.base}" }
+            "ui.bufferline.active" = { fg = "#${ui.fg.subtext0}", bg = "#${ui.bg.base}" }
+            "ui.bufferline.background" = { bg = "#${ui.bg.base}" }
+
+            "ui.popup" = { fg = "#${ui.fg.text}", bg = "#${ui.bg.base}" }
+            "ui.window" = { fg = "#${ui.bg.base}" }
+            "ui.help" = { fg = "#${ui.fg.text}", bg = "#${ui.bg.base}" }
+            "ui.text" = "#${ui.fg.text}"
+            "ui.text.focus" = { fg = "#${ui.fg.text}", bg = "#${colors.blue}", modifiers = ["bold"] }
+
+            "ui.cursor" = { fg = "#${ui.accent}", bg = "#${ui.bg.surface1}" }
+            "ui.cursor.primary" = { fg = "#${ui.accent}", bg = "#${ui.fg.text}" }
+            "ui.cursor.match" = { fg = "#${ui.warning}", modifiers = ["bold"] }
+            "ui.highlight" = { fg = "#${ui.fg.text}", bg = "#${ui.bg.surface1}" }
+            "ui.menu" = { fg = "#${ui.fg.text}", bg = "#${ui.bg.crust}" }
+            "ui.menu.selected" = { fg = "#${ui.fg.text}", bg = "#${ui.bg.surface0}", modifiers = ["bold"] }
+            "ui.menu.scroll" = { fg = "#${ui.fg.subtext0}", bg = "#${ui.bg.crust}" }
+
+            "ui.cursorline.primary" = { bg = "#${ui.bg.surface2}" }
+            "ui.cursorcolumn.primary" = { bg = "#${ui.bg.surface2}" }
+
+            "ui.debug.breakpoint" = "#${ui.warning}"
+            "ui.debug.active" = "#${ui.accent}"
+
+            "diagnostic.error" = { underline = { color = "#${ui.error}", style = "curl" } }
+            "diagnostic.warning" = { underline = { color = "#${ui.warning}", style = "curl" } }
+            "diagnostic.info" = { underline = { color = "#${ui.info}", style = "curl" } }
+            "diagnostic.hint" = { underline = { color = "#${ui.subtle}", style = "curl" } }
+            "diagnostic.unnecessary" = { modifiers = ["dim"] }
+            "diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+            error = "#${ui.error}"
+            warning = "#${ui.warning}"
+            info = "#${ui.info}"
+            hint = "#${ui.subtle}"
+
+            "diff.plus" = "#${diff.plus}"
+            "diff.minus" = "#${diff.minus}"
+            "diff.delta" = "#${diff.delta}"
+
+            "attribute" = "#${code.field}"
+            "type" = "#${code.type}"
+            "type.builtin" = "#${code.type}"
+            "constructor" = "#${code.function}"
+            "constant" = "#${code.constant}"
+            "constant.numeric" = "#${code.number}"
+            "constant.character.escape" = { fg = "#${code.escape}", modifiers = ["bold"] }
+            "string" = "#${code.string}"
+            "string.regexp" = "#${code.pattern}"
+            "string.special.url" = "#${code.url}"
+            "string.special.symbol" = "#${code.pattern}"
+            "comment" = "#${code.comment}"
+            "variable" = "#${ui.fg.text}"
+            "variable.builtin" = "#${code.parameter}"
+            "variable.parameter" = "#${code.parameter}"
+            "variable.other.member" = "#${code.field}"
+            "label" = "#${code.url}"
+            "punctuation" = "#${code.punctuation}"
+            "keyword" = { fg = "#${code.keyword}", modifiers = ["italic"] }
+            "keyword.control.return" = "#${code.keyword}"
+            "keyword.control.exception" = "#${ui.error}"
+            "keyword.directive" = "#${code.keyword}"
+            "operator" = "#${code.operator.math}"
+            "function" = "#${code.function}"
+            "function.builtin" = "#${code.function}"
+            "function.macro" = "#${code.macro}"
+            "tag" = "#${code.namespace}"
+            "namespace" = "#${code.namespace}"
+            "special" = "#${ui.accent}"
+
+            "markup.heading" = { fg = "#${colors.mauve}", modifiers = ["bold"] }
+            "markup.heading.marker" = "#${colors.red}"
+            "markup.heading.1" = { fg = "#${colors.mauve}", modifiers = ["bold"] }
+            "markup.heading.2" = { fg = "#${colors.blue}", modifiers = ["bold"] }
+            "markup.heading.3" = { fg = "#${colors.peach}", modifiers = ["bold"] }
+            "markup.list" = "#${colors.pink}"
+            "markup.bold" = { modifiers = ["bold"] }
+            "markup.italic" = { modifiers = ["italic"] }
+            "markup.strikethrough" = { modifiers = ["crossed_out"] }
+            "markup.link.text" = { fg = "#${code.url}" }
+            "markup.link.url" = { fg = "#${code.url}" }
+            "markup.link.label" = "#${ui.warning}"
+            "markup.quote" = "#${colors.mauve}"
+            "markup.raw" = "#${code.string}"
+        '';
     };
 }

@@ -5,10 +5,23 @@
 with lib;
 let
     baseTheme  = aeon.themes.evangelion;
-    themeTemplate = aeon.mkThemeTemplate { inherit (baseTheme) colors meta; };
+    inherit (baseTheme)
+        colors
+        meta
+        ;
+
+    themeTemplate = aeon.mkThemeTemplate { inherit colors meta; };
+
     theme = aeon.mkTheme {
         inherit themeTemplate;
-        overrides = { /* TODO */ };
+        overrides = {
+            code = {
+                keyword = colors.green;
+                string = colors.mauve;
+                comment = colors.surface2;
+                linenr = colors.surface2;
+            };
+        };
     };
 in
 
@@ -16,10 +29,7 @@ in
     config = mkIf (config.aeon.style.codename == "evangelion") {
         aeon = {
             inherit theme;
-            style = {
-                # TODO: Make a "nix" theme.
-                themeFallbacks.helix = "base16_default";
-            };
+            style = { };
         };
     };
 }

@@ -64,7 +64,7 @@ rec {
         colors,
         meta ? {},
     }: rec {
-        ui = with colors; {
+        ui = with colors; rec {
             bg = {
                 inherit void crust mantle base;
                 inherit surface0 surface1 surface2;
@@ -88,12 +88,13 @@ rec {
                 };
             };
 
-            accent = mauve;
-            subtle = lavender;
-            info   = sky;
-            ok     = green;
-            warn   = yellow;
-            error  = red;
+            accent  = mauve;
+            subtle  = lavender;
+            info    = sky;
+            ok      = green;
+            warn    = yellow;
+            warning = warn; # NOTE: Alias
+            error   = red;
         };
 
         # Syntax highlighting colors.
@@ -101,6 +102,7 @@ rec {
             keyword      = mauve;
             variable     = text;
             argument     = maroon;
+            parameter    = code.argument;
             field        = teal;
             namespace    = blue;
             type         = yellow;

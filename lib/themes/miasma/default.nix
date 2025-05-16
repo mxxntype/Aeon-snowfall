@@ -18,14 +18,14 @@ in {
                 crust     = "111111";
                 mantle    = "1C1C1C";
                 base      = "222222";
-                surface0  = "1D1D1D";
-                surface1  = "2a2a2a";
-                surface2  = "373737";
+                surface0  = "444444";
+                surface1  = "555555";
+                surface2  = "5F5F5F";
                 overlay0  = "666666";
                 overlay1  = "787878";
-                subtext0  = "d0ba70";
+                subtext0  = "D0BA70";
                 subtext1  = "D6C383";
-                text      = "c2c2b0";
+                text      = "C2C2B0";
 
                 # Accent colors.
                 red       = "685742";
