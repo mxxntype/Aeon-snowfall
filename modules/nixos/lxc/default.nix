@@ -57,8 +57,11 @@
                 # Incus on NixOS is unsupported using iptables.
                 nftables.enable = true;
                 # Guests can't get addresses via DHCP without this.
-                firewall.trustedInterfaces = [ "incusbr0" ];
+                firewall.trustedInterfaces = [ "incusbr0" "incusbr-1000" ];
             };
+
+            # NOTE: Needed for `incus` user group permissions.
+            users.users.${lib.aeon.user}.extraGroups = [ "incus" ];
         })
     ];
 
