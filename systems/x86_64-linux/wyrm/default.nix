@@ -147,6 +147,8 @@
         openFirewall = true;
     };
 
+    networking.firewall.allowedTCPPorts = [ 3000 ];
+
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ "dm-snapshot" ];
