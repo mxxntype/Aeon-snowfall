@@ -3,7 +3,7 @@
 {
     aeon = {
         desktop.hyprland.enable = false;
-        style.codename = "miasma";
+        style.codename = "kanagawa-wave";
     };
 
     # WARN: Changing this might break things. Just leave it.
