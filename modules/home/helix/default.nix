@@ -284,7 +284,7 @@ with lib; {
             "ui.virtual.jump-label" = { fg = "#${ui.accent}", modifiers = ["bold"] }
 
             "ui.statusline" = { fg = "#${ui.fg.subtext1}", bg = "#${ui.bg.crust}" }
-            "ui.statusline.inactive" = { fg = "#${ui.bg.surface0}", bg = "#${ui.bg.base}" }
+            "ui.statusline.inactive" = { fg = "#${ui.bg.surface0}", bg = "#${ui.bg.crust}" }
             "ui.statusline.normal" = { fg = "#${ui.bg.base}", bg = "#${colors.blue}", modifiers = ["bold"] }
             "ui.statusline.insert" = { fg = "#${ui.bg.base}", bg = "#${colors.mauve}", modifiers = ["bold"] }
             "ui.statusline.select" = { fg = "#${ui.bg.base}", bg = "#${colors.green}", modifiers = ["bold"] }
