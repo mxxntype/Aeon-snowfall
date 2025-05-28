@@ -149,6 +149,13 @@
 
     networking.firewall.allowedTCPPorts = [ 3000 ];
 
+    sops.secrets."keys/wireguard/personal/wyrm-ns-default" = { };
+    networking.wg-quick.interfaces."ns-default" = {
+        autostart = false;
+        configFile = config.sops.secrets."keys/wireguard/personal/wyrm-ns-default".path;
+    };
+
+
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ "dm-snapshot" ];

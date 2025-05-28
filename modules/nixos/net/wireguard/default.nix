@@ -7,6 +7,7 @@
 
 with lib; {
     options.aeon.net.wireguard = {
+        # TODO: Rework as a list.
         interfaces = {
             personal.enable = mkOption { type = with types; bool; default = false; };
             invian.enable = mkOption { type = with types; bool; default = false; };
@@ -19,6 +20,7 @@ with lib; {
     };
 
     config = let
+        hostname = toLower config.networking.hostName;
         inherit (config.aeon.net.wireguard)
             interfaces
             port
@@ -43,7 +45,6 @@ with lib; {
             config,
             autostart ? false
         }: let
-            hostname = toLower config.networking.hostName;
             tailscale = config.services.tailscale.enable;
         in {
             networking.wg-quick.interfaces."${name}" = {
