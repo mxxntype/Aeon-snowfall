@@ -124,6 +124,11 @@
         # Powerful cross-platform terminal emulator and multiplexer.
         wezterm.url = "github:wez/wezterm?dir=nix";
 
+        wiremix = {
+            url = "github:tsowell/wiremix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         # NOTE: I manually package the Zen browser for myself.
         #
         # HACK: This does, however, mean that I will need to manually tweak the `version` here if I wish to update it.
