@@ -67,7 +67,7 @@
             }
         }
 
-        # Active the VPN service, if configured. Disables Tailscale.
+        # Active a VPN service, if configured.
         def "${functionName} vpn connect" [
             interface: string # The name of the interface to connect to.
         ]: nothing -> nothing {
@@ -84,7 +84,7 @@
             }
         }
 
-        # Deactivate the VPN service, if configured. Re-enables Tailscale.
+        # Deactivate a VPN service, if configured.
         def "${functionName} vpn disconnect" [
             interface: string # The name of the interface to disconnect from.
         ]: nothing -> nothing {
