@@ -52,6 +52,7 @@ with lib; {
         nvidiaConfig = {
             services.xserver.videoDrivers = mkBefore [ "nvidia" ];
             hardware.nvidia = {
+                open = false;
                 package = config.boot.kernelPackages.nvidiaPackages.stable;
                 modesetting.enable = true;
                 powerManagement.enable = true;
