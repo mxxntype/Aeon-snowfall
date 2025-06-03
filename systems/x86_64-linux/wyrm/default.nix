@@ -11,6 +11,8 @@
         boot.type = "uefi";
         fs.type = "btrfs";
 
+        sound.enable = true;
+
         hardware = {
             gpu = {
                 intel = {
@@ -19,16 +21,16 @@
                 };
 
                 # FIXME: NVIDIA's drivers currently fail to build.
-                # nvidia = {
-                #     enable = true;
-                #     busID = "PCI:1:0:0";
-                # };
+                nvidia = {
+                    enable = true;
+                    busID = "PCI:1:0:0";
+                };
 
                 specialise = false;
             };
 
             vfio = {
-                enable = true;
+                enable = false;
                 pciIDs = [ "10de:1b80" "10de:10f0" ];
             };
         };
