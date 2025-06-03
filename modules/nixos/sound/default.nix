@@ -18,7 +18,7 @@ with lib; {
 
     config = mkIf config.aeon.sound.enable {
         # HACK: https://nixos.wiki/wiki/PipeWire
-        sound.enable = false;
+        # sound.enable = false;
 
         services.pipewire = {
             enable = true;
@@ -32,6 +32,6 @@ with lib; {
         };
 
         # TODO: maybe add `pamixer` for easy volume control.
-        environment.systemPackages = with pkgs; [ alsaUtils ];
+        environment.systemPackages = with pkgs; [ alsa-utils aeon.wiremix ];
     };
 }
