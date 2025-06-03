@@ -2,8 +2,11 @@
 
 {
     aeon = {
-        desktop.hyprland.enable = false;
-        style.codename = "miasma";
+        desktop.hyprland = {
+            enable = true;
+            source = "nixpkgs";
+        };
+        style.codename = "evangelion";
     };
 
     # WARN: Changing this might break things. Just leave it.
