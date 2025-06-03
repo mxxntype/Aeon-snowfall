@@ -30,7 +30,7 @@ with lib; {
             black
             pyright
             ruff
-            ruff-lsp
+            # ruff-lsp
 
             # An extremely fast Python package installer and resolver, written in Rust.
             # (A replacement for pip, which does not work as expected on NixOS)

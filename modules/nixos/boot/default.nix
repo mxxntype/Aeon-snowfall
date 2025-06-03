@@ -129,9 +129,7 @@ with lib; {
                     logo = ./saturn-128x.png;
                     font = let
                         dir = "share/fonts/truetype/NerdFonts";
-                        font = pkgs.nerdfonts.override {
-                            fonts = [ "BigBlueTerminal" ];
-                        };
+                        font = pkgs.nerd-fonts.bigblue-terminal;
                     in "${font}/${dir}/BigBlueTermPlusNerdFont-Regular.ttf";
                 };
 

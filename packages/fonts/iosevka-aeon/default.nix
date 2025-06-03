@@ -90,7 +90,7 @@ buildNpmPackage {
     pname = "iosevka-aeon";
     version = "git";
     src = inputs.iosevka;
-    npmDepsHash = "sha256-la57MOeG6f0ArnUwTOCseevZDR+Qg7kbxNT3cIAr/xE=";
+    npmDepsHash = "sha256-1XRbwd1x7ofQGnEth7U8QAHX92QDHMm4OmQAQgZZLTw=";
 
     nativeBuildInputs = [
         nerd-font-patcher

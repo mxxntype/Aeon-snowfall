@@ -44,12 +44,11 @@
                 aeon.nunito
                 corefonts
                 font-awesome
-                (nerdfonts.override { fonts = [
-                    "BigBlueTerminal"
-                    "JetBrainsMono"
-                    "IosevkaTerm"
-                ]; })
-            ];
+            ] ++ (with pkgs.nerd-fonts; [
+                bigblue-terminal
+                iosevka-term
+                jetbrains-mono
+            ]);
         })
     ];
 

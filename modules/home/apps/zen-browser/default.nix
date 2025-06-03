@@ -9,7 +9,7 @@ with lib; {
     options.aeon.apps.zen-browser = {
         enable = mkOption {
             type = with types; bool;
-            default = true;
+            default = false;
         };
 
         makeDefault = mkOption {

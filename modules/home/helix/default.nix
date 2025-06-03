@@ -228,10 +228,10 @@ with lib; {
                     pyright.config.python.analysis.typeCheckingMode = "basic";
 
                     # An extremely fast Python linter, in Rust.
-                    ruff = {
-                        command = "${pkgs.ruff-lsp}/bin/ruff-lsp";
-                        config.settings.args = [ "--ignore" "E501" ];
-                    };
+                    # ruff = {
+                    #     command = "${pkgs.ruff-lsp}/bin/ruff-lsp";
+                    #     config.settings.args = [ "--ignore" "E501" ];
+                    # };
 
                     # The open-source JavaScript runtime for the modern web (LSP).
                     deno-lsp = {
