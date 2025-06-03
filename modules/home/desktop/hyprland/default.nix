@@ -60,7 +60,7 @@ with lib; {
                 ];
 
                 exec-once = [
-                    "${pkgs.kitty}/bin/kitty"
+                    "${pkgs.alacritty}/bin/alacritty"
                 ];
             };
 
