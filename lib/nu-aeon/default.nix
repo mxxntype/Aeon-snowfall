@@ -49,7 +49,7 @@
             if (not $rebuild_home) and (not $rebuild_system) {
                 print $"(ansi red)note: (ansi reset)No action specified. Run with --help for options."
             }
-            if $rebuild_home { home-manager switch --flake $flake }
+            if $rebuild_home { home-manager switch --flake $flake -b backup }
             if $rebuild_system { sudo nixos-rebuild switch --flake $flake }
         }
 
