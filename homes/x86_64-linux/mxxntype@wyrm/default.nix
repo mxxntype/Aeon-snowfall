@@ -6,7 +6,7 @@
             enable = true;
             source = "nixpkgs";
         };
-        style.codename = "evangelion";
+        style.codename = "miasma";
     };
 
     # WARN: Changing this might break things. Just leave it.
