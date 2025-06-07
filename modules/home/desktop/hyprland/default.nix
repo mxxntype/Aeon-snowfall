@@ -56,7 +56,7 @@ with lib; {
                     # 1 - Cursor movement will always change focus to the window under the cursor.
                     # 2 - Cursor focus will be detached from keyboard focus. Clicking on a window will move keyboard focus to that window.
                     # 3 - Cursor focus will be completely separate from keyboard focus. Clicking on a window will not change keyboard focus.
-                    follow_mouse = 2;
+                    follow_mouse = 1;
 
                     repeat_rate = 50;
                     repeat_delay = 250;
