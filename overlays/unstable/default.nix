@@ -30,7 +30,6 @@ _final: _prev: {
         hyprlandPlugins
         jujutsu
         kitty
-        marksman
         matugen
         nh
         nushell

@@ -250,13 +250,11 @@ with lib; {
         };
 
         home.packages = with pkgs; [
-            black /* Python stuff */
+            black
             inputs.nil-fork.packages.${system}.nil
             pyright
             ruff
-
-            marksman # Markdown LSP.
-            taplo    # TOML LSP.
+            taplo
         ];
 
         # NOTE: Based on the Kanagawa theme.
