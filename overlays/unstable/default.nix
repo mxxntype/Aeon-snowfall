@@ -33,6 +33,7 @@ _final: _prev: {
         matugen
         nh
         nushell
+        marksman
         pastel
         prettypst
         prismlauncher
