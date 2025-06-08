@@ -144,6 +144,10 @@
         };
     };
 
+    # HACK: This allows sops-nix to read the file during stage 2,
+    # however its probably more correct to move the keyfile itself.
+    fileSystems."/home".neededForBoot = true;
+
     services.iperf3 = {
         enable = true;
         openFirewall = true;
