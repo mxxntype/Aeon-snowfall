@@ -22,7 +22,7 @@ with lib; {
     in mkIf enable {
         home.packages = with pkgs; [
             # Python itself.
-            (python311.withPackages (ps: with ps; [
+            (python3.withPackages (ps: with ps; [
                 python-lsp-server
             ]))
 
