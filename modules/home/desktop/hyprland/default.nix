@@ -116,6 +116,26 @@ with lib; {
                     "col.active_border" = "rgb(${ui.bg.overlay0})";
                     "col.inactive_border" = "rgb(${ui.bg.surface0})";
                 };
+
+                bezier = [
+                    "cubic, 0.65, 0, 0.35, 1"
+                    "sine, 0.37, 0, 0.63, 1"
+                    "quad, 0.45, 0, 0.55, 1"
+                    "expo, 0.22, 1, 0.36, 1"
+                ];
+
+                animations = {
+                    enabled = true;
+                    first_launch_animation = false;
+                };
+
+                animation = [
+                    # NAME       ONOFF  SPEED  CURVE   STYLE(opt)
+                    "windows,    1,     3,     expo,   slide"
+                    "fade,       1,     3,     expo         "
+                    "workspaces, 1,     4,     expo,   slide"
+                    "border,     1,     8,     default      "
+                ];
             };
 
             plugins = if (source == "nixpkgs") then [
