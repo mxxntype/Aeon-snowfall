@@ -30,7 +30,8 @@
             };
 
             vfio = {
-                enable = false;
+                enable = true;
+                specialize = true;
                 pciIDs = [ "10de:1b80" "10de:10f0" ];
             };
         };
@@ -161,6 +162,9 @@
         configFile = config.sops.secrets."keys/wireguard/personal/wyrm-ns-default".path;
     };
 
+    specialisation."VFIO".configuration = {
+        system.nixos.tags = [ "vfio" ];
+    };
 
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };

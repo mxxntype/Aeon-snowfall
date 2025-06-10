@@ -2,20 +2,15 @@
 #
 # Most of this is stolen from https://astrid.tech/2022/09/22/0/nixos-gpu-vfio.
 
-{
-    config,
-    lib,
-    ...
-}:
-
-with lib;
+{ config, lib, ... }: with lib;
 
 {
     options.aeon.hardware.vfio = {
-        enable = mkOption {
-            type = with types; bool;
-            default = false;
-        };
+        enable = mkOption { type = with types; bool; default = false; };
+
+        # NOTE: If set to `true`, all of the effects of this module not apply
+        # to the default specialization; only those tagged with "vfio" will be.
+        specialize = mkOption { type = with types; bool; default = true; };
 
         # NOTE: To figure what IDs you need, use the `iommugroups.sh` tool provided by this flake.
         # An IOMMU group is basically "the smallest set of devices that can be passed to a VM".
@@ -35,17 +30,17 @@ with lib;
         #                                                                                           This stuff
         # By adding PCI IDs to this option, the system will isolate the devices with those
         # IDs, allowing them to be used in VMs but making them invisible to the host system.
-        pciIDs = mkOption {
-            type = with types; listOf str;
-        };
+        pciIDs = mkOption { type = with types; listOf str; };
     };
 
     config = let
         inherit (config.aeon.hardware.vfio)
             enable
+            specialize
             pciIDs
             ;
-    in mkIf enable {
+        inVFIOspec = config.system.nixos.tags |> builtins.elem "vfio";
+    in mkIf (enable && (!specialize || inVFIOspec)) {
         # NOTE: Enable kernel support for IOMMU.
         # This is needed for PCI (GPU) passthrough.
         boot.kernelParams = [
@@ -53,18 +48,10 @@ with lib;
             "vfio-pci.ids=${concatStringsSep "," pciIDs}"
         ];
 
-        # WARN: It it important to have the VFIO modules before the Nvidia ones,
-        # because otherwise the Nvidia modules are the first to claim the GPU.
         boot.initrd.kernelModules = [
             "vfio_pci"
             "vfio"
             "vfio_iommu_type1"
-            # "vfio_virqfd"
-
-            # "nvidia"
-            # "nvidia_modeset"
-            # "nvidia_uvm"
-            # "nvidia_drm"
         ];
 
         # NOTE: OpenGL is obvious, and SPICE redirection lets you essentially
