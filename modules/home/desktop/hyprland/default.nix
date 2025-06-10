@@ -28,7 +28,6 @@ with lib; {
             source
             ;
         inherit (config.aeon.theme)
-            colors
             ui
             ;
     in mkIf enable {
@@ -114,7 +113,7 @@ with lib; {
 
                 general = {
                     border_size = 2;
-                    "col.active_border" = "rgb(${colors.red})";
+                    "col.active_border" = "rgb(${ui.bg.overlay0})";
                     "col.inactive_border" = "rgb(${ui.bg.surface0})";
                 };
             };
