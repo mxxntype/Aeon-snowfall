@@ -30,6 +30,7 @@ with lib; {
         inherit (config.aeon.theme)
             ui
             ;
+        inherit (config.aeon) monitors;
     in mkIf enable {
         home.packages = with pkgs; [ swww ];
 
@@ -41,7 +42,14 @@ with lib; {
 
             settings = let
                 MOD = "SUPER";
-                workspaceCount = 10;
+
+                # Caps to the largest workspace ID from all enabled monitors.
+                workspaceCount = let
+                    workspaces = monitors
+                        |> builtins.filter (monitor: monitor.enable)
+                        |> builtins.map (monitor: monitor.workspaces)
+                        |> flatten;
+                    in foldl' max (builtins.head workspaces) (builtins.tail workspaces);
                 
                 # HACK: Hardcode due to the lack of the `monitors` module from Aeon.
                 hardcodedMonitor = "DP-2";
@@ -60,6 +68,27 @@ with lib; {
                     repeat_rate = 50;
                     repeat_delay = 250;
                 };
+
+                monitor = monitors |> builtins.map
+                    (monitor: let
+                        inherit (monitor)
+                            port
+                            width
+                            height
+                            refreshRate
+                            offsetX
+                            offsetY
+                            scale
+                            ;
+                    in if monitor.enable
+                       then "${port}, ${toString width}x${toString height}@${toString refreshRate}, ${toString offsetX}x${toString offsetY}, ${toString scale}"
+                       else "${port}, disable");
+
+                workspace = monitors
+                    |> builtins.filter (monitor: monitor.enable)
+                    |> builtins.map (monitor: monitor.workspaces
+                        |> builtins.map (workspace: "${toString workspace}, monitor:${monitor.port}, persistent:true"))
+                    |> lib.flatten;
 
                 bind = builtins.concatLists [
                     # General binds.
@@ -104,11 +133,6 @@ with lib; {
                 # TODO: Figure out why the fuck this is so unreliable.
                 exec = [
                     "sleep 1 && ${pkgs.swww}/bin/swww clear ${ui.bg.crust}"
-                ];
-
-                # HACK: Hardcode due to the lack of the `monitors` module from Aeon.
-                monitor = [
-                    "${hardcodedMonitor}, 3840x2160@144, 0x0, 2"
                 ];
 
                 general = {
