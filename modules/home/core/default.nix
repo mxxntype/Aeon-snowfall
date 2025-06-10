@@ -1,8 +1,9 @@
 # INFO: Core Home-manager module.
 
 {
-    lib,
     config,
+    pkgs,
+    lib,
     ...
 }:
 
@@ -29,6 +30,8 @@ with lib; {
             sessionVariables = {
                 XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
             };
+
+            packages = with pkgs; [ xdg-utils ];
         };
 
         xdg = {
