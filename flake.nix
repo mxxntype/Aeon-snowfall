@@ -114,6 +114,13 @@
         };
 
 
+        # Toolkit for building status bars, widgets, lockscreens, and other desktop components using QtQuick.
+        quickshell = {
+            url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+
         # SECTION: Misc flakes.
         # A nice and configurable Zellij statusbar.
         zjstatus = {

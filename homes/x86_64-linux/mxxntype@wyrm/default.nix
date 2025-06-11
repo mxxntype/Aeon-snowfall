@@ -2,11 +2,16 @@
 
 {
     aeon = {
-        desktop.hyprland = {
-            enable = true;
-            source = "nixpkgs";
-        };
         style.codename = "kanagawa-wave";
+
+        desktop = {
+            hyprland = {
+                enable = true;
+                source = "nixpkgs";
+            };
+
+            quickshell = { enable = true; };
+        };
 
         monitors = [
             {

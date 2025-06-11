@@ -245,6 +245,11 @@ with lib; {
                             };
                         };
                     };
+
+                    qmlls = {
+                        args = [ "-E" ];
+                        command = "qmlls";
+                    };
                 };
             };
         };
