@@ -106,6 +106,7 @@ with lib; {
                         "CTRL SHIFT, 4,      exec, ${pkgs.telegram-desktop}/bin/telegram-desktop"
                         "CTRL SHIFT, 6,      exec, ${pkgs.virt-manager}/bin/virt-manager"
                         "CTRL SHIFT, 7,      exec, ${pkgs.prismlauncher}/bin/prismlauncher"
+                        "CTRL SHIFT, 8,      exec, ${pkgs.keepassxc}/bin/keepassxc"
                     ]
 
                     # Generate bindings for switching or moving active window to a workspace.
