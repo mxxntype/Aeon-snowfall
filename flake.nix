@@ -84,7 +84,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-
         # SECTION: Hyprland and plugins.
         #
         # Hyprland *really* cares about matching versions of everything, so to be sure these are with tags.
@@ -113,6 +112,15 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+
+        # SECTION: Desktop/IO stuff.
+        xremap = {
+            url = "github:xremap/nix-flake";
+            inputs.crane.follows = "crane";
+            inputs.home-manager.follows = "home-manager";
+            inputs.hyprland.follows = "hyprland";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
         # Toolkit for building status bars, widgets, lockscreens, and other desktop components using QtQuick.
         quickshell = {
@@ -220,6 +228,7 @@
             lanzaboote.nixosModules.lanzaboote
             disko.nixosModules.disko
             hyprland.nixosModules.default
+            xremap.nixosModules.default
             # nix-topology.nixosModules.default
         ];
 
