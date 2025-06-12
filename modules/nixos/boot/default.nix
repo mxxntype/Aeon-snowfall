@@ -40,8 +40,11 @@ with lib; {
     in mkMerge [
         # Use GRUB2 by default.
         {
-            boot.loader.grub.enable = mkDefault true;
             environment.systemPackages = with pkgs; [ efibootmgr ];
+            boot.loader.grub = {
+                enable = mkDefault true;
+                memtest86.enable = true;
+            };
         }
 
         # BIOS:
