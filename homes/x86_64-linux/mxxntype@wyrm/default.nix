@@ -29,6 +29,7 @@
         ];
 
         music.enable = true;
+        scream.enable = true;
     };
 
     # WARN: Changing this might break things. Just leave it.
