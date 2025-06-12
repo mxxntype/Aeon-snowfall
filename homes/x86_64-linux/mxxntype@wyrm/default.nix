@@ -27,6 +27,8 @@
                 workspaces = [ 1 2 3 4 5 6 7 8 9 10 ];
             }
         ];
+
+        music.enable = true;
     };
 
     # WARN: Changing this might break things. Just leave it.
