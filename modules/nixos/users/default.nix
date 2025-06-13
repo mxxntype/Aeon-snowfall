@@ -22,6 +22,11 @@ with lib; {
                     "git"
                     "libvirtd"
                 ] |> builtins.filter (G: builtins.hasAttr G config.users.groups));
+
+                # INFO: systemd user units will start at boot, rather than starting
+                # at login and stopping at logout. This is the declarative equivalent
+                # of running loginctl enable-linger for this user.
+                linger = true;
             };
         };
 
