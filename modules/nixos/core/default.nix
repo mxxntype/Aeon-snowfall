@@ -33,6 +33,12 @@ with lib; {
             type = with types; str;
             default = "Europe/Moscow";
         };
+
+        use-uutils = mkOption {
+            description = "Whether to use the Rust reimpl. of coreutils";
+            type = with types; bool;
+            default = true;
+        };
     };
 
     config = let
@@ -40,6 +46,7 @@ with lib; {
             enable
             locale
             timezone
+            use-uutils
             ;
     in mkIf enable {
         # Set up root's password.
@@ -85,7 +92,7 @@ with lib; {
             wget                  # Tool for retrieving files using HTTP, HTTPS, and FTP.
             aeon.aeon             # System management script.
             aeon."iommugroups.sh" # Custom tool for inspecting IOMMU groups.
-        ];
+        ] ++ (if use-uutils then with pkgs; [ uutils-coreutils-noprefix ] else [ ]);
 
         # Set up the timezone and locale.
         time.timeZone = timezone;
