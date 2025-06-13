@@ -15,7 +15,7 @@
             };
 
             Service = {
-                ExecStart = "${pkgs.scream}/bin/scream -o pulse";
+                ExecStart = "${pkgs.scream}/bin/scream -i 192.168.122.1 -o pulse";
                 Restart = "always";
             };
 
