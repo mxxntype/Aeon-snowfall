@@ -272,5 +272,32 @@ with lib; {
                 }
             '';
         };
+
+        services.hypridle = {
+            enable = true;
+            settings = {
+                general = {
+                    lock_cmd = "hyprlock";
+                    # unlock_cmd = null;
+                    # before_sleep_cmd = null;
+                    # after_sleep_cmd = null;
+                    
+                    ignore_dbus_inhibit = false;
+                    ignore_systemd_inhibit = false;
+                };
+
+                listener = [
+                    {
+                        timeout = 300;
+                        on-timeout = "hyprlock";
+                    }
+                    {
+                        timeout = 600;
+                        on-timeout = "hyprctl dispatch dpms off";
+                        on-resume = "hyprctl dispatch dpms on";
+                    }
+                ];
+            };
+        };
     };
 }
