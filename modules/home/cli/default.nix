@@ -1,14 +1,8 @@
 # INFO: Home-manager CLI module.
 
-{
-    config,
-    lib,
-    pkgs,
-    inputs,
-    ...
-}:
+{ config, lib, pkgs, inputs, ... }: with lib;
 
-with lib; {
+{
     options.aeon.cli = {
         enable = mkOption {
             description = "Whether to enable core CLI functionality";
@@ -32,6 +26,7 @@ with lib; {
             dua   # View disk space usage and delete unwanted data.
             duf   # Neat disk monitor.
             kondo # Disposal of build artifacts.
+            tokei # Cool LOC counter.
 
             # Networking.
             bandwhich    # Bandwidth utilization tool.
@@ -95,17 +90,12 @@ with lib; {
             minesweep-rs
             vhs
 
-            # Benchmarking.
-            hyperfine
-
-            # Command managers.
-            mprocs
+            hyperfine # Quick CLI benchmarking tool.
+            mprocs    # TUI command manager.
+            porsmo    # Pomodoro timer.
 
             # Apps from my other flakes.
-            inputs.reddot.packages.${pkgs.system}.default # Search for stuff in $PATH.
-
-            # Other TUIs.
-            porsmo # Pomodoro timer.
+            inputs.reddot.packages.${system}.default # Search for stuff in $PATH.
         ];
     };
 }
