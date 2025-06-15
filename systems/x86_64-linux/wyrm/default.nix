@@ -3,7 +3,10 @@
 {
     aeon = {
         boot.type = "uefi";
-        fs.type = "btrfs";
+        fs = {
+            type = "zfs";
+            cacheLimitGiB = 16;
+        };
 
         sound.enable = true;
 
@@ -160,6 +163,9 @@
     boot.extraModulePackages = [ ];
 
     boot.zfs.extraPools = [ "wyrm-rpool" "wyrm-hdd" "incus" ];
+
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.grub.enable = lib.mkForce false;
 
     system.stateVersion = "24.05";  # WARN: Changing this might break things. Just leave it.
     networking.hostId = "2b5004bb"; # Needed for ZFS machine identification.
