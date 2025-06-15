@@ -173,104 +173,102 @@ with lib; {
 
         programs.hyprlock = {
             enable = true;
+            settings = let
+                font = "BigBlueTermPlus Nerd Font";
+            in {
+                general.hide_cursor = true;
 
-            # TODO: Rewrite into the `settings` attr.
-            extraConfig = /* js */ ''
-                $font = BigBlueTermPlus Nerd Font
+                animations = {
+                    enabled = true;
+                    bezier = [ "expo, 0.22, 1, 0.36, 1" ];
+                    animation = [
+                        "fadeIn, 1, 5, expo" 
+                        "fadeOut, 1, 5, expo" 
+                        "inputFieldDots, 1, 2, expo"
+                    ];
+                };
 
-                general {
-                    hide_cursor = true
-                }
+                background = {
+                    monitor = "";
+                    path = "screenshot";
+                    blur_passes = 6;
+                };
 
-                animations {
-                    enabled = true
-                    bezier=expo, 0.22, 1, 0.36, 1
-                    animation = fadeIn, 1, 5, expo
-                    animation = fadeOut, 1, 5, expo
-                    animation = inputFieldDots, 1, 2, expo
-                }
+                input-field = {
+                    monitor = "";
+                    size = "16%, 4%";
+                    outline_thickness = 2;
+                    inner_color = "rgb(${ui.bg.base})";
 
-                background {
-                    monitor =
-                    path = screenshot
-                    blur_passes = 6
-                }
+                    outer_color = "rgb(${ui.accent})";
+                    check_color = "rgb(${ui.warn})";
+                    fail_color = "rgb(${ui.error})";
 
-                input-field {
-                    monitor =
-                    size = 16%, 4%
-                    outline_thickness = 2
-                    inner_color = rgb(${ui.bg.base})
+                    font_color = "rgb(${ui.fg.text})";
+                    fade_on_empty = false;
+                    rounding = 0;
 
-                    outer_color = rgb(${ui.accent})
-                    check_color = rgb(${ui.warn})
-                    fail_color = rgb(${ui.error})
+                    font_family = "${font}";
+                    placeholder_text = "󱕁 _";
+                    fail_text = "<b>[!]</b> 401-DEMONIC-INTERVENTION";
 
-                    font_color = rgb(${ui.fg.text})
-                    fade_on_empty = false
-                    rounding = 0
+                    dots_text_format = "*";
+                    dots_size = 0.4;
+                    dots_spacing = 0.3;
+                    hide_input = true;
 
-                    font_family = $font
-                    placeholder_text = 󱕁 _
-                    fail_text = <b>[!]</b> 401-DEMONIC-INTERVENTION
+                    position = "0, 0";
+                    halign = "center";
+                    valign = "center";
+                };
 
-                    dots_text_format = *
-                    dots_size = 0.4
-                    dots_spacing = 0.3
-                    hide_input = true
+                label = [
+                    {
+                        monitor = "";
+                        text = "$TIME"; # ref. https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock/#variable-substitution
+                        font_size = 90;
+                        font_family = "${font}";
 
-                    position = 0, 0
-                    halign = center
-                    valign = center
-                }
+                        position = "30, 0";
+                        halign = "left";
+                        valign = "bottom";
+                    }
 
-                # TIME
-                label {
-                    monitor =
-                    text = $TIME # ref. https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock/#variable-substitution
-                    font_size = 90
-                    font_family = $font
+                    {
+                        monitor = "";
+                        text = "cmd[update:60000] date +\"%A, %d %B %Y\"";
+                        font_size = 25;
+                        font_family = "${font}";
 
-                    position = 30, 0
-                    halign = left
-                    valign = bottom
-                }
+                        position = "30, 140";
+                        halign = "left";
+                        valign = "bottom";
+                    }
 
-                # DATE
-                label {
-                    monitor =
-                    text = cmd[update:60000] date +"%A, %d %B %Y" # update every 60 seconds
-                    font_size = 25
-                    font_family = $font
+                    {
+                        monitor = "";
+                        text = "󰌓 $LAYOUT[EN,RU]";
+                        font_size = 32;
+                        font_family = "${font}";
+                        onclick = "hyprctl switchxkblayout all next";
 
-                    position = 30, 140
-                    halign = left
-                    valign = bottom
-                }
+                        position = "0, -80";
+                        halign = "center";
+                        valign = "center";
+                    }
 
-                label {
-                    monitor =
-                    text = 󰌓 $LAYOUT[EN,RU]
-                    font_size = 32
-                    font_family = $font
-                    onclick = hyprctl switchxkblayout all next
+                    {
+                        monitor = "";
+                        text = "subterranean_glass_room";
+                        font_size = 24;
+                        font_family = "${font}";
 
-                    position = 0, -80
-                    halign = center
-                    valign = center
-                }
-
-                label {
-                    monitor =
-                    text = subterranean_glass_room
-                    font_size = 24
-                    font_family = $font
-
-                    position = 0, 80
-                    halign = center
-                    valign = center
-                }
-            '';
+                        position = "0, 80";
+                        halign = "center";
+                        valign = "center";
+                    }
+                ];
+            };
         };
 
         services.hypridle = {
