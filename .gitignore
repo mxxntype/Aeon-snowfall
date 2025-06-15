@@ -2,6 +2,9 @@
 /result
 /*.qcow2
 
-# Host keys
+# SSH keys - track public ones.
 ssh_host_*_key*
 !ssh_host_*_key.pub
+
+# Leftovers from disko.
+tmp.*

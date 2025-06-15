@@ -37,7 +37,7 @@ with lib; {
         use-uutils = mkOption {
             description = "Whether to use the Rust reimpl. of coreutils";
             type = with types; bool;
-            default = true;
+            default = false;
         };
     };
 
@@ -120,6 +120,7 @@ with lib; {
         '';
 
         system.activationScripts.linkHelixConfig = ''
+            mkdir -pv /root/.config
             ln -sf /home/${lib.aeon.user}/.config/helix /root/.config/helix
         '';
 

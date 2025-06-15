@@ -1,10 +1,4 @@
-# INFO: Wyrm, my by-the-desk server.
-
-{
-    config,
-    lib,
-    ...
-}:
+{ config, lib, ... }:
 
 {
     aeon = {
@@ -20,7 +14,6 @@
                     busID = "PCI:0:2:0";
                 };
 
-                # FIXME: NVIDIA's drivers currently fail to build.
                 nvidia = {
                     enable = true;
                     busID = "PCI:1:0:0";
@@ -50,21 +43,10 @@
         };
     };
 
-    # TODO:
-    # - Learn ZFS;
-    # - Nuke the Windows drive;
-    # - Figure out a decent ZFS configuration;
-    # - Reinstall with ZFS.
-    disko.devices = let
-        inherit (config.networking) hostName;
-        volumeGroups = {
-            system = "${lib.toLower hostName}-system";
-        };
-    in {
-        # INFO: The 512G Adata 2.5" SSD.
-        disk."system-ssd" = {
+    disko.devices = let inherit (config.networking) hostName; in {
+        disk."system-nvme-ssd" = {
             type = "disk";
-            device = "/dev/disk/by-id/ata-ADATA_SU800_2I4220038955";
+            device = "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S6Z1NU0XA80347V";
             content = {
                 type = "gpt";
                 partitions = {
@@ -81,65 +63,69 @@
                         };
                     };
 
-                    # WARNING: No LUKS encryption is used!
                     root = {
                         priority = 2;
                         size = "100%";
                         content = {
-                            type = "lvm_pv";
-                            vg = volumeGroups.system;
+                            type = "zfs";
+                            pool = "${hostName}-rpool";
                         };
                     };
                 };
             };
         };
+       
+        zpool."${hostName}-rpool" = {
+            type = "zpool";
+            mode = "";         # No mirroring, no RAID.
+            mountpoint = null; # Use the dedicated root dataset (see below).
 
-        # INFO: The 1000G WD Blue 3.5" HDD (Slow storage, currently holds old data, thus unused).
-        # disk."storage-hdd" = {
-        #     type = "disk";
-        #     device = "/dev/disk/by-id/ata-WDC_WD10EZEX-22MFCA0_WD-WCC6Y1FX1DZN";
-        # };
+            # NOTE: These are ZPOOL-level properties, see man zpoolprops for more.
+            # Since the underlying VDEV is a modern NVMe SSD, TRIM is good for it.
+            options.autotrim = "on";
 
-        # INFO: The 256G Apacer 2.5" SSD. (Windows drive, thus unused)
-        # NOTE: Is auto-mounted using raw NixOS options below.
-        # disk."windows-ssd" = {
-        #     type = "disk";
-        #     device = "/dev/disk/by-id/ata-Apacer_AS350_256GB_50F2072706BA00020637";
-        # };
-        
-        lvm_vg."${volumeGroups.system}" = {
-            type = "lvm_vg";
-            lvs.root = {
-                size = "100%FREE";
-                content = {
-                    type = "btrfs";
-                    extraArgs = [ "--force" /* WARN: Forces overwrite of existing filesystem! */ ];
-                    subvolumes = let
-                        # INFO: https://btrfs.readthedocs.io/en/latest/Administration.html#btrfs-specific-mount-options
-                        mountOptions = [ "ssd" "compress=zstd" "space_cache=v2" ];
-                    in {
-                        "@" = {
-                            mountpoint = "/";
-                            inherit mountOptions;
-                        };
-                        "@home" = {
-                            mountpoint = "/home";
-                            inherit mountOptions;
-                        };
-                        "@srv" = {
-                            mountpoint = "/srv";
-                            inherit mountOptions;
-                        };
-                        "@nix" = {
-                            mountpoint = "/nix";
-                            # INFO: https://btrfs.readthedocs.io/en/latest/Administration.html#notes-on-generic-mount-options
-                            mountOptions = mountOptions ++ [ "noatime" ];
-                        };
-                        "@swap" = {
-                            mountpoint = "/.swapvol";
-                            swap.swapfile.size = "20G"; # Host has 16G of RAM, should be enough.
-                        };
-                    };
+            rootFsOptions = {
+                mountpoint = "none";
+                acltype = "posixacl";
+                atime = "off";
+                compression = "zstd";
+                "com.sun:auto-snapshot" = "false";
+            };
+
+            datasets = let
+                # INFO: A small shortcut for creating legacy-mounted
+                # datasets without repeating yourself like 10 times.
+                legacy = dataset: (lib.recursiveUpdate dataset {
+                    type = "zfs_fs";
+                    options.mountpoint = "legacy";
+                });
+
+                # WARN: Though datasets can be (and some are) defined here,
+                # within Nix, ZFS has its own mounting subsystem, which makes
+                # more datasets and ZVOLs can be created later, without any
+                # modifications to this section. Stuff that I consider vital
+                # configuration is listed here, stuff that I consider state
+                # (like rootfs ZVOLs for VMs) are created outside of Nix.
+            in {
+                root = legacy { mountpoint = "/"; };
+                nix = legacy { mountpoint = "/nix"; };
+
+                "var/cache" = legacy {
+                    mountpoint = "/var/cache";
+                    options.compression = "off";
+                };
+
+                "var/log" = legacy {
+                    mountpoint = "/var/log";
+                    options.compression = "lz4";
+                };
+
+                srv = legacy { mountpoint = "/srv"; };
+                opt = legacy { mountpoint = "/opt"; };
+
+                home = legacy {
+                    mountpoint = "/home";
+                    options.atime = "on";
                 };
             };
         };
@@ -169,11 +155,11 @@
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ "dm-snapshot" ];
-    boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+    boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
-    boot.zfs.extraPools = [ "wyrm-hdd" "incus" ];
+    boot.zfs.extraPools = [ "wyrm-rpool" "wyrm-hdd" "incus" ];
 
     system.stateVersion = "24.05";  # WARN: Changing this might break things. Just leave it.
     networking.hostId = "2b5004bb"; # Needed for ZFS machine identification.

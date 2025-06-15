@@ -142,7 +142,7 @@
 
             # Run Disko.
             $"Running ($'disko (ansi green)--mode (ansi wb)($mode)' | code cyan)" | trace
-            disko --mode $mode --flake $"(realpath .)#($hostname)"
+            sudo disko --mode $mode --flake $"(realpath .)#($hostname)"
 
             # Copy needed hardware-related options from generated config.
             if not $ignore_generated_config {
@@ -165,14 +165,14 @@
 
                 let tmpdir = mktemp -d
                 sudo mkdir -p $"($tmpdir)/etc/ssh"
-                ssh-keygen -A -f $tmpdir
+                sudo ssh-keygen -A -f $tmpdir
 
                 # Copy needed keys to systems/ and the target drive.
                 sudo mkdir -p $"($mount)/etc/ssh"
                 for type in ["ed25519" "rsa"] {
-                    cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)\/($hostname)"
-                    cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key" $"($mount)/etc/ssh/"
-                    cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"($mount)/etc/ssh/"
+                    sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"systems/($platform)\/($hostname)"
+                    sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key" $"($mount)/etc/ssh/"
+                    sudo cp $"($tmpdir)/etc/ssh/ssh_host_($type)_key.pub" $"($mount)/etc/ssh/"
                 }
 
                 $"Re-keying ('sops-nix' | code yellow)" | trace
@@ -187,12 +187,12 @@
                 add_sops_host_key --key $installer_pubkey --host installer
 
                 # Lock down the keys.
-                chmod 600 $"($mount)/etc/ssh/ssh_host_ed25519_key"
-                chmod 644 $"($mount)/etc/ssh/ssh_host_ed25519_key.pub"
-                chmod 600 $"($mount)/etc/ssh/ssh_host_rsa_key"
-                chmod 644 $"($mount)/etc/ssh/ssh_host_rsa_key.pub"
-                chown root:root $"($mount)/etc/ssh/ssh_host_ed25519_key"
-                chown root:root $"($mount)/etc/ssh/ssh_host_rsa_key"
+                sudo chmod 600 $"($mount)/etc/ssh/ssh_host_ed25519_key"
+                sudo chmod 644 $"($mount)/etc/ssh/ssh_host_ed25519_key.pub"
+                sudo chmod 600 $"($mount)/etc/ssh/ssh_host_rsa_key"
+                sudo chmod 644 $"($mount)/etc/ssh/ssh_host_rsa_key.pub"
+                sudo chown root:root $"($mount)/etc/ssh/ssh_host_ed25519_key"
+                sudo chown root:root $"($mount)/etc/ssh/ssh_host_rsa_key"
             }
 
             if $secure {
