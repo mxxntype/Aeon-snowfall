@@ -84,10 +84,14 @@ with lib; {
 
         # Add some core packages.
         environment.systemPackages = with pkgs; [
-            home-manager          # Make sure its always there.
+            dmidecode             # Reads information about your system's hardware from the BIOS.
             file                  # A program that shows the type of files.
+            hddtemp               # Tool for displaying hard disk temperature.
+            home-manager          # Make sure its always there.
+            inxi                  # Full featured CLI system information tool.
             jmtpfs                # FUSE filesystem for MTP devices like Android phones.
             pciutils              # Tools for working with PCI devices, such as `lspci`.
+            smartmontools         # Tools for monitoring the health of hard drives.
             usbutils              # Tools for working with USB devices, such as `lsusb`.
             wget                  # Tool for retrieving files using HTTP, HTTPS, and FTP.
             aeon.aeon             # System management script.
