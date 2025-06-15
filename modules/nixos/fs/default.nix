@@ -24,12 +24,19 @@ with lib; {
             default = false;
             description = "Whether to use ephemeral root storage";
         };
+
+        # Mainly a limiter for ZFS's ARC.
+        cacheLimitGiB = mkOption {
+            type = types.nullOr types.int;
+            default = null;
+        };
     };
 
     config = let
         inherit (config.aeon.fs)
             type
             ephemeral
+            cacheLimitGiB
             ;
     in mkMerge [
         # Common FS options that should be used regardless of the filesystem.
@@ -177,8 +184,12 @@ with lib; {
             in concatLines (map mkPersistentHome users);
         })
 
-        # TODO: Learn ZFS.
-        # (mkIf (type == "zfs") { })
+        (mkIf (type == "zfs") {
+            boot = {
+                supportedFilesystems = [ "zfs" ];
+                kernelParams = [ "zfs.zfs_arc_max=${toString (cacheLimitGiB * 1024 * 1024 * 1024)}" ];
+            };
+        })
 
         # TODO: Ephemeral ZFS.
         #
