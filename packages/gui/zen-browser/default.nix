@@ -5,6 +5,7 @@
 }:
 
 pkgs.appimageTools.wrapType2 {
-    name = "zen";
+    pname = "zen-browser";
+    version = "appimage";
     src = inputs.zen-browser-appimage;
 }

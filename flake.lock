@@ -2602,13 +2602,13 @@
     "zen-browser-appimage": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-6cWw8PK/JZcqQkYFRKdy3l6BKmxBsGV20dDavFzC6TQ=",
+        "narHash": "sha256-Lp5/i2sXiu2WN9y2y542VqjlQn8kYyzsPvvK1U+i5zc=",
         "type": "file",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.0-a.37/zen-specific.AppImage"
+        "url": "https://github.com/zen-browser/desktop/releases/download/1.13.2b/zen-x86_64.AppImage"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.0-a.37/zen-specific.AppImage"
+        "url": "https://github.com/zen-browser/desktop/releases/download/1.13.2b/zen-x86_64.AppImage"
       }
     },
     "zjstatus": {

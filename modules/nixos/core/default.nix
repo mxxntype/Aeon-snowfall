@@ -59,7 +59,7 @@ with lib; {
         };
 
         # Inherit common Nix settings.
-        nix = { inherit (lib.aeon.nix) settings; };
+        inherit (lib.aeon) nix;
 
         # Allow running unpatched dynamic binaries on NixOS.
         # See https://github.com/Mic92/nix-ld.
