@@ -14,7 +14,16 @@
     config = mkIf config.aeon.cli.enable {
         programs = {
             htop.enable = true;   # The well-known TUI process viewer.
-            bottom.enable = true; # The cool new TUI process viewer.
+            
+            # The cool new TUI process viewer.
+            bottom = {
+                enable = true;
+                settings.styles.widgets = {
+                    border_color = "dark gray";
+                    selected_border_color = "white";
+                };
+            };
+
             direnv = {
                 enable = true;
                 nix-direnv.enable = true;
