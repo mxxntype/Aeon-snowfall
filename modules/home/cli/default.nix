@@ -37,17 +37,6 @@
             kondo # Disposal of build artifacts.
             tokei # Cool LOC counter.
 
-            # Networking.
-            bandwhich    # Bandwidth utilization tool.
-            doggo        # CLI DNS Client, written in Go (`dig` alternative).
-            ethtool      # For controlling network drivers and hardware.
-            gping        # `ping`, but with a graph.
-            hurl         # Perform HTTP requests defined in plain text.
-            netdiscover  # Discover hosts in LAN.
-            nmap         # Port scanner.
-            rustscan     # The "Modern Port Scanner".
-            speedtest-rs # CLI internet speedtest tool in Rust.
-
             # Alternative implementations of the basic tools.
             erdtree # Tree-like `ls` with a load of features.
             killall # Basically `pkill`.

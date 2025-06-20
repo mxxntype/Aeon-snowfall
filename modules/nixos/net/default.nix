@@ -38,11 +38,20 @@ with lib; {
 
         environment = {
             systemPackages = with pkgs; [
-                aeon.siren # My Wake-on-LAN tool written in Rust.
-                dig
-                ethtool
-                iperf3
-                wakeonlan
+                aeon.siren   # My Wake-on-LAN tool written in Rust.
+                bandwhich    # Bandwidth utilization tool.
+                dig          # CLI DNS client.
+                doggo        # CLI DNS client, written in Go (`dig` alternative).
+                ethtool      # For controlling network drivers and hardware.
+                gping        # `ping`, but with a graph.
+                hurl         # Perform HTTP requests defined in plain text.
+                iperf3       # Bandwidth profiling tool.
+                mtr          # My Traceroute, for debugging random packet loss.
+                netdiscover  # Discover hosts in LAN.
+                nmap         # Port scanner.
+                rustscan     # The "Modern Port Scanner".
+                speedtest-rs # CLI internet speedtest tool in Rust.
+                wakeonlan    # The original WoL thing.
             ];
 
             etc."nix/open_ports.json".text = let
