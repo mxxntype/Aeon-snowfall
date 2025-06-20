@@ -32,7 +32,12 @@ with lib; {
             ;
         inherit (config.aeon) monitors;
     in mkIf enable {
-        home.packages = with pkgs; [ swww ];
+        home.packages = with pkgs; [
+            grim
+            grimblast
+            slurp
+            swww
+        ];
 
         wayland.windowManager.hyprland = {
             enable = true;
@@ -95,6 +100,10 @@ with lib; {
                         "${MOD}      SHIFT, Q, killactive"
                         "${MOD} CTRL SHIFT, Q, forcekillactive"
                         "${MOD}      SHIFT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
+
+                        # Screenshotting and other screen manipulations.
+                        "                 , Print, exec, ${pkgs.grimblast}/bin/grimblast copy area"
+                        "       CTRL      , Print, exec, ${pkgs.grimblast}/bin/grimblast copy screen"
                     ]
 
                     # Applications.
