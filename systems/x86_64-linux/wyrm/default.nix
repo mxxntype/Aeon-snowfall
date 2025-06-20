@@ -145,13 +145,7 @@
 
     networking.firewall.allowedTCPPorts = [ 3000 ];
 
-    sops.secrets."keys/wireguard/personal/wyrm-ns-default" = { };
-    networking.wg-quick.interfaces."ns-default" = {
-        autostart = false;
-        configFile = config.sops.secrets."keys/wireguard/personal/wyrm-ns-default".path;
-    };
-
-    specialisation."VFIO".configuration = {
+    specialisation."AtlasOS VFIO autoboot".configuration = {
         system.nixos.tags = [ "vfio" ];
     };
 
