@@ -30,6 +30,8 @@
                 specialize = true;
                 pciIDs = [ "10de:1b80" "10de:10f0" ];
             };
+
+            cups.enable = true;
         };
 
         docker.enable = true;
@@ -145,7 +147,7 @@
 
     networking.firewall.allowedTCPPorts = [ 3000 ];
 
-    specialisation."AtlasOS VFIO autoboot".configuration = {
+    specialisation."AtlasOS-VFIO-autoboot".configuration = {
         system.nixos.tags = [ "vfio" ];
     };
 

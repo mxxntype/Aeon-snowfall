@@ -1,12 +1,8 @@
 # INFO: NixOS CUPS module.
 
-{
-    config,
-    lib,
-    ...
-}:
+{ config, pkgs, lib, ... }: with lib;
 
-with lib; {
+{
     options.aeon.hardware.cups = {
         # Whether to enable the CUPS printing service.
         enable = mkOption {
