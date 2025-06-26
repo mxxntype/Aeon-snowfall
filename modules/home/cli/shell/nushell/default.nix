@@ -1,13 +1,6 @@
-# INFO: Nushell Home-manager module.
+{ config, lib, pkgs, ... }: with lib;
 
 {
-    config,
-    lib,
-    pkgs,
-    ...
-}:
-
-with lib; {
     options.aeon.cli.shell.nushell = {
         enable = mkOption {
             description = "Whether to enable Nushell, a new type of shell";
@@ -22,6 +15,11 @@ with lib; {
             ;
     in mkIf config.aeon.cli.shell.nushell.enable {
         programs = {
+            # BUG: https://github.com/nix-community/home-manager/pull/7081
+            # In short, breaks with Nu v105.1. The PR has not (yet) landed on the
+            # `release-25.05` branch of home-manager, so we just inline the fix.
+            direnv.enableNushellIntegration = false;
+
             nushell = {
                 enable = true;
                 package = pkgs.nushell;
@@ -952,6 +950,35 @@ with lib; {
                             }
                         ]
                     }
+
+                    $env.config = ($env.config? | default {})
+                    $env.config.hooks = ($env.config.hooks? | default {})
+                    $env.config.hooks.pre_prompt = (
+                        $env.config.hooks.pre_prompt?
+                        | default []
+                        | append {||
+                            ${pkgs.direnv}/bin/direnv export json
+                            | from json --strict
+                            | default {}
+                            | items {|key, value|
+                                let value = do (
+                                    {
+                                      "path": {
+                                        from_string: {|s| $s | split row (char esep) | path expand --no-symlink }
+                                        to_string: {|v| $v | path expand --no-symlink | str join (char esep) }
+                                      }
+                                    }
+                                    | merge ($env.ENV_CONVERSIONS? | default {})
+                                    | get -i $key
+                                    | get -i from_string
+                                    | if ($in | is-empty) { {|x| $x} } else { $in }
+                                ) $value
+                                return [ $key $value ]
+                            }
+                            | into record
+                            | load-env
+                        }
+                    )
 
                     ${aeonScript}
                 '';

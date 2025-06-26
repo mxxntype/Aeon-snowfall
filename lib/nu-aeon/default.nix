@@ -149,9 +149,9 @@
                 $"Copying options from ($'nixos-generate-config' | code blue)" | trace
                 let options = sudo nixos-generate-config --root $mount --show-hardware-config
                     | lines
-                    | filter {|l| ($l | str downcase) =~ "boot"}
-                    | filter {|l| ($l | str downcase) =~ "module"}
-                    | filter {|l| ($l | str downcase) =~ "="}
+                    | where {|l| ($l | str downcase) =~ "boot"}
+                    | where {|l| ($l | str downcase) =~ "module"}
+                    | where {|l| ($l | str downcase) =~ "="}
                     | parse "{option} = {value};"
 
                 for o in $options {
