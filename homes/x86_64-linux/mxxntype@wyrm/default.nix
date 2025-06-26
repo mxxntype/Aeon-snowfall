@@ -28,6 +28,8 @@
             }
         ];
 
+        apps.alacritty.enable = true;
+
         music.enable = true;
         scream.enable = true;
     };

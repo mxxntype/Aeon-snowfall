@@ -20,7 +20,7 @@ in {
                 surface1  = "363646";
                 surface2  = "393836";
                 overlay0  = "625E5A";
-                overlay1  = "7A8382";
+                overlay1  = "727169";
                 subtext0  = "9E9B93";
                 subtext1  = "C8C093";
                 text      = "C5C9C5";
