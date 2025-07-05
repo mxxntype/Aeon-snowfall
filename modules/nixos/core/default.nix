@@ -123,10 +123,13 @@ with lib; {
             Defaults env_keep += "EDITOR"
         '';
 
-        system.activationScripts.linkHelixConfig = ''
-            mkdir -pv /root/.config
-            ln -sf /home/${lib.aeon.user}/.config/helix /root/.config/helix
-        '';
+        system = {
+            rebuild.enableNg = true;
+            activationScripts.linkHelixConfig = ''
+                mkdir -pv /root/.config
+                ln -sf /home/${lib.aeon.user}/.config/helix /root/.config/helix
+            '';
+        };
 
         services.xremap.config = {
             modmap = [
