@@ -411,12 +411,11 @@
             layout {
                 ${defaultTabTemplate}
                 tab name="󰀻 MProcs" {
-                    pane split_direction="horizontal" {
-                        pane size="60%" {
-                            command "mprocs"
-                        }
-                        pane
-                    }
+                    pane command="${pkgs.mprocs}/bin/mprocs"
+                }
+
+                tab name="󱄲 MPD" {
+                    pane command="ncmpcpp"
                 }
 
                 tab name="󰙅 CLI" focus=true {
