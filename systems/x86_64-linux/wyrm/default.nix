@@ -145,7 +145,8 @@
         openFirewall = true;
     };
 
-    networking.firewall.allowedTCPPorts = [ 3000 ];
+    networking.firewall.allowedTCPPorts = [ 3000 25565 ];
+    networking.firewall.allowedUDPPorts = [ 25565 ];
 
     specialisation."AtlasOS-VFIO-autoboot".configuration = {
         system.nixos.tags = [ "vfio" ];
