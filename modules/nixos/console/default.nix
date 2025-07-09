@@ -24,7 +24,15 @@
                         # that would actually reflect what the default "environment entrypoint" is.
                     };
                 };
+
+                # HACK: https://github.com/apognu/tuigreet/issues/17#issuecomment-949757598
+                # Forces greetd to use the second VT, while systemd logs to VT 1. This dirty
+                # hack resolves the issue of greetd being covered by systemd logs.
+                vt = 2;
             };
+
+            boot.kernelParams = [ "console=tty1" ];
+            systemd.services.greetd.serviceConfig.Type = lib.mkForce "simple";
 
             console = {
                 earlySetup = mkDefault true;
