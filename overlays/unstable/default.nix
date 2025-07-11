@@ -22,6 +22,7 @@ _final: _prev: {
         binsider
         cargo-unfmt
         cargo-wizard
+        dua
         gitoxide
         glab
         helix
@@ -30,10 +31,10 @@ _final: _prev: {
         hyprlandPlugins
         jujutsu
         kitty
+        marksman
         matugen
         nh
         nushell
-        marksman
         pastel
         prettypst
         prismlauncher
