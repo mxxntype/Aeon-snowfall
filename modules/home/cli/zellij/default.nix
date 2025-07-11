@@ -410,8 +410,8 @@
         xdg.configFile."${layoutDir}/${defaultLayout}.kdl".text = /* kdl */ ''
             layout {
                 ${defaultTabTemplate}
-                tab name="󰀻 MProcs" {
-                    pane command="${pkgs.mprocs}/bin/mprocs"
+                tab name="󰒋 System" {
+                    pane command="${pkgs.bottom}/bin/btm"
                 }
 
                 tab name="󱄲 MPD" {
