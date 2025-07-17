@@ -48,19 +48,33 @@ with lib; {
             settings = let
                 MOD = "SUPER";
 
+
                 # Caps to the largest workspace ID from all enabled monitors.
                 workspaceCount = let
                     workspaces = monitors
                         |> builtins.filter (monitor: monitor.enable)
                         |> builtins.map (monitor: monitor.workspaces)
                         |> flatten;
-                    in foldl' max (builtins.head workspaces) (builtins.tail workspaces);
+                in foldl' max (builtins.head workspaces) (builtins.tail workspaces);
+                
+                # Caps to the highest refresh rate from all enabled monitors.
+                highestRefreshRate = let
+                    refreshRates = monitors
+                        |> builtins.filter (monitor: monitor.enable)
+                        |> builtins.map (monitor: monitor.refreshRate);
+                in foldl' max (builtins.head refreshRates) (builtins.tail refreshRates);
             in {
+                env = [
+                    "SWWW_TRANSITION_DURATION, 2"
+                    "SWWW_TRANSITION_FPS, ${toString highestRefreshRate}"
+                    # "SWWW_TRANSITION, left"
+                ];
+
                 input = {
                     kb_layout = "us,ru";
                     kb_options = "grp:win_space_toggle";
 
-                    # NOTE (from https://wiki.hyprland.org/0.48.0/Configuring/Variables/#input):
+                    # NOTE (from https://wiki.hyprland.org/0.49.0/Configuring/Variables/#input):
                     # 0 - Cursor movement will not change focus.
                     # 1 - Cursor movement will always change focus to the window under the cursor.
                     # 2 - Cursor focus will be detached from keyboard focus. Clicking on a window will move keyboard focus to that window.
@@ -97,6 +111,7 @@ with lib; {
                     [
                         "${MOD} CTRL SHIFT, E, exit"
                         "${MOD}           , F, fullscreen"
+                        "${MOD}           , T, togglefloating"
                         "${MOD}      SHIFT, Q, killactive"
                         "${MOD} CTRL SHIFT, Q, forcekillactive"
                         "${MOD}      SHIFT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
@@ -104,6 +119,7 @@ with lib; {
                         # Screenshotting and other screen manipulations.
                         "                 , Print, exec, ${pkgs.grimblast}/bin/grimblast copy area"
                         "       CTRL      , Print, exec, ${pkgs.grimblast}/bin/grimblast copy screen"
+                        "${MOD}      SHIFT, P,     exec, ${pkgs.hyprpicker}/bin/hyprpicker --autocopy"
                     ]
 
                     # Applications.
@@ -139,9 +155,8 @@ with lib; {
                     "${pkgs.swww}/bin/swww-daemon"
                 ];
 
-                # TODO: Figure out why the fuck this is so unreliable.
                 exec = [
-                    "sleep 1 && ${pkgs.swww}/bin/swww clear ${ui.bg.crust}"
+                    "sleep 0.5 && ${pkgs.swww}/bin/swww img ~/.wallpaper"
                 ];
 
                 general = {
@@ -306,5 +321,7 @@ with lib; {
                 ];
             };
         };
+
+        services.dunst.enable = true;
     };
 }
