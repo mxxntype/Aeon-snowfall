@@ -145,6 +145,8 @@
         openFirewall = true;
     };
 
+    programs.adb.enable = true;
+
     networking.firewall.allowedTCPPorts = [ 3000 25565 ];
     networking.firewall.allowedUDPPorts = [ 25565 ];
 
