@@ -1,13 +1,6 @@
-# INFO: Core NixOS module.
+{ config, lib, pkgs, ... }: with lib;
 
 {
-    config,
-    lib,
-    pkgs,
-    ...
-}:
-
-with lib; {
     options.aeon.core = {
         enable = mkOption {
             description = "Whether to enable core NixOS options";
@@ -78,9 +71,38 @@ with lib; {
             };
         };
 
-        # Populate /usr/bin/ with symlinks to executables in system's $PATH.
-        # This also helps with running unpatched binaries and scripts on NixOS.
-        services.envfs.enable = true;
+        services = {
+            # Populate /usr/bin/ with symlinks to executables in system's $PATH.
+            # This also helps with running unpatched binaries and scripts on NixOS.
+            envfs.enable = true;
+
+            earlyoom = {
+                enable = true;
+                enableNotifications = true;
+            };
+
+            xremap.config = {
+                modmap = [
+                    {
+                        name = "Global modmap";
+                        remap = {
+                            # NOTE (at the time of introduction)
+                            # I've been using LWin/LSuper as my main mod key for almost two years now
+                            # with no real issues, because I was doing so on a laptop that had a left
+                            # Fn key, so LWin was basically in LAlt's place, and the spacebar key was
+                            # slightly shifted to the right. All of that made hitting stuff like Win+4,
+                            # Win+Space, Win+Q fairly ergonomical. Now I've switched to regular 75%
+                            # and TKL boards, where the LWin key is really tucked away, and my wrists
+                            # are feeling dead from all of the gymnastics I have to do. I decided to
+                            # remap CapsLock to Lwin, and in order to break the habit of using LWin,
+                            # mapped it to F12 - couln't figure out a way to disable it completely.
+                            "CapsLock" = "SUPER_L";
+                            "SUPER_L" = "KEY_F12";
+                        };
+                    }
+                ];
+            };
+        };
 
         # Add some core packages.
         environment.systemPackages = with pkgs; [
@@ -129,28 +151,6 @@ with lib; {
                 mkdir -pv /root/.config
                 ln -sf /home/${lib.aeon.user}/.config/helix /root/.config/helix
             '';
-        };
-
-        services.xremap.config = {
-            modmap = [
-                {
-                    name = "Global modmap";
-                    remap = {
-                        # NOTE (at the time of introduction)
-                        # I've been using LWin/LSuper as my main mod key for almost two years now
-                        # with no real issues, because I was doing so on a laptop that had a left
-                        # Fn key, so LWin was basically in LAlt's place, and the spacebar key was
-                        # slightly shifted to the right. All of that made hitting stuff like Win+4,
-                        # Win+Space, Win+Q fairly ergonomical. Now I've switched to regular 75%
-                        # and TKL boards, where the LWin key is really tucked away, and my wrists
-                        # are feeling dead from all of the gymnastics I have to do. I decided to
-                        # remap CapsLock to Lwin, and in order to break the habit of using LWin,
-                        # mapped it to F12 - couln't figure out a way to disable it completely.
-                        "CapsLock" = "SUPER_L";
-                        "SUPER_L" = "KEY_F12";
-                    };
-                }
-            ];
         };
     };
 }
