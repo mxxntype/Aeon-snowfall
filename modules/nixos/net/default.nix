@@ -1,13 +1,6 @@
-# INFO: NixOS networking module.
+{ config, lib, pkgs, ... }: with lib;
 
 {
-    config,
-    lib,
-    pkgs,
-    ...
-}:
-
-with lib; {
     options.aeon.net = {
         # Whether or not to use NetworkManager.
         networkmanager = mkOption {
@@ -20,10 +13,21 @@ with lib; {
             type = types.bool;
             default = false;
         };
+
+        extraOpenPorts = mkOption {
+            type = types.listOf types.int;
+            default = if (config.home-manager.users |> builtins.hasAttr "${aeon.user}") then (
+                if config.home-manager.users."${aeon.user}".services.syncthing.enable
+                # Default listen address (https://docs.syncthing.net/v1.29.3/users/config#listen-addresses)
+                # Local announce port (https://docs.syncthing.net/users/config?version=v1.29.5#config-option-options.localannounceport)
+                then [ 21027 22000 ]
+                else []
+            ) else [];
+        };
     };
 
     config = let
-        inherit (config.aeon.net) networkmanager allowWOL;
+        inherit (config.aeon.net) networkmanager allowWOL extraOpenPorts;
         ports.open = if allowWOL then [ 9 ] else [ ];
     in {
         networking = {
@@ -31,8 +35,8 @@ with lib; {
             networkmanager.enable = networkmanager;
             firewall = {
                 enable = true;
-                allowedTCPPorts = ports.open;
-                allowedUDPPorts = ports.open;
+                allowedTCPPorts = ports.open ++ extraOpenPorts;
+                allowedUDPPorts = ports.open ++ extraOpenPorts;
             };
         };
 
