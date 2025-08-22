@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
     aeon = {
@@ -145,10 +145,8 @@
         openFirewall = true;
     };
 
-    programs.adb.enable = true;
-
     networking.firewall.allowedTCPPorts = [ 3000 25565 ];
-    networking.firewall.allowedUDPPorts = [ 25565 ];
+    networking.firewall.allowedUDPPorts = [ 25565 24454 ];
 
     specialisation."AtlasOS-VFIO-autoboot".configuration = {
         system.nixos.tags = [ "vfio" ];
