@@ -50,13 +50,13 @@ in {
                 startup_screen = "media_library";
 
                 # Theme
-                # main_window_color = "white";
-                # statusbar_color = "white";
-                # header_window_color = "blue";
-                # volume_color = "magenta";
-                # alternative_ui_separator_color = "cyan";
-                # window_border_color = "blue";
-                # active_window_border = "magenta";
+                main_window_color = "white";
+                statusbar_color = "white";
+                header_window_color = "blue";
+                volume_color = "magenta";
+                alternative_ui_separator_color = "cyan";
+                window_border_color = "blue";
+                active_window_border = "magenta";
 
                 visualizer_color = "blue,cyan,magenta";
                 visualizer_fps = 30;
@@ -77,6 +77,9 @@ in {
             };
         };
 
-        home.packages = with pkgs; [ mpc-cli ];
+        home.packages = with pkgs; [
+            mpc-cli
+            rmpc
+        ];
     };
 }
