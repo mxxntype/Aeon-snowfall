@@ -140,6 +140,7 @@
     # however its probably more correct to move the keyfile itself.
     fileSystems."/home".neededForBoot = true;
 
+    services.logrotate.checkConfig = false;
     services.iperf3 = {
         enable = true;
         openFirewall = true;
