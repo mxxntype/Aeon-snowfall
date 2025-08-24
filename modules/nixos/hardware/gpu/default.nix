@@ -28,6 +28,19 @@ with lib; {
             };
         };
 
+        amd = {
+            enable = mkOption {
+                description = "Whether to support AMD graphics";
+                type = with types; bool;
+                default = true;
+            };
+            busID = mkOption {
+                description = "AMD iGPU PCI bus ID";
+                type = with types; nullOr str;
+                default = null;
+            };
+        };
+
         nvidia = {
             enable = mkOption {
                 description = "Whether to support NVIDIA graphics";
@@ -57,7 +70,8 @@ with lib; {
                 modesetting.enable = true;
                 powerManagement.enable = true;
                 prime = {
-                    intelBusId = intel.busID;
+                    # intelBusId = if intel.enable then intel.busID else "";
+                    amdgpuBusId = if amd.enable then amd.busID else "";
                     nvidiaBusId = nvidia.busID;
                     offload = {
                         enable = true;
@@ -69,6 +83,7 @@ with lib; {
         inherit (config.aeon.hardware.gpu)
             core
             intel
+            amd
             nvidia
             specialise
             ;
@@ -80,7 +95,7 @@ with lib; {
                     "illusion"
                     "virus"
                 ])
-                    then [ (nvtopPackages.intel.override { nvidia = true; }) ]
+                    then [ nvtopPackages.full ]
                     else [ ]);
         })
 
@@ -97,6 +112,14 @@ with lib; {
                         libvdpau-va-gl
                     ];
                 };
+            };
+        })
+
+        (mkIf amd.enable {
+            services.xserver.videoDrivers = [ "amdgpu" ];
+            hardware.graphics = {
+                enable = true;
+                enable32Bit = true;
             };
         })
 
