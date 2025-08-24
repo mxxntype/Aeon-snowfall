@@ -415,26 +415,30 @@
                 }
 
                 tab name="󱄲 MPD" {
-                    pane command="ncmpcpp"
+                    pane command="rmpc"
                 }
 
                 tab name="󰙅 CLI" focus=true {
                     pane
                 }
 
-                tab name="󱕁  Rsensor" cwd="~/Work/rsensor" {
+                tab name="󰆦 Exospace" cwd="/srv/minecraft/servers/exospace" {
                     pane
-
-                    // NOTE: Can't fucking get it to stay hidden on startup.
-                    floating_panes {
-                        pane cwd="~/Work/rsensor" {
-                            x 0
-                            y "50%"
-                            width "100%"
-                            height "50%"
-                        }
-                    }
                 }
+
+                // tab name="󱕁  Rsensor" cwd="~/Work/rsensor" {
+                //     pane
+                //     
+                //     // NOTE: Can't fucking get it to stay hidden on startup.
+                //     floating_panes {
+                //         pane cwd="~/Work/rsensor" {
+                //             x 0
+                //             y "50%"
+                //             width "100%"
+                //             height "50%"
+                //         }
+                //     }
+                // }
 
                 tab name="󰏖 Invar" cwd="~/Projects/Minecraft/invar" {
                     pane
