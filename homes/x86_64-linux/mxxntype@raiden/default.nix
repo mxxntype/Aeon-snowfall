@@ -16,7 +16,7 @@
         monitors = [
             {
                 name = "KTC H27P22S";  
-                port = "DP-4";
+                port = "DP-2";
                 width = 3840;
                 height = 2160;
                 refreshRate = 144;
