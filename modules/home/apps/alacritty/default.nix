@@ -79,7 +79,14 @@
                         foreground = "#${ui.accent}";
                     };
 
-                    indexed_colors = [ /* TODO */ ];
+                    indexed_colors = [
+                        # NOTE: For `bacon`.
+                        { index = 204; color = "#${colors.mauve}"; }
+                        { index = 239; color = "#${colors.surface0}"; }
+                        { index = 240; color = "#${colors.surface0}"; }
+                        { index = 252; color = "#${colors.subtext0}"; }
+                        { index = 255; color = "#${colors.text}"; }
+                    ];
                 };
             };
         };
