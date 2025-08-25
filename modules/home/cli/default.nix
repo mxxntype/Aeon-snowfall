@@ -91,6 +91,7 @@
             hyperfine # Quick CLI benchmarking tool.
             mprocs    # TUI command manager.
             porsmo    # Pomodoro timer.
+            pv        # Tool for monitoring the progress of data through a pipeline.
 
             # Apps from my other flakes.
             inputs.reddot.packages.${system}.default # Search for stuff in $PATH.
