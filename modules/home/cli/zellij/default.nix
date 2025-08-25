@@ -407,7 +407,24 @@
             // theme_dir "/path/to/my/theme_dir"
         '';
 
-        xdg.configFile."${layoutDir}/${defaultLayout}.kdl".text = /* kdl */ ''
+        xdg.configFile."${layoutDir}/wyrm.kdl".text = /* kdl */ ''
+            layout {
+                ${defaultTabTemplate}
+                tab name="󰒋 System" {
+                    pane command="${pkgs.bottom}/bin/btm"
+                }
+
+                tab name="󰙅 CLI" focus=true {
+                    pane
+                }
+
+                tab name="󰆦 Exospace" cwd="/srv/minecraft/servers/exospace" {
+                    pane
+                }
+            }
+        '';
+
+        xdg.configFile."${layoutDir}/cli.kdl".text = /* kdl */ ''
             layout {
                 ${defaultTabTemplate}
                 tab name="󰒋 System" {
@@ -422,26 +439,18 @@
                     pane
                 }
 
-                tab name="󰆦 Exospace" cwd="/srv/minecraft/servers/exospace" {
+                tab name="󱕁  Rsensor" cwd="~/Work/rsensor" {
                     pane
-                }
-
-                // tab name="󱕁  Rsensor" cwd="~/Work/rsensor" {
-                //     pane
-                //     
-                //     // NOTE: Can't fucking get it to stay hidden on startup.
-                //     floating_panes {
-                //         pane cwd="~/Work/rsensor" {
-                //             x 0
-                //             y "50%"
-                //             width "100%"
-                //             height "50%"
-                //         }
-                //     }
-                // }
-
-                tab name="󰏖 Invar" cwd="~/Projects/Minecraft/invar" {
-                    pane
+                    
+                    // NOTE: Can't fucking get it to stay hidden on startup.
+                    floating_panes {
+                        pane cwd="~/Work/rsensor" {
+                            x 0
+                            y "50%"
+                            width "100%"
+                            height "50%"
+                        }
+                    }
                 }
             }
         '';
