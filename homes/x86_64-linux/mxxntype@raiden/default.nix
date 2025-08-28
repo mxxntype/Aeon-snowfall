@@ -2,7 +2,7 @@
 
 {
     aeon = {
-        style.codename = "kanagawa-dragon";
+        style.codename = "kanagawa-wave";
 
         desktop = {
             hyprland = {
