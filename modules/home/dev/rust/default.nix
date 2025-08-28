@@ -137,6 +137,10 @@
                     # https://github.com/regexident/cargo-modules
                     cargo-modules
 
+                    # Detect unused dependencies in Rust projects.
+                    # https://github.com/bnjbvr/cargo-machete
+                    cargo-machete
+
                     bacon      # Background rust code checker.
                     diesel-cli # Database tool for working with projects that use Diesel.
                     dioxus-cli # Tool for developing, testing, and publishing Dioxus apps.
