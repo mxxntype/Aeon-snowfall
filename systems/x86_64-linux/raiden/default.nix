@@ -22,29 +22,30 @@
                     busID = "PCI:1:0:0";
                 };
 
-                specialise = false;
+                # specialise = false;
             };
 
-            # vfio = {
-            #     enable = true;
-            #     specialize = true;
-            #     pciIDs = [ "10de:1b80" "10de:10f0" ];
-            # };
+            vfio = {
+                enable = true;
+                specialize = true;
+                pciIDs = [ "10de:1b80" "10de:10f0" ];
+            };
 
             cups.enable = true;
+            openrgb = { enable = true; };
         };
 
-        # docker.enable = true;
-        # qemu.enable = true;
+        docker.enable = true;
+        qemu.enable = true;
         # lxc.incus.enable = true;
 
         net = {
             ssh.server = true;
             tailscale.ACLtags = [ "client" ];
-            # wireguard.interfaces = {
-            #     personal.enable = true;
-            #     invian.enable = true;
-            # };
+            wireguard.interfaces = {
+                personal.enable = true;
+                # invian.enable = true;
+            };
         };
     };
 
@@ -148,21 +149,61 @@
     networking.firewall.allowedTCPPorts = [ 3000 ];
     networking.firewall.allowedUDPPorts = [ ];
 
-    services.hardware.openrgb = {
-        enable = true;
-        motherboard = "amd";
-    };
+    programs.gamemode.enable = true;
 
-    # specialisation."AtlasOS-VFIO-autoboot".configuration = {
-    #     system.nixos.tags = [ "vfio" ];
-    # };
+    # virtualisation.libvirtd.qemu.package = inputs.nixpkgs-qemu923.legacyPackages.${pkgs.system}.qemu;
+    # virtualisation.libvirtd.qemu.ovmf.packages = lib.mkForce [ inputs.nixpkgs-qemu923.legacyPackages.${pkgs.system}.OVMF.fd ];
+    # virtualisation.libvirtd.package = inputs.nixpkgs-qemu923.legacyPackages.${pkgs.system}.libvirt;
+
+    specialisation."AtlasOS-VFIO-autoboot".configuration = {
+        system.nixos.tags = [ "vfio" ];
+
+        boot = {
+            # HACK: Since this is a pretty fresh machine at the time writing, its
+            # kinda picky about kernel versions. The below code does the following:
+            # - Forces the usage of the latest kernel that is known to work fine with the VM;
+            # - Tells it to load a specific network driver that supports the onboard NIC.
+            # kernelPackages = let
+            #     kernelSemver = { major = 6; minor = 12; patch = 34; };
+            #     kernelSemverString = builtins.attrValues kernelSemver
+            #         |> builtins.map (v: toString v)
+            #         |> builtins.concatStringsSep ".";
+            #     kernelBasePackage = "linux_${toString kernelSemver.major}_${toString kernelSemver.minor}";
+            # in pkgs.linuxPackagesFor (pkgs.${kernelBasePackage}.override {
+            #     argsOverride = rec {
+            #         version = kernelSemverString;
+            #         modDirVersion = version;
+            #         src = pkgs.fetchurl {
+            #             url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+            #             sha256 = "sha256-p/P+OB9n7KQXLptj77YaFL1/nhJ44DYD0P9ak/Jwwk0=";
+            #         };
+            #     };
+            # });
+
+            # extraModulePackages = [ kernelPackages.r8125 ];
+            # kernelModules = [ "r8125" ];
+
+            blacklistedKernelModules = [ "nvidia" ];
+        };
+
+        systemd.services."atlasOS-autostart" = {
+            description = "atlasOS VM starter";
+            requires = [ "libvirtd.service" ];
+            wantedBy = [ "multi-user.target" ];
+            serviceConfig = {
+                Type = "oneshot";
+                ExecStart = [ "${pkgs.libvirt}/bin/virsh start atlasOS_win10" ];
+            };
+        };
+    };
 
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ ];
-    boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "sd_mod" ];
-    boot.kernelModules = [ "kvm-intel" ];
+    boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "thunderbolt" "usbhid"];
+    boot.kernelModules = [ "kvm-amd" "i2c-dev" "i2c-piix4" ];
     boot.extraModulePackages = [ ];
+    boot.blacklistedKernelModules = [ "amdgpu" ];
 
     boot.zfs.extraPools = [ "raiden-rpool" ];
 
