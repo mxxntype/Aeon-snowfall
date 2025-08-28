@@ -45,7 +45,6 @@
 
             # NOTE: Needed for `lxd` user group permissions.
             users.users.${lib.aeon.user}.extraGroups = [ "lxd" ];
-
         })
 
         (mkIf incus.enable {
