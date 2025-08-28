@@ -67,9 +67,12 @@ with lib; {
             security.pam.sshAgentAuth.enable = true;
 
             programs = {
-                # WARN: Common shells like Bash, Zsh and Fish will pick this up,
-                # Nushell won't (userspace workaround available in home module).
-                ssh.startAgent = true;
+                ssh = {
+                    # WARN: Common shells like Bash, Zsh and Fish will pick this up,
+                    # Nushell won't (userspace workaround available in home module).
+                    startAgent = true;
+                    enableAskPassword = true;
+                };
 
                 # A replacement for interactive SSH terminals that allows roaming,
                 # supports intermittent connectivity, and provides intelligent
