@@ -17,11 +17,14 @@
 _final: _prev: {
     inherit (channels.unstable)
         # atuin # BUG: Nix store collision...
+        OVMF
+        OVMFFull
         alacritty
         anytype
         binsider
         cargo-unfmt
         cargo-wizard
+        direnv
         dua
         gitoxide
         glab
@@ -34,10 +37,12 @@ _final: _prev: {
         marksman
         matugen
         nh
+        nix-direnv
         nushell
         pastel
         prettypst
         prismlauncher
+        qemu
         rust-motd
         rustscan
         tailscale
