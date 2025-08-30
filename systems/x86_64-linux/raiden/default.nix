@@ -2,15 +2,9 @@
 
 {
     aeon = {
-        boot.type = "uefi";
-        fs = {
-            type = "zfs";
-            cacheLimitGiB = 16;
-        };
-
-        sound.enable = true;
-
         hardware = {
+            meta.headless = false;
+            cpu.type = "amd";
             gpu = {
                 amd = {
                     enable = true;
@@ -35,18 +29,26 @@
             openrgb = { enable = true; };
         };
 
-        docker.enable = true;
-        qemu.enable = true;
-        # lxc.incus.enable = true;
+        boot.type = "uefi";
+        fs = {
+            type = "zfs";
+            cacheLimitGiB = 16;
+        };
 
         net = {
             ssh.server = true;
             tailscale.ACLtags = [ "client" ];
             wireguard.interfaces = {
                 personal.enable = true;
-                # invian.enable = true;
+                invian.enable = true;
             };
         };
+
+        sound.enable = true;
+
+        docker.enable = true;
+        qemu.enable = true;
+        # lxc.incus.enable = true;
     };
 
     disko.devices = let inherit (config.networking) hostName; in {
@@ -151,10 +153,6 @@
 
     programs.gamemode.enable = true;
 
-    # virtualisation.libvirtd.qemu.package = inputs.nixpkgs-qemu923.legacyPackages.${pkgs.system}.qemu;
-    # virtualisation.libvirtd.qemu.ovmf.packages = lib.mkForce [ inputs.nixpkgs-qemu923.legacyPackages.${pkgs.system}.OVMF.fd ];
-    # virtualisation.libvirtd.package = inputs.nixpkgs-qemu923.legacyPackages.${pkgs.system}.libvirt;
-
     specialisation."AtlasOS-VFIO-autoboot".configuration = {
         system.nixos.tags = [ "vfio" ];
 
@@ -163,6 +161,7 @@
             # kinda picky about kernel versions. The below code does the following:
             # - Forces the usage of the latest kernel that is known to work fine with the VM;
             # - Tells it to load a specific network driver that supports the onboard NIC.
+            # NOTE: Fuck its actually not needed at all, will leave in case of later need.
             # kernelPackages = let
             #     kernelSemver = { major = 6; minor = 12; patch = 34; };
             #     kernelSemverString = builtins.attrValues kernelSemver
@@ -183,7 +182,12 @@
             # extraModulePackages = [ kernelPackages.r8125 ];
             # kernelModules = [ "r8125" ];
 
-            blacklistedKernelModules = [ "nvidia" ];
+            blacklistedKernelModules = [
+                "nouveau"
+                "nvidia"
+                "nvidia_drm"
+                "nvidia_modeset"
+            ];
         };
 
         systemd.services."atlasOS-autostart" = {

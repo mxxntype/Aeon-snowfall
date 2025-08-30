@@ -1,10 +1,4 @@
-# INFO: NixOS firmware module.
-
-{
-    config,
-    lib,
-    ...
-}:
+{ config, lib, ... }:
 
 with lib; {
     options.aeon.hardware = {
@@ -17,6 +11,7 @@ with lib; {
     config = let
         inherit (config.aeon.hardware)
             firmware
+            cpu
             ;
     in mkMerge [
         (mkIf (firmware == "redistributable") {
@@ -30,8 +25,8 @@ with lib; {
         (mkIf (firmware == "redistributable" || firmware == "all") {
             hardware = {
                 cpu = {
-                    amd.updateMicrocode = true;
-                    intel.updateMicrocode = true;
+                    amd.updateMicrocode = (cpu.type == "amd");
+                    intel.updateMicrocode = (cpu.type == "intel");
                 };
             };
         })

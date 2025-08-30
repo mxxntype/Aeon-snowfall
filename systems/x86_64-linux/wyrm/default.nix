@@ -1,51 +1,30 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
     aeon = {
+        hardware = {
+            meta.headless = true;
+            cpu.type = "intel";
+            gpu.intel = {
+                enable = true;
+                busID = "PCI:0:2:0";
+            };
+        };
+
         boot.type = "uefi";
         fs = {
             type = "zfs";
             cacheLimitGiB = 16;
         };
 
-        sound.enable = true;
-
-        hardware = {
-            gpu = {
-                intel = {
-                    enable = true;
-                    busID = "PCI:0:2:0";
-                };
-
-                nvidia = {
-                    enable = true;
-                    busID = "PCI:1:0:0";
-                };
-
-                specialise = false;
-            };
-
-            vfio = {
-                enable = true;
-                specialize = true;
-                pciIDs = [ "10de:1b80" "10de:10f0" ];
-            };
-
-            cups.enable = true;
+        net = {
+            ssh.server = true;
+            tailscale.ACLtags = [ "server" ];
+            wireguard.interfaces = { personal.enable = true; };
         };
 
         docker.enable = true;
         qemu.enable = true;
-        lxc.incus.enable = true;
-
-        net = {
-            ssh.server = true;
-            tailscale.ACLtags = [ "server" ];
-            wireguard.interfaces = {
-                personal.enable = true;
-                invian.enable = true;
-            };
-        };
     };
 
     disko.devices = let inherit (config.networking) hostName; in {
@@ -149,10 +128,6 @@
     networking.firewall.allowedTCPPorts = [ 3000 25565 ];
     networking.firewall.allowedUDPPorts = [ 25565 24454 ];
 
-    specialisation."AtlasOS-VFIO-autoboot".configuration = {
-        system.nixos.tags = [ "vfio" ];
-    };
-
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ "dm-snapshot" ];
@@ -160,7 +135,10 @@
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
-    boot.zfs.extraPools = [ "wyrm-rpool" "wyrm-hdd" "incus" ];
+    boot.zfs.extraPools = let inherit (config.networking) hostName; in [
+        "${hostName}-rpool"
+        "${hostName}-hdd"
+    ];
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.grub.enable = lib.mkForce false;

@@ -34,6 +34,7 @@
     };
 
     config = let
+        inherit (config.aeon.hardware) cpu;
         inherit (config.aeon.hardware.vfio)
             enable
             specialize
@@ -44,7 +45,7 @@
         # NOTE: Enable kernel support for IOMMU.
         # This is needed for PCI (GPU) passthrough.
         boot.kernelParams = [
-            "intel_iommu=on"
+            "${cpu.type}_iommu=on"
             "vfio-pci.ids=${concatStringsSep "," pciIDs}"
         ];
 

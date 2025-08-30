@@ -60,16 +60,20 @@
                 ];
             };
 
-            fonts.packages = with pkgs; [
-                aeon.iosevka-aeon
-                aeon.nunito
-                corefonts
-                font-awesome
-            ] ++ (with pkgs.nerd-fonts; [
-                bigblue-terminal
-                iosevka-term
-                jetbrains-mono
-            ]);
+            fonts.packages = let
+                GUIfonts = (with pkgs; [
+                    aeon.iosevka-aeon
+                    aeon.nunito
+                    corefonts
+                    font-awesome
+                ]) ++ (with pkgs.nerd-fonts; [
+                    bigblue-terminal
+                    iosevka-term
+                    jetbrains-mono
+                ]);
+            in [ ] ++ (if (config.aeon.hardware.meta.headless == false)
+                        then GUIfonts
+                        else [ ]); 
         })
     ];
 
