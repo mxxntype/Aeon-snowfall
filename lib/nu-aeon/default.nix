@@ -263,10 +263,7 @@
         def "${functionName} wp" [
             wallpaper: path # Path to the wallaper.
         ]: nothing -> nothing {
-            # `swp` is my rust binary, but I don't want to compile it when
-            # the script is used as an installer or something lightweight,
-            # so I access it here directly, not through nix.
-            swp $wallpaper
+            ln --force --symbolic (realpath $wallpaper) ~/.wallpaper
         }
 
         # Locate something in the nix store.

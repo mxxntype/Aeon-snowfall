@@ -181,13 +181,6 @@
             url = "git+ssh://git@github.com/mxxntype/ndrs.git";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        swp = {
-            url = "git+ssh://git@github.com/mxxntype/swp.git";
-            inputs = {
-                nixpkgs.follows = "nixpkgs";
-                snowfall-lib.follows = "snowfall-lib";
-            };
-        };
         invar = {
             url = "github:exoumoon/invar";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -237,7 +230,6 @@
             nuenv.overlays.nuenv
             fenix.overlays.default
             rust-overlay.overlays.default
-            swp.overlays."package/swp"
             # nix-topology.overlays.default
         ];
 

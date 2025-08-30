@@ -175,7 +175,7 @@
     },
     "devshell_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_13"
+        "nixpkgs": "nixpkgs_12"
       },
       "locked": {
         "lastModified": 1741473158,
@@ -1286,24 +1286,6 @@
         "type": "github"
       }
     },
-    "naersk_6": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_11"
-      },
-      "locked": {
-        "lastModified": 1698420672,
-        "narHash": "sha256-/TdeHMPRjjdJub7p7+w55vyABrsJlt5QkznPYy55vKA=",
-        "owner": "nix-community",
-        "repo": "naersk",
-        "rev": "aeb58d5e8faead8980a807c840232697982d47b9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
     "ndrs": {
       "inputs": {
         "flake-utils": "flake-utils_4",
@@ -1483,19 +1465,6 @@
     },
     "nixpkgs_11": {
       "locked": {
-        "lastModified": 1699099776,
-        "narHash": "sha256-X09iKJ27mGsGambGfkKzqvw5esP1L/Rf8H3u3fCqIiU=",
-        "path": "/nix/store/kcmipm57ph9bpzz8bs80iiijiwbyzwy3-source",
-        "rev": "85f1ba3e51676fa8cc604a3d863d729026a6b8eb",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_12": {
-      "locked": {
         "lastModified": 1751251929,
         "narHash": "sha256-IJWIzZSkBsDzS7iS/iwSwur+xFkWqeLYC4kdf8ObtOM=",
         "owner": "NixOS",
@@ -1510,7 +1479,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_13": {
+    "nixpkgs_12": {
       "locked": {
         "lastModified": 1722073938,
         "narHash": "sha256-OpX0StkL8vpXyWOGUD6G+MA26wAXK6SpT94kLJXo6B4=",
@@ -1526,7 +1495,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_14": {
+    "nixpkgs_13": {
       "locked": {
         "lastModified": 1747958103,
         "narHash": "sha256-qmmFCrfBwSHoWw7cVK4Aj+fns+c54EBP8cGqp/yK410=",
@@ -1833,7 +1802,6 @@
         "snowfall-lib": "snowfall-lib_3",
         "sops-nix": "sops-nix",
         "srgn": "srgn",
-        "swp": "swp",
         "unstable": "unstable",
         "wezterm": "wezterm",
         "wiremix": "wiremix",
@@ -2171,30 +2139,6 @@
         "type": "github"
       }
     },
-    "swp": {
-      "inputs": {
-        "naersk": "naersk_6",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "snowfall-lib": [
-          "snowfall-lib"
-        ]
-      },
-      "locked": {
-        "lastModified": 1718844001,
-        "narHash": "sha256-Xg69N3luv5Vgi/2BitMFm/0nqhjVEQABsBpFkXzu2n0=",
-        "ref": "refs/heads/main",
-        "rev": "b986443955fc2f2a6579b73c4052d7f4308a8b77",
-        "revCount": 14,
-        "type": "git",
-        "url": "ssh://git@github.com/mxxntype/swp.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/mxxntype/swp.git"
-      }
-    },
     "systems": {
       "locked": {
         "lastModified": 1681028828,
@@ -2422,7 +2366,7 @@
     },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_14"
+        "nixpkgs": "nixpkgs_13"
       },
       "locked": {
         "lastModified": 1750931469,
@@ -2460,7 +2404,7 @@
         "freetype2": "freetype2",
         "harfbuzz": "harfbuzz",
         "libpng": "libpng",
-        "nixpkgs": "nixpkgs_12",
+        "nixpkgs": "nixpkgs_11",
         "rust-overlay": "rust-overlay_6",
         "zlib": "zlib"
       },

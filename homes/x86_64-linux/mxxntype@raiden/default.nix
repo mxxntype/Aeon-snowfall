@@ -34,7 +34,9 @@
         scream.enable = true;
     };
 
-    # WARN: Changing this might break things. Just leave it.
-    # The sole legit reason to change this is a reinstallation.
-    home.stateVersion = "25.05";
+    home = {
+        # WARN: Changing this might break things. Just leave it.
+        # The sole legit reason to change this is a reinstallation.
+        stateVersion = "25.05";
+    };
 }
