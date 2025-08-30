@@ -37,6 +37,7 @@ with lib; {
             grimblast
             slurp
             swww
+            wl-clipboard-rs
         ];
 
         wayland.windowManager.hyprland = {
