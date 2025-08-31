@@ -28,6 +28,13 @@
                 enable = true;
                 nix-direnv.enable = true;
             };
+
+            yazi = {
+                enable = true;
+                plugins = {
+                    git = pkgs.yaziPlugins.git;
+                };
+            };
         };
 
         home.packages = with pkgs; [

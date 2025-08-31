@@ -215,8 +215,8 @@ with lib; {
 
                 background = {
                     monitor = "";
-                    path = "screenshot";
-                    blur_passes = 6;
+                    path = "/home/${lib.aeon.user}/.wallpaper";
+                    blur_passes = 0;
                 };
 
                 input-field = {
@@ -273,25 +273,26 @@ with lib; {
                     {
                         monitor = "";
                         text = "󰌓 $LAYOUT[EN,RU]";
-                        font_size = 32;
+                        font_size = 64;
                         font_family = "${font}";
                         onclick = "hyprctl switchxkblayout all next";
+                        color = "rgb(${ui.fg.text})";
 
-                        position = "0, -80";
-                        halign = "center";
-                        valign = "center";
+                        position = "-16, 0";
+                        halign = "right";
+                        valign = "bottom";
                     }
 
-                    {
-                        monitor = "";
-                        text = "subterranean_glass_room";
-                        font_size = 24;
-                        font_family = "${font}";
+                    # {
+                    #     monitor = "";
+                    #     text = "subterranean_glass_room";
+                    #     font_size = 24;
+                    #     font_family = "${font}";
 
-                        position = "0, 80";
-                        halign = "center";
-                        valign = "center";
-                    }
+                    #     position = "0, 80";
+                    #     halign = "center";
+                    #     valign = "center";
+                    # }
                 ];
             };
         };
