@@ -230,7 +230,7 @@ with lib; {
                     fail_color = "rgb(${ui.error})";
 
                     font_color = "rgb(${ui.fg.text})";
-                    fade_on_empty = false;
+                    fade_on_empty = true;
                     rounding = 0;
 
                     font_family = "${font}";
