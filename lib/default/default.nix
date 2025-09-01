@@ -29,8 +29,8 @@ rec {
     nix = {
         # INFO: Syncs the system's Nix registry and $NIX_PATH with the flake's inputs.
         # Makes sure the configuration and CLI commands all run off of the same inputs.
-        registry = inputs |> builtins.mapAttrs (_: flake: { inherit flake; });
-        nixPath = inputs |> lib.mapAttrsToList (n: _: "${n}=flake:${n}");
+        # registry = inputs |> builtins.mapAttrs (_: flake: { inherit flake; });
+        # nixPath = inputs |> lib.mapAttrsToList (n: _: "${n}=flake:${n}");
 
         # INFO: Completely disables Nix channels. May cause some unexpected breakages.
         channel.enable = false;

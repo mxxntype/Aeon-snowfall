@@ -23,7 +23,7 @@ with lib; {
         };
 
         # Inherit common Nix settings.
-        nix = with lib.aeon.nix; { inherit settings registry nixPath; };
+        nix = with lib.aeon.nix; { inherit settings; };
 
         home = {
             homeDirectory = mkForce "/home/${config.home.username}";
