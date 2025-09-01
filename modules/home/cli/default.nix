@@ -27,6 +27,11 @@
             direnv = {
                 enable = true;
                 nix-direnv.enable = true;
+                # HACK: The home-manager module (https://github.com/nix-community/home-manager/blob/29ab63bbb3d9eee4a491f7ce701b189becd34068/modules/programs/direnv.nix)
+                # generates some nushell code that uses a deprecated flag. The PR with the fix
+                # (https://github.com/nix-community/home-manager/pull/7490) is already in the
+                # master branch, however, I have not yet updated to 25.11.
+                enableNushellIntegration = false;
             };
 
             yazi = {

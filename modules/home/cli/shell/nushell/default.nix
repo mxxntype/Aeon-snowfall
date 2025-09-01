@@ -951,26 +951,30 @@
                         ]
                     }
 
+                    ${aeonScript}
+                '';
+
+                extraConfig = lib.mkIf config.programs.direnv.enable (lib.mkAfter ''
                     $env.config = ($env.config? | default {})
                     $env.config.hooks = ($env.config.hooks? | default {})
                     $env.config.hooks.pre_prompt = (
                         $env.config.hooks.pre_prompt?
                         | default []
                         | append {||
-                            ${pkgs.direnv}/bin/direnv export json
+                            ${lib.getExe config.programs.direnv.package} export json
                             | from json --strict
                             | default {}
                             | items {|key, value|
                                 let value = do (
                                     {
-                                      "path": {
+                                      "PATH": {
                                         from_string: {|s| $s | split row (char esep) | path expand --no-symlink }
                                         to_string: {|v| $v | path expand --no-symlink | str join (char esep) }
                                       }
                                     }
                                     | merge ($env.ENV_CONVERSIONS? | default {})
-                                    | get -i $key
-                                    | get -i from_string
+                                    | get ([[value, optional, insensitive]; [$key, true, true]] | into cell-path)
+                                    | get from_string?
                                     | if ($in | is-empty) { {|x| $x} } else { $in }
                                 ) $value
                                 return [ $key $value ]
@@ -979,9 +983,7 @@
                             | load-env
                         }
                     )
-
-                    ${aeonScript}
-                '';
+                '');
 
                 envFile.text = /* nu */ ''
                     # Nushell Environment Config File
