@@ -28,6 +28,7 @@ with lib; {
             source
             ;
         inherit (config.aeon.theme)
+            colors
             ui
             ;
         inherit (config.aeon) monitors;
@@ -64,7 +65,7 @@ with lib; {
                         |> builtins.filter (monitor: monitor.enable)
                         |> builtins.map (monitor: monitor.refreshRate);
                 in foldl' max (builtins.head refreshRates) (builtins.tail refreshRates);
-            in {
+            in rec {
                 env = [
                     "SWWW_TRANSITION_DURATION, 2"
                     "SWWW_TRANSITION_FPS, ${toString highestRefreshRate}"
@@ -185,6 +186,23 @@ with lib; {
                     "workspaces, 1,     4,     expo,   slide"
                     "border,     1,     8,     default      "
                 ];
+
+                windowrule = let
+                    gapsOut = 20;
+                    rsensor = {
+                        width = 640;
+                        height = 384;
+                    };
+                    offsets = {
+                        x = rsensor.width + gapsOut + general.border_size * 2;
+                        y = gapsOut + general.border_size * 2;
+                    };
+                in [
+                    "float,                                                     title:^(rsensor)$"
+                    "size ${toString rsensor.width} ${toString rsensor.height}, title:^(rsensor)$"
+                    "move 100%-${toString offsets.x} ${toString offsets.y},     title:^(rsensor)$"
+                    "bordercolor rgb(${colors.peach}),                          title:^(rsensor)$"
+                ];
             };
 
             plugins = if (source == "nixpkgs") then [
@@ -201,7 +219,10 @@ with lib; {
             settings = let
                 font = "BigBlueTermPlus Nerd Font";
             in {
-                general.hide_cursor = true;
+                general = {
+                    hide_cursor = true;
+                    ignore_empty_input = true;
+                };
 
                 animations = {
                     enabled = true;
