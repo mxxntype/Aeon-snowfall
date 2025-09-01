@@ -437,14 +437,22 @@
 
                 tab name="󰙅 CLI" focus=true {
                     pane
+
+                    floating_panes {
+                        pane cwd="~/Work/rsensor" command="test" close_on_exit=true {
+                            x 0
+                            y "50%"
+                            width "100%"
+                            height "50%"
+                        }
+                    }
                 }
 
                 tab name="󱕁  Rsensor" cwd="~/Work/rsensor" {
                     pane
                     
-                    // NOTE: Can't fucking get it to stay hidden on startup.
                     floating_panes {
-                        pane cwd="~/Work/rsensor" {
+                        pane cwd="~/Work/rsensor" command="test" close_on_exit=true {
                             x 0
                             y "50%"
                             width "100%"
