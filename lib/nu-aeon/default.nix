@@ -306,12 +306,12 @@
                 | from ssv
 
             $data
-                | update avail { into filesize }
-                | update refer { into filesize }
-                | update used  { into filesize }
-                | update lused { into filesize }
-                | update usedsnap { into filesize }
-                | update ratio { into float }
+                | update avail { try { into filesize } catch { 0b }}
+                | update refer { try { into filesize } catch { 0b }}
+                | update used  { try { into filesize } catch { 0b }}
+                | update lused { try { into filesize } catch { 0b }}
+                | update usedsnap { try { into filesize } catch { 0b }}
+                | update ratio { try { into float } catch { 0.0 }}
                 | select ...($properties | split row ',')
         }
     '';
