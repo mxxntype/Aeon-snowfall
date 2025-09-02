@@ -293,5 +293,26 @@
                 | reject store_path
                 | sort-by name
         }
+
+        # Inspect ZFS filesystems, volumes and such.
+        def "${functionName} zfs list" [
+            --properties (-p): string = "name,mountpoint,type,avail,refer,used,usedsnap,compress,ratio,lused" # Which properties to show.
+            --type (-t): string = "filesystem,volume" # Which types to display.
+        ]: nothing -> table<any: any> {
+            let data = zfs list -p -o all -t $type
+                | lines
+                | try { update 0 { str downcase } } catch { [""] }
+                | to text
+                | from ssv
+
+            $data
+                | update avail { into filesize }
+                | update refer { into filesize }
+                | update used  { into filesize }
+                | update lused { into filesize }
+                | update usedsnap { into filesize }
+                | update ratio { into float }
+                | select ...($properties | split row ',')
+        }
     '';
 }
