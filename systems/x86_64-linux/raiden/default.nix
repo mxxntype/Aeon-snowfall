@@ -209,7 +209,7 @@
     boot.extraModulePackages = [ ];
     boot.blacklistedKernelModules = [ "amdgpu" ];
 
-    boot.zfs.extraPools = [ "raiden-rpool" ];
+    boot.zfs.extraPools = [ "${config.networking.hostName}-rpool" ];
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.grub.enable = lib.mkForce false;
