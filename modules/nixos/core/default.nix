@@ -81,6 +81,17 @@
                 enableNotifications = true;
             };
 
+            logind = rec {
+                powerKey = "ignore";
+                powerKeyLongPress = "poweroff";
+                rebootKey = powerKey;
+                rebootKeyLongPress = powerKeyLongPress;
+                suspendKey = powerKey;
+                suspendKeyLongPress = powerKeyLongPress;
+                hibernateKey = powerKey;
+                hibernateKeyLongPress = powerKeyLongPress;
+            };
+
             xremap.config = {
                 modmap = [
                     {
