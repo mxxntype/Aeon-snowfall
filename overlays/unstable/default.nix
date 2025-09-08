@@ -46,7 +46,6 @@ _final: _prev: {
         rust-motd
         rustscan
         tailscale
-        tailscaled
         tracy
         uv
         vesktop
