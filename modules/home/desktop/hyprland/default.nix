@@ -33,13 +33,23 @@ with lib; {
             ;
         inherit (config.aeon) monitors;
     in mkIf enable {
-        home.packages = with pkgs; [
-            grim
-            grimblast
-            slurp
-            swww
-            wl-clipboard-rs
-        ];
+        home = {
+            packages = with pkgs; [
+                grim
+                grimblast
+                hyprcursor
+                slurp
+                swww
+                wl-clipboard-rs
+            ];
+
+            pointerCursor = {
+                enable = true;
+                size = 16;
+                package = pkgs.bibata-cursors;
+                name = "Bibata-Modern-Classic";
+            };
+        };
 
         wayland.windowManager.hyprland = {
             enable = true;
@@ -49,7 +59,6 @@ with lib; {
 
             settings = let
                 MOD = "SUPER";
-
 
                 # Caps to the largest workspace ID from all enabled monitors.
                 workspaceCount = let
@@ -70,6 +79,9 @@ with lib; {
                     "SWWW_TRANSITION_DURATION, 2"
                     "SWWW_TRANSITION_FPS, ${toString highestRefreshRate}"
                     # "SWWW_TRANSITION, left"
+
+                    "HYPRCURSOR_THEME, ${toString config.home.pointerCursor.name}"
+                    "HYPRCURSOR_SIZE, ${toString config.home.pointerCursor.size}" # BUG: Gets fucking ignored.
                 ];
 
                 input = {
@@ -158,6 +170,7 @@ with lib; {
                 ];
 
                 exec = [
+                    "${pkgs.hyprland}/bin/hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
                     "sleep 0.5 && ${pkgs.swww}/bin/swww img ~/.wallpaper"
                 ];
 
