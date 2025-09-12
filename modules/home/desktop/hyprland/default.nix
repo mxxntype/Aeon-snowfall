@@ -80,6 +80,10 @@ with lib; {
                     "SWWW_TRANSITION_FPS, ${toString highestRefreshRate}"
                     # "SWWW_TRANSITION, left"
 
+                    # INFO: https://wiki.nixos.org/wiki/Wayland#X_and_Wayland_support
+                    # Basically allows electron-based apps to run on a wayland-native backend.
+                    "NIXOS_OZONE_WL, 1"
+
                     "HYPRCURSOR_THEME, ${toString config.home.pointerCursor.name}"
                     "HYPRCURSOR_SIZE, ${toString config.home.pointerCursor.size}" # BUG: Gets fucking ignored.
                 ];
