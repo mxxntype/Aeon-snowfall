@@ -28,7 +28,10 @@
             }
         ];
 
-        apps.alacritty.enable = true;
+        apps = {
+            alacritty.enable = true;
+            gimp.enable = true;
+        };
 
         music.enable = true;
         scream.enable = true;

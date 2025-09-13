@@ -60,6 +60,12 @@ with lib; {
             settings = let
                 MOD = "SUPER";
 
+                notify =
+                    message:
+                    icon_code:
+                    color_code:
+                    "${pkgs.hyprland}/bin/hyprctl notify ${toString icon_code} 3000 rgb\\(${color_code}\\) ${message}";
+
                 # Caps to the largest workspace ID from all enabled monitors.
                 workspaceCount = let
                     workspaces = monitors
@@ -143,6 +149,7 @@ with lib; {
                     # Applications.
                     [
                         "${MOD}    , RETURN, exec, ${pkgs.alacritty}/bin/alacritty"
+                        "CTRL SHIFT, 2,      exec, ${if config.aeon.apps.gimp.enable then "gimp" else (notify "GIMP is not enabled" 3 "cba6f7")}"
                         "CTRL SHIFT, 3,      exec, ${pkgs.firefox}/bin/firefox"
                         "CTRL SHIFT, 4,      exec, ${pkgs.telegram-desktop}/bin/telegram-desktop"
                         "CTRL SHIFT, 6,      exec, ${pkgs.virt-manager}/bin/virt-manager"
