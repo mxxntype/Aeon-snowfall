@@ -149,7 +149,7 @@ with lib; {
                     # Applications.
                     [
                         "${MOD}    , RETURN, exec, ${pkgs.alacritty}/bin/alacritty"
-                        "CTRL SHIFT, 2,      exec, ${if config.aeon.apps.gimp.enable then "gimp" else (notify "GIMP is not enabled" 3 "cba6f7")}"
+                        "CTRL SHIFT, 2,      exec, ${if config.aeon.apps.gimp.enable then "gimp" else (notify "GIMP is not enabled" 3 "${ui.error}")}"
                         "CTRL SHIFT, 3,      exec, ${pkgs.firefox}/bin/firefox"
                         "CTRL SHIFT, 4,      exec, ${pkgs.telegram-desktop}/bin/telegram-desktop"
                         "CTRL SHIFT, 6,      exec, ${pkgs.virt-manager}/bin/virt-manager"
