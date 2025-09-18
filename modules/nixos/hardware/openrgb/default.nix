@@ -1,34 +1,30 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, lib, pkgs, ... }:
 
 {
     options.aeon.hardware.openrgb = {
-        enable = mkOption {
-            type = types.bool;
+        enable = lib.mkOption {
+            type = lib.types.bool;
             default = false;
+        };
+
+        color = lib.mkOption { type = lib.types.str; };
+        resizeableZones = {
+            device_id = lib.mkOption { type = lib.types.int; };
+            zone_ids = lib.mkOption { type = lib.types.listOf lib.types.int; };
+            size = lib.mkOption { type = lib.types.int; };
         };
     };
 
     config = let
-        inherit (config.aeon.hardware.openrgb) enable color;
+        inherit (config.aeon.hardware.openrgb)
+            enable
+            color
+            resizeableZones
+            ;
+
         services = {
             daemon = "openrgb";
             setup = "openrgb-setup";
-        };
-
-        profileName = "${config.networking.hostName}.orp";
-        profile = pkgs.stdenv.mkDerivation rec {
-            name = "openrgb-profile";
-            src = builtins.path {
-                path = ./${profileName};
-                name = profileName;
-            };
-
-            phases = [ "installPhase" ];
-
-            installPhase = ''
-                mkdir -p $out/share
-                cp ${src} $out/share/${profileName}
-            '';
         };
 
         job = "11119762635";
@@ -40,7 +36,7 @@
                 hash = "sha256-INghItN4XKl/vrwwENFVOKrpJbfqesp2jtyYov1b21w=";
             };
         };
-    in mkIf enable {
+    in lib.mkIf enable {
         environment.systemPackages = [ openrgbAppimage ];
 
         systemd.services."${services.daemon}" = {
@@ -58,7 +54,16 @@
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
                 Type = "oneshot";
-                ExecStart = [ "${openrgbAppimage}/bin/openrgb --profile ${profile}/share/${config.networking.hostName}.orp" ];
+                ExecStart = let zone_setup_commands = resizeableZones.zone_ids
+                    |> builtins.map (zone_id: [
+                        "${lib.getExe openrgbAppimage}"
+                        "--device ${toString resizeableZones.device_id}"
+                        "--zone ${toString zone_id}"
+                        "--size ${toString resizeableZones.size}"
+                        "--color 000000"] |> builtins.concatStringsSep " " );
+                in [ "${lib.getExe openrgbAppimage} --color ${color}" ]
+                    ++ zone_setup_commands
+                    ++ [ "${lib.getExe openrgbAppimage} --color ${color}" ];
             };
         };
     };

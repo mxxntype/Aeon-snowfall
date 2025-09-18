@@ -26,7 +26,15 @@
             };
 
             cups.enable = true;
-            openrgb = { enable = true; };
+            openrgb = {
+                enable = true;
+                color = "f8ae54" /* As close to neutral white as I could get. */;
+                resizeableZones = {
+                    device_id = 0;
+                    zone_ids = [1 2 3];
+                    size = 20;
+                };
+            };
         };
 
         boot.type = "uefi";
