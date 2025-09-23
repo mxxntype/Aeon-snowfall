@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
     aeon = {
@@ -8,6 +8,12 @@
             gpu.intel = {
                 enable = true;
                 busID = "PCI:0:2:0";
+            };
+
+            cups = {
+                enable = true;
+                server = true;
+                drivers = [ pkgs.hplipWithPlugin ];
             };
         };
 
@@ -119,10 +125,12 @@
     # however its probably more correct to move the keyfile itself.
     fileSystems."/home".neededForBoot = true;
 
-    services.logrotate.checkConfig = false;
-    services.iperf3 = {
-        enable = true;
-        openFirewall = true;
+    services = {
+        logrotate.checkConfig = false;
+        iperf3 = {
+            enable = true;
+            openFirewall = true;
+        };
     };
 
     networking.firewall.allowedTCPPorts = [ 3000 25565 ];

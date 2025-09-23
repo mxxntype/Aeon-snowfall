@@ -1,24 +1,56 @@
-# INFO: NixOS CUPS module.
-
-{ config, pkgs, lib, ... }: with lib;
+{ config, lib, ... }:
 
 {
     options.aeon.hardware.cups = {
-        # Whether to enable the CUPS printing service.
-        enable = mkOption {
-            type = with types; bool;
-            default = false;
-        };
+        enable = lib.mkOption { type = lib.types.bool; default = false; };
+        server = lib.mkOption { type = lib.types.bool; default = false; };
+        client = lib.mkOption { type = lib.types.bool; default = false; };
+        drivers = lib.mkOption { type = lib.types.listOf lib.types.path; default = [ ]; };
     };
 
-    config = mkIf config.aeon.hardware.cups.enable {
-        services.printing = {
-            enable = true;
-            drivers = with pkgs; [ hplipWithPlugin ];
+    config = let
+        inherit (config.aeon.hardware.cups)
+            enable
+            server
+            client
+            drivers;
+    in (lib.mkIf enable (lib.mkMerge [
+        {
+            services = {
+                printing.enable = true;
+                avahi = {
+                    enable = true;
+                    nssmdns = true;
+                };
+            };
+        }  
 
-            # WARN: The autodiscovery thing of CUPS is sorta
-            # a security nightmare, so stay away from that.
-            browsed.enable = false;
-        };
-    };
+        (lib.mkIf client {
+            services.printing.browsed.enable = true;
+        })
+
+        (lib.mkIf server {
+            services = {
+                printing = {
+                    inherit drivers;
+
+                    listenAddresses = [ "*:631" ];
+                    allowFrom = [ "all" ];
+                    browsing = true;
+                    defaultShared = true;
+                    openFirewall = true;
+
+                    browsed.enable = false;
+                };
+
+                avahi = {
+                    openFirewall = true;
+                    publish = {
+                        enable = true;
+                        userServices = true;
+                    };
+                };
+            };
+        })
+    ]));
 }
