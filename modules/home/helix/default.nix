@@ -261,6 +261,7 @@ with lib; {
             ruff
             marksman # Markdown LSP.
             taplo    # TOML LSP.
+            vscode-langservers-extracted
         ];
 
         # NOTE: Based on the Kanagawa theme.
