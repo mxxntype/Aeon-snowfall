@@ -25,7 +25,11 @@
                 pciIDs = [ "10de:1b80" "10de:10f0" ];
             };
 
-            cups.enable = true;
+            cups = {
+                enable = true;
+                client = true;
+            };
+            
             openrgb = {
                 enable = true;
                 color = "f8ae54" /* As close to neutral white as I could get. */;
