@@ -141,6 +141,10 @@
                     # https://github.com/bnjbvr/cargo-machete
                     cargo-machete
 
+                    # https://github.com/mainmatter/cargo-autoinherit
+                    # Automatically DRY up your Rust dependencies.
+                    cargo-autoinherit
+
                     bacon      # Background rust code checker.
                     diesel-cli # Database tool for working with projects that use Diesel.
                     dioxus-cli # Tool for developing, testing, and publishing Dioxus apps.
