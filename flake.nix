@@ -144,14 +144,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # NOTE: I manually package the Zen browser for myself.
-        #
-        # HACK: This does, however, mean that I will need to manually tweak the `version` here if I wish to update it.
-        zen-browser-appimage = {
-            url = "https://github.com/zen-browser/desktop/releases/download/1.13.2b/zen-x86_64.AppImage";
-            flake = false;
-        };
-
         # A fork of the Nix LSP server with support for the experimental `pipe-operators` feature.
         nil-fork.url = "github:q60/nil/pipe-operator-support";
 
