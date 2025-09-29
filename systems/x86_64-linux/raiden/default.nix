@@ -39,6 +39,8 @@
                     size = 20;
                 };
             };
+
+            adb.enable = true;
         };
 
         boot.type = "uefi";

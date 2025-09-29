@@ -1,22 +1,16 @@
-# INFO: NixOS Android Debug Bridge module.
+{ config, lib, ... }:
 
 {
-    config,
-    lib,
-    ...
-}:
-
-with lib; {
     options.aeon.hardware.adb = {
         # Whether to enable the Android Debug Bridge.
-        enable = mkOption {
-            type = with types; bool;
+        enable = lib.mkOption {
+            type = lib.types.bool;
             default = false;
         };
     };
 
-    config = mkIf config.aeon.hardware.adb.enable {
+    config = lib.mkIf config.aeon.hardware.adb.enable {
         programs.adb.enable = true;
-        users.users.${aeon.user}.extraGroups = [ "adbusers" ];
+        users.users.${lib.aeon.user}.extraGroups = [ "adbusers" ];
     };
 }
