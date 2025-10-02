@@ -200,7 +200,6 @@ with lib; {
 
                 animations = {
                     enabled = true;
-                    first_launch_animation = false;
                 };
 
                 animation = [
