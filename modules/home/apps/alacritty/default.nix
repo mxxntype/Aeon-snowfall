@@ -30,11 +30,11 @@
                     size = 16;
                     normal = {
                         inherit family;
-                        style = "Medium";
+                        style = "Regular";
                     };
                     bold = {
                         inherit family;
-                        style = "Bold";
+                        style = "Medium";
                     };
                     italic = {
                         inherit family;
@@ -42,7 +42,7 @@
                     };
                     bold_italic = {
                         inherit family;
-                        style = "Bold Italic";
+                        style = "Medium Italic";
                     };
                 };
 

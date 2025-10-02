@@ -12,7 +12,7 @@
 in {
     themes = {
         ${meta.slug} = {
-            colors = {
+            colors = rec {
                 # Backgrounds and foregrounds.
                 void      = "000000";
                 crust     = "16161D";
@@ -21,8 +21,9 @@ in {
                 surface0  = "2A2A37";
                 surface1  = "363646";
                 surface2  = "54546D";
-                overlay0  = "54546D";
-                overlay1  = "54546D";
+                overlay0  = surface2;
+                overlay1  = surface2;
+                overlay2  = surface2;
                 subtext0  = "727169";
                 subtext1  = "C8C093";
                 text      = "DCD7BA";

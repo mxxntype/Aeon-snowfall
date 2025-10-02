@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, ... }:
 
 {
     aeon = {
@@ -42,4 +42,6 @@
         # The sole legit reason to change this is a reinstallation.
         stateVersion = "25.05";
     };
+
+    xdg.configFile."docs.rs.less".text = lib.aeon.docs-rs-stylesheet { theme = config.aeon.theme; };
 }

@@ -2,24 +2,18 @@
 
 { lib, config, ... }:
 
-with lib;
 let
-    baseTheme  = aeon.themes.kanagawa-wave;
-    inherit (baseTheme)
-        colors
-        meta
-        ;
+    baseTheme  = lib.aeon.themes.kanagawa-wave;
+    themeTemplate = lib.aeon.mkThemeTemplate { inherit (baseTheme) colors meta; };
 
-    themeTemplate = aeon.mkThemeTemplate { inherit colors meta; };
-
-    theme = aeon.mkTheme {
+    theme = lib.aeon.mkTheme {
         inherit themeTemplate;
         overrides = { };
     };
 in
 
 {
-    config = mkIf (config.aeon.style.codename == "kanagawa-wave") {
+    config = lib.mkIf (config.aeon.style.codename == "kanagawa-wave") {
         aeon = {
             inherit theme;
             style = {

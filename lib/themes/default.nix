@@ -64,6 +64,8 @@ rec {
         colors,
         meta ? {},
     }: rec {
+        inherit colors meta;
+
         ui = with colors; rec {
             bg = {
                 inherit void crust mantle base;
@@ -500,8 +502,6 @@ rec {
             minus = red;
             delta = blue;
         };
-
-        inherit colors meta;
     };
 
     # INFO: Apply theme-specific overrides to a theme template.
