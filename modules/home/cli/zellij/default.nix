@@ -10,9 +10,8 @@
 
     config = let
         inherit (config.aeon.cli.zellij) enable;
-        inherit (config.aeon.theme) colors;
+        inherit (config.aeon.theme) colors ui;
 
-        icon = "󰫈";
         layoutDir = "${config.xdg.configHome}/zellij/layouts/";
         defaultLayout = "cli";
         defaultTabTemplate = /* kdl */ ''
@@ -22,9 +21,10 @@
                 pane size=2 borderless=true {
                     plugin location="file:${inputs.zjstatus.packages.${pkgs.system}.default}/bin/zjstatus.wasm" {
                         format_left  "{mode}{tabs}"
-                        // format_right "{command_git_branch} #[fg=#${colors.blue},bold]{session} {datetime} #[fg=#${colors.crust},bg=#${colors.mauve},bold]   "
-                        // format_right "{command_git_branch} {datetime} #[fg=#${colors.crust},bg=#${colors.mauve},bold]   "
-                        format_right "#[fg=#${colors.mauve}] {datetime} #[fg=#${colors.crust},bg=#${colors.blue}]   "
+                        format_right "${builtins.concatStringsSep "" [
+                            "#[fg=#${ui.fg.subtext1},bg=#${ui.bg.surface0}] {datetime} "
+                            "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold]   #[bg=#${colors.blue}] "
+                        ]}"
                         format_space ""
 
                         border_enabled  "true"
@@ -32,19 +32,19 @@
                         border_format   "#[fg=#${colors.surface2}]{char}"
                         border_position "top"
 
-                        // `false` means follow core config,
-                        // `true` will turn on frames when a second pane is opened
+                        // NOTE: `false` means follow core config, `true`
+                        // will turn on frames when a second pane is open.
                         hide_frame_for_single_pane "false"
 
-                        mode_normal  "#[fg=#${colors.crust},bg=#${colors.subtext0},bold] ${icon}  NORMAL  "
-                        mode_locked  "#[fg=#${colors.crust},bg=#${colors.red     },bold] ${icon}  LOCKED  "
-                        mode_resize  "#[fg=#${colors.crust},bg=#${colors.green   },bold] ${icon}  RESIZE  "
-                        mode_pane    "#[fg=#${colors.crust},bg=#${colors.blue    },bold] ${icon}   PANE   "
-                        mode_tab     "#[fg=#${colors.crust},bg=#${colors.yellow  },bold] ${icon}   TAB    "
-                        mode_scroll  "#[fg=#${colors.crust},bg=#${colors.teal    },bold] ${icon}  SCROLL  "
-                        mode_session "#[fg=#${colors.crust},bg=#${colors.maroon  },bold] ${icon}  SESSION "
-                        mode_move    "#[fg=#${colors.crust},bg=#${colors.mauve   },bold] ${icon}   MOVE   "
-                        mode_tmux    "#[fg=#${colors.crust},bg=#${colors.green   },bold] ${icon}   TMUX   "
+                        mode_normal  "#[fg=#${colors.crust},bg=#${colors.subtext0},bold] 󰳨 NORMAL  "
+                        mode_locked  "#[fg=#${colors.crust},bg=#${colors.red     },bold] 󰔌 LOCKED  "
+                        mode_resize  "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰊓 RESIZE  "
+                        mode_pane    "#[fg=#${colors.crust},bg=#${colors.blue    },bold] 󰖲  PANE   "
+                        mode_tab     "#[fg=#${colors.crust},bg=#${colors.yellow  },bold] 󰓩  TAB    "
+                        mode_scroll  "#[fg=#${colors.crust},bg=#${colors.teal    },bold] 󰮾 SCROLL  "
+                        mode_session "#[fg=#${colors.crust},bg=#${colors.maroon  },bold] 󰙅 SESSION "
+                        mode_move    "#[fg=#${colors.crust},bg=#${colors.mauve   },bold] 󰮴  MOVE   "
+                        mode_tmux    "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰬛 TMUX   "
 
                         tab_active  " #[bg=#${colors.mauve}] #[fg=#${colors.text},bg=#${colors.surface0},bold] {name} "
                         tab_normal  " #[bg=#${colors.subtext0}] #[fg=#${colors.subtext1},bg=#${colors.surface0}] {name} "
@@ -53,7 +53,7 @@
                         command_git_branch_format   "#[fg=red] {stdout} "
                         command_git_branch_interval  "10"
 
-                        datetime          "#[fg=#${colors.mauve},bold] {format}"
+                        datetime          "{format}"
                         datetime_format   "%A, %d %b %Y %H:%M"
                         datetime_timezone "Europe/Moscow"
                     }
