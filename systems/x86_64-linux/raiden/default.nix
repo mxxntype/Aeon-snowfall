@@ -32,7 +32,7 @@
             
             openrgb = {
                 enable = true;
-                color = "f8ae54" /* As close to neutral white as I could get. */;
+                color = "ff8499";
                 resizeableZones = {
                     device_id = 0;
                     zone_ids = [1 2 3];
