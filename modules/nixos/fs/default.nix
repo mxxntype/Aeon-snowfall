@@ -162,17 +162,19 @@ with lib; {
         # https://github.com/Misterio77/nix-config/blob/main/hosts/common/global/optin-persistence.nix
         (mkIf ephemeral {
             programs.fuse.userAllowOther = true;
-            environment.persistence = {
-                ${aeon.persist} = {
-                    directories = [
-                        "/etc/NetworkManager"
-                        "/opt"
-                        "/var/cache"
-                        "/var/lib"
-                        "/var/log"
-                    ];
-                };
-            };
+            
+            # TODO: Not wired up
+            # environment.persistence = {
+            #     ${aeon.persist} = {
+            #         directories = [
+            #             "/etc/NetworkManager"
+            #             "/opt"
+            #             "/var/cache"
+            #             "/var/lib"
+            #             "/var/log"
+            #         ];
+            #     };
+            # };
 
             system.activationScripts.persistent-dirs.text = let
                 users = attrValues config.users.users;

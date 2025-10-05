@@ -2,32 +2,28 @@
 #
 # https://github.com/ziap/repalette
 
-{
-    inputs,
-    pkgs,
-    stdenv,
-    fetchurl,
-    ...
-}:
+{ pkgs, stdenv, fetchurl, ... }: let
 
-let
-    # NOTE: Makefile tries to download these with `curl`, which fails.
-    stb_image_h = fetchurl {
-        url = "https://raw.githubusercontent.com/nothings/stb/master/stb_image.h";
-        sha256 = "1cq089gygwzcbg4nm4cxh75fyv9nk27yrynvh91qnj29bpijyk2r";
-    };
-    stb_image_write_h = fetchurl {
-        url = "https://raw.githubusercontent.com/nothings/stb/master/stb_image_write.h";
-        sha256 = "01aaj6v3q19jiqdcywr4q7r3901ksahm8qxkzy54dx4wganz1mfb";
-    };
-in
+stb_image_h = fetchurl {
+    url = "https://raw.githubusercontent.com/nothings/stb/master/stb_image.h";
+    sha256 = "1cq089gygwzcbg4nm4cxh75fyv9nk27yrynvh91qnj29bpijyk2r";
+};
+stb_image_write_h = fetchurl {
+    url = "https://raw.githubusercontent.com/nothings/stb/master/stb_image_write.h";
+    sha256 = "01aaj6v3q19jiqdcywr4q7r3901ksahm8qxkzy54dx4wganz1mfb";
+};
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
     pname = "repalette";
     version = "1.0.0";
-    src = inputs.repalette;
+    src = pkgs.fetchFromGitHub {
+        owner = "ziap";
+        repo = "repalette";
+        rev = "f101bd93d94664fde88a3f5c36eecf2d5d13eaf7";
+        hash = "sha256-KgL1U0PCGb1fvYDXzggOkRWQguBg5+P2EgGakrhvl9M=";
+    };
 
-    buildPhase = /* bash */ ''
+    buildPhase = ''
         cp ${stb_image_h} ./stb_image.h
         cp ${stb_image_write_h} ./stb_image_write.h
         make repalette

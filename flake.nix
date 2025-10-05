@@ -27,9 +27,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # Persistent state on systems with ephemeral root storage.
-        impermanence.url = "github:nix-community/impermanence";
-
         # Collection of image builders.
         nixos-generators = {
             url = "github:nix-community/nixos-generators";
@@ -39,12 +36,6 @@
         # Declarative disk partitioning and formatting using Nix.
         disko = {
             url = "github:nix-community/disko";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        # Generate infrastructure and network diagrams directly from your NixOS configurations.
-        nix-topology = {
-            url = "github:oddlama/nix-topology";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -136,55 +127,29 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # Powerful cross-platform terminal emulator and multiplexer.
-        wezterm.url = "github:wez/wezterm?dir=nix";
-
+        # A neat TUI for pipewire.
         wiremix = {
             url = "github:tsowell/wiremix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # A fork of the Nix LSP server with support for the experimental `pipe-operators` feature.
-        nil-fork.url = "github:q60/nil/pipe-operator-support";
-
-        # A comfortable monospace font, my favourite.
-        # NOTE: Used as an input for a custom build, see `packages/fonts/iosevka-aeon`.
-        iosevka = { url = "github:be5invis/Iosevka/main"; flake = false; };
-
-
-        # SECTION: My other flakes.
-        helix-fork = {
-            url = "github:mxxntype/helix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        # My own Wake-on-LAN tool.
         siren = {
             url = "github:mxxntype/siren";
+            inputs.naersk.follows = "naersk";
             inputs.nixpkgs.follows = "nixpkgs";
+            inputs.snowfall-lib.follows = "snowfall-lib";
         };
-        hyprquery = {
-            url = "github:mxxntype/hyprquery";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        reddot = {
-            url = "github:mxxntype/reddot";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        ndrs = {
-            url = "git+ssh://git@github.com/mxxntype/ndrs.git";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+
+        # A CLI tool for managing modded minecraft servers.
         invar = {
             url = "github:exoumoon/invar";
             inputs.nixpkgs.follows = "nixpkgs";
+            inputs.snowfall-lib.follows = "snowfall-lib";
         };
 
-        
-        # SECTION: Non-flake inputs.
-        csvlens = { url = "github:YS-L/csvlens"; flake = false; };
-        bluetui = { url = "github:pythops/bluetui"; flake = false; };
-        repalette = { url = "github:ziap/repalette"; flake = false; };
-        srgn = { url = "github:alexpovel/srgn"; flake = false; };
-        jfscan = { url = "github:nullt3r/jfscan"; flake = false; };
+        # A fork of the Nix LSP server with support for the experimental `pipe-operators` feature.
+        nil-fork.url = "github:q60/nil/pipe-operator-support";
     };
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {
@@ -209,7 +174,6 @@
         systems.modules.nixos = with inputs; [
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
-            impermanence.nixosModules.impermanence
             lanzaboote.nixosModules.lanzaboote
             disko.nixosModules.disko
             hyprland.nixosModules.default

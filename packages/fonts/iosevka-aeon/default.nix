@@ -1,5 +1,5 @@
 {
-    inputs,
+    pkgs,
     buildNpmPackage,
     nerd-font-patcher,
     ttfautohint,
@@ -89,7 +89,12 @@ in
 buildNpmPackage {
     pname = "iosevka-aeon";
     version = "git";
-    src = inputs.iosevka;
+    src = pkgs.fetchFromGitHub {
+        owner = "be5invis";
+        repo = "Iosevka";
+        rev = "066611345c245f4e3d211c1aa58ed7abc3d41eed";
+        hash = "sha256-qbC1FVhnkVlsT+lOSeM6wDbKV2c5iTHgBxZENGEBnUI=";
+    };
     npmDepsHash = "sha256-/HxMh5v3CfCpPCF8cf8Z2NXDBovJFvMaQfYFZvuyNX0=";
 
     nativeBuildInputs = [

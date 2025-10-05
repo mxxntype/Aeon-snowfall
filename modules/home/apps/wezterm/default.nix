@@ -1,31 +1,19 @@
-# INFO: Wezterm, a powerful cross-platform terminal emulator and multiplexer.
-
-{
-    config,
-    pkgs,
-    lib,
-    ...
-}:
-
-with lib;
+{ config, pkgs, lib, ... }:
 
 {
     options.aeon.apps.wezterm = {
-        enable = mkOption {
-            type = types.bool;
+        enable = lib.mkOption {
+            type = lib.types.bool;
             default = false;
             description = "Whether to enable WezTerm";
         };
     };
 
-    config = let
-        inherit (config.aeon.apps.wezterm)
-            enable
-            ;
-    in mkIf enable {
+    config = let inherit (config.aeon.apps.wezterm) enable;
+    in lib.mkIf enable {
         programs.wezterm = {
             inherit enable;
-            package = pkgs.aeon.wezterm;
+            package = pkgs.wezterm;
             extraConfig = /* lua */ ''
                 local wezterm = require "wezterm"
 

@@ -63,11 +63,7 @@ with lib; {
                         border: 2px solid #${ui.bg.surface0};
                     }
                 '';
-            };
-
-            persistence."${lib.aeon.persist}/home/${lib.aeon.user}" = {
-                directories = [ ".local/share/PrismLauncher" ];
-            };
+           };
         };
     };
 }
