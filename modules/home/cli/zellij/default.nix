@@ -23,7 +23,7 @@
                         format_left  "{mode}{tabs}"
                         format_right "${builtins.concatStringsSep "" [
                             "#[fg=#${ui.fg.subtext1},bg=#${ui.bg.surface0}] {datetime} "
-                            "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold]   #[bg=#${colors.blue}] "
+                            "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold]   #[fg=#${ui.bg.crust},bg=#${colors.blue}]|"
                         ]}"
                         format_space ""
 
@@ -36,15 +36,15 @@
                         // will turn on frames when a second pane is open.
                         hide_frame_for_single_pane "false"
 
-                        mode_normal  "#[fg=#${colors.crust},bg=#${colors.subtext0},bold] 󰳨 NORMAL  "
-                        mode_locked  "#[fg=#${colors.crust},bg=#${colors.red     },bold] 󰔌 LOCKED  "
-                        mode_resize  "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰊓 RESIZE  "
-                        mode_pane    "#[fg=#${colors.crust},bg=#${colors.blue    },bold] 󰖲  PANE   "
-                        mode_tab     "#[fg=#${colors.crust},bg=#${colors.yellow  },bold] 󰓩  TAB    "
-                        mode_scroll  "#[fg=#${colors.crust},bg=#${colors.teal    },bold] 󰮾 SCROLL  "
-                        mode_session "#[fg=#${colors.crust},bg=#${colors.maroon  },bold] 󰙅 SESSION "
-                        mode_move    "#[fg=#${colors.crust},bg=#${colors.mauve   },bold] 󰮴  MOVE   "
-                        mode_tmux    "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰬛 TMUX   "
+                        mode_normal  "#[fg=#${colors.crust},bg=#${colors.subtext0},bold] 󰳨  NORMAL  "
+                        mode_locked  "#[fg=#${colors.crust},bg=#${colors.red     },bold] 󰔌  LOCKED  "
+                        mode_resize  "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰊓  RESIZE  "
+                        mode_pane    "#[fg=#${colors.crust},bg=#${colors.blue    },bold] 󰖲   PANE   "
+                        mode_tab     "#[fg=#${colors.crust},bg=#${colors.yellow  },bold] 󰓩   TAB    "
+                        mode_scroll  "#[fg=#${colors.crust},bg=#${colors.teal    },bold] 󰮾  SCROLL  "
+                        mode_session "#[fg=#${colors.crust},bg=#${colors.maroon  },bold] 󰙅  SESSION "
+                        mode_move    "#[fg=#${colors.crust},bg=#${colors.mauve   },bold] 󰮴   MOVE   "
+                        mode_tmux    "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰬛  TMUX   "
 
                         tab_active  " #[bg=#${colors.mauve}] #[fg=#${colors.text},bg=#${colors.surface0},bold] {name} "
                         tab_normal  " #[bg=#${colors.subtext0}] #[fg=#${colors.subtext1},bg=#${colors.surface0}] {name} "
