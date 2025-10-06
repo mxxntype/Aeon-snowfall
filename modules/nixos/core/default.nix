@@ -117,11 +117,13 @@
 
         # Add some core packages.
         environment.systemPackages = with pkgs; [
+            appimage-run          # AppImage compatibility layer.
             dmidecode             # Reads information about your system's hardware from the BIOS.
             file                  # A program that shows the type of files.
             hddtemp               # Tool for displaying hard disk temperature.
             home-manager          # Make sure its always there.
             inxi                  # Full featured CLI system information tool.
+            is-fast               # Check the internet as fast as possible.
             jmtpfs                # FUSE filesystem for MTP devices like Android phones.
             pciutils              # Tools for working with PCI devices, such as `lspci`.
             smartmontools         # Tools for monitoring the health of hard drives.
