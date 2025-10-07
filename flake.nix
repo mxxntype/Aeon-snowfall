@@ -18,6 +18,9 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # INFO: https://determinate.systems
+        determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
         # Standalone library for the Nix language.
         nix-std.url = "github:chessai/nix-std";
 
@@ -172,6 +175,7 @@
 
         # Global NixOS modules.
         systems.modules.nixos = with inputs; [
+            determinate.nixosModules.default
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
             lanzaboote.nixosModules.lanzaboote
