@@ -120,7 +120,7 @@ in {
                             "3":       SwitchToTab("Queue"),
                             "4":       SwitchToTab("Directories"),
                             "5":       SwitchToTab("Search"),
-                            // "6":       SwitchToTab("Playlists"),
+                            "6":       SwitchToTab("Playlists"),
                             // "7":       SwitchToTab("Search"),
                             "q":       Quit,
                             ">":       NextTrack,
@@ -217,6 +217,10 @@ in {
                         (
                             name: "Search",
                             pane: Pane(Search),
+                        ),
+                        (
+                            name: "Playlists",
+                            pane: Pane(Playlists),
                         ),
                     ],
                 )
