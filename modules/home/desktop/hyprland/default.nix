@@ -226,6 +226,17 @@ with lib; {
                     "move 100%-${toString offsets.x} ${toString offsets.y},     title:^(rsensor)$"
                     "bordercolor rgb(${colors.peach}),                          title:^(rsensor)$"
                 ];
+
+                debug = {
+                    disable_logs = false;
+                    enable_stdout_logs = true;
+                };
+
+                misc = {
+                    force_default_wallpaper = 0;
+                    disable_hyprland_logo = true;
+                    background_color = "rgb(${ui.bg.base})";
+                };
             };
 
             plugins = if (source == "nixpkgs") then [
