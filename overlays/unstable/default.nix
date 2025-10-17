@@ -22,6 +22,7 @@ _final: _prev: {
         alacritty
         anytype
         binsider
+        cargo-leptos
         cargo-unfmt
         cargo-wizard
         direnv
@@ -49,6 +50,7 @@ _final: _prev: {
         tracy
         uv
         vesktop
+        wasm-bindgen-cli_0_2_104
         wezterm
         ytdownloader
         zellij
