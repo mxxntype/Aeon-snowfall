@@ -99,16 +99,10 @@ with lib; {
             languages = {
                 language = let
                     # A shorthand for creating a configuration for a JS-like language.
-                    mkJSDialect = { name }: {
-                        inherit name;
+                    mkJSDialect = { name, file-types }: {
+                        inherit name file-types;
                         auto-format = true;
-                        language-servers = [
-                            {
-                                name = "typescript-language-server";
-                                except-features = [ "format" ];
-                            }
-                            "biome"
-                        ];
+                        language-servers = [ "deno-lsp" ];
                     };
 
                     # A shorthand for configuring JSON / JSON5.
@@ -147,10 +141,8 @@ with lib; {
                     }
 
                     # These have literally the same configuration.
-                    (mkJSDialect { name = "javascript"; })
-                    (mkJSDialect { name = "typescript"; })
-                    (mkJSDialect { name = "jsx"; })
-                    (mkJSDialect { name = "tsx"; })
+                    (mkJSDialect { name = "javascript"; file-types = [ "js" "jsx" ]; })
+                    (mkJSDialect { name = "typescript"; file-types = [ "ts" "tsx" ]; })
 
                     # And these too.
                     (mkJSON { name = "json";  })
@@ -209,8 +201,20 @@ with lib; {
                 ];
 
                 language-server = {
-                    # Make RA show hints from clippy as well.
-                    rust-analyzer.config.check.command = "clippy";
+                    rust-analyzer.config = {
+                        check.command = "clippy";
+                        inlayHints = {
+                            closureCaptureHints.enable = false;
+                            chainingHints.enable = false;
+
+                            typeHints = {
+                                enable = false;
+                                hideClosureInitialization = true;
+                                hideClosureParameter = true;
+                                hideNamedConstructor = true;
+                            };
+                        };
+                    };
 
                     # An all-in-one, versatile LSP for JS/TS.
                     biome = {
@@ -238,12 +242,7 @@ with lib; {
                         command = "${pkgs.deno}/bin/deno";
                         args = [ "lsp" ];
                         environment.NO_COLOR = "1"; 
-                        config.deno = {
-                            enable = true;
-                            suggest = {
-                                imports.hosts."https://deno.land" = true;
-                            };
-                        };
+                        config.deno = { enable = true; };
                     };
 
                     qmlls = {
