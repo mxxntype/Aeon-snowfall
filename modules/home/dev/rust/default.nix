@@ -145,12 +145,18 @@
                     # Automatically DRY up your Rust dependencies.
                     cargo-autoinherit
 
+                    # https://github.com/sagiegurari/cargo-make
+                    # Task runner and build tool.
+                    cargo-make
+
                     bacon      # Background rust code checker.
                     diesel-cli # Database tool for working with projects that use Diesel.
                     dioxus-cli # Tool for developing, testing, and publishing Dioxus apps.
                     sccache    # Ccache with Cloud Storage.
                     sqlx-cli   # SQLx's associated command-line utility.
                     trunk      # Build, bundle & ship your Rust WASM application to the web.
+
+                    wasm-bindgen-cli_0_2_104
                 ])
             
                 # Install rustup and let it do its thing.
