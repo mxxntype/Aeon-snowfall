@@ -40,6 +40,7 @@
                 };
             };
 
+            bluetooth.enable = true;
             adb.enable = true;
         };
 

@@ -1,13 +1,6 @@
-# INFO: NixOS Bluetooth module.
+{ config, lib, ... }: with lib;
 
 {
-    config,
-    lib,
-    pkgs,
-    ...
-}:
-
-with lib; {
     options.aeon.hardware.bluetooth = {
         # Whether to enable bluetooth support.
         enable = mkOption {
@@ -19,6 +12,6 @@ with lib; {
     config = mkIf config.aeon.hardware.bluetooth.enable {
         hardware.bluetooth.enable = true;
         services.blueman.enable = true;
-        environment.systemPackages = with pkgs; [ aeon.bluetui ];
+        environment.systemPackages = [ /* pkgs.aeon.bluetui */ ];
     };
 }
