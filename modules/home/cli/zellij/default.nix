@@ -18,6 +18,15 @@
             default_tab_template {
                 children
 
+                floating_panes {
+                    pane command="test" close_on_exit=true {
+                        x 0
+                        y "50%"
+                        width "100%"
+                        height "50%"
+                    }
+                }
+
                 pane size=2 borderless=true {
                     plugin location="file:${inputs.zjstatus.packages.${pkgs.system}.default}/bin/zjstatus.wasm" {
                         format_left  "{mode}{tabs}"
@@ -410,6 +419,7 @@
         xdg.configFile."${layoutDir}/wyrm.kdl".text = /* kdl */ ''
             layout {
                 ${defaultTabTemplate}
+
                 tab name="󰒋 System" {
                     pane command="${pkgs.bottom}/bin/btm"
                 }
@@ -427,6 +437,7 @@
         xdg.configFile."${layoutDir}/cli.kdl".text = /* kdl */ ''
             layout {
                 ${defaultTabTemplate}
+
                 tab name="󰒋 System" {
                     pane command="${pkgs.bottom}/bin/btm"
                 }
@@ -437,28 +448,10 @@
 
                 tab name="󰙅 CLI" focus=true {
                     pane
-
-                    floating_panes {
-                        pane cwd="~/Work/rsensor" command="test" close_on_exit=true {
-                            x 0
-                            y "50%"
-                            width "100%"
-                            height "50%"
-                        }
-                    }
                 }
 
                 tab name="󱕁  Rsensor" cwd="~/Work/rsensor" {
                     pane
-                    
-                    floating_panes {
-                        pane cwd="~/Work/rsensor" command="test" close_on_exit=true {
-                            x 0
-                            y "50%"
-                            width "100%"
-                            height "50%"
-                        }
-                    }
                 }
             }
         '';
