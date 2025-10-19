@@ -11,9 +11,7 @@
     config = let
         inherit (config.aeon.cli.zellij) enable;
         inherit (config.aeon.theme) colors ui;
-
-        layoutDir = "${config.xdg.configHome}/zellij/layouts/";
-        defaultLayout = "cli";
+        
         defaultTabTemplate = /* kdl */ ''
             default_tab_template {
                 children
@@ -69,6 +67,40 @@
                 }
             }
         '';
+
+        layoutDir = "${config.xdg.configHome}/zellij/layouts/";
+        defaultLayoutName = "current";
+
+        defaultLayoutVariants = let
+            defaultTabSet = /* kdl */ ''
+                tab name="󰒋 System" {
+                    pane command="${pkgs.bottom}/bin/btm"
+                }
+                tab name="󱄲 MPD" {
+                    pane command="rmpc"
+                }
+                tab name="󰙅 CLI" focus=true {
+                    pane
+                }
+            '';
+        in {
+            default = /* kdl */ ''
+                layout {
+                    ${defaultTabTemplate}
+                    ${defaultTabSet}
+                }
+            '';
+
+            work = /* kdl */ ''
+                layout {
+                    ${defaultTabTemplate}
+                    ${defaultTabSet}
+                    tab name="󱕁  Rsensor" cwd="~/Work/rsensor" {
+                        pane
+                    }
+                }
+            '';
+        };
     in lib.mkIf enable {
         programs.zellij = {
             enable = true;
@@ -77,7 +109,7 @@
 
         xdg.configFile."zellij/config.kdl".text = /* kdl */ ''
             layout_dir "${config.xdg.configHome}/zellij/layouts/"
-            default_layout "${defaultLayout}"
+            default_layout "${defaultLayoutName}"
             pane_frames false
 
             theme "nix"
@@ -416,44 +448,40 @@
             // theme_dir "/path/to/my/theme_dir"
         '';
 
-        xdg.configFile."${layoutDir}/wyrm.kdl".text = /* kdl */ ''
-            layout {
-                ${defaultTabTemplate}
+        xdg.configFile."${layoutDir}/default.kdl".text = defaultLayoutVariants.default;
+        xdg.configFile."${layoutDir}/default-work.kdl".text = defaultLayoutVariants.work;
 
-                tab name="󰒋 System" {
-                    pane command="${pkgs.bottom}/bin/btm"
-                }
+        systemd.user = let
+            layoutSetupScript = pkgs.nuenv.writeScriptBin {
+                name = "zellij-layout-setup.nu";
+                script = /* nu */ ''
+                    let is_weekend = (date now | format date "%u" | into int) > 5;
+                    let is_evening = (date now | format date "%H" | into int) > 18;
+                    if $is_weekend or $is_evening {
+                        ln -sf "${layoutDir}/default.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
+                    } else {
+                        ln -sf "${layoutDir}/default-work.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
+                    }
+                '';
+            };
+        in {
+            services.zellij-layout-setup = {
+                Unit = { After = [ "graphical-session.target" ]; };
+                Install.WantedBy = [ "default.target" ];
+                Service = {
+                    Type = "oneshot";
+                    ExecStart = "${lib.getExe layoutSetupScript}";
+                };
+            };
 
-                tab name="󰙅 CLI" focus=true {
-                    pane
-                }
-
-                tab name="󰆦 Exospace" cwd="/srv/minecraft/servers/exospace" {
-                    pane
-                }
-            }
-        '';
-
-        xdg.configFile."${layoutDir}/cli.kdl".text = /* kdl */ ''
-            layout {
-                ${defaultTabTemplate}
-
-                tab name="󰒋 System" {
-                    pane command="${pkgs.bottom}/bin/btm"
-                }
-
-                tab name="󱄲 MPD" {
-                    pane command="rmpc"
-                }
-
-                tab name="󰙅 CLI" focus=true {
-                    pane
-                }
-
-                tab name="󱕁  Rsensor" cwd="~/Work/rsensor" {
-                    pane
-                }
-            }
-        '';
+            timers.zellij-layout-setup = {
+                Install.WantedBy = [ "timers.target" ];
+                Timer = {
+                    OnCalendar = "06:00,18:00";
+                    Persistent = true;
+                    RandomizedDelaySec = "1m";
+                };
+            };
+        };
     };
 }
