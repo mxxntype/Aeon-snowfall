@@ -458,9 +458,9 @@
                     let is_weekend = (date now | format date "%u" | into int) > 5;
                     let is_evening = (date now | format date "%H" | into int) > 18;
                     if $is_weekend or $is_evening {
-                        ln -sf "${layoutDir}/default.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
+                        ${pkgs.coreutils}/bin/ln -sf "${layoutDir}/default.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
                     } else {
-                        ln -sf "${layoutDir}/default-work.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
+                        ${pkgs.coreutils}/bin/ln -sf "${layoutDir}/default-work.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
                     }
                 '';
             };
@@ -477,7 +477,7 @@
             timers.zellij-layout-setup = {
                 Install.WantedBy = [ "timers.target" ];
                 Timer = {
-                    OnCalendar = "06:00,18:00";
+                    OnCalendar = [ "06:00" "18:00" ];
                     Persistent = true;
                     RandomizedDelaySec = "1m";
                 };
