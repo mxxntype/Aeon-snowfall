@@ -27,11 +27,30 @@
 
                 pane size=2 borderless=true {
                     plugin location="file:${inputs.zjstatus.packages.${pkgs.system}.default}/bin/zjstatus.wasm" {
-                        format_left  "{mode}{tabs}"
+                        format_left "${builtins.concatStringsSep "" [
+                            "{mode}" 
+                            "#[bg=${ui.bg.base}] "
+                            "#[fg=#${colors.green},bg=#${ui.bg.surface1},bold] CPU "
+                            "#[fg=#${colors.green},bg=#${ui.bg.surface0}] ⣤⣾⣿⣴⣀ "
+                            "#[bg=${ui.bg.base}] "
+                            "#[fg=#${colors.teal},bg=#${ui.bg.surface1},bold] 󰈁 "
+                            "#[fg=#${colors.teal},bg=#${ui.bg.surface0}] ⣴⣤⣿⣤⣀ "
+                            "#[fg=#${ui.bg.surface2},bg=#${ui.bg.surface0}]|"
+                            "#[fg=#${colors.teal},bg=#${ui.bg.surface0}] 119MB/s "
+                        ]}"
+
                         format_right "${builtins.concatStringsSep "" [
+                            "#[fg=#${colors.lavender},bg=#${ui.bg.surface1},bold]   "
+                            "#[fg=#${colors.lavender},bg=#${ui.bg.surface0}] 37% "
+                            "#[bg=${ui.bg.base}] "
                             "#[fg=#${ui.fg.subtext1},bg=#${ui.bg.surface0}] {datetime} "
                             "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold]   #[fg=#${ui.bg.crust},bg=#${colors.blue}]|"
                         ]}"
+
+                        format_center "${builtins.concatStringsSep "" [
+                            "{tabs}"
+                        ]}"
+
                         format_space ""
 
                         border_enabled  "true"
@@ -43,15 +62,15 @@
                         // will turn on frames when a second pane is open.
                         hide_frame_for_single_pane "false"
 
-                        mode_normal  "#[fg=#${colors.crust},bg=#${colors.subtext0},bold] 󰳨  NORMAL  "
-                        mode_locked  "#[fg=#${colors.crust},bg=#${colors.red     },bold] 󰔌  LOCKED  "
-                        mode_resize  "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰊓  RESIZE  "
-                        mode_pane    "#[fg=#${colors.crust},bg=#${colors.blue    },bold] 󰖲   PANE   "
-                        mode_tab     "#[fg=#${colors.crust},bg=#${colors.yellow  },bold] 󰓩   TAB    "
-                        mode_scroll  "#[fg=#${colors.crust},bg=#${colors.teal    },bold] 󰮾  SCROLL  "
-                        mode_session "#[fg=#${colors.crust},bg=#${colors.maroon  },bold] 󰙅  SESSION "
-                        mode_move    "#[fg=#${colors.crust},bg=#${colors.mauve   },bold] 󰮴   MOVE   "
-                        mode_tmux    "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰬛  TMUX   "
+                        mode_normal  "#[fg=#${colors.crust},bg=#${colors.subtext0},bold] 󰳨 NORMAL "
+                        mode_locked  "#[fg=#${colors.crust},bg=#${colors.red     },bold] 󰔌 LOCKED "
+                        mode_resize  "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰊓 RESIZE "
+                        mode_pane    "#[fg=#${colors.crust},bg=#${colors.blue    },bold] 󰖲  PANE  "
+                        mode_tab     "#[fg=#${colors.crust},bg=#${colors.yellow  },bold] 󰓩  TAB   "
+                        mode_scroll  "#[fg=#${colors.crust},bg=#${colors.teal    },bold] 󰮾 SCROLL "
+                        mode_session "#[fg=#${colors.crust},bg=#${colors.maroon  },bold] 󰙅  SESH  "
+                        mode_move    "#[fg=#${colors.crust},bg=#${colors.mauve   },bold] 󰮴  MOVE  "
+                        mode_tmux    "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰬛  TMUX  "
 
                         tab_active  " #[bg=#${colors.mauve}] #[fg=#${colors.text},bg=#${colors.surface0},bold] {name} "
                         tab_normal  " #[bg=#${colors.subtext0}] #[fg=#${colors.subtext1},bg=#${colors.surface0}] {name} "
@@ -73,10 +92,7 @@
 
         defaultLayoutVariants = let
             defaultTabSet = /* kdl */ ''
-                tab name="󰒋 System" {
-                    pane command="${pkgs.bottom}/bin/btm"
-                }
-                tab name="󱄲 MPD" {
+                tab name="󰎇" {
                     pane command="rmpc"
                 }
                 tab name="󰙅 CLI" focus=true {
