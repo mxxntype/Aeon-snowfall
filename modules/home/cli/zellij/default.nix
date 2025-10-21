@@ -456,7 +456,7 @@
                 name = "zellij-layout-setup.nu";
                 script = /* nu */ ''
                     let is_weekend = (date now | format date "%u" | into int) > 5;
-                    let is_evening = (date now | format date "%H" | into int) > 18;
+                    let is_evening = (date now | format date "%H" | into int) >= 18;
                     if $is_weekend or $is_evening {
                         ${pkgs.coreutils}/bin/ln -sf "${layoutDir}/default.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
                     } else {
