@@ -20,9 +20,7 @@
         programs.alacritty = {
             enable = true;
             settings = {
-                window.padding = {
-                    x = 14; y = 14;
-                };
+                window.padding = { x = 12; y = 12; };
 
                 font = let
                     family = "IosevkaAeon Nerd Font";

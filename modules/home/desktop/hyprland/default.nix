@@ -186,8 +186,8 @@ with lib; {
                 ];
 
                 general = {
-                    border_size = 2;
-                    "col.active_border" = "rgb(${ui.bg.overlay0})";
+                    border_size = 3;
+                    "col.active_border" = "rgb(${ui.bg.surface2})";
                     "col.inactive_border" = "rgb(${ui.bg.surface0})";
                 };
 
