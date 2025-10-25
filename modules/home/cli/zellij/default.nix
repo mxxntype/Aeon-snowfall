@@ -31,18 +31,18 @@
                             "{mode}" 
                             "#[bg=${ui.bg.base}] "
                             "#[fg=#${colors.green},bg=#${ui.bg.surface1},bold] CPU "
-                            "#[fg=#${colors.green},bg=#${ui.bg.surface0}] ⣤⣾⣿⣴⣀ "
-                            "#[bg=${ui.bg.base}] "
-                            "#[fg=#${colors.teal},bg=#${ui.bg.surface1},bold] 󰈁 "
-                            "#[fg=#${colors.teal},bg=#${ui.bg.surface0}] ⣴⣤⣿⣤⣀ "
-                            "#[fg=#${ui.bg.surface2},bg=#${ui.bg.surface0}]|"
-                            "#[fg=#${colors.teal},bg=#${ui.bg.surface0}] 119MB/s "
+                            "#[fg=#${colors.green},bg=#${ui.bg.surface0}] {command_cpu_usage_graph} "
+                            # "#[bg=${ui.bg.base}] "
+                            # "#[fg=#${colors.teal},bg=#${ui.bg.surface1},bold] 󰈁 "
+                            # "#[fg=#${colors.teal},bg=#${ui.bg.surface0}] ⣴⣤⣿⣤⣀ "
+                            # "#[fg=#${ui.bg.surface2},bg=#${ui.bg.surface0}]|"
+                            # "#[fg=#${colors.teal},bg=#${ui.bg.surface0}] 119MB/s "
                         ]}"
 
                         format_right "${builtins.concatStringsSep "" [
-                            "#[fg=#${colors.lavender},bg=#${ui.bg.surface1},bold]   "
-                            "#[fg=#${colors.lavender},bg=#${ui.bg.surface0}] 37% "
-                            "#[bg=${ui.bg.base}] "
+                            # "#[fg=#${colors.lavender},bg=#${ui.bg.surface1},bold]   "
+                            # "#[fg=#${colors.lavender},bg=#${ui.bg.surface0}] 37% "
+                            # "#[bg=${ui.bg.base}] "
                             "#[fg=#${ui.fg.subtext1},bg=#${ui.bg.surface0}] {datetime} "
                             "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold]   #[fg=#${ui.bg.crust},bg=#${colors.blue}]|"
                         ]}"
@@ -52,6 +52,10 @@
                         ]}"
 
                         format_space ""
+
+                        command_cpu_usage_graph_command "${pkgs.aeon.artificial_island}/bin/sulphur_client --api-address ${config.aeon.services.sulphur.settings.socket_addr}"
+                        command_cpu_usage_graph_format "{stdout}"
+                        command_cpu_usage_graph_interval 1
 
                         border_enabled  "true"
                         border_char     "━"
@@ -500,5 +504,7 @@
                 };
             };
         };
+
+        aeon.services.sulphur.enable = true;
     };
 }
