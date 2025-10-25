@@ -18,7 +18,7 @@
             Service = {
                 ExecStart = builtins.concatStringsSep " " [
                     "${pkgs.aeon.artificial_island}/bin/sulphur_server"
-                    "--listen-addr ${settings.socket_addr}"
+                    "--socket-addr ${settings.socket_addr}"
                     "--graph-length ${toString settings.graph_length}"
                     "--span-seconds ${toString settings.span_seconds}"
                 ];

@@ -15,7 +15,7 @@ in naersk'.buildPackage {
         owner = "mxxntype";
         repo = "artificial_island";
         rev = "main";
-        hash = "sha256-OivYJQxn3RkosOsy2SMrfqUHHJEDjW2HmBzztLDuWW0=";
+        hash = "sha256-xGCBxgZoiPo4x8wtYSzPojRVDStTiTK8lkvPI3qX71Y=";
     };
 
     nativeBuildInputs = with pkgs; [ autoPatchelfHook ];
