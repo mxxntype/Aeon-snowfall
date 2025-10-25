@@ -44,7 +44,7 @@
                             # "#[fg=#${colors.lavender},bg=#${ui.bg.surface0}] 37% "
                             # "#[bg=${ui.bg.base}] "
                             "#[fg=#${ui.fg.subtext1},bg=#${ui.bg.surface0}] {datetime} "
-                            "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold]   #[fg=#${ui.bg.crust},bg=#${colors.blue}]|"
+                            "#[fg=#${colors.teal},bg=#${ui.bg.surface1},bold]   #[fg=#${ui.bg.crust},bg=#${colors.teal}] {command_hostname} "
                         ]}"
 
                         format_center "${builtins.concatStringsSep "" [
@@ -52,6 +52,10 @@
                         ]}"
 
                         format_space ""
+
+                        command_hostname_command "hostname"
+                        command_hostname_format "{stdout}"
+                        command_hostname_interval 0
 
                         command_cpu_usage_graph_command "${pkgs.aeon.artificial_island}/bin/sulphur_client --api-address ${config.aeon.services.sulphur.settings.socket_addr}"
                         command_cpu_usage_graph_format "{stdout}"
@@ -84,7 +88,7 @@
                         command_git_branch_interval  "10"
 
                         datetime          "{format}"
-                        datetime_format   "%A, %d %b %Y %H:%M"
+                        datetime_format   "%a, %d.%m.%Y %H:%M"
                         datetime_timezone "Europe/Moscow"
                     }
                 }
@@ -96,7 +100,7 @@
 
         defaultLayoutVariants = let
             defaultTabSet = /* kdl */ ''
-                tab name="󰎇" {
+                tab name="󰐟" {
                     pane command="rmpc"
                 }
                 tab name="󰙅 CLI" focus=true {

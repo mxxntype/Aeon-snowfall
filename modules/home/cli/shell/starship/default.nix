@@ -1,12 +1,4 @@
-# INFO: Home-manager module for Starship, the minimal, blazing-fast, and infinitely customizable prompt for any shell.
-
-{
-    config,
-    lib,
-    ...
-}:
-
-with lib;
+{ config, lib, ... }: with lib;
 
 {
     options.aeon.cli.shell.starship = {
@@ -74,12 +66,10 @@ with lib;
                     read_only_style = "bold fg:#${colors.yellow}";
                 };
 
-                character = let
-                    char = ">";
-                    style = "bold fg:#${ui.fg.subtext1}";
+                character = let character = ""; style = "bold fg:#${ui.fg.subtext0}";
                 in {
-                    success_symbol = "[${char}](${style})";
-                    error_symbol = "[${char}](${style})";
+                    success_symbol = "[${character}](${style})";
+                    error_symbol = "[󱈸](bold fg:#${ui.error})[${character}](${style})";
                 };
 
                 git_branch = {
