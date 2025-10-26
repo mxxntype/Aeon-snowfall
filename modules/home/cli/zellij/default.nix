@@ -57,7 +57,7 @@
                         command_hostname_format "{stdout}"
                         command_hostname_interval 0
 
-                        command_cpu_usage_graph_command "${pkgs.aeon.artificial_island}/bin/sulphur_client --api-address ${config.aeon.services.sulphur.settings.socket_addr}"
+                        command_cpu_usage_graph_command "${pkgs.aeon.artificial_island}/bin/sulphur_client --api-address ${config.aeon.services.sulphur.settings.api_address}"
                         command_cpu_usage_graph_format "{stdout}"
                         command_cpu_usage_graph_interval 1
 
