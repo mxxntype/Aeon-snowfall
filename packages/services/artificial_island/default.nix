@@ -11,11 +11,12 @@ naersk' = pkgs.callPackage inputs.naersk {
 };
 
 in naersk'.buildPackage {
+    version = "git";
     src = pkgs.fetchFromGitHub {
         owner = "mxxntype";
         repo = "artificial_island";
         rev = "main";
-        hash = "sha256-xGCBxgZoiPo4x8wtYSzPojRVDStTiTK8lkvPI3qX71Y=";
+        hash = "sha256-Yn2p9Do4ykfF/qPVxakhQxc6sTWE6aUiLGtbapU1r6U=";
     };
 
     nativeBuildInputs = with pkgs; [ autoPatchelfHook ];
