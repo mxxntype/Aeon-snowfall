@@ -27,13 +27,13 @@
             setup = "openrgb-setup";
         };
 
-        job = "11119762635";
+        job = "11864261921";
         openrgbAppimage = pkgs.appimageTools.wrapType2 {
             pname = "openrgb";
             version = "git-${job}";
             src = pkgs.fetchurl {
                 url = "https://gitlab.com/CalcProgrammer1/OpenRGB/-/jobs/${job}/artifacts/raw/OpenRGB-x86_64.AppImage";
-                hash = "sha256-INghItN4XKl/vrwwENFVOKrpJbfqesp2jtyYov1b21w=";
+                hash = "sha256-iDCDfJA5kRzroFhJg3tjKdwn6E2aVMbEIifJM9/NuZk=";
             };
         };
     in lib.mkIf enable {
