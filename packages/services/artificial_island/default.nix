@@ -10,13 +10,14 @@ naersk' = pkgs.callPackage inputs.naersk {
     rustc = toolchain;
 };
 
-in naersk'.buildPackage {
+in naersk'.buildPackage rec {
+    name = "artificial_island";
     version = "git";
     src = pkgs.fetchFromGitHub {
         owner = "mxxntype";
-        repo = "artificial_island";
+        repo = name;
         rev = "main";
-        hash = "sha256-Yn2p9Do4ykfF/qPVxakhQxc6sTWE6aUiLGtbapU1r6U=";
+        hash = "sha256-xZrm6rGCrPjVwNVxqDgDmb0vbSxvwnA30f6PQY/8T6A=";
     };
 
     nativeBuildInputs = with pkgs; [ autoPatchelfHook ];
