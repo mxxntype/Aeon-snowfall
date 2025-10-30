@@ -43,8 +43,20 @@
         stateVersion = "25.05";
     };
 
-    xdg.configFile."stylesheets/docs.rs.less".text = lib.aeon.docs-rs-stylesheet {
-        theme = config.aeon.theme;
-        inherit (config.home) homeDirectory;
+    xdg.configFile = {
+        "stylesheets/docs.rs.less".text =
+            lib.aeon.generators.stylesheets.docs-rs {
+                theme = config.aeon.theme;
+                inherit (config.home) homeDirectory;
+            };
+
+        "stylesheets/nixos-search.less".text =
+            lib.aeon.generators.stylesheets.nixos-search { inherit (config.aeon) theme; };
+
+        "stylesheets/github.less".text =
+            lib.aeon.generators.stylesheets.github { inherit (config.aeon) theme; };
+
+        "stylesheets/stylus.less".text =
+            lib.aeon.generators.stylesheets.stylus { inherit (config.aeon) theme; };
     };
 }
