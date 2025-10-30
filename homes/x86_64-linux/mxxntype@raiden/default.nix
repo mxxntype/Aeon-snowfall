@@ -43,5 +43,8 @@
         stateVersion = "25.05";
     };
 
-    xdg.configFile."docs.rs.less".text = lib.aeon.docs-rs-stylesheet { theme = config.aeon.theme; };
+    xdg.configFile."stylesheets/docs.rs.less".text = lib.aeon.docs-rs-stylesheet {
+        theme = config.aeon.theme;
+        inherit (config.home) homeDirectory;
+    };
 }

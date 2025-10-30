@@ -1,5 +1,8 @@
 { ... }: {
-    docs-rs-stylesheet = { theme ? throw "A theme must be provided to generate the docs.rs stylesheet" }: let
+    docs-rs-stylesheet = {
+        theme ? throw "A theme must be provided to generate the docs.rs stylesheet",
+        homeDirectory ? "A home directory must be provided to support local 'file://' URLs",
+    }: let
         keywords = [
             "rosewater"
             "flamingo"
@@ -96,7 +99,7 @@
             '')
 
             (/* css */ ''
-                @-moz-document domain("docs.rs"), domain("doc.rust-lang.org") {
+                @-moz-document domain("docs.rs"), domain("doc.rust-lang.org"), url-prefix("file://${homeDirectory}/Work/rsensor/target/doc"), url-prefix("file://${homeDirectory}/.rustup/toolchains") {
                     :root:not([data-docs-rs-theme]) {
                         @media (prefers-color-scheme: light) {
                             #catppuccin();
