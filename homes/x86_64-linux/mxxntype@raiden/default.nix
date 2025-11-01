@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, pkgs, config, ... }:
 
 {
     aeon = {
@@ -43,4 +43,19 @@
         # The sole legit reason to change this is a reinstallation.
         stateVersion = "25.05";
     };
+
+    xdg.configFile."wallpapers/namecard.png".source = let
+        inherit (config.aeon.theme) ui colors;
+        source-image = pkgs.fetchurl {
+            # url = "https://static.wikia.nocookie.net/gensin-impact/images/9/9d/Namecard_Background_Achievement_Infinitum.png/revision/latest?cb=20230412034747";
+            # hash = "sha256-jMQxPdsQ9yBLU7VQ6pQ7nIuwcFe5X+8KKkUQ2GW1CEg=";
+            url = "https://static.wikia.nocookie.net/gensin-impact/images/f/f8/Namecard_Background_Travel_Notes_Woodlands.png/revision/latest?cb=20220826151244";
+            hash = "sha256-gkPwxr7lptBqn2+n8KxbPoQt3k3oxB6B3/VyMm1UDxE=";
+        };
+        derivation = lib.aeon.fromNamecard {
+            inherit pkgs source-image;
+            border-colors = { inner = ui.bg.surface2; outer = ui.bg.base; };
+            gradient-colors = { start = ui.bg.crust; end = colors.teal; };
+        };
+    in "${derivation}/output.png";
 }

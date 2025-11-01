@@ -1,28 +1,19 @@
-# INFO: General Dev Home-manager module.
+{ config, lib, pkgs, ... }:
 
 {
-    config,
-    lib,
-    pkgs,
-    ...
-}:
-
-with lib; {
     options.aeon.dev.core = {
-        enable = mkOption {
-            type = types.bool;
+        enable = lib.mkOption {
+            type = lib.types.bool;
             default = true;
         };
     };
 
-    config = let
-        inherit (config.aeon.dev.core)
-            enable
-            ;
-    in mkIf enable {
+    config = lib.mkIf config.aeon.dev.core.enable {
         home.packages = with pkgs; [
-            typos      # Source code spell checker.
-            graphviz   # Graph visualization tools.
+            gegl.dev    # Graph-based image processing framework.
+            graphviz    # Graph visualization tools.
+            imagemagick # Software suite to create, edit, compose, or convert bitmap images
+            typos       # Source code spell checker.
 
             # FIXME: Can't locate `libssl.so.3` (FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK)
             # aeon.invar # My CLI management tool for modded Minecraft servers.
