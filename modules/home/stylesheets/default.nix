@@ -16,6 +16,9 @@
             "${dir}/nixos-search.less".text =
                 lib.aeon.generators.stylesheets.nixos-search { inherit (config.aeon) theme; };
 
+            "${dir}/nixos-wiki.less".text =
+                lib.aeon.generators.stylesheets.nixos-wiki { inherit (config.aeon) theme; };
+
             "${dir}/stylus.less".text =
                 lib.aeon.generators.stylesheets.stylus { inherit (config.aeon) theme; };
 
