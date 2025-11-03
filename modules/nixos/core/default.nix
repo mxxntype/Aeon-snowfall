@@ -92,8 +92,9 @@
                 hibernateKeyLongPress = powerKeyLongPress;
             };
 
-            xremap.config = {
-                modmap = [
+            xremap = {
+                enable = true;
+                config.modmap = [
                     {
                         name = "Global modmap";
                         remap = {
