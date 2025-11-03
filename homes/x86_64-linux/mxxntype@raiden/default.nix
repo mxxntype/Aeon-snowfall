@@ -53,13 +53,15 @@
             # hash = "sha256-gkPwxr7lptBqn2+n8KxbPoQt3k3oxB6B3/VyMm1UDxE=";
             # url = "https://static.wikia.nocookie.net/gensin-impact/images/1/17/Namecard_Background_Inazuma_Kujou_Insignia.png/revision/latest?cb=20210725071326";
             # hash = "sha256-PgLuAV4Ne/6GpaiMdF40lBaSm7N9K63RLuTOiamkRE4=";
-            url = "https://static.wikia.nocookie.net/gensin-impact/images/4/4c/Namecard_Background_Inazuma_Eagleplume.png/revision/latest?cb=20211013104446";
-            hash = "sha256-R+5tGwnYXogq0rzrhf0IuO9KMyXWyRap1NCTzE+8mW0=";
+            # url = "https://static.wikia.nocookie.net/gensin-impact/images/4/4c/Namecard_Background_Inazuma_Eagleplume.png/revision/latest?cb=20211013104446";
+            # hash = "sha256-R+5tGwnYXogq0rzrhf0IuO9KMyXWyRap1NCTzE+8mW0=";
+            url = "https://static.wikia.nocookie.net/gensin-impact/images/5/5e/Namecard_Background_Raiden_Shogun_Enlightenment.png/revision/latest?cb=20210902035057";
+            hash = "sha256-H8pwdxjeWbnb270Ic656rJHZMxqM7GPyzqVWQYRo1JQ=";
         };
         derivation = lib.aeon.fromNamecard {
             inherit pkgs source-image;
             border-colors = { inner = ui.bg.surface2; outer = ui.bg.base; };
-            gradient-colors = { start = ui.bg.crust; end = colors.blue; };
+            gradient-colors = { start = ui.bg.crust; end = colors.mauve; };
         };
     in "${derivation}/output.png";
 }

@@ -19,35 +19,56 @@
         buildCommand = let dither-levels-str = toString dither-levels;
         in /* bash */ ''
             mkdir $out
-            magick $src input.png # Ensure GEGL gets a well-formed PNG as input.
+            magick $src input.png
 
+            # Pixelate & dither the namecard at various resolutions.
             gegl input.png -o namecard.png -- \
                 scale-size-keepaspect sampler=nearest y=${toString pixelation-y} \
                 wind direction=bottom threshold=8 strength=1 \
                 scale-size-keepaspect sampler=nearest y=${toString dither-y} \
-                dither dither-method=bayer red-levels=${dither-levels-str} green-levels=${dither-levels-str} blue-levels=${dither-levels-str} \
+                dither dither-method=bayer \
+                    red-levels=${dither-levels-str} \
+                    green-levels=${dither-levels-str} \
+                    blue-levels=${dither-levels-str} \
                 scale-size-keepaspect sampler=nearest y=${toString namecard-dimensions.y}
 
-            gegl -o namecard-bordered-inner.png -- \
+            # Create the "inner" border around the namecard.
+            gegl -o overlay.png -- \
                 rectangle \
                     color=#${border-colors.inner} x=0 y=0 \
                     width=${toString (namecard-dimensions.x + border-thickness * 2)} \
                     height=${toString (namecard-dimensions.y + border-thickness * 2)} \
-                over aux=[load path=namecard.png translate sampler=nearest x=${toString border-thickness} y=${toString border-thickness}]
+                over aux=[ \
+                    load path=namecard.png \
+                    translate sampler=nearest x=${toString border-thickness} y=${toString border-thickness}]
 
-            gegl -o namecard-bordered-outer.png -- \
+            # Create the "outer" border around the namecard.
+            gegl -o overlay.png -- \
                 rectangle \
                     color=#${border-colors.outer} x=0 y=0 \
                     width=${toString (namecard-dimensions.x + border-thickness * 4)} \
                     height=${toString (namecard-dimensions.y + border-thickness * 4)} \
-                over aux=[load path=namecard-bordered-inner.png translate sampler=nearest x=${toString border-thickness} y=${toString border-thickness}]
+                over aux=[ \
+                    load path=overlay.png \
+                    translate sampler=nearest x=${toString border-thickness} y=${toString border-thickness}]
 
+            # Create the background gradient & dither it, then scale to the target resolution.
+            # 
             # HACK: Dude, I can't really dunk on GEGL because it kinda inspired this whole thing,
-            # but WHAT THE ACTUAL LIVING FUCK IS WRONG WITH LINEAR GRADIENTS AND INFINITE LOOPS ALL OVER THE PLACE???
+            # but WHAT THE ACTUAL FUCK IS UP WITH GETTING STUCK IN AN INFINITE LOOP FOR NO REASON
+            # Couldn't for the life of me figure out what arcane spell is required to make it work,
+            # ImageMagick did the trick instead.
             # My brother is christ is 2025 and C software is still driving me up the fucking wall man
-            magick -size 3840x2160 gradient:#${gradient-colors.start}-#${gradient-colors.end} background-gradient.png
+            magick -size 768x432 gradient:#${gradient-colors.start}-#${gradient-colors.end} background.png
+            gegl background.png -o background.png -- \
+                dither dither-method=bayer \
+                    red-levels=${toString (dither-levels * 3)} \
+                    green-levels=${toString (dither-levels * 3)} \
+                    blue-levels=${toString (dither-levels * 3)} \
+                scale-size-keepaspect sampler=nearest x=3840
 
-            magick background-gradient.png namecard-bordered-outer.png -gravity center -composite $out/output.png
+            # Render the bordered namecard in the center above the gradient.
+            magick background.png overlay.png -gravity center -composite $out/output.png
         '';
     };
 }
