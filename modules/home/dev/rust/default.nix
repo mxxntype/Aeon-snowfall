@@ -149,14 +149,31 @@
                     # Task runner and build tool.
                     cargo-make
 
-                    bacon      # Background rust code checker.
-                    diesel-cli # Database tool for working with projects that use Diesel.
-                    dioxus-cli # Tool for developing, testing, and publishing Dioxus apps.
-                    sccache    # Ccache with Cloud Storage.
-                    sqlx-cli   # SQLx's associated command-line utility.
-                    trunk      # Build, bundle & ship your Rust WASM application to the web.
+                    bacon             # Background rust code checker.
+                    diesel-cli        # Database tool for working with projects that use Diesel.
+                    sccache           # Ccache with Cloud Storage.
+                    sqlx-cli          # SQLx's associated command-line utility.
+                    trunk             # Build, bundle & ship your Rust WASM application to the web.
 
-                    wasm-bindgen-cli_0_2_104
+                    aeon.dioxus-cli_7 # Tool for developing, testing, and publishing Dioxus apps.
+
+                    # HACK: DX (the above thing) requires the wasm-bindgen CLI, and is quite picky
+                    # about its versions. Sadly, its versions in nixpkgs are rather unpredictable.
+                    # However, nixpkgs does provide a nice shortcut for building a specific version,
+                    # which is what happens below.
+                    (buildWasmBindgenCli rec {
+                        src = fetchCrate {
+                            pname = "wasm-bindgen-cli";
+                            version = "0.2.105";
+                            hash = "sha256-zLPFFgnqAWq5R2KkaTGAYqVQswfBEYm9x3OPjx8DJRY=";
+                        };
+
+                        cargoDeps = rustPlatform.fetchCargoVendor {
+                            inherit src;
+                            inherit (src) pname version;
+                            hash = "sha256-a2X9bzwnMWNt0fTf30qAiJ4noal/ET1jEtf5fBFj5OU=";
+                        };
+                    })
                 ])
             
                 # Install rustup and let it do its thing.
