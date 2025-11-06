@@ -26,24 +26,14 @@
             daemon = "openrgb";
             setup = "openrgb-setup";
         };
-
-        job = "11864261921";
-        openrgbAppimage = pkgs.appimageTools.wrapType2 {
-            pname = "openrgb";
-            version = "git-${job}";
-            src = pkgs.fetchurl {
-                url = "https://gitlab.com/CalcProgrammer1/OpenRGB/-/jobs/${job}/artifacts/raw/OpenRGB-x86_64.AppImage";
-                hash = "sha256-iDCDfJA5kRzroFhJg3tjKdwn6E2aVMbEIifJM9/NuZk=";
-            };
-        };
     in lib.mkIf enable {
-        environment.systemPackages = [ openrgbAppimage ];
+        environment.systemPackages = [ pkgs.aeon.openrgb ];
 
         systemd.services."${services.daemon}" = {
             description = "OpenRGB daemon";
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
-                ExecStart = [ "${openrgbAppimage}/bin/openrgb --server" ];
+                ExecStart = [ "${lib.getExe pkgs.aeon.openrgb} --server" ];
             };
         };
 
@@ -56,14 +46,14 @@
                 Type = "oneshot";
                 ExecStart = let zone_setup_commands = resizeableZones.zone_ids
                     |> builtins.map (zone_id: [
-                        "${lib.getExe openrgbAppimage}"
+                        "${lib.getExe pkgs.aeon.openrgb}"
                         "--device ${toString resizeableZones.device_id}"
                         "--zone ${toString zone_id}"
                         "--size ${toString resizeableZones.size}"
                         "--color 000000"] |> builtins.concatStringsSep " " );
-                in [ "${lib.getExe openrgbAppimage} --color ${color}" ]
+                in [ "${lib.getExe pkgs.aeon.openrgb} --color ${color}" ]
                     ++ zone_setup_commands
-                    ++ [ "${lib.getExe openrgbAppimage} --color ${color}" ];
+                    ++ [ "${lib.getExe pkgs.aeon.openrgb} --color ${color}" ];
             };
         };
     };
