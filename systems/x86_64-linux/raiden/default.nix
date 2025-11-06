@@ -158,13 +158,10 @@
     # however its probably more correct to move the keyfile itself.
     fileSystems."/home".neededForBoot = true;
 
-    services.iperf3 = {
-        enable = true;
-        openFirewall = true;
+    networking.firewall = {
+        allowedTCPPorts = [ ];
+        allowedUDPPorts = [ ];
     };
-
-    networking.firewall.allowedTCPPorts = [ 3000 ];
-    networking.firewall.allowedUDPPorts = [ ];
 
     programs.gamemode.enable = true;
 
