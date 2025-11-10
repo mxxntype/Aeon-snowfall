@@ -4,18 +4,11 @@
     aeon = {
         hardware = {
             meta.headless = false;
+
             cpu.type = "amd";
             gpu = {
-                amd = {
-                    enable = true;
-                    busID = "PCI:79:0:0";
-                };
-
-                nvidia = {
-                    enable = true;
-                    busID = "PCI:1:0:0";
-                };
-
+                amd =    { enable = true; busID = "PCI:79:0:0"; };
+                nvidia = { enable = true; busID = "PCI:1:0:0";  };
                 # specialise = false;
             };
 
@@ -45,10 +38,7 @@
         };
 
         boot.type = "uefi";
-        fs = {
-            type = "zfs";
-            cacheLimitGiB = 16;
-        };
+        fs = { type = "zfs"; cacheLimitGiB = 16; };
 
         net = {
             ssh.server = true;
@@ -60,10 +50,8 @@
         };
 
         sound.enable = true;
-
         docker.enable = true;
         qemu.enable = true;
-        # lxc.incus.enable = true;
     };
 
     disko.devices = let inherit (config.networking) hostName; in {
