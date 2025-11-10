@@ -391,18 +391,21 @@ with lib; {
                     background = "#${ui.bg.base}";
                     foreground = "#${ui.fg.text}";
                     frame_color = "#${ui.subtle}";
+                    timeout = 10;
                 };
 
                 urgency_normal = {
                     background = "#${ui.bg.base}";
                     foreground = "#${ui.fg.text}";
                     frame_color = "#${ui.info}";
+                    timeout = 10;
                 };
 
                 urgency_critical = {
                     background = "#${ui.bg.base}";
                     foreground = "#${ui.fg.text}";
                     frame_color = "#${ui.warn}";
+                    timeout = 10;
                 };
             };
         };
