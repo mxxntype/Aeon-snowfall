@@ -379,6 +379,32 @@ with lib; {
             };
         };
 
-        services.dunst.enable = true;
+        services.dunst = {
+            enable = true;
+            settings = {
+                global = {
+                    origin = "top-right";
+                    font = "IosevkaAeon Nerd Font";
+                };
+
+                urgency_low = {
+                    background = "#${ui.bg.base}";
+                    foreground = "#${ui.fg.text}";
+                    frame_color = "#${ui.subtle}";
+                };
+
+                urgency_normal = {
+                    background = "#${ui.bg.base}";
+                    foreground = "#${ui.fg.text}";
+                    frame_color = "#${ui.info}";
+                };
+
+                urgency_critical = {
+                    background = "#${ui.bg.base}";
+                    foreground = "#${ui.fg.text}";
+                    frame_color = "#${ui.warn}";
+                };
+            };
+        };
     };
 }
