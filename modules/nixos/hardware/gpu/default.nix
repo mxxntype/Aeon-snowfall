@@ -62,8 +62,8 @@
                 modesetting.enable = true;
                 powerManagement.enable = true;
                 prime = {
-                    intelBusId = (lib.mkIf intel.enable intel.busID);
-                    amdgpuBusId = (lib.mkIf amd.enable amd.busID);
+                    intelBusId = lib.mkIf intel.enable intel.busID;
+                    amdgpuBusId = lib.mkIf amd.enable amd.busID;
                     nvidiaBusId = nvidia.busID;
                     offload = {
                         enable = true;

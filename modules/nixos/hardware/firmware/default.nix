@@ -25,8 +25,8 @@ with lib; {
         (mkIf (firmware == "redistributable" || firmware == "all") {
             hardware = {
                 cpu = {
-                    amd.updateMicrocode = (cpu.type == "amd");
-                    intel.updateMicrocode = (cpu.type == "intel");
+                    amd.updateMicrocode = cpu.type == "amd";
+                    intel.updateMicrocode = cpu.type == "intel";
                 };
             };
         })

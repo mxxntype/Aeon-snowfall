@@ -14,7 +14,7 @@
             server
             client
             drivers;
-    in (lib.mkIf enable (lib.mkMerge [
+    in lib.mkIf enable (lib.mkMerge [
         {
             services = {
                 printing.enable = true;
@@ -52,5 +52,5 @@
                 };
             };
         })
-    ]));
+    ]);
 }

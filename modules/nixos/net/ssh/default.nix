@@ -31,7 +31,7 @@ with lib; {
         {
             assertions = [
                 {
-                    assertion = (server != null);
+                    assertion = server != null;
                     message = ''
                         Please state explicitly whether to run an SSH server on the machine.
                         To do so, set the `aeon.net.ssh.server` option to `true` or `false`.

@@ -71,9 +71,9 @@
                     iosevka-term
                     jetbrains-mono
                 ]);
-            in [ ] ++ (if (config.aeon.hardware.meta.headless == false)
-                        then GUIfonts
-                        else [ ]); 
+            in if (config.aeon.hardware.meta.headless)
+                then [ ]
+                else GUIfonts; 
         })
     ];
 

@@ -37,7 +37,7 @@
             yazi = {
                 enable = true;
                 plugins = {
-                    git = pkgs.yaziPlugins.git;
+                    inherit (pkgs.yaziPlugins) git;
                 };
             };
         };
