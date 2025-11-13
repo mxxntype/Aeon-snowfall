@@ -1,13 +1,14 @@
-{ lib, stdenvNoCC, fetchgit, ... }:
+{ lib, stdenvNoCC, fetchFromGitHub, ... }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
     pname = "nunito";
     version = "1.0.0";
 
-    src = fetchgit {
-        url = "https://github.com/googlefonts/nunito";
+    src = fetchFromGitHub {
+        owner = "googlefonts";
+        repo = pname;
         rev = "8c6a9bb9732545b9ed53f29ec5e1ab0ff53c4e6f";
-        sha256 = "sha256-9Ap+WaUd5chxS4cJbT86aTopKOvNpNsFawnx1h5HwDw=";
+        hash = "sha256-9Ap+WaUd5chxS4cJbT86aTopKOvNpNsFawnx1h5HwDw=";
         sparseCheckout = [ "fonts/variable" ];
     };
 
