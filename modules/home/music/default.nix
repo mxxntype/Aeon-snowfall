@@ -246,7 +246,7 @@ in {
                     modal_background_color: None,
                     tab_bar: (
                         enabled: true,
-                        active_style: (fg: "black", bg: "#${tetriary}", modifiers: "Bold"),
+                        active_style: (fg: "#${ui.bg.base}", bg: "#${tetriary}", modifiers: "Bold"),
                         inactive_style: (),
                     ),
                     highlighted_item_style: (fg: "#${primary}", modifiers: "Bold"),
