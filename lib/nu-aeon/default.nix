@@ -49,8 +49,8 @@
             if (not $rebuild_home) and (not $rebuild_system) {
                 print $"(ansi red)note: (ansi reset)No action specified. Run with --help for options."
             }
-            if $rebuild_home { ${lib.getExe pkgs.nh} home switch $flake --backup-extension backup }
-            if $rebuild_system { ${lib.getExe pkgs.nh} os switch $flake }
+            if $rebuild_home { ${lib.getExe pkgs.nh} home switch $flake --ask --backup-extension backup }
+            if $rebuild_system { ${lib.getExe pkgs.nh} os switch $flake --ask }
         }
 
         # Check the status of the VPN (and Tailscale).
