@@ -69,7 +69,8 @@
                 character = let character = ""; style = "bold fg:#${ui.fg.subtext0}";
                 in {
                     success_symbol = "[${character}](${style})";
-                    error_symbol = "[󱈸](bold fg:#${ui.error})[${character}](${style})";
+                    # error_symbol = "[󱈸](bold fg:#${ui.error})[${character}](${style})";
+                    error_symbol = "[${character}](${style})";
                 };
 
                 git_branch = {
