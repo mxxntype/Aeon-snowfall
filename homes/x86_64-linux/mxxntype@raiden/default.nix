@@ -2,7 +2,7 @@
 
 {
     aeon = {
-        style.codename = "kanagawa-wave";
+        style.codename = "dark-plus";
 
         desktop = {
             hyprland = {
@@ -69,7 +69,7 @@
         derivation = lib.aeon.fromNamecard {
             inherit pkgs source-image;
             border-colors = { inner = ui.bg.surface2; outer = ui.bg.base; };
-            gradient-colors = { start = ui.bg.crust; end = colors.mauve; };
+            gradient-colors = { start = ui.bg.crust; end = colors.blue; };
         };
     in "${derivation}/output.png";
 }

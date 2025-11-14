@@ -9,6 +9,7 @@
 
 let
     inherit (config.aeon.theme)
+        code
         ui
         ;
 in
@@ -60,7 +61,7 @@ with lib; {
 
             colors = rec {
                 bg = "#${ui.bg.base}";
-                fg = "#${ui.bg.surface2}";
+                fg = "#${code.comment}";
                 "bg+" = bg;                    # Background (current line).
                 "fg+" = "#${ui.fg.text}";      # Text (current line).
                 hl = fg;                       # Highlighted substrings.
@@ -69,7 +70,7 @@ with lib; {
                 preview-fg = "#${ui.fg.text}"; # Text (preview window).
                 gutter = bg;                   # Gutter on the left (defaults to bg+).
                 info = "#${ui.bg.surface2}";
-                border = "#${ui.bg.surface0}"; # Border of the preview window and horizontal separators (--border).
+                border = "#${ui.bg.overlay0}"; # Border of the preview window and horizontal separators (--border).
                 prompt = "#${ui.accent}";
                 pointer = "#${ui.fg.text}";
                 spinner = "#${ui.info}";       # Streaming input indicator.
