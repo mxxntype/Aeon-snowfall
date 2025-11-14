@@ -71,6 +71,7 @@
                     iosevka-term
                     jetbrains-mono
                     lilex
+                    zed-mono
                 ]);
             in if config.aeon.hardware.meta.headless
                 then [ ]
