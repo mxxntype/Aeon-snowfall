@@ -1,33 +1,18 @@
-# INFO: `fzf`, a general-purpose command-line fuzzy finder (Home-manager module).
+{ config, lib, pkgs, ... }: let
 
-{
-    config,
-    lib,
-    pkgs,
-    ...
-}:
+inherit (config.aeon.theme) ui;
 
-let
-    inherit (config.aeon.theme)
-        code
-        ui
-        ;
-in
-
-with lib; {
+in {
     options.aeon.cli.fzf = {
-        enable = mkOption {
+        enable = lib.mkOption {
             description = "Whether to enable fzf, a general-purpose command-line fuzzy finder";
-            type = with types; bool;
+            type = lib.types.bool;
             default = true;
         };
     };
 
-    config = let
-        inherit (config.aeon.cli.fzf)
-            enable
-            ;
-    in mkIf enable {
+    config = let inherit (config.aeon.cli.fzf) enable;
+    in lib.mkIf enable {
         programs.fzf = {
             enable = true;
             enableFishIntegration = true;
@@ -61,7 +46,7 @@ with lib; {
 
             colors = rec {
                 bg = "#${ui.bg.base}";
-                fg = "#${code.comment}";
+                fg = "#${ui.bg.overlay1}";
                 "bg+" = bg;                    # Background (current line).
                 "fg+" = "#${ui.fg.text}";      # Text (current line).
                 hl = fg;                       # Highlighted substrings.
@@ -69,7 +54,7 @@ with lib; {
                 preview-bg = bg;               # Background (preview window).
                 preview-fg = "#${ui.fg.text}"; # Text (preview window).
                 gutter = bg;                   # Gutter on the left (defaults to bg+).
-                info = "#${ui.bg.surface2}";
+                info = "#${ui.fg.subtext0}";   # Entry counter. (?)
                 border = "#${ui.bg.overlay0}"; # Border of the preview window and horizontal separators (--border).
                 prompt = "#${ui.accent}";
                 pointer = "#${ui.fg.text}";

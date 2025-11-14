@@ -63,25 +63,25 @@
 
                         border_enabled  "true"
                         border_char     "━"
-                        border_format   "#[fg=#${colors.surface2}]{char}"
+                        border_format   "#[fg=#${ui.bg.surface2}]{char}"
                         border_position "top"
 
                         // NOTE: `false` means follow core config, `true`
                         // will turn on frames when a second pane is open.
                         hide_frame_for_single_pane "false"
 
-                        mode_normal  "#[fg=#${colors.crust},bg=#${colors.subtext0},bold] 󰳨 NORMAL "
-                        mode_locked  "#[fg=#${colors.crust},bg=#${colors.red     },bold] 󰔌 LOCKED "
-                        mode_resize  "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰊓 RESIZE "
-                        mode_pane    "#[fg=#${colors.crust},bg=#${colors.blue    },bold] 󰖲  PANE  "
-                        mode_tab     "#[fg=#${colors.crust},bg=#${colors.yellow  },bold] 󰓩  TAB   "
-                        mode_scroll  "#[fg=#${colors.crust},bg=#${colors.teal    },bold] 󰮾 SCROLL "
-                        mode_session "#[fg=#${colors.crust},bg=#${colors.maroon  },bold] 󰙅  SESH  "
-                        mode_move    "#[fg=#${colors.crust},bg=#${colors.mauve   },bold] 󰮴  MOVE  "
-                        mode_tmux    "#[fg=#${colors.crust},bg=#${colors.green   },bold] 󰬛  TMUX  "
+                        mode_normal  "#[fg=#${ui.bg.crust},bg=#${ui.fg.subtext0},bold] 󰳨 NORMAL "
+                        mode_locked  "#[fg=#${ui.bg.crust},bg=#${colors.red    },bold] 󰔌 LOCKED "
+                        mode_resize  "#[fg=#${ui.bg.crust},bg=#${colors.green  },bold] 󰊓 RESIZE "
+                        mode_pane    "#[fg=#${ui.bg.crust},bg=#${colors.blue   },bold] 󰖲  PANE  "
+                        mode_tab     "#[fg=#${ui.bg.crust},bg=#${colors.yellow },bold] 󰓩  TAB   "
+                        mode_scroll  "#[fg=#${ui.bg.crust},bg=#${colors.teal   },bold] 󰮾 SCROLL "
+                        mode_session "#[fg=#${ui.bg.crust},bg=#${colors.maroon },bold] 󰙅  SESH  "
+                        mode_move    "#[fg=#${ui.bg.crust},bg=#${colors.mauve  },bold] 󰮴  MOVE  "
+                        mode_tmux    "#[fg=#${ui.bg.crust},bg=#${colors.green  },bold] 󰬛  TMUX  "
 
-                        tab_active  " #[bg=#${colors.mauve}] #[fg=#${colors.text},bg=#${colors.surface0},bold] {name} "
-                        tab_normal  " #[bg=#${colors.subtext0}] #[fg=#${colors.subtext1},bg=#${colors.surface0}] {name} "
+                        tab_active  " #[bg=#${ui.accent}] #[fg=#${ui.fg.text},bg=#${ui.bg.surface0},bold] {name} "
+                        tab_normal  " #[bg=#${ui.fg.subtext0}] #[fg=#${ui.fg.subtext1},bg=#${ui.bg.surface0}] {name} "
 
                         command_git_branch_command  "git rev-parse --abbrev-ref HEAD"
                         command_git_branch_format   "#[fg=red] {stdout} "
@@ -139,10 +139,10 @@
             theme "nix"
             themes {
                 nix {
-                    fg "#${colors.surface2}"
-                    bg "#${colors.surface0}"
-                    black "#${colors.base}"
-                    white "#${colors.text}"
+                    fg "#${ui.bg.surface2}"
+                    bg "#${ui.bg.surface0}"
+                    black "#${ui.bg.base}"
+                    white "#${ui.fg.text}"
 
                     red "#${colors.green}"
                     orange "#${colors.maroon}"

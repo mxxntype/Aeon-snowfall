@@ -70,7 +70,7 @@ rec {
             bg = {
                 inherit void crust mantle base;
                 inherit surface0 surface1 surface2;
-                inherit overlay0 overlay1;
+                inherit overlay0 overlay1 overlay2;
             };
 
             fg = {
