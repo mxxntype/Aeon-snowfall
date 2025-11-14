@@ -22,8 +22,7 @@
             settings = {
                 window.padding = { x = 12; y = 12; };
 
-                font = let
-                    family = "IosevkaAeon Nerd Font";
+                font = let family = "IosevkaAeon Nerd Font";
                 in {
                     size = 16;
                     normal = {

@@ -70,6 +70,7 @@
                     bigblue-terminal
                     iosevka-term
                     jetbrains-mono
+                    lilex
                 ]);
             in if config.aeon.hardware.meta.headless
                 then [ ]
