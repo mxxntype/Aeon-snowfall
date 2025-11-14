@@ -1,4 +1,1 @@
-disabled = [
-    "empty_pattern",
-    "repeated_keys",
-]
+disabled = ["empty_pattern", "repeated_keys"]

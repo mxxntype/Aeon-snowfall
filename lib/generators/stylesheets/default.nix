@@ -32,14 +32,12 @@
                 "crust"
             ];
 
-            defaultReferences = []
-                ++ (defaultKeywords |> map (keyword: "@{${keyword}}"))
-                # ++ (defaultKeywords |> map (keyword: "${keyword}:"))
+            defaultReferences =
+                   (defaultKeywords |> map (keyword: "@{${keyword}}"))
                 ++ (defaultKeywords |> map (keyword: "@${keyword}"));
 
-            defaultReplacements = { theme }: []
-                ++ (defaultKeywords |> map (keyword: "#${theme.colors.${keyword}}"))
-                # ++ (defaultKeywords |> map (keyword: "#${theme.colors.${keyword}}:"))
+            defaultReplacements = { theme }:
+                   (defaultKeywords |> map (keyword: "#${theme.colors.${keyword}}"))
                 ++ (defaultKeywords |> map (keyword: "#${theme.colors.${keyword}}"));
 
             variableMixin = {
@@ -95,7 +93,7 @@
                 assert builtins.isString metadata;
                 assert builtins.isString stylesheet;
                 builtins.concatStringsSep "\n" [
-                    (metadata)
+                    metadata
                     (variableMixin { inherit theme; })
                     (builtins.replaceStrings references replacements stylesheet)    
                 ];

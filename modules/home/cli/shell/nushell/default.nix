@@ -30,7 +30,7 @@
                 environmentVariables = let
                     escapedVariables = { }
                         |> lib.recursiveUpdate config.home.sessionVariables
-                        |> builtins.mapAttrs (_: value: toString value);
+                        |> builtins.mapAttrs (_: toString);
                     badVariables = [
                         # HACK: This one is set to something hella fucking weird, and having it
                         # present seems to break the cursor in some apps, like the Zen browser.

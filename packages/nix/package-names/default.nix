@@ -7,7 +7,7 @@ recursiveDerivations = { maybe_drv, package_group ? null }:
     else maybe_drv
         |> builtins.attrNames
         |> builtins.map (attr_name: rec {
-            success = (builtins.tryEval maybe_drv.${attr_name}).success;
+            inherit ((builtins.tryEval maybe_drv.${attr_name})) success;
             package = if success then maybe_drv.${attr_name} else null;
         })
         |> builtins.filter (item: item.success)
@@ -27,7 +27,7 @@ toplevelNames = pkgs
 evaluated = toplevelNames
     |> builtins.map (toplevelName: rec {
         inherit toplevelName;
-        success = (builtins.tryEval pkgs.${toplevelName}).success;
+        inherit ((builtins.tryEval pkgs.${toplevelName})) success;
         package = if success then pkgs.${toplevelName} else null;
     })
     |> builtins.filter (item: item.success)
@@ -39,12 +39,9 @@ with_src = evaluated
     |> builtins.filter (drv: drv ? "src" && (builtins.tryEval drv.src).success);
 
 with_url = with_src
-    |> builtins.filter (drv: let eval = builtins.tryEval (drv.src ? "url"); in (eval.success && eval.value));
+    |> builtins.filter (drv: let eval = builtins.tryEval (drv.src ? "url"); in eval.success && eval.value);
 
-tryAccessField = set: field:
-    if set ? "${field}"
-    then set."${field}"
-    else null;
+tryAccessField = set: field: set."${field}" or null;
 
 in pkgs.writeTextFile {
     name = "nixpkgs-packages.json";
