@@ -29,8 +29,8 @@
         ];
 
         apps = {
-            alacritty.enable = true;
             gimp.enable = true;
+            wezterm.enable = true;
         };
 
         music.enable = true;
