@@ -27,6 +27,11 @@
 
                 local config = {
                     enable_tab_bar = false,
+                    default_cursor_style = 'BlinkingUnderline';
+                    cursor_blink_rate = 600;
+                    cursor_blink_ease_in  = 'Constant';
+                    cursor_blink_ease_out = 'Constant';
+
                     colors = {
                         background = "#${ui.bg.base}",
                         foreground = "#${ui.fg.text}",
