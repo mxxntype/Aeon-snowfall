@@ -10,6 +10,7 @@
 
     config = lib.mkIf config.aeon.dev.core.enable {
         home.packages = with pkgs; [
+            ffmpeg      # Complete, cross-platform solution to record, convert and stream audio and video.
             gegl.dev    # Graph-based image processing framework.
             graphviz    # Graph visualization tools.
             imagemagick # Software suite to create, edit, compose, or convert bitmap images
