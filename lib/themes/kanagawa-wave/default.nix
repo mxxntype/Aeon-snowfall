@@ -1,14 +1,12 @@
-# INFO: Kanagawa Wave theme.
+_: let
 
-{
-    ...
-}: let
-    meta = {
-        name = "Kanagawa Wave";
-        slug = "kanagawa-wave";
-        style = "dark";
-        url = "https://github.com/rebelot/kanagawa.nvim";
-    };
+meta = {
+    name = "Kanagawa Wave";
+    slug = "kanagawa-wave";
+    style = "dark";
+    url = "https://github.com/rebelot/kanagawa.nvim";
+};
+
 in {
     themes = {
         ${meta.slug} = {

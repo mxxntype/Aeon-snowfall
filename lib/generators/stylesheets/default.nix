@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+_: {
     generators.stylesheets = {
         fromCatppuccin = rec {
             defaultKeywords = [

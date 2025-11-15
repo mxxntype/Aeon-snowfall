@@ -1,14 +1,12 @@
-# INFO: evangelion.nvim theme.
+_: let
 
-{
-    ...
-}: let
-    meta = {
-        name = "Evangelion.nvim";
-        slug = "evangelion";
-        style = "dark";
-        url = "https://github.com/xero/evangelion.nvim";
-    };
+meta = {
+    name = "Evangelion.nvim";
+    slug = "evangelion";
+    style = "dark";
+    url = "https://github.com/xero/evangelion.nvim";
+};
+
 in {
     themes = {
         ${meta.slug} = {

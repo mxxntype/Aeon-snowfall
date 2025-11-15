@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+_: {
     aeon = {
         style.codename = "pastel";
     };

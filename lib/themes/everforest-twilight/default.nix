@@ -1,14 +1,12 @@
-# INFO: Everforest theme
+_: let
 
-{
-    ...
-}: let
-    meta = {
-        name = "Everforest Twilight";
-        slug = "everforest-twilight";
-        style = "dark";
-        url = "https://github.com/sainnhe/everforest";
-    };
+meta = {
+    name = "Everforest Twilight";
+    slug = "everforest-twilight";
+    style = "dark";
+    url = "https://github.com/sainnhe/everforest";
+};
+
 in {
     themes = {
         ${meta.slug} = rec {

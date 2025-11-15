@@ -1,14 +1,12 @@
-# INFO: miasma.nvim theme.
+_: let
 
-{
-    ...
-}: let
-    meta = {
-        name = "Miasma.nvim";
-        slug = "miasma";
-        style = "dark";
-        url = "https://github.com/xero/miasma.nvim";
-    };
+meta = {
+    name = "Miasma.nvim";
+    slug = "miasma";
+    style = "dark";
+    url = "https://github.com/xero/miasma.nvim";
+};
+
 in {
     themes = {
         ${meta.slug} = {

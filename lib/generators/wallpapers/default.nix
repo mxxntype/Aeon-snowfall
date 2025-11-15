@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+_: {
     fromNamecard = {
         pkgs,
         source-image,

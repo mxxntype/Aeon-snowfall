@@ -1,14 +1,12 @@
-# INFO: Catppuccin Mocha theme
+_: let
 
-{
-    ...
-}: let
-    meta = {
-        name = "Catppuccin Mocha";
-        slug = "catppuccin-mocha";
-        style = "dark";
-        url = "https://github.com/catppuccin";
-    };
+meta = {
+    name = "Catppuccin Mocha";
+    slug = "catppuccin-mocha";
+    style = "dark";
+    url = "https://github.com/catppuccin";
+};
+
 in {
     themes = {
         ${meta.slug} = rec {
