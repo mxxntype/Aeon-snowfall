@@ -156,6 +156,7 @@
                     trunk             # Build, bundle & ship your Rust WASM application to the web.
 
                     aeon.dioxus-cli_7 # Tool for developing, testing, and publishing Dioxus apps.
+                    tailwindcss_4     # CLI tool for the CSS framework with composable CSS classes (for Dioxus).
 
                     # HACK: DX (the above thing) requires the wasm-bindgen CLI, and is quite picky
                     # about its versions. Sadly, its versions in nixpkgs are rather unpredictable.
