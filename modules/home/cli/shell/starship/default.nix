@@ -25,7 +25,7 @@
                     right ? "]",
                     padLeft ? false,
                     padRight ? false,
-                    color ? ui.bg.surface2,
+                    color ? ui.bg.overlay0,
                 }:
                     (if padLeft then " " else "") +
                     (if left != null then "[\\${left}](fg:#${color})" else "") +
@@ -33,7 +33,6 @@
                     (if right != null then "[\\${right}](fg:#${color})" else "") +
                     (if padRight then " " else "");
 
-                # NOTE: Shortcuts for adding dark-gray square brackets around a block.
                 mkContainer = contents: mkSurround contents { padRight = true; };
                 mkContainerRight = contents: mkSurround contents { padLeft = false; };
             in {
@@ -42,7 +41,7 @@
                 username = {
                     style_user = "purple";
                     style_root = "bold red";
-                    format = "[\\(](fg:#${ui.bg.surface2})[($user)]($style)[\\)](fg:#${ui.bg.surface2})";
+                    format = "[($user)]($style)";
                     show_always = true;
                 };
 
@@ -228,10 +227,11 @@
                 };
 
                 format = builtins.replaceStrings [ "\n" ] [ "" ] ''
-                    [\[](fg:#${ui.bg.surface2})
-                    $hostname
+                    [\[](fg:#${ui.bg.overlay0})
                     $username
-                    [\] ](fg:#${ui.bg.surface2})
+                    [@](fg:#${ui.bg.overlay0})
+                    $hostname
+                    [\] ](fg:#${ui.bg.overlay0})
 
                     $localip
                     $shlvl
