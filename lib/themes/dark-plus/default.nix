@@ -40,8 +40,6 @@ in {
             lavender  = "9CDCFE";
             mauve     = "4EC9B0";
             pink      = "C586C0";
-
-            special = { purple = "C586C0"; };
         };
 
         inherit meta;
