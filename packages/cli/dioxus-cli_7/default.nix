@@ -2,14 +2,14 @@
 
 pkgs.rustPlatform.buildRustPackage rec {
     pname = "dioxus-cli";
-    version = "0.7.0";
+    version = "0.7.1";
 
     src = pkgs.fetchCrate {
         inherit pname version;
-        hash = "sha256-+zWWG15qTXInaPCSKGd7yjLu8JQOev4AuZ//rbbMyyg=";
+        hash = "sha256-tPymoJJvz64G8QObLkiVhnW0pBV/ABskMdq7g7o9f1A=";
     };
 
-    cargoHash = "sha256-xbYpi5QjeOTSVeBjwxeam14DtWawfSOlmrc1lmz/3H8=";
+    cargoHash = "sha256-mgscu6mJWinB8WXLnLNq/JQnRpHRJKMQXnMwECz1vwc=";
 
     buildFeatures = [ "no-downloads" ];
 
