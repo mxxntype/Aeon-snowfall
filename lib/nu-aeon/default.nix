@@ -279,6 +279,15 @@
                 | sort-by output
         }
 
+        # Like which(1), but resolves symbolic links.
+        def "${functionName} which" [
+            binary: string # What binary to resolve.
+        ]: nothing -> string {
+            ${pkgs.coreutils}/bin/realpath (${lib.getExe pkgs.which} $binary)
+                | lines
+                | first
+        }
+
         # List available fonts.
         def "${functionName} list-fonts" [
             --refresh-cache (-R), # Refresh the font cache first.
