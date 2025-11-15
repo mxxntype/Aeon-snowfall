@@ -1,5 +1,2 @@
 [template]
-sub_templates = [
-    "templates/rust",
-    "templates/typst"
-]
+sub_templates = ["templates/rust", "templates/typst"]
