@@ -58,6 +58,15 @@
                             "#${colors.cyan}",    -- Cyan.
                             "#${ui.fg.text}",     -- White.
                         },
+
+                        -- NOTE: For `bacon`.
+                        indexed = {
+                            [204] = "#${colors.mauve}",
+                            [239] = "#${colors.surface2}",
+                            [240] = "#${colors.surface2}",
+                            [252] = "#${colors.subtext0}",
+                            [255] = "#${colors.text}",
+                        };
                     },
 
                     font = _font,
