@@ -12,7 +12,7 @@
         border-colors ? { inner = "000000"; outer = "444444"; },
         gradient-colors ? { start = "ff0000"; end = "0000ff"; },
     }: pkgs.stdenvNoCC.mkDerivation {
-        name = "gegl-pipeline";
+        name = "namecard-wallpaper";
         src = source-image;
 
         nativeBuildInputs = with pkgs; [ gegl.dev imagemagick ];
@@ -58,7 +58,7 @@
             # but WHAT THE ACTUAL FUCK IS UP WITH GETTING STUCK IN AN INFINITE LOOP FOR NO REASON
             # Couldn't for the life of me figure out what arcane spell is required to make it work,
             # ImageMagick did the trick instead.
-            # My brother is christ is 2025 and C software is still driving me up the fucking wall man
+            # My brother in christ its 2025 and C software is still driving me up the fucking wall
             magick -size 768x432 gradient:#${gradient-colors.start}-#${gradient-colors.end} background.png
             gegl background.png -o background.png -- \
                 dither dither-method=bayer \

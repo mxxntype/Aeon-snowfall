@@ -7,7 +7,8 @@ typ = "typ"       # Typst stuff.
 
 [files]
 extend-exclude = [
-    "lib/secrets.yaml",               # Don't spellcheck AES.
-    "*.pub",                          # And don't spellcheck ED25519.
-    "templates/typst/prettypst.toml", # Well, "seperate" is the way the tools expects "separate" to be written...
+    "lib/secrets.yaml",                           # Don't spellcheck AES.
+    "*.pub",                                      # And don't spellcheck ED25519.
+    "templates/typst/prettypst.toml",             # Well, "seperate" is the way the tools expects "separate" to be written...
+    "lib/generators/stylesheets/ddg/default.nix", # Whatever the fuck ".searchbox_iconWrapper__suWUe" was supposed to be?..
 ]
