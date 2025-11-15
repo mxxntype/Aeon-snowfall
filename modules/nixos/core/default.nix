@@ -93,7 +93,7 @@
             };
 
             xremap = {
-                enable = true;
+                enable = !config.aeon.hardware.meta.headless;
                 config.modmap = [
                     {
                         name = "Global modmap";
