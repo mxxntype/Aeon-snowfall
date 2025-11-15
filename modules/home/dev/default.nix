@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
     options.aeon.dev.core = {
@@ -16,8 +16,8 @@
             imagemagick # Software suite to create, edit, compose, or convert bitmap images
             typos       # Source code spell checker.
 
-            # FIXME: Can't locate `libssl.so.3` (FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK)
-            # aeon.invar # My CLI management tool for modded Minecraft servers.
+            # My CLI management tool for modded Minecraft servers.
+            inputs.invar.packages.${system}.default
         ];
     };
 }
