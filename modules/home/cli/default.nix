@@ -1,6 +1,6 @@
 # INFO: Home-manager CLI module.
 
-{ config, lib, pkgs, inputs, ... }: with lib;
+{ config, lib, pkgs, ... }: with lib;
 
 {
     options.aeon.cli = {
