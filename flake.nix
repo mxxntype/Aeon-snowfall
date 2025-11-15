@@ -150,9 +150,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.snowfall-lib.follows = "snowfall-lib";
         };
-
-        # A fork of the Nix LSP server with support for the experimental `pipe-operators` feature.
-        nil-fork.url = "github:q60/nil/pipe-operator-support";
     };
 
     outputs = inputs: inputs.snowfall-lib.mkFlake {

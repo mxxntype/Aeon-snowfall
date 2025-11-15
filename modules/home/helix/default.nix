@@ -2,13 +2,7 @@
 #
 # https://helix-editor.com
 
-{
-    inputs,
-    config,
-    lib,
-    pkgs,
-    ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib; {
     options.aeon.helix = {
@@ -254,11 +248,11 @@ with lib; {
         };
 
         home.packages = with pkgs; [
+            aeon.nil
             black
-            inputs.nil-fork.packages.${system}.nil
+            marksman # Markdown LSP.
             pyright
             ruff
-            marksman # Markdown LSP.
             taplo    # TOML LSP.
             vscode-langservers-extracted
         ];
