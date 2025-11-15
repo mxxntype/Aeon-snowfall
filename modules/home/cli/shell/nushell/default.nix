@@ -69,7 +69,7 @@
                             mode: emacs
                             event: {
                                 send: executehostcommand,
-                                cmd: "let choice = (${pkgs.fd}/bin/fd --type file --hidden | fzf --preview '${pkgs.bat}/bin/bat -nf {}' | str trim); if not ($choice | is-empty) { hx $choice }"
+                                cmd: "let choice = (${pkgs.fd}/bin/fd --type file --hidden | fzf --preview '${lib.getExe pkgs.pistol} {}' | str trim); if not ($choice | is-empty) { hx $choice }"
                             }
                         }
 

@@ -32,7 +32,7 @@ in {
 
             fileWidgetCommand = "${pkgs.fd}/bin/fd --type file --hidden";
             fileWidgetOptions = [
-                "--preview '${pkgs.bat}/bin/bat -nf {}'"
+                "--preview '${lib.getExe pkgs.pistol} {}'"
             ];
 
             changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type directory --hidden";
