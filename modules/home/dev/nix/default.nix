@@ -21,8 +21,9 @@ with lib; {
             ;
     in mkIf enable {
         home.packages = with pkgs; [
-            aeon.statix # Lints and suggestions for the nix programming language.
-            deadnix     # Find and remove unused code in .nix source files.
+            aeon.statix        # Lints and suggestions for the nix programming language.
+            deadnix            # Find and remove unused code in .nix source files.
+            nix-output-monitor # Processes output of Nix commands to show helpful and pretty information.
         ];
     };
 }
