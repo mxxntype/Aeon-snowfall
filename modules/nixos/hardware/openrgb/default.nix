@@ -33,7 +33,7 @@
             description = "OpenRGB daemon";
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
-                ExecStart = [ "${lib.getExe pkgs.aeon.openrgb} --server" ];
+                ExecStart = [ "${lib.getExe pkgs.aeon.openrgb} --server --server-host 127.0.0.1" ];
             };
         };
 
