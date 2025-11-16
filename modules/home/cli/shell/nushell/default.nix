@@ -1091,28 +1091,9 @@
                     # Use the colormap from the current theme.
                     $env.LS_COLORS = "${config.aeon.theme.cli.ls}"
 
-                    # Autostart an SSH agent and don't start more than one of it.
-                    #
-                    # WARNING: This might be kinda insecure. IDK :)
-                    let ssh_agent_env_path = $"/tmp/ssh-agent-($env.USER).nuon"
-                    if ($ssh_agent_env_path | path exists) and ($"/proc/(open $ssh_agent_env_path | get SSH_AGENT_PID)" | path exists) {
-                        load-env (open $ssh_agent_env_path)
-                    } else {
-                        ^ssh-agent -c
-                            | lines
-                            | first 2
-                            | parse "setenv {name} {value};"
-                            | transpose -r
-                            | into record
-                            | save --force $ssh_agent_env_path
-                        load-env (open $ssh_agent_env_path)
-                    }
-
-                    # If no keys are added, prompt to add one ASAP.
+                    # If no keys are added, prompt to add one.
                     let added_keys_count = ssh-add -l | lines | enumerate | where item =~ SHA | length
-                    if $added_keys_count == 0 {
-                        ssh-add
-                    }
+                    if $added_keys_count == 0 { ssh-add }
                 '';
             };
 
