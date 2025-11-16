@@ -148,7 +148,7 @@
                         shape_datetime: cyan_bold
                         shape_directory: cyan
                         shape_external: cyan
-                        shape_externalarg: green_bold
+                        shape_externalarg: blue
                         shape_external_resolved: light_yellow_bold
                         shape_filepath: cyan
                         shape_flag: blue_bold

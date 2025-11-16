@@ -32,8 +32,8 @@ in {
             rosewater = "DCDCAA";
             yellow    = "DCDCAA";
             green     = "6A9955";
-            cyan      = "B5CEA8";
-            teal      = "B5CEA8";
+            cyan      = lavender;
+            teal      = lavender;
             sky       = "75BEFF";
             sapphire  = "6796E6";
             blue      = "569CD6";
