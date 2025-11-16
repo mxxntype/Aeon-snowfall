@@ -25,5 +25,7 @@
                 ];
             };
         };
+
+        home.packages = [ pkgs.aeon.artificial_island ];
     };
 }
