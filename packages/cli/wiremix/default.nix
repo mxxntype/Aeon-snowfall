@@ -1,3 +1,7 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 
-inputs.wiremix.packages.${pkgs.system}.default
+if pkgs.system == "x86_64-linux"
+then
+    inputs.wiremix.packages.${pkgs.system}.default
+else
+    { }
