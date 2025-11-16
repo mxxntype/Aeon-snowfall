@@ -2,10 +2,7 @@
 #
 # Source: https://astrid.tech/2022/09/22/0/nixos-gpu-vfio
 
-{
-    pkgs,
-    ...
-}:
+{ pkgs, ... }:
 
 pkgs.writeShellScriptBin "iommugroups.sh" /* bash */ ''
     shopt -s nullglob

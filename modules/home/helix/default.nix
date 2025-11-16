@@ -19,7 +19,7 @@ with lib; {
             ;
     in mkIf enable {
         programs.helix = {
-            package = pkgs.aeon.helix;
+            package = pkgs.helix;
             enable = true;
             defaultEditor = true;
             settings = {
@@ -177,7 +177,7 @@ with lib; {
                         auto-format = true;
                         language-servers = [ "pyright" "ruff" "pylsp" ];
                         formatter = {
-                            command = "${pkgs.black}/bin/black";
+                            command = "${lib.getExe pkgs.black}";
                             args = [ "--quiet" "-" ];
                         };
                     }
@@ -188,7 +188,7 @@ with lib; {
                         auto-format = true;
                         language-servers = [ "typst-lsp" ];
                         formatter = {
-                            command = "${pkgs.aeon.prettypst}/bin/prettypst";
+                            command = "${lib.getExe pkgs.prettypst}";
                             args = [ "--use-std-in" "--use-std-out" "--style=otbs" ];
                         };
                     }

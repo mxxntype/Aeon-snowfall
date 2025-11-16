@@ -1,7 +1,4 @@
-{
-    pkgs,
-    ...
-}:
+{ pkgs, ... }:
 
 with pkgs;
 with pkgs.python311Packages;

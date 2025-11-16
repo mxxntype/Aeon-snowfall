@@ -1,9 +1,6 @@
 # INFO: A script to get the current wattage of the system.
 
-{
-    pkgs,
-    ...
-}:
+{ pkgs, ... }:
 
 pkgs.nuenv.writeScriptBin {
     name = "powerdrain";

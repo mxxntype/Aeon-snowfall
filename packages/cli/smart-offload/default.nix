@@ -1,9 +1,6 @@
 # INFO: A script to Run commands on the NVIDIA GPU if possible.
 
-{
-    pkgs,
-    ...
-}:
+{ pkgs, ... }:
 
 pkgs.nuenv.writeScriptBin {
     name = "smart-offload";
