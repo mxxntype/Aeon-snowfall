@@ -32,11 +32,9 @@
                             "#[bg=${ui.bg.base}] "
                             "#[fg=#${colors.green},bg=#${ui.bg.surface1},bold] CPU "
                             "#[fg=#${colors.green},bg=#${ui.bg.surface0}] {command_cpu_usage_graph} "
-                            # "#[bg=${ui.bg.base}] "
-                            # "#[fg=#${colors.teal},bg=#${ui.bg.surface1},bold] 󰈁 "
-                            # "#[fg=#${colors.teal},bg=#${ui.bg.surface0}] ⣴⣤⣿⣤⣀ "
-                            # "#[fg=#${ui.bg.surface2},bg=#${ui.bg.surface0}]|"
-                            # "#[fg=#${colors.teal},bg=#${ui.bg.surface0}] 119MB/s "
+                            "#[bg=${ui.bg.base}] "
+                            "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold] NET "
+                            "#[fg=#${colors.blue},bg=#${ui.bg.surface0}] {command_net_usage_graph} "
                         ]}"
 
                         format_right "${builtins.concatStringsSep "" [
@@ -60,6 +58,10 @@
                         command_cpu_usage_graph_command "${pkgs.aeon.artificial_island}/bin/sulphur_client --type cpu --api-address ${config.aeon.services.sulphur.settings.api_address}"
                         command_cpu_usage_graph_format "{stdout}"
                         command_cpu_usage_graph_interval 1
+
+                        command_net_usage_graph_command "${pkgs.aeon.artificial_island}/bin/sulphur_client --type net --api-address ${config.aeon.services.sulphur.settings.api_address}"
+                        command_net_usage_graph_format "{stdout}"
+                        command_net_usage_graph_interval 1
 
                         border_enabled  "true"
                         border_char     "━"
