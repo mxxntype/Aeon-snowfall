@@ -3,22 +3,10 @@
 {
     generators.stylesheets.github = { theme }: let
         metadata = /* css */ ''
-            /* ==UserStyle==
-            @name GitHub Catppuccin
-            @namespace github.com/catppuccin/userstyles/styles/github
-            @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/github
-            @version 2025.09.06
-            @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.less
-            @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agithub
-            @description Soothing pastel theme for GitHub
-            @author Catppuccin
-            @license MIT
-
             @preprocessor less
             @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
             @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
             @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
-            ==/UserStyle== */
         '';
 
         stylesheet = /* css */ ''
@@ -810,6 +798,7 @@
             }
         '';
     in lib.aeon.generators.stylesheets.fromCatppuccin.intoDynamicStylesheet {
+        name = "github.com";
         inherit metadata stylesheet theme;
     };
 }

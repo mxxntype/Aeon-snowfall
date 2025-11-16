@@ -3,22 +3,10 @@
 {
     generators.stylesheets.ddg = { theme }: let
         metadata = /* css */ ''
-            /* ==UserStyle==
-            @name DuckDuckGo Catppuccin
-            @namespace github.com/catppuccin/userstyles/styles/duckduckgo
-            @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/duckduckgo
-            @version 2025.09.24
-            @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/duckduckgo/catppuccin.user.less
-            @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aduckduckgo
-            @description Soothing pastel theme for DuckDuckGo
-            @author Catppuccin
-            @license MIT
-
             @preprocessor less
             @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
             @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
             @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
-            ==/UserStyle== */
         '';
 
         stylesheet = /* css */ ''
@@ -1110,6 +1098,7 @@
             }
         '';
     in lib.aeon.generators.stylesheets.fromCatppuccin.intoDynamicStylesheet {
+        name = "DuckDuckGo";
         inherit metadata stylesheet theme;
     };
 }

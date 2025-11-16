@@ -3,22 +3,10 @@
 {
     generators.stylesheets.stylus = { theme }: let
         metadata = /* css */ ''
-            /* ==UserStyle==
-            @name Stylus Catppuccin
-            @namespace github.com/catppuccin/userstyles/styles/stylus
-            @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/stylus
-            @version 2025.09.06
-            @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/stylus/catppuccin.user.less
-            @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Astylus
-            @description Soothing pastel theme for Stylus
-            @author Catppuccin
-            @license MIT
-
             @preprocessor less
             @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
             @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
             @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
-            ==/UserStyle== */
         '';
 
         stylesheet = /* css */ ''
@@ -276,6 +264,7 @@
             }
         '';
     in lib.aeon.generators.stylesheets.fromCatppuccin.intoDynamicStylesheet {
+        name = "stylus";
         inherit metadata stylesheet theme;
     };
 }

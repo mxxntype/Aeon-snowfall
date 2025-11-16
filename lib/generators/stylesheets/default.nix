@@ -82,6 +82,7 @@ _: {
                 '';
             
             intoDynamicStylesheet = {
+                name ? throw "The stylesheet's name was not provided",
                 metadata ? throw "The stylesheet's metadata was not provided",
                 stylesheet ? throw "The CSS stylesheet was not provided",
                 theme ? throw "A theme must be provided to generate the stylesheet",
@@ -91,7 +92,14 @@ _: {
                 assert builtins.isString metadata;
                 assert builtins.isString stylesheet;
                 builtins.concatStringsSep "\n" [
+                    "/* ==UserStyle=="
+                    /* css */''
+                        @name ${name} ${theme.meta.name}
+                        @namespace github.com/mxxntype/aeon/stylesheets/${name}
+                        @version 0.1.0
+                    ''
                     metadata
+                    "==/UserStyle== */"
                     (variableMixin { inherit theme; })
                     (builtins.replaceStrings references replacements stylesheet)    
                 ];

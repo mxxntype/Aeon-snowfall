@@ -6,22 +6,10 @@
         homeDirectory ? "A home directory must be provided to support local 'file://' URLs",
     }: let
         metadata = /* css */ ''
-            /* ==UserStyle==
-            @name docs.rs Catppuccin
-            @namespace github.com/catppuccin/userstyles/styles/docs.rs
-            @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/docs.rs
-            @version 2025.09.06
-            @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/docs.rs/catppuccin.user.less
-            @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Adocs.rs
-            @description Soothing pastel theme for docs.rs
-            @author Catppuccin
-            @license MIT
-
             @preprocessor less
             @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
             @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
             @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
-            ==/UserStyle== */
         '';
 
         stylesheet = /* css */ ''
@@ -220,6 +208,7 @@
             }
         '';
     in lib.aeon.generators.stylesheets.fromCatppuccin.intoDynamicStylesheet {
+        name = "docs.rs";
         inherit metadata stylesheet theme;
     };
 }
