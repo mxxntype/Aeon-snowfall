@@ -9,19 +9,14 @@
 # channels are system-specific instances of nixpkgs that can be used to quickly pull
 # packages into your overlay. All other arguments for this function are flake inputs.
 
-{
-    channels,
-    ...
-}:
+{ channels, ... }:
 
 _final: _prev: {
     inherit (channels.unstable)
-        # atuin # BUG: Nix store collision...
         OVMF
         OVMFFull
         alacritty
         anytype
-        binsider
         cargo-leptos
         cargo-unfmt
         cargo-wizard

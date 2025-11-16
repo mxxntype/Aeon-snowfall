@@ -59,7 +59,6 @@
             # Text & image processors.
             aeon.repalette # Recolor images to a certain palette.
             bc             # Arbitrary precision calculator.
-            binsider       # TUI ELF binary analyzer.
             exiftool       # View EXIF metadata of files.
             heh            # Hex editor.
             hexyl          # Hex viewer.
