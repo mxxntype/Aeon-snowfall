@@ -3,6 +3,7 @@
 {
     aeon = {
         hardware = {
+            autoreboot.enable = true;
             meta.headless = true;
             cpu.type = "intel";
             gpu.intel = {

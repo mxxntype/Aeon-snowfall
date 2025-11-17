@@ -112,6 +112,22 @@
             exec $"./result/bin/run-($system)-vm"
         }
 
+        # Wait until there are no active login sessions.
+        def "${functionName} wait-idle" [
+            --interval (-i): duration = 30sec # How long to wait for between checks.
+        ]: nothing -> nothing {
+            loop {
+                let session_count = loginctl list-sessions --json=short
+                    | from json
+                    | where user == root or user == ${lib.aeon.user}
+                    | length
+                if $session_count  == 0 { break }
+
+                print "Unterminated sessions detected, waiting"
+                sleep $interval
+            }
+        }
+
         # Perform a semi-automatic NixOS install using Disko.
         def "${functionName} install" [
             hostname: string # Future hostname of the installed system.
