@@ -16,13 +16,14 @@
             ui
             colors
             ;
+        inherit (config.aeon) style;
     in mkIf enable {
         programs.alacritty = {
             enable = true;
             settings = {
                 window.padding = { x = 12; y = 12; };
 
-                font = let family = "ZedMono Nerd Font";
+                font = let family = style.font.code;
                 in {
                     size = 16;
                     normal = {

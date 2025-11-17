@@ -1,26 +1,29 @@
 { lib, ... }:
 
-with builtins;
-with lib; 
-
 let
 
 # Automatically detect possible styles.
-directoryContents = readDir ./.;
+directoryContents = builtins.readDir ./.;
 possibleCodenames = directoryContents
-    |> attrNames
-    |> filter (f: directoryContents."${f}" == "directory");
+    |> builtins.attrNames
+    |> builtins.filter (f: directoryContents."${f}" == "directory");
 
 in {
     options.aeon.style = {
-        codename = mkOption {
-            type = with types; nullOr (enum possibleCodenames);
+        codename = lib.mkOption {
+            type = with lib.types; nullOr (enum possibleCodenames);
             default = null;
         };
 
+        fonts = {
+            text = lib.mkOption { type = lib.types.str; };
+            code = lib.mkOption { type = lib.types.str; };
+            decoration = lib.mkOption { type = lib.types.str; };
+        };
+
         themeFallbacks = {
-            helix = mkOption {
-                type = with types; nullOr str;
+            helix = lib.mkOption {
+                type = with lib.types; nullOr str;
                 default = null;
             };
         };

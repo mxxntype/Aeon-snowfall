@@ -24,6 +24,7 @@
 
             "${dir}/docs.rs.less".text =
                 lib.aeon.generators.stylesheets.docs-rs {
+                    inherit (config.aeon.style) fonts;
                     inherit (config.aeon) theme;
                     inherit (config.home) homeDirectory;
                 };

@@ -11,6 +11,7 @@
     config = let
         inherit (config.aeon.apps.wezterm) enable;
         inherit (config.aeon.theme) colors ui;
+        inherit (config.aeon) style;
     in lib.mkIf enable rec {
         aeon.apps.defaultTerminal = programs.wezterm.package;
         programs.wezterm = {
@@ -21,7 +22,7 @@
 
                 local _font = wezterm.font_with_fallback{
                     {
-                        family = "ZedMono NF",
+                        family = "${style.fonts.code}",
                     },
                 }
 

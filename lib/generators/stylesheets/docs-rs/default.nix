@@ -3,6 +3,7 @@
 {
     generators.stylesheets.docs-rs = {
         theme ? throw "A theme must be provided to generate the docs.rs stylesheet",
+        fonts,
         homeDirectory ? "A home directory must be provided to support local 'file://' URLs",
     }: let
         metadata = /* css */ ''
@@ -169,11 +170,11 @@
                     --sidebar-resizer-active: @sapphire;
 
                     html, body {
-                        font-family: "Nunito", sans-serif !important;
+                        font-family: "${fonts.text}", sans-serif !important;
                     }
 
                     code, pre, tt {
-                        font-family: "IosevkaAeon Nerd Font", monospace !important;
+                        font-family: "${fonts.code}", monospace !important;
                     }
 
                     select {

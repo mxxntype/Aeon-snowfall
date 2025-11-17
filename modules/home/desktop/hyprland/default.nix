@@ -31,7 +31,7 @@ with lib; {
             colors
             ui
             ;
-        inherit (config.aeon) monitors;
+        inherit (config.aeon) monitors style;
     in mkIf enable {
         home = {
             packages = with pkgs; [
@@ -250,8 +250,7 @@ with lib; {
 
         programs.hyprlock = {
             enable = true;
-            settings = let
-                font = "BigBlueTermPlus Nerd Font";
+            settings = let font = style.fonts.decoration;
             in {
                 general = {
                     hide_cursor = true;
@@ -384,7 +383,7 @@ with lib; {
             settings = {
                 global = {
                     origin = "top-right";
-                    font = "IosevkaAeon Nerd Font";
+                    font = style.fonts.code;
                 };
 
                 urgency_low = {

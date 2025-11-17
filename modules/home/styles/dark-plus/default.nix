@@ -16,6 +16,11 @@ in {
             inherit theme;
             style = {
                 themeFallbacks.helix = "dark_plus";
+                fonts = {
+                    text = "Nunito";
+                    code = "ZedMono NF";
+                    decoration = "BigBlueTermPlus Nerd Font";
+                };
             };
         };
     };

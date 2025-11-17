@@ -11,8 +11,8 @@ in {
         colors = rec {
             # Backgrounds and foregrounds.
             void      = "000000";
-            crust     = "111111";
-            mantle    = "111111";
+            crust     = "141414";
+            mantle    = "141414";
             base      = "1E1E1E";
             surface0  = "282828";
             surface1  = "3a3d41";
