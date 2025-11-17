@@ -57,19 +57,6 @@
                 speedtest-rs # CLI internet speedtest tool in Rust.
                 wakeonlan    # The original WoL thing.
             ];
-
-            etc."nix/open_ports.json".text = let
-                inherit (config.networking.firewall)
-                    allowedTCPPorts
-                    allowedTCPPortRanges
-                    allowedUDPPorts
-                    allowedUDPPortRanges
-                    ;
-                rangesToList = ranges: ranges |> builtins.map (range: "${toString range.from}-${toString range.to}");
-            in /* json */ builtins.toJSON {
-                tcp = allowedTCPPorts ++ rangesToList allowedTCPPortRanges;
-                udp = allowedUDPPorts ++ rangesToList allowedUDPPortRanges;
-            };
         };
     };
 }
