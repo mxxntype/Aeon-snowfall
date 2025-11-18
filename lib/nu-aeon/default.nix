@@ -119,6 +119,7 @@
             loop {
                 let session_count = loginctl list-sessions --json=short
                     | from json
+                    | where class != manager
                     | where user == root or user == ${lib.aeon.user}
                     | length
                 if $session_count  == 0 { break }
