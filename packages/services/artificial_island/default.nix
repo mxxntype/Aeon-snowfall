@@ -17,7 +17,7 @@ in naersk'.buildPackage rec {
         owner = "mxxntype";
         repo = name;
         rev = "main";
-        hash = "sha256-M87zbcpaVFZ5D32z58uh7qNZoMmbN37gS1AWiGxRwJ4=";
+        hash = "sha256-IugH+oQaDQv0vWddoq4zmHHbRBBIWWichu8FSb1Bp4c=";
     };
 
     nativeBuildInputs = with pkgs; [ autoPatchelfHook ];
