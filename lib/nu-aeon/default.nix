@@ -281,6 +281,7 @@
             wallpaper: path # Path to the wallaper.
         ]: nothing -> nothing {
             ln --force --symbolic (realpath $wallpaper) ~/.wallpaper
+            hyprctl --instance 0 reload
         }
 
         # Locate something in the nix store.

@@ -1,5 +1,6 @@
 _: {
-    fromNamecard = {
+    generators.wallpapers.fromNamecard = {
+        name,
         pkgs,
         source-image,
         pixelation-y ? 80,
@@ -10,7 +11,7 @@ _: {
         border-colors ? { inner = "000000"; outer = "444444"; },
         gradient-colors ? { start = "ff0000"; end = "0000ff"; },
     }: pkgs.stdenvNoCC.mkDerivation {
-        name = "namecard-wallpaper";
+        name = "wp-namecard-${name}";
         src = source-image;
 
         nativeBuildInputs = with pkgs; [ gegl.dev imagemagick ];
