@@ -42,6 +42,7 @@ _final: _prev: {
         rust-motd
         rustscan
         tailscale
+        telegram-desktop
         tracy
         uv
         vesktop
