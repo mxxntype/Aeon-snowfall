@@ -8,7 +8,7 @@ _: {
             source = "nixpkgs";
         };
         
-        monitors = [
+        monitors.monitors = [
             {
                 name = "KTC H27P22S";  
                 port = "DP-1";

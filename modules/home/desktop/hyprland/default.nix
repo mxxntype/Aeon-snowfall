@@ -68,23 +68,16 @@ with lib; {
 
                 # Caps to the largest workspace ID from all enabled monitors.
                 workspaceCount = let
-                    workspaces = monitors
+                    workspaces = monitors.monitors
                         |> builtins.filter (monitor: monitor.enable)
                         |> builtins.map (monitor: monitor.workspaces)
                         |> flatten;
-                in foldl' max (builtins.head workspaces) (builtins.tail workspaces);
-                
-                # Caps to the highest refresh rate from all enabled monitors.
-                highestRefreshRate = let
-                    refreshRates = monitors
-                        |> builtins.filter (monitor: monitor.enable)
-                        |> builtins.map (monitor: monitor.refreshRate);
-                in foldl' max (builtins.head refreshRates) (builtins.tail refreshRates);
+                in foldl' max 0 workspaces;
             in rec {
                 env = [
                     "SWWW_TRANSITION_DURATION, 2"
-                    "SWWW_TRANSITION_FPS, ${toString highestRefreshRate}"
-                    # "SWWW_TRANSITION, left"
+                    "SWWW_TRANSITION_FPS, ${toString (monitors.maxRefreshRate / 2)}"
+                    "SWWW_TRANSITION, grow"
 
                     # INFO: https://wiki.nixos.org/wiki/Wayland#X_and_Wayland_support
                     # Basically allows electron-based apps to run on a wayland-native backend.
@@ -112,7 +105,7 @@ with lib; {
                     repeat_delay = 250;
                 };
 
-                monitor = monitors |> builtins.map
+                monitor = monitors.monitors |> builtins.map
                     (monitor: let
                         inherit (monitor)
                             port
@@ -127,7 +120,7 @@ with lib; {
                        then "${port}, ${toString width}x${toString height}@${toString refreshRate}, ${toString offsetX}x${toString offsetY}, ${toString scale}"
                        else "${port}, disable");
 
-                workspace = monitors
+                workspace = monitors.monitors
                     |> builtins.filter (monitor: monitor.enable)
                     |> builtins.map (monitor: monitor.workspaces
                         |> builtins.map (workspace: "${toString workspace}, monitor:${monitor.port}, persistent:true"))
