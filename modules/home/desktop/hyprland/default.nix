@@ -98,6 +98,9 @@ with lib; {
                     kb_layout = "us,ru";
                     kb_options = "grp:win_space_toggle";
 
+                    accel_profile = "flat";
+                    sensitivity = -0.4;
+
                     # NOTE (from https://wiki.hyprland.org/0.49.0/Configuring/Variables/#input):
                     # 0 - Cursor movement will not change focus.
                     # 1 - Cursor movement will always change focus to the window under the cursor.
