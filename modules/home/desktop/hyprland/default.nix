@@ -243,7 +243,7 @@ with lib; {
             };
 
             plugins = if (source == "nixpkgs") then [
-                pkgs.hyprlandPlugins.hy3
+                # pkgs.hyprlandPlugins.hy3 # TODO: Wait until it is available for 0.52.X
                 pkgs.hyprlandPlugins.borders-plus-plus
             ] else [
                 inputs.hyprland-hy3.packages.${pkgs.system}.hy3
