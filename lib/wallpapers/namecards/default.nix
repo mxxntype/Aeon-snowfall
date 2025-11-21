@@ -1,6 +1,7 @@
 { lib, ... }: let
 
 sources = {
+    # SECTION: Achievements
     infinitum = {
         url = "https://static.wikia.nocookie.net/gensin-impact/images/9/9d/Namecard_Background_Achievement_Infinitum.png/revision/latest?cb=20230412034747";
         hash = "sha256-jMQxPdsQ9yBLU7VQ6pQ7nIuwcFe5X+8KKkUQ2GW1CEg=";
@@ -21,11 +22,6 @@ sources = {
         hash = "sha256-R+5tGwnYXogq0rzrhf0IuO9KMyXWyRap1NCTzE+8mW0=";
     };
 
-    enlightenment = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/5/5e/Namecard_Background_Raiden_Shogun_Enlightenment.png/revision/latest?cb=20210902035057";
-        hash = "sha256-H8pwdxjeWbnb270Ic656rJHZMxqM7GPyzqVWQYRo1JQ=";
-    };
-
     fighting-spirit = {
         url = "https://static.wikia.nocookie.net/gensin-impact/images/8/8b/Namecard_Background_Achievement_Fighting_Spirit.png/revision/latest?cb=20241129014713";
         hash = "sha256-3Q5SEgRKbGTCoy1B+GMC2seC3emr8C22i18G/16ryL0=";
@@ -39,6 +35,42 @@ sources = {
     irodori = {
         url = "https://static.wikia.nocookie.net/gensin-impact/images/e/ef/Namecard_Background_Travel_Notes_Irodori.png/revision/latest?cb=20220330033749";
         hash = "sha256-mOTQJcYa0G2VfJfHWsg7Cs+6nfd5gxpDrqYtGseQmj4=";
+    };
+
+    lord-of-the-night = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/d/da/Namecard_Background_Achievement_Lord_of_the_Night.png/revision/latest?cb=20240829153319";
+        hash = "sha256-2jWHoJP/FtecEM8k8llqwzrHg0yqZEN850XmQADhhYc=";
+    };
+
+    blaze = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/3/39/Namecard_Background_Achievement_Blaze.png/revision/latest?cb=20250102024021";
+        hash = "sha256-FVxB3A8fdaqnQFwSmCownZAAXoFky46hvneecFhXbK4=";
+    };
+
+    sacred-realm = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/d/d0/Namecard_Background_Nod-Krai_Sacred_Realm.png/revision/latest?cb=20250910075325";
+        hash = "sha256-ayk+65z/kH2ZtHQPRo3rtLTSTMmnSvofrNMzEDgHMSg=";
+    };
+
+    sangonomiya-crest = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/3/31/Namecard_Background_Inazuma_Sangonomiya_Crest.png/revision/latest?cb=20210902035053";
+        hash = "sha256-Eol94J2dOK2RLP6BPVUWPypbHikNjWzeOxzkRL71w7I=";
+    };
+
+    # SECTION: Character namecards
+    raiden-enlightenment = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/5/5e/Namecard_Background_Raiden_Shogun_Enlightenment.png/revision/latest?cb=20210902035057";
+        hash = "sha256-H8pwdxjeWbnb270Ic656rJHZMxqM7GPyzqVWQYRo1JQ=";
+    };
+
+    flins-oathkeepers-lantern = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/6/60/Namecard_Background_Flins_Oathkeeper%27s_Lantern.png/revision/latest?cb=20250910075522";
+        hash = "sha256-FWOgcJA2pcyq83Rp+soHRys1KplyI1FS9ye6GbmQbQ8=";
+    };
+
+    kujou-sara-tengu = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/f/f6/Namecard_Background_Kujou_Sara_Tengu.png/revision/latest?cb=20210902035055";
+        hash = "sha256-DbtFfyGsqi3CxcBH4rfh34itvOzCcDihaGn3jS8U90A=";
     };
 };
 
