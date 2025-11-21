@@ -116,6 +116,10 @@
                     # https://github.com/onur/cargo-license
                     cargo-license
 
+                    # Lint your dependencies.
+                    # https://github.com/EmbarkStudios/cargo-deny
+                    cargo-deny
+
                     # Show results of macro expansion.
                     # https://github.com/dtolnay/cargo-expand
                     cargo-expand
