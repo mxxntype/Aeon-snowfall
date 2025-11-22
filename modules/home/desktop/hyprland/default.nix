@@ -92,7 +92,7 @@ with lib; {
                     kb_options = "grp:win_space_toggle";
 
                     accel_profile = "flat";
-                    sensitivity = -0.4;
+                    sensitivity = 0.0;
 
                     # NOTE (from https://wiki.hyprland.org/0.49.0/Configuring/Variables/#input):
                     # 0 - Cursor movement will not change focus.
