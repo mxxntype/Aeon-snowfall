@@ -23,6 +23,10 @@
                 merged = system ++ user;
             };
 
+            fonts = {
+                system = config.fonts.packages |> packageListToMetadata;
+            };
+
             network.firewall = let
                 inherit (config.networking.firewall)
                     allowedTCPPorts

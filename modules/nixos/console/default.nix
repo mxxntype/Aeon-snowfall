@@ -66,6 +66,7 @@
                     aeon.nunito
                     corefonts
                     font-awesome
+                    google-fonts
                 ]) ++ (with pkgs.nerd-fonts; [
                     bigblue-terminal
                     iosevka-term
