@@ -17,8 +17,8 @@ in {
             style = {
                 themeFallbacks.helix = "dark_plus";
                 fonts = {
-                    text = "Nunito";
                     code = "ZedMono NF";
+                    text = "Exo 2";
                     decoration = "BigBlueTermPlus Nerd Font";
                 };
             };
