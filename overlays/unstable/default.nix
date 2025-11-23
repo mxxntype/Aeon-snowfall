@@ -13,8 +13,6 @@
 
 _final: _prev: {
     inherit (channels.unstable)
-        OVMF
-        OVMFFull
         alacritty
         anytype
         cargo-leptos
@@ -38,7 +36,6 @@ _final: _prev: {
         pastel
         prettypst
         prismlauncher
-        qemu
         rust-motd
         rustscan
         tailscale
