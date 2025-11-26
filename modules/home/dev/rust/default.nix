@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib;
+{ inputs, config, lib, pkgs, ... }: with lib;
 
 {
     options.aeon.dev.rust = {
@@ -158,6 +158,10 @@
                     sccache           # Ccache with Cloud Storage.
                     sqlx-cli          # SQLx's associated command-line utility.
                     trunk             # Build, bundle & ship your Rust WASM application to the web.
+
+                    inputs.unstable.legacyPackages.${system}.esp-generate
+                    inputs.unstable.legacyPackages.${system}.espflash
+                    inputs.unstable.legacyPackages.${system}.probe-rs-tools
 
                     aeon.dioxus-cli_7 # Tool for developing, testing, and publishing Dioxus apps.
                     tailwindcss_4     # CLI tool for the CSS framework with composable CSS classes (for Dioxus).

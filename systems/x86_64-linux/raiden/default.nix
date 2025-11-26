@@ -35,6 +35,8 @@
 
             bluetooth.enable = true;
             adb.enable = true;
+
+            probe-rs.udev-rules.enable = true;
         };
 
         boot.type = "uefi";
