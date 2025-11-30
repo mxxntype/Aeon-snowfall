@@ -14,7 +14,14 @@
         '';
 
         stylesheet = /* css */ ''
-            @-moz-document domain("docs.rs"), domain("doc.rust-lang.org"), url-prefix("file://${homeDirectory}/Work/rsensor/target/doc"), url-prefix("file://${homeDirectory}/.rustup/toolchains") {
+            @-moz-document
+                domain("doc.rust-lang.org"),
+                domain("docs.embassy.dev"),
+                domain("docs.espressif.com"),
+                domain("docs.rs"),
+                url-prefix("file://${homeDirectory}/.rustup/toolchains"),
+                url-prefix("file://${homeDirectory}/Work/rsensor/target/doc"),
+            {
                 :root:not([data-docs-rs-theme]) {
                     @media (prefers-color-scheme: light) {
                         #catppuccin();
