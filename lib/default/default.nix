@@ -1,6 +1,6 @@
 # INFO: Core Nix library, accessible from anywhere in the flake.
 
-{ inputs, lib, ... }:
+{ inputs, ... }:
 
 rec {
     # A no-nixpkgs standard library for the nix language.
@@ -31,6 +31,19 @@ rec {
         # Makes sure the configuration and CLI commands all run off of the same inputs.
         # registry = inputs |> builtins.mapAttrs (_: flake: { inherit flake; });
         # nixPath = inputs |> lib.mapAttrsToList (n: _: "${n}=flake:${n}");
+
+        optimise = {
+            automatic = true;
+            dates = [ "daily" ];
+            persistent = true;
+        };
+
+        gc = {
+            automatic = true;
+            dates = "daily";
+            persistent = true;
+            options = "--delete-older-than 7d";
+        };
 
         # INFO: Completely disables Nix channels. May cause some unexpected breakages.
         channel.enable = false;
