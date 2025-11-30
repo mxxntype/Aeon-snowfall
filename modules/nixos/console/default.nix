@@ -64,14 +64,14 @@
                 GUIfonts = (with pkgs; [
                     aeon.iosevka-aeon
                     aeon.nunito
-                    corefonts
+                    cm_unicode   # Computer Modern Unicode fonts (basically LaTeX fonts in TTF).
+                    corefonts    # Microsoft's TrueType core fonts for the Web.
                     font-awesome
                     google-fonts
                 ]) ++ (with pkgs.nerd-fonts; [
                     bigblue-terminal
                     iosevka-term
                     jetbrains-mono
-                    lilex
                     zed-mono
                 ]);
             in if config.aeon.hardware.meta.headless
