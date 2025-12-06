@@ -1,3 +1,3 @@
 { inputs, pkgs, ... }:
 
-inputs.siren.packages.${pkgs.system}.default
+inputs.siren.packages.${pkgs.stdenv.hostPlatform.system}.default

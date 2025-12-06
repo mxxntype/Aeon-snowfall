@@ -81,15 +81,15 @@
                 enableNotifications = true;
             };
 
-            logind = rec {
-                powerKey = "ignore";
-                powerKeyLongPress = "poweroff";
-                rebootKey = powerKey;
-                rebootKeyLongPress = powerKeyLongPress;
-                suspendKey = powerKey;
-                suspendKeyLongPress = powerKeyLongPress;
-                hibernateKey = powerKey;
-                hibernateKeyLongPress = powerKeyLongPress;
+            logind.settings.Login = rec {
+                HandlePowerKey = "ignore";
+                HandlePowerKeyLongPress = "poweroff";
+                HandleRebootKey = HandlePowerKey;
+                HandleRebootKeyLongPress = HandlePowerKeyLongPress;
+                HandleSuspendKey = HandlePowerKey;
+                HandleSuspendKeyLongPress = HandlePowerKeyLongPress;
+                HandleHibernateKey = HandlePowerKey;
+                HandleHibernateKeyLongPress = HandlePowerKeyLongPress;
             };
 
             xremap = {
@@ -160,7 +160,6 @@
         '';
 
         system = {
-            rebuild.enableNg = true;
             activationScripts.linkHelixConfig = ''
                 mkdir -pv /root/.config
                 ln -sf /home/${lib.aeon.user}/.config/helix /root/.config/helix

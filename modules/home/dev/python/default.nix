@@ -27,7 +27,7 @@ with lib; {
             ]))
 
             # LSP servers, formatters and linters
-            black
+            # black # ISSUE: Fails to build.
             pyright
             ruff
             # ruff-lsp

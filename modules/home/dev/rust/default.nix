@@ -82,7 +82,8 @@
 
                     # Runs valgrind and collects its output in a helpful manner.
                     # https://github.com/jfrimmel/cargo-valgrind
-                    cargo-valgrind
+                    # ISSUE: Seems to be unable to build
+                    # cargo-valgrind
 
                     # Easy flamegraphs for Rust projects and everything else, without Perl or pipes <3
                     # https://github.com/flamegraph-rs/flamegraph

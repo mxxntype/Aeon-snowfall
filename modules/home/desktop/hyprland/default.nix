@@ -55,7 +55,7 @@ with lib; {
             enable = true;
             package = if (source == "nixpkgs")
                       then pkgs.hyprland
-                      else inputs.hyprland.packages.${pkgs.system}.default;
+                      else inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
             settings = let
                 MOD = "SUPER";
@@ -236,11 +236,11 @@ with lib; {
             };
 
             plugins = if (source == "nixpkgs") then [
-                # pkgs.hyprlandPlugins.hy3 # TODO: Wait until it is available for 0.52.X
+                pkgs.hyprlandPlugins.hy3
                 pkgs.hyprlandPlugins.borders-plus-plus
             ] else [
-                inputs.hyprland-hy3.packages.${pkgs.system}.hy3
-                inputs.hyprland-plugins.packages.${pkgs.system}.borders-plus-plus
+                inputs.hyprland-hy3.packages.${pkgs.stdenv.hostPlatform.system}.hy3
+                inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.borders-plus-plus
             ];
         };
 

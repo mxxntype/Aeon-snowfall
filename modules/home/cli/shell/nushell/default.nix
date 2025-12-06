@@ -15,11 +15,6 @@
             ;
     in mkIf config.aeon.cli.shell.nushell.enable {
         programs = {
-            # BUG: https://github.com/nix-community/home-manager/pull/7081
-            # In short, breaks with Nu v105.1. The PR has not (yet) landed on the
-            # `release-25.05` branch of home-manager, so we just inline the fix.
-            direnv.enableNushellIntegration = false;
-
             nushell = {
                 enable = true;
                 package = pkgs.nushell;

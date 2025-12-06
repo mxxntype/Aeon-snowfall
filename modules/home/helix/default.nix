@@ -172,15 +172,16 @@ with lib; {
                         };
                     }
 
-                    {
-                        name = "python";
-                        auto-format = true;
-                        language-servers = [ "pyright" "ruff" "pylsp" ];
-                        formatter = {
-                            command = "${lib.getExe pkgs.black}";
-                            args = [ "--quiet" "-" ];
-                        };
-                    }
+                    # ISSUE: Black fails to build.
+                    # {
+                    #     name = "python";
+                    #     auto-format = true;
+                    #     language-servers = [ "pyright" "ruff" "pylsp" ];
+                    #     formatter = {
+                    #         command = "${lib.getExe pkgs.black}";
+                    #         args = [ "--quiet" "-" ];
+                    #     };
+                    # }
 
                     # A new markup-based typesetting system that is powerful and easy to learn.
                     {
@@ -249,7 +250,7 @@ with lib; {
 
         home.packages = with pkgs; [
             aeon.nil
-            black
+            # black  # ISSUE: Fails to build.
             marksman # Markdown LSP.
             pyright
             ruff

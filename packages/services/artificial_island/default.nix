@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }: let
 
-toolchain = with inputs.fenix.packages.${pkgs.system}; combine [
+toolchain = with inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}; combine [
     minimal.cargo
     minimal.rustc
 ];

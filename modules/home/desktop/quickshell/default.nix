@@ -14,7 +14,7 @@
             ;
     in mkIf enable {
         home.packages = [
-            inputs.quickshell.packages.${pkgs.system}.default
+            inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
 
             # NOTE: Oh god its KDE.
             # But this is the only sane provider of `qmlls`.

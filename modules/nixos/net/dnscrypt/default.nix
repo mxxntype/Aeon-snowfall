@@ -43,7 +43,7 @@ with lib; {
     config = let
         inherit (config.aeon.net.dnscrypt-proxy) enable settings;
     in mkIf enable {
-        services.dnscrypt-proxy2 = {
+        services.dnscrypt-proxy = {
             enable = true;
             upstreamDefaults = true;
             inherit settings;

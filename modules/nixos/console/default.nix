@@ -18,17 +18,12 @@
                 settings = {
                     default_session = {
                         user = "greeter";
-                        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd hyprland";
-                        #                                                                       ^^^^^^^^
-                        # FIXME: This command is hardcoded for now, but I really should implement a module
+                        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd hyprland";
+                        #                                                                ^^^^^^^^
+                        # FIXME: This command is hardcoded for now, but I should implement a module
                         # that would actually reflect what the default "environment entrypoint" is.
                     };
                 };
-
-                # HACK: https://github.com/apognu/tuigreet/issues/17#issuecomment-949757598
-                # Forces greetd to use the second VT, while systemd logs to VT 1. This dirty
-                # hack resolves the issue of greetd being covered by systemd logs.
-                vt = 2;
             };
 
             boot.kernelParams = [ "console=tty1" ];

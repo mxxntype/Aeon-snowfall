@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }:
 
-if pkgs.system == "x86_64-linux"
+if pkgs.stdenv.hostPlatform.system == "x86_64-linux"
 then
-    inputs.wiremix.packages.${pkgs.system}.default
+    inputs.wiremix.packages.${pkgs.stdenv.hostPlatform.system}.default
 else
     { }

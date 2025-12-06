@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }: let
 
-unstable-pkgs = inputs.unstable.legacyPackages.${pkgs.system};
+unstable-pkgs = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
 in unstable-pkgs.statix.overrideAttrs (_: rec {
     src = pkgs.fetchFromGitHub {

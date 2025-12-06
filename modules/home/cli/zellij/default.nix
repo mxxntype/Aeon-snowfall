@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
     options.aeon.cli.zellij = {
@@ -26,7 +26,7 @@
                 }
 
                 pane size=2 borderless=true {
-                    plugin location="file:${inputs.zjstatus.packages.${pkgs.system}.default}/bin/zjstatus.wasm" {
+                    plugin location="file:${pkgs.aeon.zjstatus}/bin/zjstatus.wasm" {
                         format_left "${builtins.concatStringsSep "" [
                             "{mode}" 
                             "#[bg=${ui.bg.base}] "

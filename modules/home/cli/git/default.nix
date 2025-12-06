@@ -17,38 +17,46 @@ with lib; {
     };
 
     config = mkIf config.aeon.cli.git.enable {
-        programs.git = {
-            enable = true;
-            userName = "mxxntype";
-            userEmail = "59417007+mxxntype@users.noreply.github.com";
+        programs = {
+            git = {
+                enable = true;
+                settings = {
+                    user = {
+                        name = "mxxntype";
+                        email = "59417007+mxxntype@users.noreply.github.com";
+                        signingKey = "~/.ssh/id_ed25519.pub";
+                    };
 
-            extraConfig = {
-                init.defaultBranch = "main";
-                gpg.format = "ssh";
-                commit.gpgSign = true;
-                tag.gpgSign = true;
-                user.signingKey = "~/.ssh/id_ed25519.pub";
-                gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+                    init.defaultBranch = "main";
+                    gpg.format = "ssh";
+                    commit.gpgSign = true;
+                    tag.gpgSign = true;
+                    gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+                };
+
+                lfs.enable = true;
             };
 
-            lfs.enable = true;
             difftastic = {
                 enable = true;
-                background = "dark";
+                git.enable = true;
+                options = {
+                    tab-width = 4;
+                };
+            };
+
+            gh = {
+                enable = true;
+                settings.git_protocol = "ssh";
+                extensions = with pkgs; [
+                    gh-markdown-preview
+                ];
             };
         };
 
         home.file.".ssh/allowed_signers".text = ''
             * ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOvBw3klXzVq5oTXtS061cfcGEjHWflPZNRBRg48N3w/ astrumaureus@Nox
         '';
-
-        programs.gh = {
-            enable = true;
-            settings.git_protocol = "ssh";
-            extensions = with pkgs; [
-                gh-markdown-preview
-            ];
-        };
 
         home.packages = with pkgs; [
             git-filter-repo
