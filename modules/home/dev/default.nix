@@ -17,7 +17,7 @@
             typos       # Source code spell checker.
 
             # My CLI management tool for modded Minecraft servers.
-            inputs.invar.packages.${system}.default
+            inputs.invar.packages.${stdenv.hostPlatform.system}.default
         ];
     };
 }

@@ -6,7 +6,7 @@
 }:
 
 _final: prev: {
-    inherit (disko.packages.${prev.system})
+    inherit (disko.packages.${prev.stdenv.hostPlatform.system})
         disko
         disko-doc
         ;
