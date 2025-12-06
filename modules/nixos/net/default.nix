@@ -32,7 +32,7 @@
     in {
         networking = {
             useDHCP = lib.mkDefault true;
-            networkmanager.enable = networkmanager;
+            networkmanager.enable = lib.mkForce networkmanager;
             firewall = {
                 enable = true;
                 allowedTCPPorts = ports.open ++ extraOpenPorts;

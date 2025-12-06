@@ -1,6 +1,6 @@
 _: {
     aeon = {
-        style.codename = "pastel";
+        style.codename = "dark-plus";
     };
 
     # WARN: Changing this might break things. Just leave it.

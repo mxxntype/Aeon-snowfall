@@ -9,26 +9,15 @@
             type = types.bool;
             default = true;
         };
+
+        login-manager = mkOption {
+            type = types.enum [ "none" "tuigreet" ];
+            default = "tuigreet";
+        };
     };
 
-    config = mkMerge [
-        (mkIf config.aeon.console.enable {
-            services.greetd = {
-                enable = true;
-                settings = {
-                    default_session = {
-                        user = "greeter";
-                        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd hyprland";
-                        #                                                                ^^^^^^^^
-                        # FIXME: This command is hardcoded for now, but I should implement a module
-                        # that would actually reflect what the default "environment entrypoint" is.
-                    };
-                };
-            };
-
-            boot.kernelParams = [ "console=tty1" ];
-            systemd.services.greetd.serviceConfig.Type = lib.mkForce "simple";
-
+    config = let cfg = config.aeon.console; in lib.mkIf cfg.enable (mkMerge [
+        {
             console = {
                 earlySetup = mkDefault true;
                 colors = let
@@ -72,7 +61,24 @@
             in if config.aeon.hardware.meta.headless
                 then [ ]
                 else GUIfonts; 
-        })
-    ];
+        }
 
+        (mkIf (cfg.login-manager == "tuigreet") {
+            services.greetd = {
+                enable = true;
+                settings = {
+                    default_session = {
+                        user = "greeter";
+                        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd hyprland";
+                        #                                                                ^^^^^^^^
+                        # FIXME: This command is hardcoded for now, but I should implement a module
+                        # that would actually reflect what the default "environment entrypoint" is.
+                    };
+                };
+            };
+
+            boot.kernelParams = [ "console=tty1" ];
+            systemd.services.greetd.serviceConfig.Type = lib.mkForce "simple";
+        })
+    ]);
 }
