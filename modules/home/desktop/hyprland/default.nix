@@ -174,6 +174,8 @@ with lib; {
 
                 exec-once = [
                     "${pkgs.swww}/bin/swww-daemon"
+                    "${lib.getExe pkgs.firefox}"
+                    "${lib.getExe pkgs.telegram-desktop}"
                 ];
 
                 exec = [
@@ -221,6 +223,9 @@ with lib; {
                     "size ${toString rsensor.width} ${toString rsensor.height}, title:^(rsensor)$"
                     "move 100%-${toString offsets.x} ${toString offsets.y},     title:^(rsensor)$"
                     "bordercolor rgb(${colors.peach}),                          title:^(rsensor)$"
+
+                    "workspace 3 silent, class:firefox"
+                    "workspace 4 silent, class:org.telegram.desktop"
                 ];
 
                 debug = {
