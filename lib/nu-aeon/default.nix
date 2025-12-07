@@ -109,7 +109,7 @@
         ]: nothing -> nothing {
             if $fresh { do -i { rm $"($system)" } }
             nixos-rebuild build-vm --flake $"($flake)\#($system)"
-            exec $"./result/bin/run-($system)-vm"
+            ${pkgs.bash}/bin/bash $"./result/bin/run-($system)-vm"
         }
 
         # Wait until there are no active login sessions.

@@ -131,7 +131,7 @@ with lib; {
                     # the warning around for some time and remove if nothing breaks.
                     logo = ./saturn-128x.png;
                     font = let
-                        dir = "share/fonts/truetype/NerdFonts";
+                        dir = "share/fonts/truetype/NerdFonts/BigBlueTerm";
                         font = pkgs.nerd-fonts.bigblue-terminal;
                     in "${font}/${dir}/BigBlueTermPlusNerdFont-Regular.ttf";
                 };
