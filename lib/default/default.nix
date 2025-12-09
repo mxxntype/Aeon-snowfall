@@ -37,9 +37,10 @@ rec {
             dates = [ "daily" ];
             persistent = true;
         };
-
+        
+        # ISSUE: Uses old `nix-collect-gargabe` and seems to clean even fresh stuff.
         gc = {
-            automatic = true;
+            automatic = false;
             dates = "daily";
             persistent = true;
             options = "--delete-older-than 7d";
