@@ -57,6 +57,21 @@ sources = {
         hash = "sha256-Eol94J2dOK2RLP6BPVUWPypbHikNjWzeOxzkRL71w7I=";
     };
 
+    vibrant-harriers = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/d/da/Namecard_Background_Travel_Notes_Vibrant_Harriers.png/revision/latest?cb=20240131020037";
+        hash = "sha256-An06hU00xxlI2i3G1Q9APv7pSntjI/OPJpNk3sj2+yw=";
+    };
+
+    flowing-hues = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/1/18/Namecard_Background_Travel_Notes_Flowing_Hues.png/revision/latest?cb=20220105061656";
+        hash = "sha256-6mYGDifXYE+U1uazAOBV/qc+HBUu3gPVQ3I6Gj1RJIM=";
+    };
+
+    adeptal-valley = {
+        url = "https://static.wikia.nocookie.net/gensin-impact/images/f/ff/Namecard_Background_Achievement_Adeptal_Valley.png/revision/latest?cb=20240131020030";
+        hash = "sha256-o4zKt2Bgx+4/NdLuBiVF3HRZy9eJmJ++AbKK9VTesH0=";
+    };
+
     # SECTION: Character namecards
     raiden-enlightenment = {
         url = "https://static.wikia.nocookie.net/gensin-impact/images/5/5e/Namecard_Background_Raiden_Shogun_Enlightenment.png/revision/latest?cb=20210902035057";

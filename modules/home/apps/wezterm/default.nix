@@ -73,14 +73,29 @@
                     font = _font,
                     font_size = 16,
                     font_rules = {
-                        { -- Don't use bold fonts.
+                        {
                             intensity = "Bold",
+                            font = wezterm.font_with_fallback {
+                                {
+                                    family = "${style.fonts.code} Medium",
+                                },
+                            },
+                        },
+                        
+                        { -- Don't use "half intensity" fonts.
+                            intensity = 'Half',
+                            italic = false,
                             font = _font,
                         },
-                        -- { -- Don't use italics.
-                        --     italic = true,
-                        --     font = _font,
-                        -- },
+                        {
+                            intensity = 'Half',
+                            italic = true,
+                            font = wezterm.font_with_fallback {
+                                {
+                                    family = "${style.fonts.code} Obl",
+                                },
+                            },
+                        },
                     },
                 }
 
