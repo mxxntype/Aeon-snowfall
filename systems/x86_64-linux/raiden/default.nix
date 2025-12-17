@@ -198,7 +198,7 @@
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
                 Type = "oneshot";
-                ExecStart = [ "${pkgs.libvirt}/bin/virsh start atlasOS_win10" ];
+                ExecStart = [ "${pkgs.libvirt}/bin/virsh start atlasOS_win11" ];
             };
         };
     };
