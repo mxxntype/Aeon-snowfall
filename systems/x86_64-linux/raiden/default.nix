@@ -148,52 +148,18 @@
     # however its probably more correct to move the keyfile itself.
     fileSystems."/home".neededForBoot = true;
 
-    networking.firewall = {
-        allowedTCPPorts = [ ];
-        allowedUDPPorts = [ ];
-    };
-
-    programs.gamemode.enable = true;
-
     specialisation."AtlasOS-VFIO-autoboot".configuration = {
         system.nixos.tags = [ "vfio" ];
 
-        boot = {
-            # HACK: Since this is a pretty fresh machine at the time writing, its
-            # kinda picky about kernel versions. The below code does the following:
-            # - Forces the usage of the latest kernel that is known to work fine with the VM;
-            # - Tells it to load a specific network driver that supports the onboard NIC.
-            # NOTE: Fuck its actually not needed at all, will leave in case of later need.
-            # kernelPackages = let
-            #     kernelSemver = { major = 6; minor = 12; patch = 34; };
-            #     kernelSemverString = builtins.attrValues kernelSemver
-            #         |> builtins.map (v: toString v)
-            #         |> builtins.concatStringsSep ".";
-            #     kernelBasePackage = "linux_${toString kernelSemver.major}_${toString kernelSemver.minor}";
-            # in pkgs.linuxPackagesFor (pkgs.${kernelBasePackage}.override {
-            #     argsOverride = rec {
-            #         version = kernelSemverString;
-            #         modDirVersion = version;
-            #         src = pkgs.fetchurl {
-            #             url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            #             sha256 = "sha256-p/P+OB9n7KQXLptj77YaFL1/nhJ44DYD0P9ak/Jwwk0=";
-            #         };
-            #     };
-            # });
-
-            # extraModulePackages = [ kernelPackages.r8125 ];
-            # kernelModules = [ "r8125" ];
-
-            blacklistedKernelModules = [
-                "nouveau"
-                "nvidia"
-                "nvidia_drm"
-                "nvidia_modeset"
-            ];
-        };
-
+        boot.blacklistedKernelModules = [
+            "nouveau"
+            "nvidia"
+            "nvidia_drm"
+            "nvidia_modeset"
+        ];
+        
         systemd.services."atlasOS-autostart" = {
-            description = "atlasOS VM starter";
+            description = "atlasOS VM autostart service";
             requires = [ "libvirtd.service" ];
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
