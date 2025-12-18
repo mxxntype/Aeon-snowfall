@@ -26,6 +26,7 @@ _: {
         apps = {
             gimp.enable = true;
             wezterm.enable = true;
+            librewolf.enable = true;
         };
 
         music.enable = true;

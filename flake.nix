@@ -10,6 +10,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        nur = {
+            url = "github:nix-community/NUR";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
         # SECTION: Nix libraries.
         # Nix flake framework.
@@ -187,6 +192,7 @@
             nuenv.overlays.nuenv
             fenix.overlays.default
             rust-overlay.overlays.default
+            nur.overlays.default
             # nix-topology.overlays.default
         ];
 
