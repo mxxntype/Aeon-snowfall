@@ -24,7 +24,7 @@ sources = {
 
     fighting-spirit = {
         url = "https://static.wikia.nocookie.net/gensin-impact/images/8/8b/Namecard_Background_Achievement_Fighting_Spirit.png/revision/latest?cb=20241129014713";
-        hash = "sha256-3Q5SEgRKbGTCoy1B+GMC2seC3emr8C22i18G/16ryL0=";
+        hash = "sha256-irU1PXPinvoFeWD1UxzV7w32OUBT2j1nAAMmuPPVSCY=";
     };
 
     sandstorm = {

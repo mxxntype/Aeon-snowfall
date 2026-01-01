@@ -42,10 +42,6 @@ in {
                 lavender  = "9CABCA";
                 mauve     = "957FB8";
                 pink      = "D27E99";
-
-                special = {
-                    autumnRed = "C34043";
-                };
             };
 
             inherit meta;

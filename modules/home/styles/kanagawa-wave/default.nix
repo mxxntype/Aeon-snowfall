@@ -18,6 +18,11 @@ in
             inherit theme;
             style = {
                 themeFallbacks.helix = "kanagawa";
+                fonts = {
+                    code = "ZedMono NF";
+                    text = "Exo 2";
+                    decoration = "BigBlueTermPlus Nerd Font";
+                };
             };
         };
     };
