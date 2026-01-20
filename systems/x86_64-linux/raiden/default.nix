@@ -51,6 +51,8 @@
             };
         };
 
+        services.invidious.enable = true;
+
         sound.enable = true;
         docker.enable = true;
         qemu.enable = true;

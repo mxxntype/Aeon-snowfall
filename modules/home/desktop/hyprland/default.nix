@@ -151,6 +151,7 @@ with lib; {
                         "CTRL SHIFT, 6,      exec, ${lib.getExe pkgs.virt-manager}"
                         "CTRL SHIFT, 7,      exec, ${lib.getExe pkgs.prismlauncher}"
                         "CTRL SHIFT, 8,      exec, ${lib.getExe pkgs.keepassxc}"
+                        "CTRL SHIFT, 9,      exec, ${lib.getExe pkgs.freetube}"
                     ]
 
                     # Generate bindings for switching or moving active window to a workspace.

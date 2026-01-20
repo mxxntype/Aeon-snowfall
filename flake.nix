@@ -47,6 +47,9 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Podman containers and networks on NixOS via Quadlet.
+        quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
+
 
         # SECTION: Hardware.
         # Lanzaboote, UEFI secure boot for NixOS.
@@ -178,13 +181,13 @@
         # Global NixOS modules.
         systems.modules.nixos = with inputs; [
             determinate.nixosModules.default
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-            lanzaboote.nixosModules.lanzaboote
             disko.nixosModules.disko
+            home-manager.nixosModules.home-manager
             hyprland.nixosModules.default
+            lanzaboote.nixosModules.lanzaboote
+            quadlet-nix.nixosModules.quadlet
+            sops-nix.nixosModules.sops
             xremap.nixosModules.default
-            # nix-topology.nixosModules.default
         ];
 
         # Overlays for Nixpkgs.
