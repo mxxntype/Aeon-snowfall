@@ -89,6 +89,23 @@
 
                     healthCmd = "pg_isready -U ${environments.POSTGRES_USER} -d ${environments.POSTGRES_DB}";
                 };
+
+                invidious-gateway.containerConfig = {
+                    image = "qmcgaw/gluetun";
+                    pod = pods.invidious.ref;
+                    devices = [ "/dev/net/tun:/dev/net/tun" ];
+                    addCapabilities = [ "NET_ADMIN" ];
+                    environments = {
+                      VPN_SERVICE_PROVIDER = "custom";
+                      VPN_TYPE = "wireguard";
+                    };
+                    volumes = let
+                        configSecret = "keys/wireguard/personal/${config.networking.hostName}-podman";
+                        configPath = config.sops.secrets.${configSecret}.path;
+                    in [
+                        "${configPath}:/gluetun/wireguard/wg0.conf"
+                    ];
+                };
             };
         };
 
@@ -109,5 +126,7 @@
                 };
             };
         };
+
+        sops.secrets."keys/wireguard/personal/raiden-podman" = { };
     };
 }
