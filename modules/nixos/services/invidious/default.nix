@@ -26,7 +26,7 @@
         };
     in lib.mkIf cfg.enable {
         virtualisation.quadlet = {
-            pods.invidious.podConfig.publishPorts = [ "127.0.0.1:3000:${toString cfg.port}" ]; 
+            pods.invidious.podConfig.publishPorts = [ "127.0.0.1:${toString cfg.port}:3000" ]; 
 
             containers = let inherit (config.virtualisation.quadlet) pods;
             in {
