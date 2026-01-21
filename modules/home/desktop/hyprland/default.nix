@@ -145,13 +145,13 @@ with lib; {
                     # Applications.
                     [
                         "${MOD}    , RETURN, exec, ${lib.getExe config.aeon.apps.defaultTerminal}"
-                        "CTRL SHIFT, 2,      exec, ${if config.aeon.apps.gimp.enable then "gimp" else (notify "GIMP is not enabled" 3 "${ui.error}")}"
+                        "CTRL SHIFT, 2,      exec, ${if config.aeon.apps.gimp.enable then "gimp" else (notify "GIMP is not enabled" 3 ui.error)}"
                         "CTRL SHIFT, 3,      exec, ${lib.getExe pkgs.firefox}"
                         "CTRL SHIFT, 4,      exec, ${lib.getExe pkgs.telegram-desktop}"
                         "CTRL SHIFT, 6,      exec, ${lib.getExe pkgs.virt-manager}"
                         "CTRL SHIFT, 7,      exec, ${lib.getExe pkgs.prismlauncher}"
                         "CTRL SHIFT, 8,      exec, ${lib.getExe pkgs.keepassxc}"
-                        "CTRL SHIFT, 9,      exec, ${lib.getExe pkgs.freetube}"
+                        "CTRL SHIFT, 9,      exec, ${if config.aeon.apps.freetube.enable then "freetube" else (notify "FreeTube is not enabled" 3 ui.error)}"
                     ]
 
                     # Generate bindings for switching or moving active window to a workspace.

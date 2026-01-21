@@ -24,9 +24,10 @@ _: {
         ];
 
         apps = {
-            gimp.enable = true;
             wezterm.enable = true;
+            gimp.enable = true;
             librewolf.enable = true;
+            freetube.enable = true;
         };
 
         music.enable = true;
