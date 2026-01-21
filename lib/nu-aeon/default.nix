@@ -46,11 +46,24 @@
             --rebuild-system (-S) # Rebuilt the NixOS configuration.
             --rebuild-home (-H) # Rebuild the Home-manager configuration.
         ]: nothing -> nothing {
+            let vpn_status = aeon vpn status;
+            let vpn_active = $vpn_status.vpn | values | any {|active| $active};
+            if $vpn_active {
+                print $"(ansi red)note: (ansi reset)a VPN service is active. You may lose Internet connectivity during system activation."
+            }
+
             if (not $rebuild_home) and (not $rebuild_system) {
                 print $"(ansi red)note: (ansi reset)No action specified. Run with --help for options."
             }
             if $rebuild_home { ${lib.getExe pkgs.nh} home switch $flake --ask --backup-extension backup }
             if $rebuild_system { ${lib.getExe pkgs.nh} os switch $flake --ask }
+
+            let vpn_status = aeon vpn status;
+            let vpn_active = $vpn_status.vpn | values | any {|active| $active};
+            if $vpn_active and $vpn_status.tailscale {
+                print $"(ansi red)note: (ansi reset)Disabling Tailscale, Internet connectivity should be restored shortly."
+                tailscale down
+            }
         }
 
         # Check the status of the VPN (and Tailscale).
