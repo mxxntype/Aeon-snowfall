@@ -20,6 +20,7 @@
 
             cups = {
                 enable = true;
+                drivers = [ pkgs.hplipWithPlugin ];
                 client = true;
             };
             

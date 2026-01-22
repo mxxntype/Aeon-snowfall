@@ -17,7 +17,10 @@
     in lib.mkIf enable (lib.mkMerge [
         {
             services = {
-                printing.enable = true;
+                printing = {
+                    enable = true;
+                    inherit drivers;
+                };
                 avahi = {
                     enable = true;
                     nssmdns4 = true;
@@ -32,8 +35,6 @@
         (lib.mkIf server {
             services = {
                 printing = {
-                    inherit drivers;
-
                     listenAddresses = [ "*:631" ];
                     allowFrom = [ "all" ];
                     browsing = true;

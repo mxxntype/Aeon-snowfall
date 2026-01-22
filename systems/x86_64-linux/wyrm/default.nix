@@ -13,8 +13,8 @@
 
             cups = {
                 enable = true;
-                server = true;
                 drivers = [ pkgs.hplipWithPlugin ];
+                server = true;
             };
         };
 
