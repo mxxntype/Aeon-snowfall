@@ -227,6 +227,8 @@ with lib; {
 
                     "workspace 3 silent, class:firefox"
                     "workspace 4 silent, class:org.telegram.desktop"
+
+                    "fullscreen, class:FreeTube"
                 ];
 
                 debug = {
