@@ -20,7 +20,7 @@
                 # bounds = { "x" = 0; "y" = 0; "width" = 1920; "height" = 1080; "maximized" = false; "fullScreen" = true; };
                 checkForUpdates = false;
                 defaultAutoplayInterruptionIntervalHours = 1;
-                defaultInvidiousInstance = "http://localhost:3000";
+                defaultInvidiousInstance = "http://localhost:8890";
                 defaultQuality = "2160";
                 defaultVolume = 0.1;
                 enableScreenshot = false;

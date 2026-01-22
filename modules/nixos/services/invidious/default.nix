@@ -6,7 +6,7 @@
 {
     options.aeon.services.invidious = {
         enable = lib.mkEnableOption "local Invidious instance";
-        port = lib.mkOption { type = lib.types.int; default = 3000; };
+        port = lib.mkOption { type = lib.types.int; default = 8890; };
     };
 
     config = let
