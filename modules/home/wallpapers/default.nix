@@ -18,7 +18,7 @@
             |> lib.flatten
             |> builtins.map (wallpaper: {
                 name = "wallpapers/namecards/${wallpaper.name}-${wallpaper.background.name}.png";
-                value.source = let derivation = lib.aeon.generators.wallpapers.fromNamecard {
+                value.source = let derivation = lib.aeon.generators.wallpapers.dithered-card {
                     inherit pkgs;
                     name = "${wallpaper.name}-${wallpaper.background.name}";
                     source-image = pkgs.fetchurl { inherit (wallpaper) url hash; };

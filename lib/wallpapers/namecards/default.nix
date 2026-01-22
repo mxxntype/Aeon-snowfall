@@ -12,50 +12,50 @@ sources = {
         hash = "sha256-gkPwxr7lptBqn2+n8KxbPoQt3k3oxB6B3/VyMm1UDxE=";
     };
 
-    kujou-insigna = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/1/17/Namecard_Background_Inazuma_Kujou_Insignia.png/revision/latest?cb=20210725071326";
-        hash = "sha256-PgLuAV4Ne/6GpaiMdF40lBaSm7N9K63RLuTOiamkRE4=";
-    };
+    # kujou-insigna = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/1/17/Namecard_Background_Inazuma_Kujou_Insignia.png/revision/latest?cb=20210725071326";
+    #     hash = "sha256-PgLuAV4Ne/6GpaiMdF40lBaSm7N9K63RLuTOiamkRE4=";
+    # };
 
-    eagleplume = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/4/4c/Namecard_Background_Inazuma_Eagleplume.png/revision/latest?cb=20211013104446";
-        hash = "sha256-R+5tGwnYXogq0rzrhf0IuO9KMyXWyRap1NCTzE+8mW0=";
-    };
+    # eagleplume = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/4/4c/Namecard_Background_Inazuma_Eagleplume.png/revision/latest?cb=20211013104446";
+    #     hash = "sha256-R+5tGwnYXogq0rzrhf0IuO9KMyXWyRap1NCTzE+8mW0=";
+    # };
 
     fighting-spirit = {
         url = "https://static.wikia.nocookie.net/gensin-impact/images/8/8b/Namecard_Background_Achievement_Fighting_Spirit.png/revision/latest?cb=20241129014713";
         hash = "sha256-irU1PXPinvoFeWD1UxzV7w32OUBT2j1nAAMmuPPVSCY=";
     };
 
-    sandstorm = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/e/e9/Namecard_Background_Sumeru_Sandstorm.png/revision/latest?cb=20230118035112";
-        hash = "sha256-wixXEN/zhgspD9RMjj2ozc7FFPbXoclHa/vMvgpUHcM=";
-    };
+    # sandstorm = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/e/e9/Namecard_Background_Sumeru_Sandstorm.png/revision/latest?cb=20230118035112";
+    #     hash = "sha256-wixXEN/zhgspD9RMjj2ozc7FFPbXoclHa/vMvgpUHcM=";
+    # };
 
-    irodori = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/e/ef/Namecard_Background_Travel_Notes_Irodori.png/revision/latest?cb=20220330033749";
-        hash = "sha256-mOTQJcYa0G2VfJfHWsg7Cs+6nfd5gxpDrqYtGseQmj4=";
-    };
+    # irodori = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/e/ef/Namecard_Background_Travel_Notes_Irodori.png/revision/latest?cb=20220330033749";
+    #     hash = "sha256-mOTQJcYa0G2VfJfHWsg7Cs+6nfd5gxpDrqYtGseQmj4=";
+    # };
 
-    lord-of-the-night = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/d/da/Namecard_Background_Achievement_Lord_of_the_Night.png/revision/latest?cb=20240829153319";
-        hash = "sha256-2jWHoJP/FtecEM8k8llqwzrHg0yqZEN850XmQADhhYc=";
-    };
+    # lord-of-the-night = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/d/da/Namecard_Background_Achievement_Lord_of_the_Night.png/revision/latest?cb=20240829153319";
+    #     hash = "sha256-2jWHoJP/FtecEM8k8llqwzrHg0yqZEN850XmQADhhYc=";
+    # };
 
-    blaze = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/3/39/Namecard_Background_Achievement_Blaze.png/revision/latest?cb=20250102024021";
-        hash = "sha256-FVxB3A8fdaqnQFwSmCownZAAXoFky46hvneecFhXbK4=";
-    };
+    # blaze = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/3/39/Namecard_Background_Achievement_Blaze.png/revision/latest?cb=20250102024021";
+    #     hash = "sha256-FVxB3A8fdaqnQFwSmCownZAAXoFky46hvneecFhXbK4=";
+    # };
 
     sacred-realm = {
         url = "https://static.wikia.nocookie.net/gensin-impact/images/d/d0/Namecard_Background_Nod-Krai_Sacred_Realm.png/revision/latest?cb=20250910075325";
         hash = "sha256-ayk+65z/kH2ZtHQPRo3rtLTSTMmnSvofrNMzEDgHMSg=";
     };
 
-    sangonomiya-crest = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/3/31/Namecard_Background_Inazuma_Sangonomiya_Crest.png/revision/latest?cb=20210902035053";
-        hash = "sha256-Eol94J2dOK2RLP6BPVUWPypbHikNjWzeOxzkRL71w7I=";
-    };
+    # sangonomiya-crest = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/3/31/Namecard_Background_Inazuma_Sangonomiya_Crest.png/revision/latest?cb=20210902035053";
+    #     hash = "sha256-Eol94J2dOK2RLP6BPVUWPypbHikNjWzeOxzkRL71w7I=";
+    # };
 
     vibrant-harriers = {
         url = "https://static.wikia.nocookie.net/gensin-impact/images/d/da/Namecard_Background_Travel_Notes_Vibrant_Harriers.png/revision/latest?cb=20240131020037";
@@ -78,15 +78,15 @@ sources = {
         hash = "sha256-H8pwdxjeWbnb270Ic656rJHZMxqM7GPyzqVWQYRo1JQ=";
     };
 
-    flins-oathkeepers-lantern = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/6/60/Namecard_Background_Flins_Oathkeeper%27s_Lantern.png/revision/latest?cb=20250910075522";
-        hash = "sha256-FWOgcJA2pcyq83Rp+soHRys1KplyI1FS9ye6GbmQbQ8=";
-    };
+    # flins-oathkeepers-lantern = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/6/60/Namecard_Background_Flins_Oathkeeper%27s_Lantern.png/revision/latest?cb=20250910075522";
+    #     hash = "sha256-FWOgcJA2pcyq83Rp+soHRys1KplyI1FS9ye6GbmQbQ8=";
+    # };
 
-    kujou-sara-tengu = {
-        url = "https://static.wikia.nocookie.net/gensin-impact/images/f/f6/Namecard_Background_Kujou_Sara_Tengu.png/revision/latest?cb=20210902035055";
-        hash = "sha256-DbtFfyGsqi3CxcBH4rfh34itvOzCcDihaGn3jS8U90A=";
-    };
+    # kujou-sara-tengu = {
+    #     url = "https://static.wikia.nocookie.net/gensin-impact/images/f/f6/Namecard_Background_Kujou_Sara_Tengu.png/revision/latest?cb=20210902035055";
+    #     hash = "sha256-DbtFfyGsqi3CxcBH4rfh34itvOzCcDihaGn3jS8U90A=";
+    # };
 };
 
 in {

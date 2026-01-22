@@ -1,5 +1,5 @@
 _: {
-    generators.wallpapers.fromNamecard = {
+    generators.wallpapers.dithered-card = {
         name,
         pkgs,
         source-image,
