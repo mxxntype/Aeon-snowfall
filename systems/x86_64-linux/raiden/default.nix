@@ -151,7 +151,7 @@
     # however its probably more correct to move the keyfile itself.
     fileSystems."/home".neededForBoot = true;
 
-    specialisation."AtlasOS-VFIO-autoboot".configuration = {
+    specialisation."AtlasOS11-VFIO-autoboot".configuration = {
         system.nixos.tags = [ "vfio" ];
 
         boot.blacklistedKernelModules = [
@@ -168,6 +168,27 @@
             serviceConfig = {
                 Type = "oneshot";
                 ExecStart = [ "${pkgs.libvirt}/bin/virsh start atlasOS_win11" ];
+            };
+        };
+    };
+
+    specialisation."AtlasOS10-VFIO-autoboot".configuration = {
+        system.nixos.tags = [ "vfio" ];
+
+        boot.blacklistedKernelModules = [
+            "nouveau"
+            "nvidia"
+            "nvidia_drm"
+            "nvidia_modeset"
+        ];
+        
+        systemd.services."atlasOS-autostart" = {
+            description = "atlasOS VM autostart service";
+            requires = [ "libvirtd.service" ];
+            wantedBy = [ "multi-user.target" ];
+            serviceConfig = {
+                Type = "oneshot";
+                ExecStart = [ "${pkgs.libvirt}/bin/virsh start atlasOS_win10" ];
             };
         };
     };
