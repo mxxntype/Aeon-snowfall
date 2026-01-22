@@ -7,6 +7,9 @@
     config = let dir = "stylesheets";
     in lib.mkIf config.aeon.stylesheets.enable {
         xdg.configFile = {
+            "${dir}/modrinth.less".text =
+                lib.aeon.generators.stylesheets.modrinth { inherit (config.aeon) theme; };
+
             "${dir}/ddg.less".text =
                 lib.aeon.generators.stylesheets.ddg { inherit (config.aeon) theme; };
 
