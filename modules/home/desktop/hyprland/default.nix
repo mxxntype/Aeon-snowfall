@@ -220,15 +220,15 @@ with lib; {
                         y = gapsOut + general.border_size * 2;
                     };
                 in [
-                    "float,                                                     title:^(rsensor)$"
-                    "size ${toString rsensor.width} ${toString rsensor.height}, title:^(rsensor)$"
-                    "move 100%-${toString offsets.x} ${toString offsets.y},     title:^(rsensor)$"
-                    "bordercolor rgb(${colors.peach}),                          title:^(rsensor)$"
+                    "match:title ^(rsensor)$, float on"
+                    "match:title ^(rsensor)$, size ${toString rsensor.width} ${toString rsensor.height}"
+                    "match:title ^(rsensor)$, move 100%-${toString offsets.x} ${toString offsets.y}"
+                    "match:title ^(rsensor)$, border_color rgb(${colors.peach})"
 
-                    "workspace 3 silent, class:firefox"
-                    "workspace 4 silent, class:org.telegram.desktop"
+                    "match:class firefox, workspace 3 silent"
+                    "match:class org.telegram.desktop, workspace 4 silent"
 
-                    "fullscreen, class:FreeTube"
+                    "match:class FreeTube, fullscreen on"
                 ];
 
                 debug = {

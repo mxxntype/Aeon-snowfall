@@ -119,8 +119,6 @@
         xremap = {
             url = "github:xremap/nix-flake";
             inputs.crane.follows = "crane";
-            inputs.home-manager.follows = "home-manager";
-            inputs.hyprland.follows = "hyprland";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 

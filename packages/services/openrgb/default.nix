@@ -3,13 +3,13 @@
 
 { pkgs, ... }: let
 
-job-id = "11864261921";
+job-id = "12875428990";
 
 in pkgs.appimageTools.wrapType2 {
     pname = "openrgb";
     version = "git-${job-id}";
     src = pkgs.fetchurl {
         url = "https://gitlab.com/CalcProgrammer1/OpenRGB/-/jobs/${job-id}/artifacts/raw/OpenRGB-x86_64.AppImage";
-        hash = "sha256-iDCDfJA5kRzroFhJg3tjKdwn6E2aVMbEIifJM9/NuZk=";
+        hash = "sha256-U6eTZ6Ynp0OiZuoRaZdUozPlokJYinTjTVlVp+3+M+o=";
     };
 }
