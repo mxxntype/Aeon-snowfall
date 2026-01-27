@@ -132,6 +132,64 @@
             enable = true;
             openFirewall = true;
         };
+
+        samba = {
+            enable = true;
+            openFirewall = true;
+
+            settings = {
+                global = {
+                    "workgroup" = "WORKGROUP";
+                    "server min protocol" = "SMB3";
+                    "server max protocol" = "SMB3";
+                    "security" = "user";
+                    "map to guest" = "Never";
+                    "vfs objects" = "acl_xattr";
+                    "store dos attributes" = "yes";
+                };
+
+                share = {
+                    "path" = "/mnt/net/win/exoudueux";
+                    "browseable" = "yes";
+                    "read only" = "no";
+                    "guest ok" = "no";
+                    "valid users" = "exoudueux-net";
+                    "force user" = "exoudueux-net";
+                };
+
+                atlas = {
+                    "path" = "/mnt/net/win/mxxntype";
+                    "browseable" = "yes";
+                    "read only" = "no";
+                    "guest ok" = "no";
+                    "valid users" = "atlas";
+                    "force user" = "atlas";
+                };
+            };
+        };
+
+        samba-wsdd = {
+            enable = true;
+            openFirewall = true;
+        };
+
+        avahi = {
+            publish.enable = true;
+            publish.userServices = true;
+            nssmdns4 = true;
+            enable = true;
+            openFirewall = true;
+        };
+    };
+
+    users.users.exoudueux-net = {
+        isNormalUser = true;
+        hashedPassword = "!";
+    };
+
+    users.users.atlas = {
+        isNormalUser = true;
+        hashedPassword = "!";
     };
 
     networking.firewall.allowedTCPPorts = [ 3000 25565 ];
