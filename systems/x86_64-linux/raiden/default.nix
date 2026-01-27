@@ -29,7 +29,7 @@
                 color = "f8ae54";
                 resizeableZones = {
                     device_id = 0;
-                    zone_ids = [1 2 3];
+                    zone_ids = [ 0 ];
                     size = 20;
                 };
             };

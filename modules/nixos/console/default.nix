@@ -69,7 +69,7 @@
                 settings = {
                     default_session = {
                         user = "greeter";
-                        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd hyprland";
+                        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd start-hyprland";
                         #                                                                ^^^^^^^^
                         # FIXME: This command is hardcoded for now, but I should implement a module
                         # that would actually reflect what the default "environment entrypoint" is.

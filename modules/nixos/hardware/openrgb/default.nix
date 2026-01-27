@@ -44,16 +44,17 @@
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
                 Type = "oneshot";
-                ExecStart = let zone_setup_commands = resizeableZones.zone_ids
-                    |> builtins.map (zone_id: [
-                        "${lib.getExe pkgs.aeon.openrgb}"
-                        "--device ${toString resizeableZones.device_id}"
-                        "--zone ${toString zone_id}"
-                        "--size ${toString resizeableZones.size}"
-                        "--color 000000"] |> builtins.concatStringsSep " " );
-                in [ "${lib.getExe pkgs.aeon.openrgb} --color ${color}" ]
-                    ++ zone_setup_commands
-                    ++ [ "${lib.getExe pkgs.aeon.openrgb} --color ${color}" ];
+                ExecStart = let
+                    zone_setup_commands = resizeableZones.zone_ids
+                        |> builtins.map (zone_id: [
+                            "${lib.getExe pkgs.aeon.openrgb}"
+                            "--device ${toString resizeableZones.device_id}"
+                            "--zone ${toString zone_id}"
+                            "--size ${toString resizeableZones.size}"
+                            "--mode static"
+                            "--color ${color}"
+                        ] |> builtins.concatStringsSep " " );
+                in zone_setup_commands;
             };
         };
     };
