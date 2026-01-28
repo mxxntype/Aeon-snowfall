@@ -33,6 +33,7 @@
             description = "OpenRGB daemon";
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
+                Restart = "on-failure";
                 ExecStart = [ "${lib.getExe pkgs.aeon.openrgb} --server --server-host 127.0.0.1" ];
             };
         };
@@ -44,17 +45,18 @@
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
                 Type = "oneshot";
-                ExecStart = let
-                    zone_setup_commands = resizeableZones.zone_ids
-                        |> builtins.map (zone_id: [
-                            "${lib.getExe pkgs.aeon.openrgb}"
-                            "--device ${toString resizeableZones.device_id}"
-                            "--zone ${toString zone_id}"
-                            "--size ${toString resizeableZones.size}"
-                            "--mode static"
-                            "--color ${color}"
-                        ] |> builtins.concatStringsSep " " );
-                in zone_setup_commands;
+                Restart = "on-failure";
+                RestartSec = "10s";
+                TimeoutStartSec = "10s";
+                ExecStart = resizeableZones.zone_ids
+                    |> builtins.map (zone_id: [
+                        "${lib.getExe pkgs.aeon.openrgb}"
+                        "--device ${toString resizeableZones.device_id}"
+                        "--zone ${toString zone_id}"
+                        "--size ${toString resizeableZones.size}"
+                        "--mode static"
+                        "--color ${color}"
+                    ] |> builtins.concatStringsSep " " );
             };
         };
     };
