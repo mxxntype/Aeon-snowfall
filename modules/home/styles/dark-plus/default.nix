@@ -6,7 +6,7 @@ themeTemplate = lib.aeon.mkThemeTemplate { inherit (baseTheme) colors meta; };
 theme = lib.aeon.mkTheme {
     inherit themeTemplate;
     overrides = {
-        ui.accent = themeTemplate.colors.yellow;
+        ui.accent = themeTemplate.colors.green;
     };
 };
 
