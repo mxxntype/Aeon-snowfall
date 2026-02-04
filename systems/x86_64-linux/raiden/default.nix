@@ -175,27 +175,6 @@
         };
     };
 
-    specialisation."AtlasOS10-VFIO-autoboot".configuration = {
-        system.nixos.tags = [ "vfio" ];
-
-        boot.blacklistedKernelModules = [
-            "nouveau"
-            "nvidia"
-            "nvidia_drm"
-            "nvidia_modeset"
-        ];
-        
-        systemd.services."atlasOS-autostart" = {
-            description = "atlasOS VM autostart service";
-            requires = [ "libvirtd.service" ];
-            wantedBy = [ "multi-user.target" ];
-            serviceConfig = {
-                Type = "oneshot";
-                ExecStart = [ "${pkgs.libvirt}/bin/virsh start atlasOS_win10" ];
-            };
-        };
-    };
-
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ ];
