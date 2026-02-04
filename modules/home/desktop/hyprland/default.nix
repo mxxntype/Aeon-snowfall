@@ -137,8 +137,10 @@ with lib; {
                         "${MOD}      SHIFT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
                         # Screenshotting and other screen manipulations.
-                        "                 , Print, exec, ${pkgs.grimblast}/bin/grimblast copy area"
-                        "       CTRL      , Print, exec, ${pkgs.grimblast}/bin/grimblast copy screen"
+                        "                 , Print, exec, ${pkgs.coreutils}/bin/env DEFAULT_TARGET_DIR=${config.home.sessionVariables.XDG_SCREENSHOTS_DIR} ${pkgs.grimblast}/bin/grimblast copysave -n area"
+                        "${MOD}      SHIFT, S,     exec, ${pkgs.coreutils}/bin/env DEFAULT_TARGET_DIR=${config.home.sessionVariables.XDG_SCREENSHOTS_DIR} ${pkgs.grimblast}/bin/grimblast copysave -n area"
+                        "       CTRL      , Print, exec, ${pkgs.coreutils}/bin/env DEFAULT_TARGET_DIR=${config.home.sessionVariables.XDG_SCREENSHOTS_DIR} ${pkgs.grimblast}/bin/grimblast copysave -n screen"
+                        "${MOD} CTRL SHIFT, S    , exec, ${pkgs.coreutils}/bin/env DEFAULT_TARGET_DIR=${config.home.sessionVariables.XDG_SCREENSHOTS_DIR} ${pkgs.grimblast}/bin/grimblast copysave -n screen"
                         "${MOD}      SHIFT, P,     exec, ${pkgs.hyprpicker}/bin/hyprpicker --autocopy"
                     ]
 

@@ -27,6 +27,9 @@ with lib; {
 
         home = {
             homeDirectory = mkForce "/home/${config.home.username}";
+
+            # HACK: Ensures the directory below actually exists.
+            file."${config.home.sessionVariables.XDG_SCREENSHOTS_DIR}/.gitkeep".text = "";
             sessionVariables = {
                 XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
             };
