@@ -98,6 +98,7 @@
             mprocs    # TUI command manager.
             porsmo    # Pomodoro timer.
             pv        # Tool for monitoring the progress of data through a pipeline.
+            pwgen     # CLI password generator.
         ];
     };
 }
