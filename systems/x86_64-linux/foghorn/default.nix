@@ -149,8 +149,8 @@
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ ];
-    boot.initrd.availableKernelModules = [ ];
-    boot.kernelModules = [ ];
+    boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "usb_storage" "sd_mod" ];
+    boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
     boot.blacklistedKernelModules = [ ];
 
