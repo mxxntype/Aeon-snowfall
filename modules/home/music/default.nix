@@ -118,9 +118,9 @@ in {
                             "1":       SwitchToTab("Artists"),
                             "2":       SwitchToTab("Albums"),
                             "3":       SwitchToTab("Queue"),
-                            "4":       SwitchToTab("Directories"),
+                            "4":       SwitchToTab("Playlists"),
                             "5":       SwitchToTab("Search"),
-                            "6":       SwitchToTab("Playlists"),
+                            "6":       SwitchToTab("Directories"),
                             // "7":       SwitchToTab("Search"),
                             "q":       Quit,
                             ">":       NextTrack,
@@ -211,16 +211,16 @@ in {
                             pane: Pane(Queue),
                         ),
                         (
-                            name: "Directories",
-                            pane: Pane(Directories),
+                            name: "Playlists",
+                            pane: Pane(Playlists),
                         ),
                         (
                             name: "Search",
                             pane: Pane(Search),
                         ),
                         (
-                            name: "Playlists",
-                            pane: Pane(Playlists),
+                            name: "Directories",
+                            pane: Pane(Directories),
                         ),
                     ],
                 )
