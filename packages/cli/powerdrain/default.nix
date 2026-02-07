@@ -11,7 +11,7 @@ pkgs.nuenv.writeScriptBin {
         if ($bat | path exists) {
             let current: int = (open $"($bat)/current_now" | into int)
             let voltage: int = (open $"($bat)/voltage_now" | into int)
-            let power: int = ($current * $voltage / $K)
+            let power = ($current * $voltage / $K)
             $power | into int
         } else { "N/A" }
     '';
