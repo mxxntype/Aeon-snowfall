@@ -167,6 +167,21 @@ with lib; {
                             "${MOD} SHIFT, ${toString key}, movetoworkspace, ${workspace_id}"
                         ])
                         |> builtins.concatLists)
+
+                    # Brightness controls.
+                    [
+                        ", XF86MonBrightnessUp,   exec, ${lib.getExe pkgs.brillo} -q -A 10 -u 100000"
+                        ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brillo} -q -U 10 -u 100000"
+                    ]
+
+                    # Audio controls.
+                    [
+                        "${MOD} SHIFT, M,        exec, ${pkgs.avizo}/bin/volumectl toggle-mute"
+                        ", XF86AudioMute,        exec, ${pkgs.avizo}/bin/volumectl toggle-mute"
+                        ", XF86AudioMicMute,     exec, ${pkgs.avizo}/bin/volumectl -m toggle-mute"
+                        ", XF86AudioRaiseVolume, exec, ${pkgs.avizo}/bin/volumectl -u up"
+                        ", XF86AudioLowerVolume, exec, ${pkgs.avizo}/bin/volumectl -u down"
+                    ]
                 ];
 
                 bindm = [
@@ -179,6 +194,7 @@ with lib; {
                     "${pkgs.swww}/bin/swww-daemon"
                     "${lib.getExe pkgs.firefox}"
                     "${lib.getExe pkgs.telegram-desktop}"
+                    "${pkgs.avizo}/bin/avizo-service"
                 ];
 
                 exec = [
@@ -411,6 +427,19 @@ with lib; {
                     foreground = "#${ui.fg.text}";
                     frame_color = "#${ui.warn}";
                     timeout = 10;
+                };
+            };
+        };
+
+        # Audio OSD.
+        services.avizo = {
+            enable = true;
+            settings = {
+                default = {
+                    time = 1.0;
+                    fade-in = 0.2;
+                    fade-out = 0.2;
+                    padding = 24;
                 };
             };
         };

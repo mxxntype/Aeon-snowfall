@@ -4,6 +4,7 @@
     aeon = {
         hardware = {
             meta.headless = false;
+            meta.laptop = true;
 
             cpu.type = "intel";
             gpu = {
