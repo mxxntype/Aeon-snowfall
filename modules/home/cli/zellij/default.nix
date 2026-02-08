@@ -35,6 +35,9 @@
                             "#[bg=${ui.bg.base}] "
                             "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold] NET "
                             "#[fg=#${colors.blue},bg=#${ui.bg.surface0}] {command_net_usage_graph} "
+                            "#[bg=${ui.bg.base}] "
+                            "#[fg=#${colors.yellow},bg=#${ui.bg.surface1},bold] 󱐋 "
+                            "#[fg=#${colors.yellow},bg=#${ui.bg.surface0}] {command_powerdrain} "
                         ]}"
 
                         format_right "${builtins.concatStringsSep "" [
@@ -43,6 +46,8 @@
                             # "#[bg=${ui.bg.base}] "
                             "#[fg=#${ui.fg.subtext1},bg=#${ui.bg.surface0}] {datetime} "
                             "#[fg=#${colors.teal},bg=#${ui.bg.surface1},bold]   #[fg=#${ui.bg.crust},bg=#${colors.teal}] {command_hostname} "
+                            "#[fg=#${colors.peach},bg=#${ui.bg.surface1},bold] 󰁹 "
+                            "#[fg=#${colors.peach},bg=#${ui.bg.surface0}] {command_battery_charge_level} "
                         ]}"
 
                         format_center "${builtins.concatStringsSep "" [
@@ -62,6 +67,14 @@
                         command_net_usage_graph_command "${pkgs.aeon.artificial_island}/bin/sulphur_client --type net --api-address ${config.aeon.services.sulphur.settings.api_address}"
                         command_net_usage_graph_format "{stdout}"
                         command_net_usage_graph_interval 1
+
+                        command_battery_charge_level_command "${lib.getExe pkgs.aeon.battery-level}"
+                        command_battery_charge_level_format "{stdout}%"
+                        command_battery_charge_level_interval 5
+
+                        command_powerdrain_command "${lib.getExe pkgs.aeon.powerdrain}"
+                        command_powerdrain_format "{stdout}W"
+                        command_powerdrain_interval 2
 
                         border_enabled  "true"
                         border_char     "━"
