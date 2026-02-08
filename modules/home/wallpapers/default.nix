@@ -12,8 +12,8 @@
         inherit (config.aeon.theme) ui colors;
         cfg = config.aeon.wallpapers;
         colormaps = colors |> lib.attrsToList;
-    in lib.mkIf cfg.enable {
-        xdg.configFile = lib.aeon.wallpapers.namecards
+
+        namecards = lib.aeon.wallpapers.namecards
             |> builtins.map (wallpaper: colormaps |> builtins.map (colormap: wallpaper // { background = colormap; }))
             |> lib.flatten
             |> builtins.map (wallpaper: {
@@ -25,7 +25,14 @@
                     border-colors = { inner = ui.bg.surface2; outer = ui.bg.base; };
                     gradient-colors = { start = ui.bg.crust; end = wallpaper.background.value; };
                 }; in "${derivation}/output.png";
-            })
+            });
+    in lib.mkIf cfg.enable {
+        xdg.configFile =
+            [{
+                name = "wallpapers/vyrx-dev";
+                value.source = pkgs.aeon.wallpapers;
+            }]
+            ++ namecards
             |> builtins.listToAttrs;
     };
 }

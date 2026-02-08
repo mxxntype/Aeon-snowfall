@@ -1,4 +1,6 @@
-_: {
+{ pkgs, ... }:
+
+{
     aeon = {
         style.codename = "dark-plus";
 
