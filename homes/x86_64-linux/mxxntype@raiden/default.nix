@@ -28,6 +28,7 @@ _: {
             gimp.enable = true;
             librewolf.enable = true;
             freetube.enable = true;
+            office.enable = true;
         };
 
         music.enable = true;
