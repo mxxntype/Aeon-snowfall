@@ -149,9 +149,16 @@
         };
     };
 
-    # HACK: This allows sops-nix to read the file during stage 2,
-    # however its probably more correct to move the keyfile itself.
-    fileSystems."/home".neededForBoot = true;
+    fileSystems = {
+        # HACK: This allows sops-nix to read the file during stage 2,
+        # however its probably more correct to move the keyfile itself.
+        "/home".neededForBoot = true;
+
+        "/mnt/windows" = {
+            device = "/dev/disk/by-id/ata-ADATA_SU800_2I4220038955-part3";
+            fsType = "ntfs";
+        };
+    };
 
     specialisation."AtlasOS11-VFIO-autoboot".configuration = {
         system.nixos.tags = [ "vfio" ];
