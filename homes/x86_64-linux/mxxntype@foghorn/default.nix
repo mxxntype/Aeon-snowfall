@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+_: {
     aeon = {
         style.codename = "dark-plus";
 
@@ -33,7 +31,6 @@
         };
 
         music.enable = true;
-        # scream.enable = true;
         stylesheets.enable = true;
     };
 
