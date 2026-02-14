@@ -158,6 +158,16 @@
             device = "/dev/disk/by-id/ata-ADATA_SU800_2I4220038955-part3";
             fsType = "ntfs";
         };
+
+        "/mnt/atlas-os11/disk-system" = {
+            device = "/dev/zvol/raiden-rpool/srv/vms/atlas-os11/disk-system-part3";
+            fsType = "ntfs";
+        };
+
+        "/mnt/atlas-os11/disk-genshin" = {
+            device = "/dev/zvol/raiden-rpool/srv/vms/atlas-os11/disk-genshin-part2";
+            fsType = "ntfs";
+        };
     };
 
     specialisation."AtlasOS11-VFIO-autoboot".configuration = {
