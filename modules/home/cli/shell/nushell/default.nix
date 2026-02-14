@@ -36,6 +36,7 @@
                 
                 shellAliases = {
                     lsa = "ls -a";
+                    cp = "${pkgs.aeon.cpx}/bin/cpx";
                     cat = "${pkgs.bat}/bin/bat";
                     btm = "${pkgs.bottom}/bin/btm --battery";
                     ip = "ip --color=always";

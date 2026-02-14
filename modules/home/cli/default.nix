@@ -45,11 +45,12 @@
             tokei # Cool LOC counter.
 
             # Alternative implementations of the basic tools.
-            erdtree # Tree-like `ls` with a load of features.
-            killall # Basically `pkill`.
-            ripgrep # Oxidized `grep`.
-            sd      # A friendlier `sed`.
-            srm     # Secure `rm`.
+            aeon.cpx # Modern replacement for the traditional `cp`.
+            erdtree  # Tree-like `ls` with a load of features.
+            killall  # Basically `pkill`.
+            ripgrep  # Oxidized `grep`.
+            sd       # A friendlier `sed`.
+            srm      # Secure `rm`.
 
             # Text & image processors.
             aeon.repalette # Recolor images to a certain palette.
@@ -100,5 +101,37 @@
             pv        # Tool for monitoring the progress of data through a pipeline.
             pwgen     # CLI password generator.
         ];
+
+        xdg.configFile."cpx/cpxconfig.toml".text = /* toml */ ''
+            [exclude]
+            patterns = []
+            [copy]
+            parallel = 4
+            recursive = false
+            parents = false
+            force = false
+            interactive = false
+            resume = false
+            attributes_only = false
+            remove_destination = false
+            [preserve]
+            mode = "default"
+            [symlink]
+            mode = ""
+            follow = ""
+            [backup]
+            mode = "none"
+            [reflink]
+            mode = ""
+            [progress]
+            style = "detailed"
+            [progress.bar]
+            filled = "█"
+            empty = "░"
+            head = "░"
+            [progress.color]
+            bar = "green"
+            message = "white"
+        '';
     };
 }
