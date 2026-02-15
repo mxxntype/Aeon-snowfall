@@ -27,7 +27,7 @@
 
                 pane size=2 borderless=true {
                     plugin location="file:${pkgs.aeon.zjstatus}/bin/zjstatus.wasm" {
-                        format_left "${builtins.concatStringsSep "" [
+                        format_left "${builtins.concatStringsSep "" ([
                             "{mode}" 
                             "#[bg=${ui.bg.base}] "
                             "#[fg=#${colors.green},bg=#${ui.bg.surface1},bold] CPU "
@@ -35,20 +35,22 @@
                             "#[bg=${ui.bg.base}] "
                             "#[fg=#${colors.blue},bg=#${ui.bg.surface1},bold] NET "
                             "#[fg=#${colors.blue},bg=#${ui.bg.surface0}] {command_net_usage_graph} "
+                        ] ++ (if config.aeon.meta.battery-powered then [
                             "#[bg=${ui.bg.base}] "
                             "#[fg=#${colors.yellow},bg=#${ui.bg.surface1},bold] 󱐋 "
                             "#[fg=#${colors.yellow},bg=#${ui.bg.surface0}] {command_powerdrain} "
-                        ]}"
+                        ] else []))}"
 
-                        format_right "${builtins.concatStringsSep "" [
+                        format_right "${builtins.concatStringsSep "" ([
                             # "#[fg=#${colors.lavender},bg=#${ui.bg.surface1},bold]   "
                             # "#[fg=#${colors.lavender},bg=#${ui.bg.surface0}] 37% "
                             # "#[bg=${ui.bg.base}] "
                             "#[fg=#${ui.fg.subtext1},bg=#${ui.bg.surface0}] {datetime} "
                             "#[fg=#${colors.teal},bg=#${ui.bg.surface1},bold]   #[fg=#${ui.bg.crust},bg=#${colors.teal}] {command_hostname} "
+                        ] ++ (if config.aeon.meta.battery-powered then [
                             "#[fg=#${colors.peach},bg=#${ui.bg.surface1},bold] 󰁹 "
                             "#[fg=#${colors.peach},bg=#${ui.bg.surface0}] {command_battery_charge_level} "
-                        ]}"
+                        ] else [ ]))}"
 
                         format_center "${builtins.concatStringsSep "" [
                             "{tabs}"

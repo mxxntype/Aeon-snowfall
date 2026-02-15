@@ -1,5 +1,6 @@
 _: {
     aeon = {
+        meta.battery-powered = true;
         style.codename = "dark-plus";
 
         wallpapers.enable = true;
