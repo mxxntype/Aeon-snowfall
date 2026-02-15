@@ -16,13 +16,16 @@
 
         extraOpenPorts = mkOption {
             type = types.listOf types.int;
-            default = if (config.home-manager.users |> builtins.hasAttr "${aeon.user}") then (
-                if config.home-manager.users."${aeon.user}".services.syncthing.enable
-                # Default listen address (https://docs.syncthing.net/v1.29.3/users/config#listen-addresses)
-                # Local announce port (https://docs.syncthing.net/users/config?version=v1.29.5#config-option-options.localannounceport)
-                then [ 21027 22000 ]
-                else []
-            ) else [];
+            default = [ 5000 ] ++ 
+                (if (config.home-manager.users |> builtins.hasAttr "${aeon.user}")
+                then (
+                    if config.home-manager.users."${aeon.user}".services.syncthing.enable
+                    # Default listen address (https://docs.syncthing.net/v1.29.3/users/config#listen-addresses)
+                    # Local announce port (https://docs.syncthing.net/users/config?version=v1.29.5#config-option-options.localannounceport)
+                    then [ 21027 22000 ]
+                    else []
+                ) else
+                    []);
         };
     };
 

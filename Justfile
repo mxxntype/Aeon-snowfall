@@ -2,6 +2,15 @@
 default:
     @just --list
 
+# Run a local Nix cache with nix-serve.
+nix-serve LISTEN_ADDR:
+    env NIX_SECRET_KEY_FILE=nix-serve/private.key nix run nixpkgs#nix-serve-ng -- -l {{LISTEN_ADDR}}:5000
+
+# Generate a binary cache keypair.
+generate-nix-serve-keypair DOMAIN:
+    rm -f nix-serve/*.key
+    nix-store --generate-binary-cache-key {{DOMAIN}} nix-serve/private.key nix-serve/public.key
+
 # Run some static analysis tools.
 lint:
     nix run nixpkgs#typos
