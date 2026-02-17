@@ -50,6 +50,9 @@
         # Podman containers and networks on NixOS via Quadlet.
         quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
 
+        # The Proxmox Hypervisor, on NixOS (:pog:).
+        proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
+
 
         # SECTION: Hardware.
         # Lanzaboote, UEFI secure boot for NixOS.
@@ -183,6 +186,7 @@
             home-manager.nixosModules.home-manager
             hyprland.nixosModules.default
             lanzaboote.nixosModules.lanzaboote
+            proxmox-nixos.nixosModules.proxmox-ve
             quadlet-nix.nixosModules.quadlet
             sops-nix.nixosModules.sops
             xremap.nixosModules.default
@@ -190,10 +194,10 @@
 
         # Overlays for Nixpkgs.
         overlays = with inputs; [
-            nuenv.overlays.nuenv
             fenix.overlays.default
-            rust-overlay.overlays.default
+            nuenv.overlays.nuenv
             nur.overlays.default
+            rust-overlay.overlays.default
             # nix-topology.overlays.default
         ];
 
