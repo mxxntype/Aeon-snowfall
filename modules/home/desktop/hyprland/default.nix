@@ -148,6 +148,7 @@ with lib; {
                     [
                         "${MOD}           , RETURN, exec, ${lib.getExe config.aeon.apps.defaultTerminal}"
                         "       CTRL SHIFT, 2,      exec, ${if config.aeon.apps.gimp.enable then "gimp" else (notify "GIMP is not enabled" 3 ui.error)}"
+                        "${MOD} CTRL SHIFT, 2,      exec, ${if config.aeon.apps.obsidian.enable then "obsidian" else (notify "Obsidian is not enabled" 3 ui.error)}"
                         "       CTRL SHIFT, 3,      exec, ${lib.getExe pkgs.firefox}"
                         "       CTRL SHIFT, 4,      exec, ${lib.getExe pkgs.telegram-desktop}"
                         "       CTRL SHIFT, 5,      exec, ${if config.aeon.apps.office.enable then "libreoffice" else (notify "Office apps are not enabled" 3 ui.error)}"

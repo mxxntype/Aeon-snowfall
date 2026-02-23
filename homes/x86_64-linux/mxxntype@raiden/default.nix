@@ -29,6 +29,7 @@ _: {
             librewolf.enable = true;
             freetube.enable = true;
             office.enable = true;
+            obsidian.enable = true;
         };
 
         music.enable = true;

@@ -29,6 +29,7 @@ _: {
             gimp.enable = true;
             librewolf.enable = true;
             office.enable = true;
+            obsidian.enable = true;
         };
 
         music.enable = true;
