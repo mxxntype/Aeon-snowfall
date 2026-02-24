@@ -32,6 +32,10 @@
 
         docker.enable = true;
         qemu.enable = true;
+        proxmox = {
+            enable = true;
+            IP = "192.168.0.200";
+        };
     };
 
     disko.devices = let inherit (config.networking) hostName; in {
@@ -182,15 +186,24 @@
         };
     };
 
-    users.users.exoudueux-net = {
-        isNormalUser = true;
-        hashedPassword = "!";
+    users.users = {
+        exoudueux-net = {
+            isNormalUser = true;
+            hashedPassword = "!";
+        };
+
+        atlas = {
+            isNormalUser = true;
+            hashedPassword = "!";
+        };
+
+        regretto = {
+            isNormalUser = true;
+            hashedPasswordFile = config.sops.secrets."passwords/regretto".path;
+        };
     };
 
-    users.users.atlas = {
-        isNormalUser = true;
-        hashedPassword = "!";
-    };
+    sops.secrets."passwords/regretto".neededForUsers = true;
 
     networking.firewall.allowedTCPPorts = [ 3000 25565 ];
     networking.firewall.allowedUDPPorts = [ 25565 24454 ];
