@@ -186,11 +186,11 @@ with lib; {
                     # A new markup-based typesetting system that is powerful and easy to learn.
                     {
                         name = "typst";
+                        language-servers = [ "tinymist" ];
                         auto-format = true;
-                        language-servers = [ "typst-lsp" ];
                         formatter = {
-                            command = "${lib.getExe pkgs.prettypst}";
-                            args = [ "--use-std-in" "--use-std-out" "--style=otbs" ];
+                            command = "${lib.getExe pkgs.typstyle}";
+                            args = [ "--wrap-text" ];
                         };
                     }
                 ];
@@ -244,6 +244,10 @@ with lib; {
                         args = [ "-E" ];
                         command = "qmlls";
                     };
+
+                    tinymist = {
+                        command = "${lib.getExe pkgs.tinymist}";
+                    };
                 };
             };
         };
@@ -256,6 +260,11 @@ with lib; {
             ruff
             taplo    # TOML LSP.
             vscode-langservers-extracted
+
+            tinymist
+            typst
+            typst-live
+            typstyle
         ];
 
         # NOTE: Based on the Kanagawa theme.
