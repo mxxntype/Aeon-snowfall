@@ -169,6 +169,15 @@
                     "valid users" = "atlas";
                     "force user" = "atlas";
                 };
+
+                vxug-cats = {
+                    "path" = "/srv/vx-undergroud-cats";
+                    "browseable" = "yes";
+                    "guest ok" = "yes";
+                    "read only" = "yes";
+                    "writeable" = "no";
+                    "map to guest" = "Bad user";
+                };
             };
         };
 
