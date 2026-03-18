@@ -49,6 +49,8 @@
                 personal.enable = true;
                 invian.enable = true;
             };
+
+            hysteria.enable = true;
         };
 
         services = {

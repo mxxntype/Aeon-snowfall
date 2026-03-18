@@ -1,0 +1,24 @@
+{ pkgs, config, lib, ... }:
+
+{
+    options.aeon.net.hysteria = {
+        enable = lib.mkEnableOption "hysteria v2 proxy";
+    };
+
+    config = let cfg = config.aeon.net.hysteria;
+    in lib.mkIf cfg.enable {
+        systemd.services."hysteria-client" = {
+            description = "Hysteria proxy client";
+
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network.target" ];
+
+            environment.HYSTERIA_LOG_LEVEL = "info";
+            serviceConfig = {
+                ExecStart = [ "${lib.getExe pkgs.hysteria} client --config ${config.sops.secrets."keys/hysteria/timeweb.yaml".path}" ];
+            };
+        };
+
+        sops.secrets."keys/hysteria/timeweb.yaml" = { };
+    };
+}
