@@ -217,12 +217,6 @@ with lib; {
                         args = [ "lsp-proxy" ];
                     };
 
-                    # GitHub Copilot inside of Helix.
-                    helix-gpt = {
-                        command = "${pkgs.helix-gpt}/bin/helix-gpt";
-                        args = [ "--handler" "copilot" ];
-                    };
-
                     # Type checker for the Python language.
                     pyright.config.python.analysis.typeCheckingMode = "basic";
 

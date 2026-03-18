@@ -23,7 +23,6 @@ _final: _prev: {
         gitoxide
         glab
         helix
-        helix-gpt
         hyprland
         hyprlandPlugins
         jujutsu
