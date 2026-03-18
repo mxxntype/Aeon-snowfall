@@ -50,7 +50,8 @@
                 invian.enable = true;
             };
 
-            hysteria.enable = true;
+            # hysteria.enable = true;
+            sing-box.enable = true;
         };
 
         services = {
