@@ -34,7 +34,7 @@
                     }
                     {
                         type = "hysteria2";
-                        tag = "hy2-out";
+                        tag = "out-hysteria2-timeweb";
                         server = { _secret = config.sops.secrets."keys/hysteria/timeweb/addr".path; };
                         server_port = 443;
                         password = { _secret = config.sops.secrets."keys/hysteria/timeweb/auth".path; };
@@ -47,7 +47,7 @@
                 ];
 
                 route = {
-                    final = "hy2-out";
+                    final = "out-hysteria2-timeweb";
                     rules = [
                         {
                             outbound = "direct";
