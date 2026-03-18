@@ -16,6 +16,8 @@
             environment.HYSTERIA_LOG_LEVEL = "info";
             serviceConfig = {
                 ExecStart = [ "${lib.getExe pkgs.hysteria} client --config ${config.sops.secrets."keys/hysteria/timeweb.yaml".path}" ];
+                Restart = "on-failure";
+                RestartSec = 5;
             };
         };
 
