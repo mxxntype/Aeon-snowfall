@@ -100,7 +100,7 @@
                       VPN_TYPE = "wireguard";
                     };
                     volumes = let
-                        configSecret = "keys/wireguard/personal/${config.networking.hostName}-podman";
+                        configSecret = "configs/wireguard/personal/${config.networking.hostName}-podman";
                         configPath = config.sops.secrets.${configSecret}.path;
                     in [
                         "${configPath}:/gluetun/wireguard/wg0.conf"
@@ -127,6 +127,6 @@
             };
         };
 
-        sops.secrets."keys/wireguard/personal/raiden-podman" = { };
+        sops.secrets."configs/wireguard/personal/${config.networking.hostName}-podman" = { };
     };
 }

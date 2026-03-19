@@ -48,7 +48,7 @@ with lib; {
             tailscale = config.services.tailscale.enable;
         in {
             networking.wg-quick.interfaces."${name}" = {
-                configFile = config.sops.secrets."keys/wireguard/${name}/${hostname}".path;
+                configFile = config.sops.secrets."configs/wireguard/${name}/${hostname}".path;
                 inherit autostart;
             };
 
@@ -66,7 +66,7 @@ with lib; {
                 '';
             };
 
-            sops.secrets."keys/wireguard/${name}/${hostname}" = { };
+            sops.secrets."configs/wireguard/${name}/${hostname}" = { };
         };
 
     in mkMerge [

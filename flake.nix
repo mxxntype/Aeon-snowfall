@@ -95,26 +95,22 @@
         # The wacky URL is because of https://github.com/hyprwm/Hyprland/issues/5891#issuecomment-2094865630.
         # NOTE: The hyprland's `package` is (for now) the one provided by `nixpgks`, not the one from here.
         hyprland = {
-            url = "git+https://github.com/hyprwm/Hyprland.git?ref=refs/tags/v0.44.0&submodules=1";
-            inputs.hyprutils.follows = "hyprutils";
+            url = "git+https://github.com/hyprwm/Hyprland.git?ref=refs/tags/v0.53.0&submodules=1";
+            # inputs.hyprutils.follows = "hyprutils";
         };
         # NOTE: Due to *something*, Hyprland's derivation gets an old and incompatible version of `hyprutils`
         # and fails to build. Perhaps that will be resolved with an update or something, but for now explicitly
         # pinning this to a tag and overriding `hyprland`'s corresponding input seems to fix the build.
-        hyprutils = {
-            url = "github:hyprwm/hyprutils?ref=v0.2.3";
-        };
+        # hyprutils = {
+        #     url = "github:hyprwm/hyprutils?ref=v0.2.3";
+        # };
         hyprland-plugins = {
-            url = "github:hyprwm/hyprland-plugins?ref=v0.44.0";
+            url = "github:hyprwm/hyprland-plugins?ref=v0.53.0";
             inputs.hyprland.follows = "hyprland";
         };
         hyprland-hy3 = {            
-            url = "github:outfoxxed/hy3?ref=hl0.44.0";
+            url = "github:outfoxxed/hy3?ref=hl0.53.0";
             inputs.hyprland.follows = "hyprland";
-        };
-        hyprland-contrib = {
-            url = "github:hyprwm/contrib";
-            inputs.nixpkgs.follows = "nixpkgs";
         };
 
 

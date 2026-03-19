@@ -23,8 +23,8 @@ _final: _prev: {
         gitoxide
         glab
         helix
-        # hyprland
-        # hyprlandPlugins
+        hyprland
+        hyprlandPlugins
         jujutsu
         kitty
         marksman
@@ -38,6 +38,7 @@ _final: _prev: {
         rust-motd
         rustscan
         sing-box
+        sing-geoip
         tailscale
         telegram-desktop
         tracy
