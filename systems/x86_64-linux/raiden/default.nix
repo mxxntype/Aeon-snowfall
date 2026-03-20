@@ -45,17 +45,12 @@
         net = {
             ssh.server = true;
             tailscale.ACLtags = [ "client" ];
-            wireguard.interfaces = {
-                personal.enable = true;
-                invian.enable = true;
-            };
-
-            # hysteria.enable = true;
+            dnscrypt-proxy.enable = false;
             sing-box.enable = true;
         };
 
         services = {
-            invidious.enable = true;
+            # invidious.enable = true;
             prometheus.enable = true;
         };
 

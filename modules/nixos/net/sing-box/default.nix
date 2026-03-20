@@ -1,11 +1,13 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, ... }:
 
 {
     options.aeon.net.sing-box = {
         enable = lib.mkEnableOption "sing-box modular proxy engine";
     };
 
-    config = let cfg = config.aeon.net.sing-box;
+    config = let
+        cfg = config.aeon.net.sing-box;
+        hostname = config.networking.hostName;
     in lib.mkIf cfg.enable {
         services.sing-box = {
             enable = true;
@@ -25,6 +27,11 @@
                         auto_redirect = true;
                         strict_route = true;
                         address = [ "172.19.0.1/30" ];
+                        # HACK: Do not let this TUN swallow tailnet traffic
+                        route_exclude_address = [
+                            "100.64.0.0/10"
+                            "fd7a:115c:a1e0::/48"
+                        ];
                     }
                 ];
 
@@ -47,73 +54,53 @@
                     }
                 ];
 
-                endpoints = [
-                    {
-                        type = "wireguard";
-                        tag = "wg-ep-invian0";
-                        system = true;
-                        address = { _secret = config.sops.secrets."keys/wireguard/invian0/${config.networking.hostName}/addr".path; };
-                        private_key = { _secret = config.sops.secrets."keys/wireguard/invian0/${config.networking.hostName}/private_key".path; };
-                        peers = [{
-                           address        = { _secret = config.sops.secrets."keys/wireguard/invian0/${config.networking.hostName}/peer_addr".path; }; 
-                           port           = 51820; 
-                           public_key     = { _secret = config.sops.secrets."keys/wireguard/invian0/${config.networking.hostName}/peer_public_key".path; }; 
-                           pre_shared_key = { _secret = config.sops.secrets."keys/wireguard/invian0/${config.networking.hostName}/peer_preshared_key".path; }; 
-                           allowed_ips    = [ "0.0.0.0/0" ]; 
-                           persistent_keepalive_interval = 25;
-                        }];
-                    }
-                ];
-
                 route = {
                     auto_detect_interface = true;
                     final = "out-hysteria2-timeweb";
+
                     rules = [
                         { action = "sniff"; }
                         { action = "hijack-dns"; protocol = "dns"; }
+
+                        { action = "bypass"; outbound = "direct"; ip_cidr = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ]; }
+
                         { outbound = "direct"; ip_is_private = true; }
-                        { outbound = "direct"; domain_suffix = [ ".ru" ]; }
+                        { outbound = "direct"; domain_suffix = [ "ru" ]; }
                         { outbound = "direct"; rule_set = "geoip-ru"; }
-
-                        { outbound = "wg-ep-invian0"; ip_cidr = [ "10.85.0.0/24" "10.129.0.0/24" "84.252.141.155" "192.168.85.0/24" ]; }
                     ];
 
-                    rule_set = [
-                        {
-                            tag = "geoip-ru";
-                            type = "local";
-                            format = "binary";
-                            path = "${pkgs.sing-geoip}/share/sing-box/rule-set/geoip-ru.srs";
-                        }
-                    ];
+                    rule_set = [{
+                        tag = "geoip-ru";
+                        type = "remote";
+                        format = "binary";
+                        url = "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-ru.srs";
+                        download_detour = "out-hysteria2-timeweb";
+                    }];
                 };
 
                 dns = {
                     final = "dns-https-cloudflare";
-                    servers = [
-                        # {
-                        #     type = "local";
-                        #     tag = "dns-local";
-                        # }
-                        {
-                            type = "https";
-                            tag = "dns-https-cloudflare";
-                            server = "1.1.1.1";
-                        }
-                    ];
+                    servers = [{
+                        type = "https";
+                        tag = "dns-https-cloudflare";
+                        server = "1.1.1.1";
+                        path = "/dns-query";
+                    }];
                 };
+
+                experimental.cache_file.enabled = true;
             };
         };
-
+        
         sops.secrets = {
             "keys/hysteria/timeweb/addr" = { };
             "keys/hysteria/timeweb/auth" = { };
             "keys/hysteria/timeweb/sni" = { };
-            "keys/wireguard/invian0/${config.networking.hostName}/private_key" = { };
-            "keys/wireguard/invian0/${config.networking.hostName}/addr" = { };
-            "keys/wireguard/invian0/${config.networking.hostName}/peer_addr" = { };
-            "keys/wireguard/invian0/${config.networking.hostName}/peer_public_key" = { };
-            "keys/wireguard/invian0/${config.networking.hostName}/peer_preshared_key" = { };
+            "keys/wireguard/invian0/${hostname}/private_key" = { };
+            "keys/wireguard/invian0/${hostname}/addr" = { };
+            "keys/wireguard/invian0/${hostname}/peer_addr" = { };
+            "keys/wireguard/invian0/${hostname}/peer_public_key" = { };
+            "keys/wireguard/invian0/${hostname}/peer_preshared_key" = { };
         };
     };
 }
