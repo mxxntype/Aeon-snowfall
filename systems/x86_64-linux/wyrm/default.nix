@@ -27,7 +27,8 @@
         net = {
             ssh.server = true;
             tailscale.ACLtags = [ "server" ];
-            wireguard.interfaces = { personal.enable = true; };
+            dnscrypt-proxy.enable = false;
+            sing-box.enable = true;
         };
 
         docker.enable = true;

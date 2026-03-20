@@ -96,11 +96,6 @@
             "keys/hysteria/timeweb/addr" = { };
             "keys/hysteria/timeweb/auth" = { };
             "keys/hysteria/timeweb/sni" = { };
-            "keys/wireguard/invian0/${hostname}/private_key" = { };
-            "keys/wireguard/invian0/${hostname}/addr" = { };
-            "keys/wireguard/invian0/${hostname}/peer_addr" = { };
-            "keys/wireguard/invian0/${hostname}/peer_public_key" = { };
-            "keys/wireguard/invian0/${hostname}/peer_preshared_key" = { };
         };
     };
 }
