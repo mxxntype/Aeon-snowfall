@@ -60,15 +60,26 @@
                         { outbound = "direct"; ip_is_private = true; }
                         { outbound = "direct"; domain_suffix = [ "ru" ]; }
                         { outbound = "direct"; rule_set = "geoip-ru"; }
+
+                        { outbound = "direct"; rule_set = "geosite-github"; }
                     ];
 
-                    rule_set = [{
-                        tag = "geoip-ru";
-                        type = "remote";
-                        format = "binary";
-                        url = "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-ru.srs";
-                        download_detour = "out-hysteria2-timeweb-nl0";
-                    }];
+                    rule_set = [
+                        {
+                            tag = "geoip-ru";
+                            type = "remote";
+                            format = "binary";
+                            url = "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-ru.srs";
+                            download_detour = "out-hysteria2-timeweb-nl0";
+                        }
+                        {
+                            tag = "geosite-github";
+                            type = "remote";
+                            format = "binary";
+                            url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-github.srs";
+                            download_detour = "out-hysteria2-timeweb-nl0";
+                        }
+                    ];
                 };
 
                 dns = {
