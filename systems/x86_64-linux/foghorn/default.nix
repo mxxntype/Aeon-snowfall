@@ -34,10 +34,8 @@
         net = {
             ssh.server = true;
             tailscale.ACLtags = [ "client" ];
-            wireguard.interfaces = {
-                personal.enable = true;
-                invian.enable = true;
-            };
+            dnscrypt-proxy.enable = false;
+            wireguard.interfaces.invian0.enable = true;
         };
 
         services = {

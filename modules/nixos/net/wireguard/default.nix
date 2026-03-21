@@ -9,8 +9,8 @@ with lib; {
     options.aeon.net.wireguard = {
         # TODO: Rework as a list.
         interfaces = {
-            personal.enable = mkOption { type = with types; bool; default = false; };
-            invian.enable = mkOption { type = with types; bool; default = false; };
+            timeweb-nl0.enable = mkOption { type = with types; bool; default = false; };
+            invian0.enable = mkOption { type = with types; bool; default = false; };
         };
 
         port = mkOption {
@@ -26,8 +26,8 @@ with lib; {
             port
             ;
         inherit (interfaces)
-            personal
-            invian
+            timeweb-nl0
+            invian0
             ;
 
         # Will be `true` if any of the interfaces are enabled, `false` otherwise.
@@ -48,7 +48,7 @@ with lib; {
             tailscale = config.services.tailscale.enable;
         in {
             networking.wg-quick.interfaces."${name}" = {
-                configFile = config.sops.secrets."configs/wireguard/${name}/${hostname}".path;
+                configFile = config.sops.secrets."configs/wireguard/${name}".path;
                 inherit autostart;
             };
 
@@ -66,12 +66,12 @@ with lib; {
                 '';
             };
 
-            sops.secrets."configs/wireguard/${name}/${hostname}" = { };
+            sops.secrets."configs/wireguard/${name}" = { };
         };
 
     in mkMerge [
         (mkIf enable { networking.firewall.allowedUDPPorts = [ port ]; })
-        (mkIf personal.enable (mkTailscaleAwareInterface { inherit config; name = "personal"; }))
-        (mkIf invian.enable (mkTailscaleAwareInterface { inherit config; name = "invian"; }))
+        (mkIf timeweb-nl0.enable (mkTailscaleAwareInterface { inherit config; name = "timeweb-nl0"; }))
+        (mkIf invian0.enable (mkTailscaleAwareInterface { inherit config; name = "invian0"; }))
     ];
 }
