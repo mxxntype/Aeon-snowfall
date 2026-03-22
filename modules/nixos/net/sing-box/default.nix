@@ -11,6 +11,13 @@
         invian_ip_ranges = [ "10.85.0.0/24" "10.129.0.0/24" "84.252.141.155/32" "192.168.85.0/24" "87.117.178.114/32" ];
         inherit (config.networking) hostName;
         inherit (config.sops) secrets;
+        create_remote_geo_rule_set = { type, name, detour ? "out-hysteria2-timeweb-nl0" }: {
+            tag = "geo${type}-${name}";
+            type = "remote";
+            format = "binary";
+            url = "https://raw.githubusercontent.com/SagerNet/sing-geo${type}/rule-set/geo${type}-${name}.srs";
+            download_detour = detour;
+        };
     in lib.mkIf cfg.enable {
         services.sing-box = {
             enable = true;
@@ -50,7 +57,6 @@
                     tag         = "wg-ep-timeweb-nl0";
                     system      = false;
                     name        = "wg-ep-timeweb-nl0";
-                    mtu         = 1420;
                     address     = { _secret = secrets."keys/wireguard/timeweb-nl0/${hostName}/interface_addr".path; } ;
                     private_key = { _secret = secrets."keys/wireguard/timeweb-nl0/${hostName}/interface_private_key".path; };
                     peers = [ {
@@ -84,27 +90,9 @@
                     ];
 
                     rule_set = [
-                        {
-                            tag = "geoip-ru";
-                            type = "remote";
-                            format = "binary";
-                            url = "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-ru.srs";
-                            download_detour = "out-hysteria2-timeweb-nl0";
-                        }
-                        {
-                            tag = "geosite-github";
-                            type = "remote";
-                            format = "binary";
-                            url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-github.srs";
-                            download_detour = "out-hysteria2-timeweb-nl0";
-                        }
-                        {
-                            tag = "geosite-discord";
-                            type = "remote";
-                            format = "binary";
-                            url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-discord.srs";
-                            download_detour = "out-hysteria2-timeweb-nl0";
-                        }
+                        (create_remote_geo_rule_set { type = "ip"; name = "ru"; })
+                        (create_remote_geo_rule_set { type = "site"; name = "github"; })
+                        (create_remote_geo_rule_set { type = "site"; name = "discord"; })
                     ];
                 };
 
