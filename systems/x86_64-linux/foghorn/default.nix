@@ -36,6 +36,7 @@
             tailscale.ACLtags = [ "client" ];
             dnscrypt-proxy.enable = false;
             wireguard.interfaces.invian0.enable = true;
+            sing-box.enable = true;
         };
 
         services = {
