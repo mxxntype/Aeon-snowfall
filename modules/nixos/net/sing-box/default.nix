@@ -7,8 +7,6 @@
 
     config = let
         cfg = config.aeon.net.sing-box;
-        tailscale_ip_ranges = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
-        invian_ip_ranges = [ "10.85.0.0/24" "10.129.0.0/24" "84.252.141.155/32" "192.168.85.0/24" "87.117.178.114/32" ];
         inherit (config.networking) hostName;
         inherit (config.sops) secrets;
         create_remote_geo_rule_set = { type, name, detour ? "out-hysteria2-timeweb-nl0" }: {
@@ -18,6 +16,12 @@
             url = "https://raw.githubusercontent.com/SagerNet/sing-geo${type}/rule-set/geo${type}-${name}.srs";
             download_detour = detour;
         };
+
+        tailscale_ip_ranges = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+        invian_ip_ranges = [ "10.85.0.0/24" "10.129.0.0/24" "84.252.141.155/32" "192.168.85.0/24" "87.117.178.114/32" ];
+        bypass_ip_ranges = [ ]
+            ++ (lib.optionals config.services.tailscale.enable tailscale_ip_ranges)
+            ++ (lib.optionals config.aeon.net.wireguard.interfaces.invian0.enable invian_ip_ranges);
     in lib.mkIf cfg.enable {
         services.sing-box = {
             enable = true;
@@ -30,7 +34,7 @@
                     auto_redirect = true;
                     strict_route = true;
                     address = [ "172.19.0.1/30" ];
-                    route_exclude_address = tailscale_ip_ranges ++ invian_ip_ranges;
+                    route_exclude_address = bypass_ip_ranges;
                 } ];
 
                 outbounds = [
@@ -82,8 +86,7 @@
 
                         { outbound = "wg-ep-timeweb-nl0"; rule_set = "geosite-discord"; }
 
-                        { action = "bypass"; outbound = "direct"; ip_cidr = tailscale_ip_ranges; }
-                        { action = "bypass"; outbound = "direct"; ip_cidr = invian_ip_ranges; }
+                        { action = "bypass"; outbound = "direct"; ip_cidr = bypass_ip_ranges; }
 
                         { outbound = "direct"; ip_is_private = true; }
                         { outbound = "direct"; domain_suffix = [ "ru" ]; }
