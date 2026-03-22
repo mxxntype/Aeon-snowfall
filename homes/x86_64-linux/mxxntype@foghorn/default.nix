@@ -6,7 +6,7 @@ _: {
         wallpapers.enable = true;
         desktop.hyprland = {
             enable = true;
-            source = "nixpkgs";
+            source = "git";
         };
         
         monitors.monitors = [
