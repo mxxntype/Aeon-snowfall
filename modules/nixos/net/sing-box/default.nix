@@ -84,6 +84,8 @@
                         { action = "sniff"; }
                         { action = "hijack-dns"; protocol = "dns"; }
 
+                        { outbound = "out-hysteria2-timeweb-nl0"; domain = "api-fns.ru"; }
+
                         { outbound = "wg-ep-timeweb-nl0"; rule_set = "geosite-discord"; }
 
                         { action = "bypass"; outbound = "direct"; ip_cidr = bypass_ip_ranges; }
