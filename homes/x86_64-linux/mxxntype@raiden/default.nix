@@ -24,12 +24,11 @@ _: {
         ];
 
         apps = {
-            wezterm.enable = true;
             gimp.enable = true;
             librewolf.enable = true;
-            freetube.enable = true;
-            office.enable = true;
             obsidian.enable = true;
+            office.enable = true;
+            wezterm.enable = true;
         };
 
         music.enable = true;

@@ -50,10 +50,7 @@
             wireguard.interfaces.invian0.enable = true;
         };
 
-        services = {
-            # invidious.enable = true;
-            prometheus.enable = true;
-        };
+        services.prometheus.enable = true;
 
         sound.enable = true;
         docker.enable = true;
