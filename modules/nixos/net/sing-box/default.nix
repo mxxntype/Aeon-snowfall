@@ -34,7 +34,7 @@
                     auto_redirect = true;
                     strict_route = true;
                     address = [ "172.19.0.1/30" ];
-                    route_exclude_address = bypass_ip_ranges;
+                    route_exclude_address = [ "127.0.0.0/8" "::1/128" ] ++ bypass_ip_ranges;
                 } ];
 
                 outbounds = [
@@ -92,6 +92,7 @@
 
                         { outbound = "direct"; ip_is_private = true; }
                         { outbound = "direct"; domain_suffix = [ "ru" ]; }
+                        { outbound = "direct"; domain_suffix = [ "ntp.org" ]; }
                         { outbound = "direct"; rule_set = "geoip-ru"; }
 
                         { outbound = "direct"; rule_set = "geosite-github"; }
