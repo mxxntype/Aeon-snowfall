@@ -230,21 +230,13 @@ with lib; {
                     "border,     1,     8,     default      "
                 ];
 
-                windowrule = let
-                    gapsOut = 20;
-                    rsensor = {
-                        width = 640;
-                        height = 384;
-                    };
-                    offsets = {
-                        x = rsensor.width + gapsOut + general.border_size * 2;
-                        y = gapsOut + general.border_size * 2;
-                    };
+                windowrule = let rsensor = { width = 640; height = 384; };
                 in [
-                    "match:title ^(rsensor)$, float on"
-                    "match:title ^(rsensor)$, size ${toString rsensor.width} ${toString rsensor.height}"
-                    "match:title ^(rsensor)$, move 100%-${toString offsets.x} ${toString offsets.y}"
-                    "match:title ^(rsensor)$, border_color rgb(${colors.peach})"
+                    "match:title ^(bevy-rsensor)$, float on"
+                    "match:title ^(bevy-rsensor)$, size ${toString rsensor.width} ${toString rsensor.height}"
+                    "match:title ^(bevy-rsensor)$, move ((monitor_w-window_w)-(${toString (general.border_size * 2)})) (${toString (general.border_size * 2)})"
+                    "match:title ^(bevy-rsensor)$, border_color rgb(${colors.peach})"
+                    "match:title ^(bevy-rsensor)$, no_initial_focus on"
 
                     "match:class firefox, workspace 3 silent"
                     "match:class org.telegram.desktop, workspace 4 silent"
