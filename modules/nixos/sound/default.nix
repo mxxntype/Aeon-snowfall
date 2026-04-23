@@ -1,11 +1,4 @@
-# INFO: NixOS PipeWire module.
-
-{
-    config,
-    lib,
-    pkgs,
-    ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib; {
     options.aeon.sound = {
@@ -17,9 +10,6 @@ with lib; {
     };
 
     config = mkIf config.aeon.sound.enable {
-        # HACK: https://nixos.wiki/wiki/PipeWire
-        # sound.enable = false;
-
         services.pipewire = {
             enable = true;
             wireplumber.enable = true;
@@ -31,7 +21,6 @@ with lib; {
             };
         };
 
-        # TODO: maybe add `pamixer` for easy volume control.
         environment.systemPackages = with pkgs; [ alsa-utils aeon.wiremix ];
     };
 }
