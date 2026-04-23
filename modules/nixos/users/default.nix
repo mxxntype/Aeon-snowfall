@@ -15,13 +15,14 @@ with lib; {
                 "video"
                 "wheel"
             ] ++ ([
-                "plugdev"
                 "dialout"
                 "docker"
                 "git"
                 "libvirtd"
                 "networkmanager"
+                "plugdev"
                 "podman"
+                "seat"
             ] |> builtins.filter (G: builtins.hasAttr G config.users.groups));
 
             # INFO: systemd user units will start at boot, rather than starting
