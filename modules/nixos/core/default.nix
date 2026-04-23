@@ -129,6 +129,7 @@
             jmtpfs                # FUSE filesystem for MTP devices like Android phones.
             pciutils              # Tools for working with PCI devices, such as `lspci`.
             smartmontools         # Tools for monitoring the health of hard drives.
+            tcpdump               # Network sniffer.
             usbutils              # Tools for working with USB devices, such as `lsusb`.
             wget                  # Tool for retrieving files using HTTP, HTTPS, and FTP.
             aeon.aeon             # System management script.
