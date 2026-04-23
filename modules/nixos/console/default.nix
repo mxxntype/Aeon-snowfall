@@ -11,8 +11,8 @@
         };
 
         login-manager = mkOption {
-            type = types.enum [ "none" "tuigreet" ];
-            default = "tuigreet";
+            type = types.enum [ "none" "tuigreet" "lemurs" ];
+            default = "lemurs";
         };
     };
 
@@ -79,6 +79,20 @@
 
             boot.kernelParams = [ "console=tty1" ];
             systemd.services.greetd.serviceConfig.Type = lib.mkForce "simple";
+        })
+
+        (mkIf (cfg.login-manager == "lemurs") {
+            services.displayManager.lemurs = {
+                enable = true;
+                package = pkgs.lemurs;
+                settings = {
+                    include_tty_shell = true;
+                };
+            };
+
+            environment.etc."lemurs/wayland/hyprland".source = (pkgs.writeShellScript "hyprland" ''
+                start-hyprland
+            '');
         })
     ]);
 }
