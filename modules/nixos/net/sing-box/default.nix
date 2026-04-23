@@ -78,8 +78,10 @@
                     default_domain_resolver = "dns-https-cloudflare";
 
                     rules = [
+                        { action = "bypass"; outbound = "direct"; network = "icmp"; }
+
                         # HACK: NTP does not seem to work through Hysteria2.
-                        { action = "bypass"; outbound = "direct"; network = "udp"; port = 123; }
+                        { action = "route"; outbound = "direct"; network = "udp"; port = 123; }
 
                         { action = "sniff"; }
                         { action = "hijack-dns"; protocol = "dns"; }
