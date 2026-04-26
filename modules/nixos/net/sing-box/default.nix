@@ -87,6 +87,7 @@
                         { action = "hijack-dns"; protocol = "dns"; }
 
                         { outbound = "out-hysteria2-timeweb-nl0"; domain = "api-fns.ru"; }
+                        { outbound = "out-hysteria2-timeweb-nl0"; domain_suffix = [ "google.ru" ]; }
 
                         { outbound = "wg-ep-timeweb-nl0"; rule_set = "geosite-discord"; }
 
