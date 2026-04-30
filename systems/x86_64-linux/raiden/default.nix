@@ -37,6 +37,7 @@
             adb.enable = true;
 
             probe-rs.udev-rules.enable = true;
+            lamzu.udev-rules.enable = true;
         };
 
         boot.type = "uefi";
