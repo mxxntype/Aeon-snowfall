@@ -12,7 +12,9 @@ themeTemplate = aeon.mkThemeTemplate { inherit colors meta; };
 
 theme = aeon.mkTheme {
     inherit themeTemplate;
-    overrides = { };
+    overrides = {
+        ui.accent = themeTemplate.colors.cyan;
+    };
 };
 
 in {
@@ -21,6 +23,11 @@ in {
             inherit theme;
             style = {
                 themeFallbacks.helix = "kanagawa-dragon";
+                fonts = {
+                    code = "ZedMono NF";
+                    text = "Exo 2";
+                    decoration = "BigBlueTermPlus Nerd Font";
+                };
             };
         };
     };

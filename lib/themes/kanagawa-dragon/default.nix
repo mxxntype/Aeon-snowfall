@@ -10,19 +10,20 @@ meta = {
 in {
     themes = {
         ${meta.slug} = {
-            colors = {
+            colors = rec {
                 # Backgrounds and foregrounds.
                 void      = "000000";
                 crust     = "12120F";
                 mantle    = "1D1C19";
                 base      = "181616";
                 surface0  = "282727";
-                surface1  = "363646";
+                surface1  = "363434";
                 surface2  = "393836";
                 overlay0  = "625E5A";
                 overlay1  = "727169";
+                overlay2  = overlay1;
                 subtext0  = "9E9B93";
-                subtext1  = "C8C093";
+                subtext1  = "ABB0AB";
                 text      = "C5C9C5";
 
                 # Accent colors.
