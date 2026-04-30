@@ -171,6 +171,15 @@
                     "force user" = "atlas";
                 };
 
+                regretto = {
+                    "path" = "/mnt/net/win/regretto";
+                    "browseable" = "yes";
+                    "read only" = "no";
+                    "guest ok" = "no";
+                    "valid users" = "regretto";
+                    "force user" = "regretto";
+                };
+
                 vxug-cats = {
                     "path" = "/srv/vx-undergroud-cats";
                     "browseable" = "yes";
