@@ -1,7 +1,7 @@
 _: {
     aeon = {
         meta.battery-powered = true;
-        style.codename = "dark-plus";
+        style.codename = "kanagawa-dragon";
 
         wallpapers.enable = true;
         desktop.hyprland = {

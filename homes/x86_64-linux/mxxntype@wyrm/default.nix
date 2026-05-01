@@ -1,6 +1,6 @@
 _: {
     aeon = {
-        style.codename = "dark-plus";
+        style.codename = "kanagawa-dragon";
     };
 
     # WARN: Changing this might break things. Just leave it.
