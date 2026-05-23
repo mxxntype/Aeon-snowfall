@@ -158,6 +158,7 @@
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.grub.enable = lib.mkForce false;
+    boot.kernelParams = [ "quiet" "loglevel=3" ];
 
     system.stateVersion = "25.11";  # WARN: Changing this might break things. Just leave it.
     networking.hostId = "48f674ed"; # Needed for ZFS machine identification.
