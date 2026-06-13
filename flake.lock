@@ -1269,6 +1269,37 @@
         "type": "github"
       }
     },
+    "nixpkgs_8": {
+      "locked": {
+        "lastModified": 1780749050,
+        "narHash": "sha256-G5B1h4sOH4DN/RZ85xYi6zPm2MHdOrNMeUmMslZ28Qs=",
+        "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1011622.a799d3e3886d/nixexprs.tar.xz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
+      }
+    },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_8"
+      },
+      "locked": {
+        "lastModified": 1781011770,
+        "narHash": "sha256-FzwoIqELO5Dde3LrWyBzv65OkG+LeDJ5R0zjcs5BU4k=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "rev": "00a3cc03bb7553caa8826f988dde21359302a2f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "type": "github"
+      }
+    },
     "nuenv": {
       "inputs": {
         "nixpkgs": [
@@ -1430,6 +1461,7 @@
         "nix-std": "nix-std",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_7",
+        "noctalia": "noctalia",
         "nuenv": "nuenv",
         "nur": "nur",
         "proxmox-nixos": "proxmox-nixos",

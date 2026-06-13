@@ -4,7 +4,10 @@
 
 with lib; {
     # HACK: Here, because importing in flake.nix does not work.
-    imports = with inputs; [ hyprland.homeManagerModules.default ];
+    imports = with inputs; [
+        hyprland.homeManagerModules.default
+        noctalia.homeModules.default
+    ];
 
     options.aeon.desktop.hyprland = {
         enable = mkOption {
@@ -194,6 +197,7 @@ with lib; {
                 ];
 
                 exec-once = [
+                    "noctalia"
                     "${pkgs.swww}/bin/swww-daemon"
                     "${lib.getExe pkgs.firefox}"
                     "${lib.getExe pkgs.telegram-desktop}"
@@ -436,6 +440,23 @@ with lib; {
                     fade-out = 0.2;
                     padding = 24;
                 };
+            };
+        };
+
+        programs.noctalia = {
+            enable = true;
+
+            settings = {
+                theme = {
+                    mode = "dark";
+                    source = "builtin";
+                    builtin = "Kanagawa";
+                };
+
+                # wallpaper = {
+                #     enabled = true;
+                #     default.path = "/path/to/wallpapers/wallpaper.png";
+                # };
             };
         };
     };

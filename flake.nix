@@ -127,6 +127,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        noctalia = {
+            url = "github:noctalia-dev/noctalia";
+            # inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
         # SECTION: Misc flakes.
         # A nice and configurable Zellij statusbar.
