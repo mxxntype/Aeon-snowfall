@@ -128,7 +128,7 @@
                                 {
                                     template = "https://search.nixos.org/options";
                                     params = [
-                                        { name = "channel"; value = "25.11"; }
+                                        { name = "channel"; value = "26.05"; }
                                         { name = "query";   value = "{searchTerms}"; }
                                     ];
                                 }

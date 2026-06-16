@@ -96,8 +96,6 @@
                         { outbound = "direct"; domain_suffix = [ "ru" ]; }
                         { outbound = "direct"; domain_suffix = [ "ntp.org" ]; }
                         { outbound = "direct"; rule_set = "geoip-ru"; }
-
-                        { outbound = "direct"; rule_set = "geosite-github"; }
                     ];
 
                     rule_set = [
