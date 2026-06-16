@@ -1178,6 +1178,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-zellij43": {
+      "locked": {
+        "lastModified": 1769089682,
+        "narHash": "sha256-9yA/LIuAVQq0lXelrZPjLuLVuZdm03p8tfmHhnDIkms=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "078d69f03934859a181e81ba987c2bb033eebfc5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "078d69f03934859a181e81ba987c2bb033eebfc5",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1780336545,
@@ -1477,6 +1493,7 @@
         "nix-std": "nix-std",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_8",
+        "nixpkgs-zellij43": "nixpkgs-zellij43",
         "noctalia": "noctalia",
         "nuenv": "nuenv",
         "nur": "nur",

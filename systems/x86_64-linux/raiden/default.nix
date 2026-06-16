@@ -15,7 +15,7 @@
             vfio = {
                 enable = true;
                 specialize = true;
-                pciIDs = [ "10de:1b80" "10de:10f0" ];
+                pciIDs = [ "10de:2c02" "10de:22e9" ];
             };
 
             cups = {
@@ -34,7 +34,7 @@
                 };
             };
 
-            adb.enable = true;
+            # adb.enable = true;
 
             probe-rs.udev-rules.enable = true;
             lamzu.udev-rules.enable = true;
@@ -51,7 +51,7 @@
             wireguard.interfaces.invian0.enable = true;
         };
 
-        services.prometheus.enable = true;
+        # services.prometheus.enable = true;
 
         sound.enable = true;
         docker.enable = true;
@@ -187,6 +187,8 @@
             };
         };
     };
+
+    hardware.nvidia.open = lib.mkForce true;
 
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };

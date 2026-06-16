@@ -85,7 +85,7 @@
             cbonsai
             cmatrix
             lolcat
-            neofetch
+            # neofetch
             nitch
             onefetch
             pipes-rs

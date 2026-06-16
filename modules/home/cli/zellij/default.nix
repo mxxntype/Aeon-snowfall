@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
     options.aeon.cli.zellij = {
@@ -145,7 +145,7 @@
     in lib.mkIf enable {
         programs.zellij = {
             enable = true;
-            package = pkgs.zellij;
+            package = inputs.nixpkgs-zellij43.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zellij;
         };
 
         xdg.configFile."zellij/config.kdl".text = /* kdl */ ''

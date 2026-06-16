@@ -42,7 +42,7 @@ with lib; {
                 grimblast
                 hyprcursor
                 slurp
-                swww
+                awww
                 wl-clipboard-rs
             ];
 
@@ -78,9 +78,9 @@ with lib; {
                 in foldl' max 0 workspaces;
             in rec {
                 env = [
-                    "SWWW_TRANSITION_DURATION, 2"
-                    "SWWW_TRANSITION_FPS, ${toString (monitors.maxRefreshRate / 2)}"
-                    "SWWW_TRANSITION, grow"
+                    "AWWW_TRANSITION_DURATION, 2"
+                    "AWWW_TRANSITION_FPS, ${toString (monitors.maxRefreshRate / 2)}"
+                    "AWWW_TRANSITION, grow"
 
                     # INFO: https://wiki.nixos.org/wiki/Wayland#X_and_Wayland_support
                     # Basically allows electron-based apps to run on a wayland-native backend.
@@ -198,7 +198,7 @@ with lib; {
 
                 exec-once = [
                     "noctalia"
-                    "${pkgs.swww}/bin/swww-daemon"
+                    "${pkgs.awww}/bin/awww-daemon"
                     "${lib.getExe pkgs.firefox}"
                     "${lib.getExe pkgs.telegram-desktop}"
                     "${pkgs.avizo}/bin/avizo-service"
@@ -206,7 +206,7 @@ with lib; {
 
                 exec = [
                     "${pkgs.hyprland}/bin/hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
-                    "sleep 0.5 && ${pkgs.swww}/bin/swww img ~/.wallpaper"
+                    "sleep 0.5 && ${pkgs.awww}/bin/awww img ~/.wallpaper"
                 ];
 
                 general = {
