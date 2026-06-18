@@ -14,7 +14,7 @@ _: {
                 port = "DP-2";
                 width = 3840;
                 height = 2160;
-                refreshRate = 144;
+                refreshRate = 160;
                 scale = 2.0;
                 offsetX = 0;
                 offsetY = 0;

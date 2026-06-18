@@ -7,19 +7,25 @@
             default = false;
         };
 
-        color = lib.mkOption { type = lib.types.str; };
-        resizeableZones = {
-            device_id = lib.mkOption { type = lib.types.int; };
-            zone_ids = lib.mkOption { type = lib.types.listOf lib.types.int; };
-            size = lib.mkOption { type = lib.types.int; };
+        devices = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf (lib.types.submodule {
+                options = {
+                    id = lib.mkOption { type = lib.types.int; };
+                    zoneIds = lib.mkOption { type = lib.types.listOf lib.types.int; };
+                    resizeableZoneIds = lib.mkOption { type = lib.types.listOf lib.types.int; };
+                    resizeableZoneSize = lib.mkOption { type = lib.types.int; };
+                    mode = lib.mkOption { type = lib.types.str; };
+                    color = lib.mkOption { type = lib.types.str; };
+                };
+            });
         };
     };
 
     config = let
         inherit (config.aeon.hardware.openrgb)
             enable
-            color
-            resizeableZones
+            devices
             ;
 
         services = {
@@ -49,15 +55,26 @@
                     Restart = "on-failure";
                     RestartSec = "10s";
                     TimeoutStartSec = "10s";
-                    ExecStart = resizeableZones.zone_ids
-                        |> builtins.map (zone_id: [
-                            "${lib.getExe pkgs.aeon.openrgb}"
-                            "--device ${toString resizeableZones.device_id}"
-                            "--zone ${toString zone_id}"
-                            "--size ${toString resizeableZones.size}"
-                            "--mode static"
-                            "--color ${color}"
-                        ] |> builtins.concatStringsSep " " );
+                    ExecStart = devices
+                        |> builtins.map (device:
+                            (device.zoneIds |> builtins.map (zone_id: [
+                                "${lib.getExe pkgs.aeon.openrgb}"
+                                "--device ${toString device.id}"
+                                "--zone ${toString zone_id}"
+                                "--mode ${device.mode}"
+                                "--color ${device.color}"
+                            ] |> builtins.concatStringsSep " "))
+                            ++
+                            (device.resizeableZoneIds |> builtins.map (zone_id: [
+                                "${lib.getExe pkgs.aeon.openrgb}"
+                                "--device ${toString device.id}"
+                                "--zone ${toString zone_id}"
+                                "--size ${toString device.resizeableZoneSize}"
+                                "--mode ${device.mode}"
+                                "--color ${device.color}"
+                            ] |> builtins.concatStringsSep " "))
+                        )
+                        |> lib.flatten;
                 };
             };
 

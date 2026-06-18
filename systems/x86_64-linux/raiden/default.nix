@@ -26,12 +26,21 @@
             
             openrgb = {
                 enable = true;
-                color = "f8ae54";
-                resizeableZones = {
-                    device_id = 0;
-                    zone_ids = [ 0 2 ];
-                    size = 20;
-                };
+                devices = [
+                    {
+                        id = 0;
+                        zoneIds = [ 0 ];
+                        mode = "direct";
+                        color = "96652C";
+                    }
+                    {
+                        id = 1;
+                        resizeableZoneIds = [ 0 2 ];
+                        resizeableZoneSize = 20;
+                        mode = "static";
+                        color = "F8AE54";
+                    }
+                ];
             };
 
             # adb.enable = true;
