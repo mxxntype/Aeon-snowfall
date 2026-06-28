@@ -167,5 +167,17 @@
                 ln -sf /home/${lib.aeon.user}/.config/helix /root/.config/helix
             '';
         };
+
+        # https://github.com/Obydux/Minecraft-startup-flags
+        # 
+        # Enabling Transparent Huge Pages (THP) on Linux
+        #
+        # I believe this comes with no real disadvantages, so its OK to hardcode :)
+        boot.kernelParams = [
+            "transparent_hugepage=madvise"
+            "transparent_hugepage_shmem=advise"
+            "transparent_hugepage_defrag=defer"
+            "transparent_hugepage_khugepaged_defrag=1"
+        ];
     };
 }
