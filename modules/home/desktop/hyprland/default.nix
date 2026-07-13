@@ -449,14 +449,62 @@ with lib; {
             settings = {
                 theme = {
                     mode = "dark";
-                    source = "builtin";
-                    builtin = "Kanagawa";
+                    source = "custom";
+                    custom_palette = "nix";
                 };
+            };
+        };
 
-                # wallpaper = {
-                #     enabled = true;
-                #     default.path = "/path/to/wallpapers/wallpaper.png";
-                # };
+        xdg.configFile."noctalia/palettes/nix.json".text = builtins.toJSON {
+            dark = let inherit (config.aeon.theme) colors ui;
+            in {
+                mPrimary          = "#${ui.fg.text}";
+                mOnPrimary        = "#${ui.bg.surface0}";
+                mSecondary        = "#${ui.fg.subtext1}";
+                mOnSecondary      = "#${ui.bg.surface0}";
+                mTertiary         = "#${colors.mauve}";
+                mOnTertiary       = "#${ui.bg.surface0}";
+                mError            = "#${colors.red}";
+                mOnError          = "#${ui.bg.surface0}";
+                mSurface          = "#${ui.bg.base}";
+                mOnSurface        = "#${ui.fg.text}";
+                mSurfaceVariant   = "#${ui.bg.surface0}";
+                mOnSurfaceVariant = "#${ui.fg.subtext1}";
+                mOutline          = "#${ui.bg.overlay1}";
+                mShadow           = "#${ui.bg.surface0}";
+                mHover            = "#${ui.bg.surface1}";
+                mOnHover          = "#${ui.fg.text}";
+
+                terminal = {
+                    background  = "#${ui.bg.base}";
+                    foreground  = "#${ui.fg.text}";
+                    cursor      = "#${ui.fg.subtext0}";
+                    cursorText  = "#${ui.bg.surface0}";
+                    selectionBg = "#${ui.fg.subtext0}";
+                    selectionFg = "#${ui.bg.surface0}";
+
+                    normal = {
+                        black   = "#${ui.bg.crust}";
+                        red     = "#${colors.red}";
+                        green   = "#${colors.green}";
+                        yellow  = "#${colors.yellow}";
+                        blue    = "#${colors.blue}";
+                        magenta = "#${colors.mauve}";
+                        cyan    = "#${colors.cyan}";
+                        white   = "#${ui.fg.subtext1}";
+                    };
+
+                    bright = {
+                        black   = "#${ui.bg.overlay1}";
+                        red     = "#${colors.red}";
+                        green   = "#${colors.green}";
+                        yellow  = "#${colors.yellow}";
+                        blue    = "#${colors.blue}";
+                        magenta = "#${colors.mauve}";
+                        cyan    = "#${colors.cyan}";
+                        white   = "#${ui.fg.text}";
+                    };
+                };
             };
         };
     };
