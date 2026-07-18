@@ -199,6 +199,8 @@
 
     hardware.nvidia.open = lib.mkForce true;
 
+    programs.steam.enable = true;
+
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
     boot.initrd.kernelModules = [ ];
