@@ -224,8 +224,8 @@
 
     sops.secrets."passwords/regretto".neededForUsers = true;
 
-    networking.firewall.allowedTCPPorts = [ 3000 25565 ];
-    networking.firewall.allowedUDPPorts = [ 25565 24454 ];
+    networking.firewall.allowedTCPPorts = [ 3000 24454 25565 25575 ];
+    networking.firewall.allowedUDPPorts = [      24454 25565 25575 ];
 
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
