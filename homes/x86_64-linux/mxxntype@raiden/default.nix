@@ -37,10 +37,12 @@ _: {
             # ID = 2500458873; # "Inazuma Shrine"
             # ID = 3569602312; # "Nod-Krai Columbina Home"
             # ID = 2502719153; # "Seirai"
-            ID = 2459846999; # "Inazuma Castle [Night]"
+            # ID = 2459846999; # "Inazuma Castle [Night]"
             # ID = 2570675792; # "Baal"
             # ID = 3572110940; # "Moonfrost"
             # ID = 2745995799; # "Yae"
+            # ID = 2970331102; # "Rain Sakura"
+            ID = 3237672440; # "Blue, Cherry, Japanese"
         };
 
         music.enable = true;
