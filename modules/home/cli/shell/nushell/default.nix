@@ -998,7 +998,7 @@
                         let path_segment = $"($path_color)($dir | path split | last 3 | path join)"
                         let current_dir = $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
 
-                        $"(ansi blue_bold)(hostname | str downcase)(ansi reset) ($current_dir)"
+                        $"(ansi blue_bold)(hostname | str lowercase)(ansi reset) ($current_dir)"
                     }
 
                     def create_right_prompt [] {

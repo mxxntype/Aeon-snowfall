@@ -179,9 +179,9 @@
                 $"Copying options from ($'nixos-generate-config' | code blue)" | trace
                 let options = sudo nixos-generate-config --root $mount --show-hardware-config
                     | lines
-                    | where {|l| ($l | str downcase) =~ "boot"}
-                    | where {|l| ($l | str downcase) =~ "module"}
-                    | where {|l| ($l | str downcase) =~ "="}
+                    | where {|l| ($l | str lowercase) =~ "boot"}
+                    | where {|l| ($l | str lowercase) =~ "module"}
+                    | where {|l| ($l | str lowercase) =~ "="}
                     | parse "{option} = {value};"
 
                 for o in $options {
@@ -341,7 +341,7 @@
         ]: nothing -> table<any: any> {
             let data = zfs list -p -o all -t $type
                 | lines
-                | try { update 0 { str downcase } } catch { [""] }
+                | try { update 0 { str lowercase } } catch { [""] }
                 | to text
                 | from ssv
 
