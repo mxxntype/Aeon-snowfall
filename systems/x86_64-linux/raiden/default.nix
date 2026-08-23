@@ -12,11 +12,11 @@
                 # specialise = false;
             };
 
-            vfio = {
-                enable = true;
-                specialize = true;
-                pciIDs = [ "10de:2c02" "10de:22e9" ];
-            };
+            # vfio = {
+            #     enable = true;
+            #     specialize = true;
+            #     pciIDs = [ "10de:2c02" "10de:22e9" ];
+            # };
 
             cups = {
                 enable = true;
@@ -43,8 +43,6 @@
                 ];
             };
 
-            # adb.enable = true;
-
             probe-rs.udev-rules.enable = true;
             lamzu.udev-rules.enable = true;
         };
@@ -59,8 +57,6 @@
             sing-box.enable = true;
             wireguard.interfaces.invian0.enable = true;
         };
-
-        # services.prometheus.enable = true;
 
         sound.enable = true;
         docker.enable = true;
@@ -164,38 +160,28 @@
             device = "/dev/disk/by-id/ata-ADATA_SU800_2I4220038955-part3";
             fsType = "ntfs";
         };
-
-        "/mnt/atlas-os11/disk-system" = {
-            device = "/dev/zvol/raiden-rpool/srv/vms/atlas-os11/disk-system-part3";
-            fsType = "ntfs";
-        };
-
-        "/mnt/atlas-os11/disk-genshin" = {
-            device = "/dev/zvol/raiden-rpool/srv/vms/atlas-os11/disk-genshin-part2";
-            fsType = "ntfs";
-        };
     };
 
-    specialisation."AtlasOS11-VFIO-autoboot".configuration = {
-        system.nixos.tags = [ "vfio" ];
+    # specialisation."AtlasOS11-VFIO-autoboot".configuration = {
+    #     system.nixos.tags = [ "vfio" ];
 
-        boot.blacklistedKernelModules = [
-            "nouveau"
-            "nvidia"
-            "nvidia_drm"
-            "nvidia_modeset"
-        ];
+    #     boot.blacklistedKernelModules = [
+    #         "nouveau"
+    #         "nvidia"
+    #         "nvidia_drm"
+    #         "nvidia_modeset"
+    #     ];
         
-        systemd.services."atlasOS-autostart" = {
-            description = "atlasOS VM autostart service";
-            requires = [ "libvirtd.service" ];
-            wantedBy = [ "multi-user.target" ];
-            serviceConfig = {
-                Type = "oneshot";
-                ExecStart = [ "${pkgs.libvirt}/bin/virsh start atlasOS_win11" ];
-            };
-        };
-    };
+    #     systemd.services."atlasOS-autostart" = {
+    #         description = "atlasOS VM autostart service";
+    #         requires = [ "libvirtd.service" ];
+    #         wantedBy = [ "multi-user.target" ];
+    #         serviceConfig = {
+    #             Type = "oneshot";
+    #             ExecStart = [ "${pkgs.libvirt}/bin/virsh start atlasOS_win11" ];
+    #         };
+    #     };
+    # };
 
     hardware.nvidia.open = lib.mkForce true;
 
