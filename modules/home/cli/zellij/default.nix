@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
     options.aeon.cli.zellij = {
@@ -143,10 +143,7 @@
             '';
         };
     in lib.mkIf enable {
-        programs.zellij = {
-            enable = true;
-            package = inputs.nixpkgs-zellij43.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zellij;
-        };
+        programs.zellij.enable = true;
 
         xdg.configFile."zellij/config.kdl".text = /* kdl */ ''
             layout_dir "${config.xdg.configHome}/zellij/layouts/"
