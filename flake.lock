@@ -898,11 +898,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785978668,
-        "narHash": "sha256-hMiAb4rKUgpg96YCbghrOLf7XJyLkM4mOPw5zbjbn/k=",
+        "lastModified": 1788109736,
+        "narHash": "sha256-oNxyOooQMylLo6XXravAnt6+JYy+mKlSJxBYPhrXbwk=",
         "owner": "exoumoon",
         "repo": "invar",
-        "rev": "3c0ed7b4a6bff69d5f8d9bb4d28c54cc8260e40f",
+        "rev": "de6a552137b42ca2c620004c82ebfa05538b9c5d",
         "type": "github"
       },
       "original": {
