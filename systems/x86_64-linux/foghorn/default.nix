@@ -39,11 +39,6 @@
             sing-box.enable = true;
         };
 
-        services = {
-            # invidious.enable = true;
-            prometheus.enable = true;
-        };
-
         sound.enable = true;
         docker.enable = true;
         qemu.enable = true;

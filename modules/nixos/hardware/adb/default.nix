@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
     options.aeon.hardware.adb = {
@@ -10,7 +10,7 @@
     };
 
     config = lib.mkIf config.aeon.hardware.adb.enable {
-        programs.adb.enable = true;
+        environment.systemPackages = [ pkgs.android-tools ];
         users.users.${lib.aeon.user}.extraGroups = [ "adbusers" ];
     };
 }
