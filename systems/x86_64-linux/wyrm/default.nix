@@ -33,10 +33,6 @@
 
         docker.enable = true;
         qemu.enable = true;
-        proxmox = {
-            enable = true;
-            IP = "192.168.0.200";
-        };
     };
 
     disko.devices = let inherit (config.networking) hostName; in {
@@ -171,15 +167,6 @@
                     "force user" = "atlas";
                 };
 
-                regretto = {
-                    "path" = "/mnt/net/win/regretto";
-                    "browseable" = "yes";
-                    "read only" = "no";
-                    "guest ok" = "no";
-                    "valid users" = "regretto";
-                    "force user" = "regretto";
-                };
-
                 vxug-cats = {
                     "path" = "/srv/vx-undergroud-cats";
                     "browseable" = "yes";
@@ -215,47 +202,41 @@
             isNormalUser = true;
             hashedPassword = "!";
         };
-
-        regretto = {
-            isNormalUser = true;
-            hashedPasswordFile = config.sops.secrets."passwords/regretto".path;
-        };
     };
 
-    sops.secrets."passwords/regretto".neededForUsers = true;
     sops.secrets."keys/frp/timeweb-msk0".neededForUsers = true;
 
     networking.firewall.allowedTCPPorts = [ 3000 24454 25565 25575 ];
     networking.firewall.allowedUDPPorts = [      24454 25565 25575 ];
 
-    systemd.services.frpc = let
-        frpc-config = pkgs.writeText "frpc.toml" /* toml */ ''
-            serverAddr = "201.34.143.58"
-            serverPort = 7000
-            auth.method = "token"
-            auth.tokenSource.type = "file"
-            auth.tokenSource.file.path = "${config.sops.secrets."keys/frp/timeweb-msk0".path}"
+    # systemd.services.frpc = let
+    #     frpc-config = pkgs.writeText "frpc.toml" /* toml */ ''
+    #         serverAddr = "201.34.143.58"
+    #         serverPort = 7000
+    #         auth.method = "token"
+    #         auth.tokenSource.type = "file"
+    #         auth.tokenSource.file.path = "${config.sops.secrets."keys/frp/timeweb-msk0".path}"
 
-            [[proxies]]
-            name = "minecraft-silverstone"
-            type = "tcp"
-            localIP = "127.0.0.1"
-            localPort = 25565
-            remotePort = 25565
-            transport.proxyProtocolVersion = "v2"
-            transport.useEncryption = true
-            transport.useCompression = false
-        '';
-    in {
-        serviceConfig = {
-            ExecStart = "${pkgs.frp}/bin/frpc -c ${frpc-config}";
-            Restart = "on-failure";
-            RestartSec = 5;
-            LimitNOFILE = 65536;
-        };
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-    };
+    #         [[proxies]]
+    #         name = "minecraft-silverstone"
+    #         type = "tcp"
+    #         localIP = "127.0.0.1"
+    #         localPort = 25565
+    #         remotePort = 25565
+    #         transport.proxyProtocolVersion = "v2"
+    #         transport.useEncryption = true
+    #         transport.useCompression = false
+    #     '';
+    # in {
+    #     serviceConfig = {
+    #         ExecStart = "${pkgs.frp}/bin/frpc -c ${frpc-config}";
+    #         Restart = "on-failure";
+    #         RestartSec = 5;
+    #         LimitNOFILE = 65536;
+    #     };
+    #     after = [ "network.target" ];
+    #     wantedBy = [ "multi-user.target" ];
+    # };
 
     # NOTE: Flattened for the installer script.
     boot.initrd.systemd = { };
