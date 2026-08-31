@@ -34,6 +34,8 @@
                 plugins = {
                     inherit (pkgs.yaziPlugins) git;
                 };
+
+                shellWrapperName = "y";
             };
         };
 

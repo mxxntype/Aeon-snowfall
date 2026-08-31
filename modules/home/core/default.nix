@@ -48,6 +48,7 @@ with lib; {
                 inherit (config.home) homeDirectory;
             in {
                 enable = true;
+                setSessionVariables = true;
                 createDirectories = true;
 
                 # Create these automatically.
@@ -55,6 +56,7 @@ with lib; {
                 documents = "${homeDirectory}/Documents";
                 music = "${homeDirectory}/Music";
                 pictures = "${homeDirectory}/Images";
+                videos = "${homeDirectory}/Videos";
 
                 # Don't need these.
                 publicShare = null;
@@ -62,7 +64,7 @@ with lib; {
             };
 
             mime.enable = true;
-            mimeApps = let mimes = {}; in {
+            mimeApps = let mimes = { }; in {
                 enable = true;
                 associations.added = mimes;
                 defaultApplications = mimes;

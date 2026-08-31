@@ -60,6 +60,7 @@ with lib; {
                       then pkgs.hyprland
                       else inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
+            configType = "hyprlang"; # TODO: Migrate to Lua configuration
             settings = let
                 MOD = "SUPER";
 
