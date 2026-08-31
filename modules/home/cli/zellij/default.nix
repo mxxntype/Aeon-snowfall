@@ -19,7 +19,7 @@
                 floating_panes {
                     pane command="test" close_on_exit=true {
                         x 0
-                        y "50%"
+                        y "60%"
                         width "100%"
                         height "50%"
                     }
@@ -493,20 +493,15 @@
             layoutSetupScript = pkgs.nuenv.writeScriptBin {
                 name = "zellij-layout-setup.nu";
                 script = /* nu */ ''
-                    # let is_weekend = (date now | format date "%u" | into int) > 5;
-                    # let is_morning = (date now | format date "%H" | into int) < 8;
-                    # let is_evening = (date now | format date "%H" | into int) >= 18;
+                    let is_weekend = (date now | format date "%u" | into int) > 5;
+                    let is_morning = (date now | format date "%H" | into int) < 8;
+                    let is_evening = (date now | format date "%H" | into int) >= 18;
 
-                    ${pkgs.coreutils}/bin/ln -sf "${layoutDir}/default.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
-
-                    # do -i { if not $is_weekend { hyprctl --instance 0 notify -1 5000 "rgb(${ui.ok})" "Worktime is over man, get some rest" } }
-
-                    # if $is_weekend or $is_morning or $is_evening {
-                    #     ...
-                    # } else {
-                    #     ${pkgs.coreutils}/bin/ln -sf "${layoutDir}/default-work.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
-                    #     do -i { hyprctl --instance 0 notify -1 5000 "rgb(${ui.accent})" "Let's get some work done today" }
-                    # }
+                    if $is_weekend or $is_morning or $is_evening {
+                        ${pkgs.coreutils}/bin/ln -sf "${layoutDir}/default.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
+                    } else {
+                        ${pkgs.coreutils}/bin/ln -sf "${layoutDir}/default-work.kdl" "${layoutDir}/${defaultLayoutName}.kdl" 
+                    }
                 '';
             };
         in {
