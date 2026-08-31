@@ -21,7 +21,7 @@ with lib; {
         # some extra building from source, however gives more control over versions of stuff.
         source = mkOption {
             type = with types; enum [ "nixpkgs" "git" ];
-            default = "git";
+            default = "nixpkgs";
         };
     };
 
