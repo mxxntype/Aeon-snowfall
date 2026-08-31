@@ -71,7 +71,6 @@
 
             # Build systems & automation.
             cmake   # Cross-platform, open-source build system generator (dumpster fire).
-            comma   # Run any binary (with `nix-index` and `nix run`)
             gnumake # GNU make.
             meson   # Open source, fast and friendly build system made in Python.
             ninja   # Small build system with a focus on speed.

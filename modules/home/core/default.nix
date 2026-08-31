@@ -4,10 +4,15 @@
     config,
     pkgs,
     lib,
+    inputs,
     ...
 }:
 
 with lib; {
+    imports = with inputs; [
+        nix-index-database.homeModules.default
+    ];
+
     options = {
         aeon.core.enable = mkOption {
             description = "Whether to enable core Home-manager options";
@@ -19,7 +24,7 @@ with lib; {
     config = mkIf config.aeon.core.enable {
         programs = {
             home-manager.enable = mkForce true; # Home-manager absolutely should stay enabled.
-            nix-index.enable = true;            # A files database for Nixpkgs.
+            nix-index-database.comma.enable = true;
         };
 
         # Inherit common Nix settings.

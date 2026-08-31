@@ -10,8 +10,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        nixpkgs-zellij43.url = "github:nixos/nixpkgs/078d69f03934859a181e81ba987c2bb033eebfc5";
-
         nur = {
             url = "github:nix-community/NUR";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +52,12 @@
 
         # The Proxmox Hypervisor, on NixOS (:pog:).
         proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
+
+        # Weekly updated nix-index database for nixos-unstable channel.
+        nix-index-database = {
+            url = "github:nix-community/nix-index-database";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
 
         # SECTION: Hardware.

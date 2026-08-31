@@ -299,11 +299,11 @@
 
         # Locate something in the nix store.
         #
-        # Calls ${pkgs.nix-index}/bin/nix-locate under the hood.
+        # Calls nix-locate under the hood.
         def "${functionName} locate" [
             pattern: string # What pattern to search for (regex).
         ]: nothing -> list<any> {
-            ${pkgs.nix-index}/bin/nix-locate --regex $pattern
+            nix-locate --regex $pattern
                 | lines
                 | parse "{output} {size} {letter} /nix/store/{store_hash}/{match}"
                 | select output match
