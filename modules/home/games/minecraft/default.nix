@@ -1,11 +1,4 @@
-# INFO: Home-manager Minecraft module.
-
-{
-    config,
-    lib,
-    pkgs,
-    ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib; {
     options.aeon.games.minecraft = {
@@ -26,9 +19,7 @@ with lib; {
     in mkIf enable {
         home = {
             packages = with pkgs; [
-                jdk17         # Java Development Kit.
                 prismlauncher # Launcher for Minecraft.
-                packwiz       # CLI tool for creating modpacks.
             ];
 
             # INFO: Create a theme for PrismLauncher.
