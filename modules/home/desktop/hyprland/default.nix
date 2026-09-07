@@ -77,7 +77,7 @@ with lib; {
                         |> builtins.map (monitor: monitor.workspaces)
                         |> flatten;
                 in foldl' max 0 workspaces;
-            in rec {
+            in {
                 env = [
                     "AWWW_TRANSITION_DURATION, 2"
                     "AWWW_TRANSITION_FPS, ${toString (monitors.maxRefreshRate / 2)}"
@@ -158,7 +158,7 @@ with lib; {
                         "       CTRL SHIFT, 5,      exec, ${if config.aeon.apps.office.enable then "libreoffice" else (notify "Office apps are not enabled" 3 ui.error)}"
                         "${MOD} CTRL SHIFT, 5,      exec, ${if config.aeon.apps.office.enable then "onlyoffice-desktopeditors" else (notify "Office apps are not enabled" 3 ui.error)}"
                         "       CTRL SHIFT, 6,      exec, ${lib.getExe pkgs.virt-manager}"
-                        "       CTRL SHIFT, 7,      exec, ${lib.getExe pkgs.prismlauncher}"
+                        "       CTRL SHIFT, 7,      exec, ${if config.aeon.games.minecraft.enable then "prismlauncher" else (notify "Minecraft is not enabled" 3 ui.error)}"
                         "       CTRL SHIFT, 8,      exec, ${lib.getExe pkgs.keepassxc}"
                         "       CTRL SHIFT, 9,      exec, ${if config.aeon.apps.freetube.enable then "freetube" else (notify "FreeTube is not enabled" 3 ui.error)}"
                     ]
@@ -237,11 +237,12 @@ with lib; {
 
                 windowrule = let rsensor = { width = 640; height = 384; };
                 in [
-                    "match:title ^(bevy-rsensor)$, float on"
-                    "match:title ^(bevy-rsensor)$, size ${toString rsensor.width} ${toString rsensor.height}"
-                    "match:title ^(bevy-rsensor)$, move ((monitor_w-window_w)-(${toString (general.border_size * 2)})) (${toString (general.border_size * 2)})"
-                    "match:title ^(bevy-rsensor)$, border_color rgb(${colors.peach})"
-                    "match:title ^(bevy-rsensor)$, no_initial_focus on"
+                    "match:title bevy-rsensor, float on"
+                    "match:title bevy-rsensor, size ${toString rsensor.width} ${toString rsensor.height}"
+                    # "match:title bevy-rsensor, move ((monitor_w-window_w)-(${toString (general.border_size * 2)})) (${toString (general.border_size * 2)})"
+                    "match:title bevy-rsensor, move (monitor_w-window_w)*2-26 58"
+                    "match:title bevy-rsensor, border_color rgb(${colors.peach})"
+                    "match:title bevy-rsensor, no_initial_focus on"
 
                     "match:class firefox, workspace 3 silent"
                     "match:class org.telegram.desktop, workspace 4 silent"
