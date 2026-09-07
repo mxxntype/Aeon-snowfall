@@ -138,6 +138,11 @@
             # inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        mac-style-plymouth = {
+            url = "github:SergioRibera/s4rchiso-plymouth-theme";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
         # SECTION: Misc flakes.
         # A nice and configurable Zellij statusbar.
@@ -206,6 +211,7 @@
             nur.overlays.default
             rust-overlay.overlays.default
             # nix-topology.overlays.default
+            mac-style-plymouth.overlays.default
         ];
 
         templates = {

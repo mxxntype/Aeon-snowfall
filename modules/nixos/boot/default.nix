@@ -123,17 +123,18 @@ with lib; {
             boot = {
                 plymouth = {
                     enable = true;
-                    theme = "breeze";
-
+                    theme = "mac-style";
+                    themePackages = [ pkgs.mac-style-plymouth ];
+                    
                     # WARN: Build sometimes fails with this uncommented for some reason.
                     #
                     # TODO: Seems to be resolved in newer versions of NixOS, will keep
                     # the warning around for some time and remove if nothing breaks.
-                    logo = ./saturn-128x.png;
-                    font = let
-                        dir = "share/fonts/truetype/NerdFonts/BigBlueTerm";
-                        font = pkgs.nerd-fonts.bigblue-terminal;
-                    in "${font}/${dir}/BigBlueTermPlusNerdFont-Regular.ttf";
+                    # logo = ./saturn-128x.png;
+                    # font = let
+                    #     dir = "share/fonts/truetype/NerdFonts/BigBlueTerm";
+                    #     font = pkgs.nerd-fonts.bigblue-terminal;
+                    # in "${font}/${dir}/BigBlueTermPlusNerdFont-Regular.ttf";
                 };
 
                 consoleLogLevel = 0;
@@ -146,10 +147,10 @@ with lib; {
                     "vt.global_cursor_default=0"
                 ];
 
-                initrd = {
-                    systemd.enable = true;
-                    verbose = false;
-                };
+                # initrd = {
+                #     systemd.enable = true;
+                #     verbose = false;
+                # };
             };
         })
     ];
