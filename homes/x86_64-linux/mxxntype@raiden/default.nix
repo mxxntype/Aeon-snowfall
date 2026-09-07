@@ -28,6 +28,8 @@ _: {
             wezterm.enable = true;
         };
 
+        games.minecraft.enable = true;
+
         services.wallpaperengine = {
             enable = true;
             screen = (builtins.head monitors.monitors).port;
