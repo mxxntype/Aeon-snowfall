@@ -26,6 +26,7 @@ _: {
             obsidian.enable = true;
             office.enable = true;
             wezterm.enable = true;
+            discord.enable = true;
         };
 
         games.minecraft.enable = true;

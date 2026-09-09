@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
     options.aeon.apps.discord = {
@@ -9,8 +9,8 @@
         };
 
         app = lib.mkOption {
-            type = lib.types.enum [ "vencord" ];
-            default = "vencord";
+            type = lib.types.enum [ "vesktop" ];
+            default = "vesktop";
             description = "What Discord client to use";
         };
     };
@@ -21,8 +21,8 @@
             app
             ;
     in lib.mkIf enable (lib.mkMerge [
-        (lib.mkIf (app == "vencord") {
-            home.packages = with pkgs; [ vesktop ];
+        (lib.mkIf (app == "vesktop") {
+            programs.vesktop.enable = true;
         })
     ]);
 }
