@@ -55,14 +55,14 @@ rec {
 
             substituters = [
                 "https://cache.nixos.org"
-                "https://cuda-maintainers.cachix.org"
+                # "https://cuda-maintainers.cachix.org" # NOTE: (16.09.2026) does not exist anymore?
                 "https://hyprland.cachix.org"
                 # "https://wezterm.cachix.org"
                 "https://noctalia.cachix.org"
             ];
             trusted-public-keys = [
                 "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-                "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+                # "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
                 "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
                 # "wezterm.cachix.org-1:kAbhjYUC9qvblTE+s7S+kl5XM1zVa4skO+E/1IDWdH0="
                 "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
