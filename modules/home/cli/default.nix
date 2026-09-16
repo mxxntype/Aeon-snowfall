@@ -26,6 +26,7 @@
 
             direnv = {
                 enable = true;
+                config.warn_timeout = "24h";
                 nix-direnv.enable = true;
             };
 
