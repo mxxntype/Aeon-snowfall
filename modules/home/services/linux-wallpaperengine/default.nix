@@ -1,4 +1,4 @@
-{ pkgs, lib, config, inputs, ... }:
+{ lib, config, ... }:
 
 {
     options.aeon.services.wallpaperengine = {
@@ -16,12 +16,12 @@
     in lib.mkIf enable {
         services.linux-wallpaperengine = {
             enable = true;
-            package = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.linux-wallpaperengine;
             wallpapers = [ {
                 monitor = screen;
                 wallpaperId = toString ID;
-                audio.silent = true;
             } ];
+
+            audio.silent = true;
         };
     };
 }

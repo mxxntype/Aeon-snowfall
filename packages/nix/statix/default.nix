@@ -1,8 +1,6 @@
-{ inputs, pkgs, ... }: let
+{ pkgs, ... }:
 
-unstable-pkgs = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-
-in unstable-pkgs.statix.overrideAttrs (_: rec {
+pkgs.statix.overrideAttrs (_: rec {
     src = pkgs.fetchFromGitHub {
         owner = "oppiliappan";
         repo = "statix";
@@ -10,7 +8,7 @@ in unstable-pkgs.statix.overrideAttrs (_: rec {
         hash = "sha256-duH6Il124g+CdYX+HCqOGnpJxyxOCgWYcrcK0CBnA2M=";
     };
 
-    cargoDeps = unstable-pkgs.rustPlatform.importCargoLock {
+    cargoDeps = pkgs.rustPlatform.importCargoLock {
         lockFile = src + "/Cargo.lock";
         allowBuiltinFetchGit = true;
     };

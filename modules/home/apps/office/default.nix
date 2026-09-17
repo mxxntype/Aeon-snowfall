@@ -7,7 +7,7 @@
 
     config = let cfg = config.aeon.apps.office;
     in lib.mkIf cfg.enable {
-        home.packages = with pkgs; [ libreoffice-fresh ];
+        home.packages = with pkgs; [ libreoffice ];
         programs.onlyoffice.enable = true;
     };
 }

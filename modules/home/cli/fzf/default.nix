@@ -30,17 +30,17 @@ in {
                 "--bind=alt-k:up"
             ];
 
-            fileWidgetCommand = "${pkgs.fd}/bin/fd --type file --hidden";
-            fileWidgetOptions = [
+            fileWidget.command = "${pkgs.fd}/bin/fd --type file --hidden";
+            fileWidget.options = [
                 "--preview '${lib.getExe pkgs.pistol} {}'"
             ];
 
-            changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type directory --hidden";
+            changeDirWidget.command = "${pkgs.fd}/bin/fd --type directory --hidden";
             # changeDirWidgetOptions = [
             #     "--preview 'erd --dirs-only --suppress-size --icons --layout inverted {} | head -n 100'"
             # ];
 
-            historyWidgetOptions = [
+            historyWidget.options = [
                 "--exact"
             ];
 

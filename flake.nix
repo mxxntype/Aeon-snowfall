@@ -4,7 +4,6 @@
     inputs = {
         # SECTION: Core inputs.
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-        unstable.url = "github:nixos/nixpkgs/nixos-unstable";
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -212,6 +211,12 @@
             rust-overlay.overlays.default
             # nix-topology.overlays.default
             mac-style-plymouth.overlays.default
+
+            # NOTE: Fixes sops-nix build failure
+            # https://github.com/Mic92/sops-nix/issues/983#issuecomment-5692842351
+            (final: prev: {
+                buildGo125Module = prev.buildGoModule;
+            })
         ];
 
         templates = {

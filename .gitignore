@@ -8,3 +8,5 @@ ssh_host_*_key*
 
 # Leftovers from disko.
 tmp.*
+
+/.direnv

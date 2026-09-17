@@ -95,7 +95,8 @@
 
                     # Scan your Rust crate for semver violations.
                     # https://github.com/obi1kenobi/cargo-semver-checks
-                    cargo-semver-checks
+                    # BUG (17.09.2026): Build failure
+                    # cargo-semver-checks
 
                     # Configure Cargo profiles for best performance.
                     # https://github.com/kobzol/cargo-wizard
@@ -160,9 +161,9 @@
                     sqlx-cli          # SQLx's associated command-line utility.
                     trunk             # Build, bundle & ship your Rust WASM application to the web.
 
-                    inputs.unstable.legacyPackages.${stdenv.hostPlatform.system}.esp-generate
-                    inputs.unstable.legacyPackages.${stdenv.hostPlatform.system}.espflash
-                    inputs.unstable.legacyPackages.${stdenv.hostPlatform.system}.probe-rs-tools
+                    esp-generate
+                    espflash
+                    probe-rs-tools
 
                     aeon.dioxus-cli_7 # Tool for developing, testing, and publishing Dioxus apps.
                     tailwindcss_4     # CLI tool for the CSS framework with composable CSS classes (for Dioxus).
