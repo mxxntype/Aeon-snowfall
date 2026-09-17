@@ -48,7 +48,7 @@
         };
 
         boot.type = "uefi";
-        boot.quiet = true;
+        boot.quiet = false; # BUG: Plymouth hangs forever
         fs = { type = "zfs"; cacheLimitGiB = 16; };
 
         net = {
