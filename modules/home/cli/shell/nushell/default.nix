@@ -38,7 +38,7 @@
                     lsa = "ls -a";
                     cp = "${pkgs.aeon.cpx}/bin/cpx";
                     cat = "${pkgs.bat}/bin/bat";
-                    btm = "${pkgs.bottom}/bin/btm --battery";
+                    btm = "${pkgs.bottom}/bin/btm --battery --process_memory_as_value";
                     ip = "ip --color=always";
                     duf = "${pkgs.duf}/bin/duf -theme ansi";
                     # tree = "erd --config tree";
