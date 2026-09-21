@@ -29,6 +29,7 @@
         };
 
         boot.type = "uefi";
+        boot.quiet = true;
         fs = { type = "zfs"; cacheLimitGiB = 8; };
 
         net = {
