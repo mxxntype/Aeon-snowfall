@@ -4,10 +4,7 @@ _: {
         style.codename = "kanagawa-dragon";
 
         wallpapers.enable = true;
-        desktop.hyprland = {
-            enable = true;
-            source = "git";
-        };
+        desktop.hyprland.enable = true;
         
         monitors.monitors = [
             {
