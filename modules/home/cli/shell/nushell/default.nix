@@ -35,7 +35,6 @@
                 in builtins.removeAttrs escapedVariables badVariables;
                 
                 shellAliases = {
-                    lsa = "ls -a";
                     cp = "${pkgs.aeon.cpx}/bin/cpx";
                     cat = "${pkgs.bat}/bin/bat";
                     btm = "${pkgs.bottom}/bin/btm --battery --process_memory_as_value";
@@ -183,6 +182,35 @@
                     $env.config = {
                         show_banner: false
 
+                        abbreviations: {
+                            lsa:  "ls -a"
+                            ll:   "ls -l"
+                            lla:  "ls -la"
+                            g:    "git"
+                            gst:  "git status"
+                            gd:   "git diff"
+                            ga:   "git add"
+                            gc:   "git commit -ve"
+                            gr:   "git restore"
+                            grs:  "git restore --staged"
+                            glg:  "git log --show-signature"
+                            gch:  "git checkout"
+                            dc:   "docker compose"
+                            dcu:  "docker compose up"
+                            dcd:  "docker compose down"
+                            dcl:  "docker compose logs"
+                            dclf: "docker compose logs -f"
+                            cr:   "cargo run"
+                            cb:   "cargo build"
+                            ccl:  "cargo clippy"
+                            cn:   "cargo nextest"
+                            cnr:  "cargo nextest run"
+                            ca:   "cargo add"
+                            nf:   "nix flake"
+                            nr:   "nix run"
+                            nb:   "nom build"
+                        }
+
                         ls: {
                             use_ls_colors: true
                             clickable_links: true
@@ -195,7 +223,7 @@
                         table: {
                             mode: single                   # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
                             index_mode: always             # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
-                            show_empty: true               # show 'empty list' and 'empty record' placeholders for command output
+                            show_empty: false              # show 'empty list' and 'empty record' placeholders for command output
                             padding: { left: 1, right: 1 } # a left right padding of each column in a table
                             trim: {
                                 methodology: truncating       # wrapping or truncating
