@@ -131,7 +131,7 @@
 
                 direnv = {
                     format = "([$loaded]($style) )";
-                    loaded_msg = "󰦕 ";
+                    loaded_msg = "󱥾 ";
                     style = "fg:#${ui.bg.surface2}";
                     disabled = false;
                 };

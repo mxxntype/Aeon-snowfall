@@ -42,7 +42,9 @@ _: {
             # ID = 3572110940; # "Moonfrost"
             # ID = 2745995799; # "Yae"
             # ID = 2970331102; # "Rain Sakura"
-            ID = 3237672440; # "Blue, Cherry, Japanese"
+            # ID = 3237672440; # "Blue, Cherry, Japanese"
+            ID = 3662347390; # "Sakura (Arknights: Endfield)"
+            # ID = 2846323508; # "A heart's storm"
         };
 
         music.enable = true;
