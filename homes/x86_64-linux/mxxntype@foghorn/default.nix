@@ -1,4 +1,6 @@
-_: {
+{ pkgs, ... }:
+
+{
     aeon = {
         meta.battery-powered = true;
         style.codename = "kanagawa-dragon";
@@ -34,6 +36,8 @@ _: {
     };
 
     home = {
+        packages = with pkgs; [ arduino-ide ];
+        
         # WARN: Changing this might break things. Just leave it.
         # The sole legit reason to change this is a reinstallation.
         stateVersion = "25.11";

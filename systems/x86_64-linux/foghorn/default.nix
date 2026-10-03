@@ -13,6 +13,8 @@
                 specialise = true;
             };
 
+            bluetooth.enable = true;
+
             # vfio = {
             #     enable = true;
             #     specialize = true;

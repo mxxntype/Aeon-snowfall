@@ -1,4 +1,4 @@
-{ config, lib, ... }: with lib;
+{ config, lib, pkgs, ... }: with lib;
 
 {
     options.aeon.hardware.bluetooth = {
@@ -12,6 +12,6 @@
     config = mkIf config.aeon.hardware.bluetooth.enable {
         hardware.bluetooth.enable = true;
         services.blueman.enable = true;
-        environment.systemPackages = [ /* pkgs.aeon.bluetui */ ];
+        environment.systemPackages = [ pkgs.bluez ];
     };
 }
