@@ -18,7 +18,7 @@
         };
 
         tailscale_ip_ranges = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
-        invian_ip_ranges = [ "10.85.0.0/24" "10.129.0.0/24" "84.252.141.155/32" "192.168.85.0/24" "87.117.178.114/32" "10.22.0.64/29" ];
+        invian_ip_ranges = [ "10.85.0.0/24" "10.129.0.0/24" "84.252.141.155/32" "192.168.85.0/24" "87.117.178.114/32" "10.22.0.64/29" "10.10.123.180/32" "10.132.0.0/24" ];
         bypass_ip_ranges = [ "201.34.143.58/24" ]
             ++ (lib.optionals config.services.tailscale.enable tailscale_ip_ranges)
             ++ (lib.optionals config.aeon.net.wireguard.interfaces.invian0.enable invian_ip_ranges);
@@ -140,5 +140,7 @@
             "keys/wireguard/timeweb-nl0/${hostName}/peer_public_key" = { };
             "keys/wireguard/timeweb-nl0/${hostName}/peer_preshared_key" = { };
         };
+
+        networking.hosts."10.132.0.10" = [ "gitlab.invian.ru" ];
     };
 }
