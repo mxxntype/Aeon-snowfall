@@ -32,7 +32,7 @@ _: {
         games.minecraft.enable = true;
 
         services.wallpaperengine = {
-            enable = true;
+            # enable = true;
             screen = (builtins.head monitors.monitors).port;
             # ID = 2500458873; # "Inazuma Shrine"
             # ID = 3569602312; # "Nod-Krai Columbina Home"
