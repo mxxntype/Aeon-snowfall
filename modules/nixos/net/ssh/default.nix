@@ -83,6 +83,9 @@ with lib; {
                 };
             };
 
+            # FUSE, needed for SSHFS.
+            programs.fuse.enable = true;
+
             environment.systemPackages = with pkgs; [ sshfs ];
         })
     ];
