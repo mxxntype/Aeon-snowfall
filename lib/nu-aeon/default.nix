@@ -69,12 +69,12 @@
         # Check the status of the VPN (and Tailscale).
         def "${functionName} vpn status" []: nothing -> record {
             let tailscale = try { tailscale status } catch { "inactive" };
-            let timeweb_nl0 = try { systemctl is-active wg-quick-timeweb-nl0.service } catch { "inactive" }
+            let timeweb_msk2 = try { systemctl is-active wg-quick-timeweb-msk2.service } catch { "inactive" }
             let invian0 = try { systemctl is-active wg-quick-invian0.service } catch { "inactive" }
             {
                 tailscale: ($tailscale != "inactive"),
                 vpn: {
-                    timeweb-nl0: ($timeweb_nl0 == "active"),
+                    timeweb-msk2: ($timeweb_msk2 == "active"),
                     invian0: ($invian0 == "active"),
                 }
             }

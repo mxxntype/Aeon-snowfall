@@ -9,7 +9,7 @@
         cfg = config.aeon.net.sing-box;
         inherit (config.networking) hostName;
         inherit (config.sops) secrets;
-        create_remote_geo_rule_set = { type, name, detour ? "out-hysteria2-timeweb-nl0" }: {
+        create_remote_geo_rule_set = { type, name, detour ? "out-hysteria2-timeweb-msk2" }: {
             tag = "geo${type}-${name}";
             type = "remote";
             format = "binary";
@@ -18,8 +18,15 @@
         };
 
         tailscale_ip_ranges = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
-        invian_ip_ranges = [ "10.85.0.0/24" "10.129.0.0/24" "84.252.141.155/32" "192.168.85.0/24" "87.117.178.114/32" "10.22.0.64/29" "10.10.123.180/32" "10.132.0.0/24" ];
-        bypass_ip_ranges = [ "201.34.143.58/24" ]
+        invian_ip_ranges = [
+            "87.117.178.114/32" # WG endpoint
+            "10.10.123.180/32"  # host: mm-grz
+            "10.129.0.0/24"     # subnet: main
+            "10.132.0.0/24"     # subnet: atomdata
+            "10.85.0.0/24"      # subnet: main
+            "192.168.85.0/24"   # subnet: main
+        ];
+        bypass_ip_ranges = []
             ++ (lib.optionals config.services.tailscale.enable tailscale_ip_ranges)
             ++ (lib.optionals config.aeon.net.wireguard.interfaces.invian0.enable invian_ip_ranges);
     in lib.mkIf cfg.enable {
@@ -55,37 +62,37 @@
                     }
                     {
                         type = "hysteria2";
-                        tag = "out-hysteria2-timeweb-nl0";
-                        server = { _secret = secrets."keys/hysteria/timeweb-nl0/addr".path; };
+                        tag = "out-hysteria2-timeweb-msk2";
+                        server = { _secret = secrets."keys/hysteria/timeweb-msk2/addr".path; };
                         server_port = 443;
-                        password = { _secret = secrets."keys/hysteria/timeweb-nl0/auth".path; };
+                        password = { _secret = secrets."keys/hysteria/timeweb-msk2/auth".path; };
                         tls = {
                             enabled = true;
-                            server_name = { _secret = secrets."keys/hysteria/timeweb-nl0/sni".path; };
-                            certificate_public_key_sha256 = [ "1qKbH9EhgrXEkd3ZvqLoD6JWrOWkC2U1zqScK2Ufj+U=" ];
+                            server_name = { _secret = secrets."keys/hysteria/timeweb-msk2/sni".path; };
+                            certificate_public_key_sha256 = [ "eUc1ztGRcE84KihO00WCnHUUaerj3SaLaTiO1mFPGk4=" ];
                         };
                     }
                 ];
 
                 endpoints = [ {
                     type        = "wireguard";
-                    tag         = "wg-ep-timeweb-nl0";
+                    tag         = "wg-ep-timeweb-msk2";
                     system      = false;
-                    name        = "wg-ep-timeweb-nl0";
-                    address     = { _secret = secrets."keys/wireguard/timeweb-nl0/${hostName}/interface_addr".path; } ;
-                    private_key = { _secret = secrets."keys/wireguard/timeweb-nl0/${hostName}/interface_private_key".path; };
+                    name        = "wg-ep-timeweb-msk2";
+                    address     = { _secret = secrets."keys/wireguard/timeweb-msk2/${hostName}/interface_addr".path; } ;
+                    private_key = { _secret = secrets."keys/wireguard/timeweb-msk2/${hostName}/interface_private_key".path; };
                     peers = [ {
-                        address        = { _secret = secrets."keys/wireguard/timeweb-nl0/${hostName}/peer_endpoint_addr".path; };
-                        port           = 51820;
-                        public_key     = { _secret = secrets."keys/wireguard/timeweb-nl0/${hostName}/peer_public_key".path; };
-                        pre_shared_key = { _secret = secrets."keys/wireguard/timeweb-nl0/${hostName}/peer_preshared_key".path; };
+                        address        = { _secret = secrets."keys/wireguard/timeweb-msk2/${hostName}/peer_endpoint_addr".path; };
+                        port           = 58701;
+                        public_key     = { _secret = secrets."keys/wireguard/timeweb-msk2/${hostName}/peer_public_key".path; };
+                        pre_shared_key = { _secret = secrets."keys/wireguard/timeweb-msk2/${hostName}/peer_preshared_key".path; };
                         allowed_ips    = [ "0.0.0.0/0" ];
                     } ];
                 } ];
 
                 route = {
                     auto_detect_interface = true;
-                    final = "out-hysteria2-timeweb-nl0";
+                    final = "out-hysteria2-timeweb-msk2";
                     default_domain_resolver = "dns-https-cloudflare";
 
                     rules = [
@@ -97,10 +104,10 @@
                         { action = "sniff"; }
                         { action = "hijack-dns"; protocol = "dns"; }
 
-                        { outbound = "out-hysteria2-timeweb-nl0"; domain_suffix = [ "google.ru" ]; }
-                        { outbound = "out-hysteria2-timeweb-nl0"; inbound = "socks-in"; }
+                        { outbound = "out-hysteria2-timeweb-msk2"; domain_suffix = [ "google.ru" ]; }
+                        { outbound = "out-hysteria2-timeweb-msk2"; inbound = "socks-in"; }
 
-                        { outbound = "wg-ep-timeweb-nl0"; rule_set = "geosite-discord"; }
+                        { outbound = "wg-ep-timeweb-msk2"; rule_set = "geosite-discord"; }
 
                         { action = "bypass"; outbound = "direct"; ip_cidr = bypass_ip_ranges; }
 
@@ -131,14 +138,14 @@
         };
         
         sops.secrets = {
-            "keys/hysteria/timeweb-nl0/addr" = { };
-            "keys/hysteria/timeweb-nl0/auth" = { };
-            "keys/hysteria/timeweb-nl0/sni" = { };
-            "keys/wireguard/timeweb-nl0/${hostName}/interface_addr" = { };
-            "keys/wireguard/timeweb-nl0/${hostName}/interface_private_key" = { };
-            "keys/wireguard/timeweb-nl0/${hostName}/peer_endpoint_addr" = { };
-            "keys/wireguard/timeweb-nl0/${hostName}/peer_public_key" = { };
-            "keys/wireguard/timeweb-nl0/${hostName}/peer_preshared_key" = { };
+            "keys/hysteria/timeweb-msk2/addr" = { };
+            "keys/hysteria/timeweb-msk2/auth" = { };
+            "keys/hysteria/timeweb-msk2/sni" = { };
+            "keys/wireguard/timeweb-msk2/${hostName}/interface_addr" = { };
+            "keys/wireguard/timeweb-msk2/${hostName}/interface_private_key" = { };
+            "keys/wireguard/timeweb-msk2/${hostName}/peer_endpoint_addr" = { };
+            "keys/wireguard/timeweb-msk2/${hostName}/peer_public_key" = { };
+            "keys/wireguard/timeweb-msk2/${hostName}/peer_preshared_key" = { };
         };
 
         networking.hosts."10.132.0.10" = [ "gitlab.invian.ru" ];

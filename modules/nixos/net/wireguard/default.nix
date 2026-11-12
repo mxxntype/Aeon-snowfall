@@ -9,7 +9,7 @@ with lib; {
     options.aeon.net.wireguard = {
         # TODO: Rework as a list.
         interfaces = {
-            timeweb-nl0.enable = mkOption { type = with types; bool; default = false; };
+            timeweb-msk2.enable = mkOption { type = with types; bool; default = false; };
             invian0.enable = mkOption { type = with types; bool; default = false; };
         };
 
@@ -26,7 +26,7 @@ with lib; {
             port
             ;
         inherit (interfaces)
-            timeweb-nl0
+            timeweb-msk2
             invian0
             ;
 
@@ -48,7 +48,7 @@ with lib; {
             tailscale = config.services.tailscale.enable;
         in {
             networking.wg-quick.interfaces."${name}" = {
-                configFile = config.sops.secrets."configs/wireguard/${name}".path;
+                configFile = config.sops.secrets."configs/wireguard/${name}/${hostname}".path;
                 inherit autostart;
             };
 
@@ -66,12 +66,12 @@ with lib; {
                 '';
             };
 
-            sops.secrets."configs/wireguard/${name}" = { };
+            sops.secrets."configs/wireguard/${name}/${hostname}" = { };
         };
 
     in mkMerge [
         (mkIf enable { networking.firewall.allowedUDPPorts = [ port ]; })
-        (mkIf timeweb-nl0.enable (mkTailscaleAwareInterface { inherit config; name = "timeweb-nl0"; }))
+        (mkIf timeweb-msk2.enable (mkTailscaleAwareInterface { inherit config; name = "timeweb-msk2"; }))
         (mkIf invian0.enable (mkTailscaleAwareInterface { inherit config; name = "invian0"; }))
     ];
 }
