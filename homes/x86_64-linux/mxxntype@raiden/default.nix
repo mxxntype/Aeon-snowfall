@@ -1,6 +1,6 @@
 _: {
     aeon = rec {
-        style.codename = "kanagawa-dragon";
+        style.codename = "dark-plus";
 
         wallpapers.enable = true;
         desktop.hyprland.enable = true;
