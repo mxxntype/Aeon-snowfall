@@ -29,6 +29,8 @@ _: {
             discord.enable = true;
         };
 
+        dev.android.enable = true;
+
         games.minecraft.enable = true;
 
         services.wallpaperengine = {
