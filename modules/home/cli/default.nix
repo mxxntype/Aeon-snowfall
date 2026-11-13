@@ -82,6 +82,7 @@
             unrar
             unzip
             zip
+            p7zip
 
             # Fetches and other cool TUI stuff.
             cbonsai
