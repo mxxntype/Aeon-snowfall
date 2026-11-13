@@ -204,10 +204,10 @@
         };
     };
 
-    sops.secrets."keys/frp/timeweb-msk0".neededForUsers = true;
-
     networking.firewall.allowedTCPPorts = [ 3000 24454 25565 25575 ];
     networking.firewall.allowedUDPPorts = [      24454 25565 25575 ];
+
+    # sops.secrets."keys/frp/timeweb-msk0".neededForUsers = true;
 
     # systemd.services.frpc = let
     #     frpc-config = pkgs.writeText "frpc.toml" /* toml */ ''
