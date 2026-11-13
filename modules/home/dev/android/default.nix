@@ -8,6 +8,6 @@ with lib; {
 
     config = let inherit (config.aeon.dev.android) enable ;
     in mkIf enable {
-        home.packages = with pkgs; [ android-studio-full ];
+        home.packages = with pkgs; [ android-studio ];
     };
 }
