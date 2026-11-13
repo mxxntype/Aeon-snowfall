@@ -23,6 +23,8 @@
             }
         ];
 
+        dev.android.enable = true;
+
         apps = {
             wezterm.enable = true;
             gimp.enable = true;
