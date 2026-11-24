@@ -37,6 +37,8 @@
         stylesheets.enable = true;
     };
 
+    wayland.windowManager.hyprland.settings.input.sensitivity = 0;
+
     home = {
         packages = with pkgs; [ arduino-ide ];
         
