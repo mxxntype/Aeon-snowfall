@@ -34,7 +34,7 @@ _: {
         games.minecraft.enable = true;
 
         services.wallpaperengine = {
-            # enable = true;
+            enable = true;
             screen = (builtins.head monitors.monitors).port;
             # ID = 2500458873; # "Inazuma Shrine"
             # ID = 3569602312; # "Nod-Krai Columbina Home"
@@ -45,8 +45,9 @@ _: {
             # ID = 2745995799; # "Yae"
             # ID = 2970331102; # "Rain Sakura"
             # ID = 3237672440; # "Blue, Cherry, Japanese"
-            ID = 3662347390; # "Sakura (Arknights: Endfield)"
+            # ID = 3662347390; # "Sakura (Arknights: Endfield)"
             # ID = 2846323508; # "A heart's storm"
+            ID = 3657110449; # "Foggy forest / Ghost of Yotei"
         };
 
         music.enable = true;
